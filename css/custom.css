@@ -791,17 +791,25 @@
 
 /* Formula Builder for animated formula construction */
 .formula-builder {
+  background: var(--bg-darker);
+  color: white;
+  padding: 2em;
+  border-radius: 1em;
+  font-weight: 700;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+  max-width: 900px;
+  margin: 2em auto;
+  border: 2px solid var(--accent-gold);
+}
+
+/* When used inside deck-grid */
+.deck-grid .formula-builder {
   grid-column: 1 / -1;
   justify-self: center;
-  margin-top: 3em;  /* Increased from 2em for better visual separation */
-  padding-top: 1.5em;  /* Additional top padding */
-  border-top: 2px solid var(--accent-gold);  /* Visual divider from deck */
+  margin-top: 3em;
+  padding-top: 1.5em;
+  border-top: 2px solid var(--accent-gold);
   background: var(--accent-red);
-  color: white;
-  padding: 1em 2em;
-  border-radius: 0.5em;
-  font-weight: 700;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
   min-width: 300px;
 }
 
@@ -866,6 +874,156 @@
   font-size: 1.5em;
   color: var(--accent-gold);
   font-weight: 700;
+}
+
+/* Additional Formula Builder Components for Act 3 EV Calculation */
+.formula-definition {
+  background: var(--overlay-bg);
+  padding: 1em 1.5em;
+  border-radius: 0.5em;
+  margin: 1em 0;
+  text-align: center;
+  font-size: 1.1em;
+  border-left: 4px solid var(--accent-gold);
+}
+
+.formula-example {
+  background: var(--overlay-bg);
+  padding: 1.2em;
+  border-radius: 0.5em;
+  margin: 1.5em 0;
+  border: 2px solid var(--accent-gold);
+}
+
+.formula-example-title {
+  font-size: 1.2em;
+  color: var(--accent-gold);
+  margin-bottom: 0.8em;
+  font-weight: 700;
+}
+
+.formula-example-content {
+  font-size: 1em;
+  line-height: 1.8;
+  text-align: left;
+}
+
+.formula-component {
+  background: var(--overlay-bg-darker);
+  padding: 1em;
+  border-radius: 0.5em;
+  margin: 0.8em 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1em;
+  transition: all 0.3s ease;
+}
+
+.formula-component.fragment.current-fragment {
+  background: var(--overlay-bg);
+  border-left: 4px solid var(--accent-gold);
+  transform: translateX(5px);
+}
+
+.formula-component-label {
+  font-size: 1em;
+  color: var(--accent-gold);
+  font-weight: 700;
+  min-width: 80px;
+}
+
+.formula-component-value {
+  font-size: 1.1em;
+  font-family: 'Courier New', monospace;
+  flex: 1;
+  text-align: right;
+}
+
+.formula-step {
+  font-size: 1.3em;
+  font-family: 'Courier New', monospace;
+  margin: 0.5em 0;
+  padding: 0.8em;
+  background: var(--bg-dark-alpha);
+  border-radius: 0.5em;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5em;
+  flex-wrap: wrap;
+  transition: all 0.3s ease;
+}
+
+.formula-step.fragment.current-fragment {
+  background: var(--accent-gold);
+  color: var(--bg-dark);
+  transform: scale(1.05);
+}
+
+.formula-step .value {
+  color: var(--text-light);
+  font-weight: 700;
+}
+
+.formula-step .operator {
+  color: var(--accent-gold);
+  font-size: 1.2em;
+  font-weight: 700;
+  margin: 0 0.2em;
+}
+
+.formula-step.fragment.current-fragment .operator {
+  color: var(--accent-red);
+}
+
+.formula-divider {
+  border-top: 2px solid var(--accent-gold);
+  margin: 1.5em 0;
+  opacity: 0.5;
+}
+
+.formula-result {
+  font-size: 1.3em;
+  text-align: center;
+  margin-top: 1.5em;
+  padding: 1.5em;
+  border-radius: 0.8em;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  font-weight: 700;
+  border: 3px solid;
+  transition: all 0.3s ease;
+}
+
+.formula-result.positive {
+  background: linear-gradient(135deg, rgba(39, 174, 96, 0.2), rgba(39, 174, 96, 0.4));
+  border-color: #27ae60;
+  color: #2ecc71;
+}
+
+.formula-result.negative {
+  background: linear-gradient(135deg, rgba(231, 76, 60, 0.2), rgba(231, 76, 60, 0.4));
+  border-color: #e74c3c;
+  color: #e74c3c;
+}
+
+.formula-result.fragment.current-fragment {
+  transform: scale(1.08);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+.result-value {
+  font-size: 1.5em;
+  font-weight: 700;
+}
+
+.result-action {
+  font-size: 0.9em;
+  color: var(--text-light);
+  font-weight: 600;
 }
 
 /* Game Flow Stages */
