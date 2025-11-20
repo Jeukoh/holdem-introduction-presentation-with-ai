@@ -1,13 +1,4 @@
                  ACT 2: 이해 - 게임의 작동 원리
-
-                 ⚠️ LOCKED by Session 1
-                 📋 작업 가이드: ACT2-FEEDBACK-AND-GUIDE.md
-                 📊 작업 상태: SESSION-LOCK.md 참조
-
-                 수정 전 반드시 확인:
-                 1. SESSION-LOCK.md에서 Session 1 status 확인
-                 2. 다른 세션이 이 영역을 lock했는지 확인
-                 3. 충돌 방지를 위해 작업 전 git pull
                  ============================================ -->
 
             <!-- 2-1. What is Texas Hold'em? -->
@@ -141,493 +132,267 @@
                 </aside>
             </section>
 
-            <!-- Royal Flush -->
+            <!-- Premium Hands (1-4) -->
             <section>
-                <h2>1. 로열 플러시</h2>
-                <div class="deck-grid">
-                    <!-- Spades -->
-                    <img src="images/cards/AS.svg" class="fragment" data-fragment-index="0"><img src="images/cards/2S.svg"><img src="images/cards/3S.svg"><img src="images/cards/4S.svg"><img src="images/cards/5S.svg"><img src="images/cards/6S.svg"><img src="images/cards/7S.svg"><img src="images/cards/8S.svg"><img src="images/cards/9S.svg"><img src="images/cards/10S.svg" class="fragment" data-fragment-index="0"><img src="images/cards/JS.svg" class="fragment" data-fragment-index="0"><img src="images/cards/QS.svg" class="fragment" data-fragment-index="0"><img src="images/cards/KS.svg" class="fragment" data-fragment-index="0">
-                    <!-- Hearts -->
-                    <img src="images/cards/AH.svg" class="fragment" data-fragment-index="1"><img src="images/cards/2H.svg"><img src="images/cards/3H.svg"><img src="images/cards/4H.svg"><img src="images/cards/5H.svg"><img src="images/cards/6H.svg"><img src="images/cards/7H.svg"><img src="images/cards/8H.svg"><img src="images/cards/9H.svg"><img src="images/cards/10H.svg" class="fragment" data-fragment-index="1"><img src="images/cards/JH.svg" class="fragment" data-fragment-index="1"><img src="images/cards/QH.svg" class="fragment" data-fragment-index="1"><img src="images/cards/KH.svg" class="fragment" data-fragment-index="1">
-                    <!-- Diamonds -->
-                    <img src="images/cards/AD.svg" class="fragment" data-fragment-index="2"><img src="images/cards/2D.svg"><img src="images/cards/3D.svg"><img src="images/cards/4D.svg"><img src="images/cards/5D.svg"><img src="images/cards/6D.svg"><img src="images/cards/7D.svg"><img src="images/cards/8D.svg"><img src="images/cards/9D.svg"><img src="images/cards/10D.svg" class="fragment" data-fragment-index="2"><img src="images/cards/JD.svg" class="fragment" data-fragment-index="2"><img src="images/cards/QD.svg" class="fragment" data-fragment-index="2"><img src="images/cards/KD.svg" class="fragment" data-fragment-index="2">
-                    <!-- Clubs -->
-                    <img src="images/cards/AC.svg" class="fragment" data-fragment-index="3"><img src="images/cards/2C.svg"><img src="images/cards/3C.svg"><img src="images/cards/4C.svg"><img src="images/cards/5C.svg"><img src="images/cards/6C.svg"><img src="images/cards/7C.svg"><img src="images/cards/8C.svg"><img src="images/cards/9C.svg"><img src="images/cards/10C.svg" class="fragment" data-fragment-index="3"><img src="images/cards/JC.svg" class="fragment" data-fragment-index="3"><img src="images/cards/QC.svg" class="fragment" data-fragment-index="3"><img src="images/cards/KC.svg" class="fragment" data-fragment-index="3">
+                <h2>프리미엄 족보 (1-4위)</h2>
+                <p style="font-size: 0.9em; color: rgba(255,255,255,0.7); margin-bottom: 2em;">실전에서 보기 매우 어려운 최상급 패</p>
 
-                    <div class="combo-count fragment" data-fragment-index="4">
-                        가능한 조합
-                        <span class="number">4</span>
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 2em; max-width: 1000px; margin: 0 auto;">
+                    <!-- Royal Flush -->
+                    <div class="fragment hand-example">
+                        <h3 style="font-size: 1.2em; margin-bottom: 0.5em;">1. 로열 플러시</h3>
+                        <div style="display: flex; gap: 0.3em; justify-content: center; margin: 1em 0;">
+                            <img src="images/cards/AS.svg" alt="" style="width: 60px; height: auto;">
+                            <img src="images/cards/KS.svg" alt="" style="width: 60px; height: auto;">
+                            <img src="images/cards/QS.svg" alt="" style="width: 60px; height: auto;">
+                            <img src="images/cards/JS.svg" alt="" style="width: 60px; height: auto;">
+                            <img src="images/cards/10S.svg" alt="" style="width: 60px; height: auto;">
+                        </div>
+                        <p style="font-size: 0.85em;">10-J-Q-K-A (같은 무늬)</p>
+                        <p style="font-size: 0.75em; color: var(--accent-gold);">확률: 0.00015% (4가지)</p>
+                    </div>
+
+                    <!-- Straight Flush -->
+                    <div class="fragment hand-example">
+                        <h3 style="font-size: 1.2em; margin-bottom: 0.5em;">2. 스트레이트 플러시</h3>
+                        <div style="display: flex; gap: 0.3em; justify-content: center; margin: 1em 0;">
+                            <img src="images/cards/9H.svg" alt="" style="width: 60px; height: auto;">
+                            <img src="images/cards/8H.svg" alt="" style="width: 60px; height: auto;">
+                            <img src="images/cards/7H.svg" alt="" style="width: 60px; height: auto;">
+                            <img src="images/cards/6H.svg" alt="" style="width: 60px; height: auto;">
+                            <img src="images/cards/5H.svg" alt="" style="width: 60px; height: auto;">
+                        </div>
+                        <p style="font-size: 0.85em;">연속된 5장 (같은 무늬)</p>
+                        <p style="font-size: 0.75em; color: var(--accent-gold);">확률: 0.0014% (36가지)</p>
+                    </div>
+
+                    <!-- Four of a Kind -->
+                    <div class="fragment hand-example">
+                        <h3 style="font-size: 1.2em; margin-bottom: 0.5em;">3. 포카드</h3>
+                        <div style="display: flex; gap: 0.3em; justify-content: center; margin: 1em 0;">
+                            <img src="images/cards/8S.svg" alt="" style="width: 60px; height: auto;">
+                            <img src="images/cards/8H.svg" alt="" style="width: 60px; height: auto;">
+                            <img src="images/cards/8D.svg" alt="" style="width: 60px; height: auto;">
+                            <img src="images/cards/8C.svg" alt="" style="width: 60px; height: auto;">
+                            <img src="images/cards/2S.svg" alt="" style="width: 60px; height: auto; opacity: 0.5;">
+                        </div>
+                        <p style="font-size: 0.85em;">같은 숫자 4장</p>
+                        <p style="font-size: 0.75em; color: var(--accent-gold);">확률: 0.024% (624가지)</p>
+                    </div>
+
+                    <!-- Full House -->
+                    <div class="fragment hand-example">
+                        <h3 style="font-size: 1.2em; margin-bottom: 0.5em;">4. 풀하우스</h3>
+                        <div style="display: flex; gap: 0.3em; justify-content: center; margin: 1em 0;">
+                            <img src="images/cards/KS.svg" alt="" style="width: 60px; height: auto;">
+                            <img src="images/cards/KH.svg" alt="" style="width: 60px; height: auto;">
+                            <img src="images/cards/KD.svg" alt="" style="width: 60px; height: auto;">
+                            <img src="images/cards/5C.svg" alt="" style="width: 60px; height: auto;">
+                            <img src="images/cards/5H.svg" alt="" style="width: 60px; height: auto;">
+                        </div>
+                        <p style="font-size: 0.85em;">트리플 + 페어</p>
+                        <p style="font-size: 0.75em; color: var(--accent-gold);">확률: 0.14% (3,744가지)</p>
                     </div>
                 </div>
+
                 <aside class="notes">
-                    로열 플러시는 가장 강한 패입니다.
-                    10, J, Q, K, A가 모두 같은 무늬여야 합니다.
-                    스페이드로 만들 수 있고, 하트로도, 다이아몬드로도, 클로버로도 만들 수 있습니다.
-                    4가지 무늬밖에 없으므로, 가능한 조합은 딱 4가지입니다.
-                    이것이 가장 희귀하고 강한 이유입니다.
+                    프리미엄 족보는 실전에서 매우 드물게 나타납니다.
+                    로열 플러시는 평생 한 번 보기도 어려운 최강의 패입니다.
+                    포카드나 풀하우스도 하루 종일 쳐서 한두 번 볼까 말까 한 패입니다.
+                    이 4가지 패가 나오면 거의 무조건 이긴다고 보면 됩니다.
                 </aside>
             </section>
 
-            <!-- Straight Flush -->
+
+            <!-- Mid-Tier Hands (5-7) -->
             <section>
-                <h2>2. 스트레이트 플러시</h2>
-                <div class="deck-grid">
-                    <!-- Spades - 9-high straight flush -->
-                    <img src="images/cards/AS.svg"><img src="images/cards/2S.svg"><img src="images/cards/3S.svg"><img src="images/cards/4S.svg"><img src="images/cards/5S.svg" class="fragment" data-fragment-index="0"><img src="images/cards/6S.svg" class="fragment" data-fragment-index="0"><img src="images/cards/7S.svg" class="fragment" data-fragment-index="0"><img src="images/cards/8S.svg" class="fragment" data-fragment-index="0"><img src="images/cards/9S.svg" class="fragment" data-fragment-index="0"><img src="images/cards/10S.svg"><img src="images/cards/JS.svg"><img src="images/cards/QS.svg"><img src="images/cards/KS.svg">
-                    <!-- Hearts - King-high straight flush -->
-                    <img src="images/cards/AH.svg"><img src="images/cards/2H.svg"><img src="images/cards/3H.svg"><img src="images/cards/4H.svg"><img src="images/cards/5H.svg"><img src="images/cards/6H.svg"><img src="images/cards/7H.svg"><img src="images/cards/8H.svg"><img src="images/cards/9H.svg" class="fragment" data-fragment-index="1"><img src="images/cards/10H.svg" class="fragment" data-fragment-index="1"><img src="images/cards/JH.svg" class="fragment" data-fragment-index="1"><img src="images/cards/QH.svg" class="fragment" data-fragment-index="1"><img src="images/cards/KH.svg" class="fragment" data-fragment-index="1">
-                    <!-- Diamonds - 7-high straight flush -->
-                    <img src="images/cards/AD.svg"><img src="images/cards/2D.svg"><img src="images/cards/3D.svg" class="fragment" data-fragment-index="2"><img src="images/cards/4D.svg" class="fragment" data-fragment-index="2"><img src="images/cards/5D.svg" class="fragment" data-fragment-index="2"><img src="images/cards/6D.svg" class="fragment" data-fragment-index="2"><img src="images/cards/7D.svg" class="fragment" data-fragment-index="2"><img src="images/cards/8D.svg"><img src="images/cards/9D.svg"><img src="images/cards/10D.svg"><img src="images/cards/JD.svg"><img src="images/cards/QD.svg"><img src="images/cards/KD.svg">
-                    <!-- Clubs - Ace-low (wheel) straight flush -->
-                    <img src="images/cards/AC.svg" class="fragment" data-fragment-index="3"><img src="images/cards/2C.svg" class="fragment" data-fragment-index="3"><img src="images/cards/3C.svg" class="fragment" data-fragment-index="3"><img src="images/cards/4C.svg" class="fragment" data-fragment-index="3"><img src="images/cards/5C.svg" class="fragment" data-fragment-index="3"><img src="images/cards/6C.svg"><img src="images/cards/7C.svg"><img src="images/cards/8C.svg"><img src="images/cards/9C.svg"><img src="images/cards/10C.svg"><img src="images/cards/JC.svg"><img src="images/cards/QC.svg"><img src="images/cards/KC.svg">
+                <h2>중급 족보 (5-7위)</h2>
+                <p style="font-size: 0.9em; color: rgba(255,255,255,0.7); margin-bottom: 2em;">실력자들의 싸움터</p>
 
-                    <div class="formula-builder">
-                        <div class="formula-title">가능한 조합</div>
-
-                        <div class="formula-line fragment" data-fragment-index="0">
-                            <span class="formula-part">9</span>
-                            <span class="formula-hint">(연속 시퀀스)</span>
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 2em; max-width: 1200px; margin: 0 auto;">
+                    <!-- Flush -->
+                    <div class="fragment hand-example">
+                        <h3 style="font-size: 1.2em; margin-bottom: 0.5em;">5. 플러시</h3>
+                        <div style="display: flex; gap: 0.3em; justify-content: center; margin: 1em 0;">
+                            <img src="images/cards/AD.svg" alt="" style="width: 60px; height: auto;">
+                            <img src="images/cards/JD.svg" alt="" style="width: 60px; height: auto;">
+                            <img src="images/cards/9D.svg" alt="" style="width: 60px; height: auto;">
+                            <img src="images/cards/6D.svg" alt="" style="width: 60px; height: auto;">
+                            <img src="images/cards/3D.svg" alt="" style="width: 60px; height: auto;">
                         </div>
+                        <p style="font-size: 0.85em;">같은 무늬 5장</p>
+                        <p style="font-size: 0.75em; color: var(--accent-gold);">확률: 0.20% (5,108가지)</p>
+                    </div>
 
-                        <div class="formula-line fragment" data-fragment-index="1">
-                            <span class="formula-operator">×</span>
-                            <span class="formula-part">4</span>
-                            <span class="formula-hint">(무늬)</span>
+                    <!-- Straight -->
+                    <div class="fragment hand-example">
+                        <h3 style="font-size: 1.2em; margin-bottom: 0.5em;">6. 스트레이트</h3>
+                        <div style="display: flex; gap: 0.3em; justify-content: center; margin: 1em 0;">
+                            <img src="images/cards/10H.svg" alt="" style="width: 60px; height: auto;">
+                            <img src="images/cards/9S.svg" alt="" style="width: 60px; height: auto;">
+                            <img src="images/cards/8D.svg" alt="" style="width: 60px; height: auto;">
+                            <img src="images/cards/7C.svg" alt="" style="width: 60px; height: auto;">
+                            <img src="images/cards/6H.svg" alt="" style="width: 60px; height: auto;">
                         </div>
+                        <p style="font-size: 0.85em;">연속된 5장 (무늬 무관)</p>
+                        <p style="font-size: 0.75em; color: var(--accent-gold);">확률: 0.39% (10,200가지)</p>
+                    </div>
 
-                        <div class="formula-separator fragment" data-fragment-index="2"></div>
-
-                        <div class="formula-result fragment" data-fragment-index="2">
-                            <span class="formula-equals">=</span>
-                            <span class="number">36</span>
+                    <!-- Three of a Kind -->
+                    <div class="fragment hand-example">
+                        <h3 style="font-size: 1.2em; margin-bottom: 0.5em;">7. 트리플</h3>
+                        <div style="display: flex; gap: 0.3em; justify-content: center; margin: 1em 0;">
+                            <img src="images/cards/7S.svg" alt="" style="width: 60px; height: auto;">
+                            <img src="images/cards/7H.svg" alt="" style="width: 60px; height: auto;">
+                            <img src="images/cards/7D.svg" alt="" style="width: 60px; height: auto;">
+                            <img src="images/cards/AS.svg" alt="" style="width: 60px; height: auto; opacity: 0.5;">
+                            <img src="images/cards/9C.svg" alt="" style="width: 60px; height: auto; opacity: 0.5;">
                         </div>
+                        <p style="font-size: 0.85em;">같은 숫자 3장</p>
+                        <p style="font-size: 0.75em; color: var(--accent-gold);">확률: 2.11% (54,912가지)</p>
                     </div>
                 </div>
+
+                <div class="fragment" style="margin-top: 2em; padding: 1em; background: rgba(255,255,255,0.1); border-radius: 10px;">
+                    <p class="emphasize">이 구간에서 진짜 실력 차이가 드러납니다</p>
+                    <p style="font-size: 0.9em; margin-top: 0.5em;">
+                        플러시와 스트레이트는 강하지만 상대도 만들 수 있습니다<br>
+                        언제 밀어붙이고 언제 포기할지가 핵심입니다
+                    </p>
+                </div>
+
                 <aside class="notes">
-                    스트레이트 플러시는 연속된 숫자가 모두 같은 무늬인 패입니다.
-                    로열 플러시를 제외한 모든 연속 조합입니다.
-                    5-6-7-8-9 처럼 연속된 5장이 모두 같은 무늬여야 합니다.
-                    A-2-3-4-5 (휠)부터 9-10-J-Q-K까지 9가지 시퀀스가 가능합니다.
-                    각 시퀀스마다 4가지 무늬가 가능하므로 총 36가지 조합입니다.
+                    중급 족보는 실전에서 자주 볼 수 있지만, 동시에 위험한 패이기도 합니다.
+                    플러시나 스트레이트를 만들었다고 무조건 이기는 게 아닙니다.
+                    상대가 풀하우스나 포카드를 가질 수도 있기 때문입니다.
+                    이 구간에서 실력자와 초보자의 차이가 극명하게 드러납니다.
                 </aside>
             </section>
 
-            <!-- Four of a Kind -->
+            <!-- Common Hands (8-10) + Frequency Chart -->
             <section>
-                <h2>3. 포카드</h2>
-                <div class="deck-grid">
-                    <!-- Spades - Aces -->
-                    <img src="images/cards/AS.svg" class="fragment" data-fragment-index="0"><img src="images/cards/2S.svg"><img src="images/cards/3S.svg"><img src="images/cards/4S.svg"><img src="images/cards/5S.svg"><img src="images/cards/6S.svg"><img src="images/cards/7S.svg"><img src="images/cards/8S.svg"><img src="images/cards/9S.svg"><img src="images/cards/10S.svg"><img src="images/cards/JS.svg"><img src="images/cards/QS.svg"><img src="images/cards/KS.svg" class="fragment" data-fragment-index="0">
-                    <!-- Hearts - Aces -->
-                    <img src="images/cards/AH.svg" class="fragment" data-fragment-index="0"><img src="images/cards/2H.svg"><img src="images/cards/3H.svg"><img src="images/cards/4H.svg"><img src="images/cards/5H.svg"><img src="images/cards/6H.svg"><img src="images/cards/7H.svg"><img src="images/cards/8H.svg"><img src="images/cards/9H.svg"><img src="images/cards/10H.svg"><img src="images/cards/JH.svg"><img src="images/cards/QH.svg" class="fragment" data-fragment-index="1"><img src="images/cards/KH.svg">
-                    <!-- Diamonds - Aces -->
-                    <img src="images/cards/AD.svg" class="fragment" data-fragment-index="0"><img src="images/cards/2D.svg"><img src="images/cards/3D.svg"><img src="images/cards/4D.svg"><img src="images/cards/5D.svg"><img src="images/cards/6D.svg"><img src="images/cards/7D.svg"><img src="images/cards/8D.svg"><img src="images/cards/9D.svg" class="fragment" data-fragment-index="2"><img src="images/cards/10D.svg"><img src="images/cards/JD.svg"><img src="images/cards/QD.svg"><img src="images/cards/KD.svg">
-                    <!-- Clubs - Aces -->
-                    <img src="images/cards/AC.svg" class="fragment" data-fragment-index="0"><img src="images/cards/2C.svg"><img src="images/cards/3C.svg"><img src="images/cards/4C.svg"><img src="images/cards/5C.svg" class="fragment" data-fragment-index="3"><img src="images/cards/6C.svg"><img src="images/cards/7C.svg"><img src="images/cards/8C.svg"><img src="images/cards/9C.svg"><img src="images/cards/10C.svg"><img src="images/cards/JC.svg"><img src="images/cards/QC.svg"><img src="images/cards/KC.svg">
-
-                    <div class="formula-builder">
-                        <div class="formula-title">가능한 조합</div>
-
-                        <div class="formula-line fragment" data-fragment-index="0">
-                            <span class="formula-part">13C1</span>
-                            <span class="formula-hint">(포카드 rank)</span>
+                <h2>일반 족보 (8-10위) & 실전 빈도</h2>
+                <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 2em; max-width: 1200px; margin: 0 auto;">
+                    <div>
+                        <!-- Two Pair -->
+                        <div class="fragment hand-example" style="margin-bottom: 1.5em;">
+                            <h3 style="font-size: 1.1em; margin-bottom: 0.5em;">8. 투 페어</h3>
+                            <div style="display: flex; gap: 0.3em; justify-content: center; margin: 0.8em 0;">
+                                <img src="images/cards/QH.svg" alt="" style="width: 55px; height: auto;">
+                                <img src="images/cards/QC.svg" alt="" style="width: 55px; height: auto;">
+                                <img src="images/cards/8S.svg" alt="" style="width: 55px; height: auto;">
+                                <img src="images/cards/8D.svg" alt="" style="width: 55px; height: auto;">
+                                <img src="images/cards/5H.svg" alt="" style="width: 55px; height: auto; opacity: 0.5;">
+                            </div>
+                            <p style="font-size: 0.8em;">두 개의 페어 - 확률: 4.75%</p>
                         </div>
 
-                        <div class="formula-line fragment" data-fragment-index="1">
-                            <span class="formula-operator">×</span>
-                            <span class="formula-part">48</span>
-                            <span class="formula-hint">(키커 선택)</span>
+                        <!-- One Pair -->
+                        <div class="fragment hand-example" style="margin-bottom: 1.5em;">
+                            <h3 style="font-size: 1.1em; margin-bottom: 0.5em;">9. 원 페어</h3>
+                            <div style="display: flex; gap: 0.3em; justify-content: center; margin: 0.8em 0;">
+                                <img src="images/cards/10S.svg" alt="" style="width: 55px; height: auto;">
+                                <img src="images/cards/10H.svg" alt="" style="width: 55px; height: auto;">
+                                <img src="images/cards/AS.svg" alt="" style="width: 55px; height: auto; opacity: 0.5;">
+                                <img src="images/cards/7C.svg" alt="" style="width: 55px; height: auto; opacity: 0.5;">
+                                <img src="images/cards/4D.svg" alt="" style="width: 55px; height: auto; opacity: 0.5;">
+                            </div>
+                            <p style="font-size: 0.8em;">한 개의 페어 - 확률: 42.26%</p>
                         </div>
 
-                        <div class="formula-separator fragment" data-fragment-index="2"></div>
-
-                        <div class="formula-result fragment" data-fragment-index="2">
-                            <span class="formula-equals">=</span>
-                            <span class="number">624</span>
+                        <!-- High Card -->
+                        <div class="fragment hand-example">
+                            <h3 style="font-size: 1.1em; margin-bottom: 0.5em;">10. 하이 카드</h3>
+                            <div style="display: flex; gap: 0.3em; justify-content: center; margin: 0.8em 0;">
+                                <img src="images/cards/AS.svg" alt="" style="width: 55px; height: auto;">
+                                <img src="images/cards/KD.svg" alt="" style="width: 55px; height: auto; opacity: 0.7;">
+                                <img src="images/cards/QH.svg" alt="" style="width: 55px; height: auto; opacity: 0.6;">
+                                <img src="images/cards/7C.svg" alt="" style="width: 55px; height: auto; opacity: 0.5;">
+                                <img src="images/cards/3S.svg" alt="" style="width: 55px; height: auto; opacity: 0.4;">
+                            </div>
+                            <p style="font-size: 0.8em;">아무 족보도 없음 - 확률: 50.12%</p>
                         </div>
                     </div>
-                </div>
-                <aside class="notes">
-                    포카드는 같은 숫자 4장을 모두 가진 패입니다.
-                    4가지 무늬의 카드를 모두 모아야 합니다.
-                    예를 들어 A 네 장을 모두 가지면 됩니다.
-                    13가지 rank 중 하나를 선택하고, 나머지 48장 중 키커 1장을 선택합니다.
-                    총 624가지 조합이 가능하며, 매우 강한 패입니다.
-                </aside>
-            </section>
 
-            <!-- Full House -->
-            <section>
-                <h2>4. 풀하우스</h2>
-                <div class="deck-grid">
-                    <!-- Spades -->
-                    <img src="images/cards/AS.svg" class="fragment" data-fragment-index="0"><img src="images/cards/2S.svg"><img src="images/cards/3S.svg"><img src="images/cards/4S.svg"><img src="images/cards/5S.svg"><img src="images/cards/6S.svg"><img src="images/cards/7S.svg"><img src="images/cards/8S.svg"><img src="images/cards/9S.svg"><img src="images/cards/10S.svg"><img src="images/cards/JS.svg"><img src="images/cards/QS.svg"><img src="images/cards/KS.svg" class="fragment" data-fragment-index="0">
-                    <!-- Hearts -->
-                    <img src="images/cards/AH.svg" class="fragment" data-fragment-index="0"><img src="images/cards/2H.svg"><img src="images/cards/3H.svg"><img src="images/cards/4H.svg"><img src="images/cards/5H.svg"><img src="images/cards/6H.svg"><img src="images/cards/7H.svg"><img src="images/cards/8H.svg"><img src="images/cards/9H.svg"><img src="images/cards/10H.svg"><img src="images/cards/JH.svg"><img src="images/cards/QH.svg"><img src="images/cards/KH.svg" class="fragment" data-fragment-index="1">
-                    <!-- Diamonds -->
-                    <img src="images/cards/AD.svg"><img src="images/cards/2D.svg"><img src="images/cards/3D.svg"><img src="images/cards/4D.svg"><img src="images/cards/5D.svg"><img src="images/cards/6D.svg"><img src="images/cards/7D.svg"><img src="images/cards/8D.svg"><img src="images/cards/9D.svg"><img src="images/cards/10D.svg"><img src="images/cards/JD.svg" class="fragment" data-fragment-index="2"><img src="images/cards/QD.svg" class="fragment" data-fragment-index="3"><img src="images/cards/KD.svg" class="fragment" data-fragment-index="2">
-                    <!-- Clubs -->
-                    <img src="images/cards/AC.svg"><img src="images/cards/2C.svg"><img src="images/cards/3C.svg"><img src="images/cards/4C.svg"><img src="images/cards/5C.svg"><img src="images/cards/6C.svg"><img src="images/cards/7C.svg"><img src="images/cards/8C.svg"><img src="images/cards/9C.svg"><img src="images/cards/10C.svg"><img src="images/cards/JC.svg" class="fragment" data-fragment-index="2"><img src="images/cards/QC.svg" class="fragment" data-fragment-index="3"><img src="images/cards/KC.svg">
+                    <!-- Frequency Bar Chart -->
+                    <div class="fragment">
+                        <h3 style="font-size: 1.1em; margin-bottom: 1em;">실전 빈도</h3>
+                        <div style="display: flex; flex-direction: column; gap: 0.8em; font-size: 0.75em;">
+                            <div>
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.2em;">
+                                    <span>원 페어</span>
+                                    <span class="emphasize">42%</span>
+                                </div>
+                                <div style="background: rgba(255,255,255,0.1); height: 20px; border-radius: 3px; overflow: hidden;">
+                                    <div style="background: var(--accent-gold); width: 42%; height: 100%;"></div>
+                                </div>
+                            </div>
 
-                    <div class="formula-builder">
-                        <div class="formula-title">가능한 조합</div>
+                            <div>
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.2em;">
+                                    <span>하이 카드</span>
+                                    <span>50%</span>
+                                </div>
+                                <div style="background: rgba(255,255,255,0.1); height: 20px; border-radius: 3px; overflow: hidden;">
+                                    <div style="background: #666; width: 50%; height: 100%;"></div>
+                                </div>
+                            </div>
 
-                        <div class="formula-line fragment" data-fragment-index="0">
-                            <span class="formula-part">13C1</span>
-                            <span class="formula-hint">(트리플 rank)</span>
+                            <div>
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.2em;">
+                                    <span>투 페어</span>
+                                    <span>4.8%</span>
+                                </div>
+                                <div style="background: rgba(255,255,255,0.1); height: 20px; border-radius: 3px; overflow: hidden;">
+                                    <div style="background: #999; width: 4.8%; height: 100%;"></div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.2em;">
+                                    <span>트리플</span>
+                                    <span>2.1%</span>
+                                </div>
+                                <div style="background: rgba(255,255,255,0.1); height: 20px; border-radius: 3px; overflow: hidden;">
+                                    <div style="background: #999; width: 2.1%; height: 100%;"></div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.2em;">
+                                    <span>나머지</span>
+                                    <span>< 1%</span>
+                                </div>
+                                <div style="background: rgba(255,255,255,0.1); height: 20px; border-radius: 3px; overflow: hidden;">
+                                    <div style="background: #444; width: 1%; height: 100%;"></div>
+                                </div>
+                            </div>
                         </div>
-
-                        <div class="formula-line fragment" data-fragment-index="1">
-                            <span class="formula-operator">×</span>
-                            <span class="formula-part">4C3</span>
-                            <span class="formula-hint">(트리플 suit 3개)</span>
-                        </div>
-
-                        <div class="formula-line fragment" data-fragment-index="2">
-                            <span class="formula-operator">×</span>
-                            <span class="formula-part">12C1</span>
-                            <span class="formula-hint">(페어 rank)</span>
-                        </div>
-
-                        <div class="formula-line fragment" data-fragment-index="3">
-                            <span class="formula-operator">×</span>
-                            <span class="formula-part">4C2</span>
-                            <span class="formula-hint">(페어 suit 2개)</span>
-                        </div>
-
-                        <div class="formula-separator fragment" data-fragment-index="4"></div>
-
-                        <div class="formula-result fragment" data-fragment-index="4">
-                            <span class="formula-equals">=</span>
-                            <span class="number">3,744</span>
-                        </div>
+                        <p style="font-size: 0.8em; margin-top: 1.5em; color: rgba(255,255,255,0.7);">
+                            실전에서 92%는<br>
+                            페어 이하입니다
+                        </p>
                     </div>
                 </div>
-                <aside class="notes">
-                    풀하우스는 트리플(같은 숫자 3장)과 페어(같은 숫자 2장)의 조합입니다.
-                    예를 들어 A 세 장과 K 두 장으로 만들 수 있습니다.
-                    트리플할 rank를 선택하고, 그 중 3개 무늬를 선택합니다.
-                    그 다음 페어할 rank를 선택하고, 2개 무늬를 선택합니다.
-                    총 3,744가지 조합이 가능합니다.
-                </aside>
-            </section>
 
-            <!-- Flush -->
-            <section>
-                <h2>5. 플러시</h2>
-                <div class="deck-grid">
-                    <!-- Spades -->
-                    <img src="images/cards/AS.svg"><img src="images/cards/2S.svg"><img src="images/cards/3S.svg"><img src="images/cards/4S.svg"><img src="images/cards/5S.svg"><img src="images/cards/6S.svg"><img src="images/cards/7S.svg"><img src="images/cards/8S.svg"><img src="images/cards/9S.svg"><img src="images/cards/10S.svg"><img src="images/cards/JS.svg"><img src="images/cards/QS.svg"><img src="images/cards/KS.svg">
-                    <!-- Hearts -->
-                    <img src="images/cards/AH.svg"><img src="images/cards/2H.svg" class="fragment" data-fragment-index="0"><img src="images/cards/3H.svg"><img src="images/cards/4H.svg" class="fragment" data-fragment-index="0"><img src="images/cards/5H.svg"><img src="images/cards/6H.svg"><img src="images/cards/7H.svg"><img src="images/cards/8H.svg" class="fragment" data-fragment-index="0"><img src="images/cards/9H.svg"><img src="images/cards/10H.svg"><img src="images/cards/JH.svg" class="fragment" data-fragment-index="0"><img src="images/cards/QH.svg"><img src="images/cards/KH.svg" class="fragment" data-fragment-index="0">
-                    <!-- Diamonds -->
-                    <img src="images/cards/AD.svg" class="fragment" data-fragment-index="1"><img src="images/cards/2D.svg"><img src="images/cards/3D.svg" class="fragment" data-fragment-index="1"><img src="images/cards/4D.svg"><img src="images/cards/5D.svg"><img src="images/cards/6D.svg" class="fragment" data-fragment-index="1"><img src="images/cards/7D.svg"><img src="images/cards/8D.svg"><img src="images/cards/9D.svg" class="fragment" data-fragment-index="1"><img src="images/cards/10D.svg"><img src="images/cards/JD.svg" class="fragment" data-fragment-index="1"><img src="images/cards/QD.svg"><img src="images/cards/KD.svg">
-                    <!-- Clubs -->
-                    <img src="images/cards/AC.svg"><img src="images/cards/2C.svg"><img src="images/cards/3C.svg"><img src="images/cards/4C.svg"><img src="images/cards/5C.svg"><img src="images/cards/6C.svg"><img src="images/cards/7C.svg"><img src="images/cards/8C.svg"><img src="images/cards/9C.svg"><img src="images/cards/10C.svg"><img src="images/cards/JC.svg"><img src="images/cards/QC.svg"><img src="images/cards/KC.svg">
-
-                    <div class="combo-count fragment" data-fragment-index="2">
-                        가능한 조합
-                        <span class="number">5,108</span>
-                    </div>
+                <div class="fragment" style="margin-top: 1.5em; padding: 1em; background: rgba(255,215,0,0.1); border: 1px solid var(--accent-gold); border-radius: 10px;">
+                    <p class="emphasize" style="font-size: 1.1em;">🎯 핵심 인사이트</p>
+                    <p style="font-size: 0.9em; margin-top: 0.5em;">
+                        대부분의 판은 "아무것도 없거나" "페어 하나"로 끝납니다<br>
+                        <span class="emphasize">약한 패로 이기는 것이 홀덤의 본질</span>입니다
+                    </p>
                 </div>
+
                 <aside class="notes">
-                    플러시는 같은 무늬 5장입니다.
-                    숫자는 연속되지 않아도 됩니다. 하트 K, J, 8, 4, 2 이런 식으로 말이죠.
-                    또는 다이아몬드 A, J, 9, 6, 3 이렇게도 가능합니다.
-                    각 무늬당 13장 중 5장을 선택하는 조합이므로,
-                    4개 무늬 × C(13,5) = 약 5,108가지입니다.
+                    대부분의 실전 상황에서는 페어나 하이 카드로 승부를 봅니다.
+                    원 페어는 가장 흔한 패로, 거의 절반에 가까운 42%의 빈도를 보입니다.
+                    하이 카드는 50%로, 아무 족보도 만들지 못하는 경우가 절반입니다.
+                    강한 족보는 매우 드물기 때문에, 대부분의 상황에서 약한 패로 승부해야 합니다.
+                    이것이 홀덤이 단순한 운 게임이 아닌 이유입니다.
+                    약한 패를 가지고도 상대를 읽고, 베팅으로 압박하며, 적절히 포기하는 것이 실력입니다.
                 </aside>
             </section>
 
-            <!-- Straight -->
-            <section>
-                <h2>6. 스트레이트</h2>
-                <div class="deck-grid">
-                    <!-- Spades -->
-                    <img src="images/cards/AS.svg" class="fragment" data-fragment-index="3"><img src="images/cards/2S.svg" class="fragment" data-fragment-index="3"><img src="images/cards/3S.svg" class="fragment" data-fragment-index="3"><img src="images/cards/4S.svg" class="fragment" data-fragment-index="3"><img src="images/cards/5S.svg" class="fragment" data-fragment-index="3"><img src="images/cards/6S.svg"><img src="images/cards/7S.svg" class="fragment" data-fragment-index="0"><img src="images/cards/8S.svg" class="fragment" data-fragment-index="0"><img src="images/cards/9S.svg" class="fragment" data-fragment-index="0"><img src="images/cards/10S.svg" class="fragment" data-fragment-index="2"><img src="images/cards/JS.svg" class="fragment" data-fragment-index="0"><img src="images/cards/QS.svg" class="fragment" data-fragment-index="2"><img src="images/cards/KS.svg" class="fragment" data-fragment-index="2">
-                    <!-- Hearts -->
-                    <img src="images/cards/AH.svg" class="fragment" data-fragment-index="2"><img src="images/cards/2H.svg"><img src="images/cards/3H.svg"><img src="images/cards/4H.svg"><img src="images/cards/5H.svg"><img src="images/cards/6H.svg" class="fragment" data-fragment-index="0"><img src="images/cards/7H.svg"><img src="images/cards/8H.svg"><img src="images/cards/9H.svg" class="fragment" data-fragment-index="1"><img src="images/cards/10H.svg" class="fragment" data-fragment-index="1"><img src="images/cards/JH.svg"><img src="images/cards/QH.svg"><img src="images/cards/KH.svg">
-                    <!-- Diamonds -->
-                    <img src="images/cards/AD.svg"><img src="images/cards/2D.svg"><img src="images/cards/3D.svg"><img src="images/cards/4D.svg"><img src="images/cards/5D.svg" class="fragment" data-fragment-index="1"><img src="images/cards/6D.svg" class="fragment" data-fragment-index="1"><img src="images/cards/7D.svg" class="fragment" data-fragment-index="1"><img src="images/cards/8D.svg" class="fragment" data-fragment-index="1"><img src="images/cards/9D.svg"><img src="images/cards/10D.svg"><img src="images/cards/JD.svg" class="fragment" data-fragment-index="2"><img src="images/cards/QD.svg"><img src="images/cards/KD.svg">
-                    <!-- Clubs -->
-                    <img src="images/cards/AC.svg"><img src="images/cards/2C.svg"><img src="images/cards/3C.svg"><img src="images/cards/4C.svg"><img src="images/cards/5C.svg"><img src="images/cards/6C.svg"><img src="images/cards/7C.svg"><img src="images/cards/8C.svg"><img src="images/cards/9C.svg"><img src="images/cards/10C.svg" class="fragment" data-fragment-index="0"><img src="images/cards/JC.svg"><img src="images/cards/QC.svg"><img src="images/cards/KC.svg">
-
-                    <div class="formula-builder">
-                        <div class="formula-title">가능한 조합</div>
-
-                        <div class="formula-line fragment" data-fragment-index="0">
-                            <span class="formula-part">10</span>
-                            <span class="formula-hint">(연속 시퀀스)</span>
-                        </div>
-
-                        <div class="formula-line fragment" data-fragment-index="1">
-                            <span class="formula-operator">×</span>
-                            <span class="formula-part">4⁵</span>
-                            <span class="formula-hint">(각 카드 suit)</span>
-                        </div>
-
-                        <div class="formula-line fragment" data-fragment-index="2">
-                            <span class="formula-operator">-</span>
-                            <span class="formula-part">40</span>
-                            <span class="formula-hint">(플러시 제외)</span>
-                        </div>
-
-                        <div class="formula-separator fragment" data-fragment-index="3"></div>
-
-                        <div class="formula-result fragment" data-fragment-index="3">
-                            <span class="formula-equals">=</span>
-                            <span class="number">10,200</span>
-                        </div>
-                    </div>
-                </div>
-                <aside class="notes">
-                    스트레이트는 연속된 숫자 5장으로 만드는 패입니다.
-                    무늬는 달라도 됩니다. 예를 들어 6-7-8-9-10이면 스트레이트입니다.
-                    A-2-3-4-5 (휠)부터 10-J-Q-K-A (브로드웨이)까지 10가지 시퀀스가 가능합니다.
-                    각 카드마다 4가지 무늬 선택이 가능하므로 4의 5승입니다.
-                    단, 모두 같은 무늬면 스트레이트 플러시이므로 40개를 빼줍니다.
-                    총 10,200가지 조합이 가능합니다.
-                </aside>
-            </section>
-
-            <!-- Three of a Kind -->
-            <section>
-                <h2>7. 트리플</h2>
-                <div class="deck-grid">
-                    <!-- Spades -->
-                    <img src="images/cards/AS.svg" class="fragment" data-fragment-index="0"><img src="images/cards/2S.svg"><img src="images/cards/3S.svg"><img src="images/cards/4S.svg"><img src="images/cards/5S.svg"><img src="images/cards/6S.svg"><img src="images/cards/7S.svg"><img src="images/cards/8S.svg"><img src="images/cards/9S.svg" class="fragment" data-fragment-index="0"><img src="images/cards/10S.svg"><img src="images/cards/JS.svg"><img src="images/cards/QS.svg"><img src="images/cards/KS.svg" class="fragment" data-fragment-index="0">
-                    <!-- Hearts -->
-                    <img src="images/cards/AH.svg" class="fragment" data-fragment-index="0"><img src="images/cards/2H.svg"><img src="images/cards/3H.svg"><img src="images/cards/4H.svg"><img src="images/cards/5H.svg"><img src="images/cards/6H.svg"><img src="images/cards/7H.svg" class="fragment" data-fragment-index="1"><img src="images/cards/8H.svg"><img src="images/cards/9H.svg"><img src="images/cards/10H.svg"><img src="images/cards/JH.svg"><img src="images/cards/QH.svg" class="fragment" data-fragment-index="2"><img src="images/cards/KH.svg">
-                    <!-- Diamonds -->
-                    <img src="images/cards/AD.svg"><img src="images/cards/2D.svg"><img src="images/cards/3D.svg" class="fragment" data-fragment-index="3"><img src="images/cards/4D.svg"><img src="images/cards/5D.svg"><img src="images/cards/6D.svg"><img src="images/cards/7D.svg"><img src="images/cards/8D.svg"><img src="images/cards/9D.svg"><img src="images/cards/10D.svg"><img src="images/cards/JD.svg"><img src="images/cards/QD.svg"><img src="images/cards/KD.svg">
-                    <!-- Clubs -->
-                    <img src="images/cards/AC.svg"><img src="images/cards/2C.svg"><img src="images/cards/3C.svg"><img src="images/cards/4C.svg" class="fragment" data-fragment-index="2"><img src="images/cards/5C.svg"><img src="images/cards/6C.svg"><img src="images/cards/7C.svg"><img src="images/cards/8C.svg" class="fragment" data-fragment-index="3"><img src="images/cards/9C.svg"><img src="images/cards/10C.svg"><img src="images/cards/JC.svg"><img src="images/cards/QC.svg"><img src="images/cards/KC.svg">
-
-                    <div class="formula-builder">
-                        <div class="formula-title">가능한 조합</div>
-
-                        <div class="formula-line fragment" data-fragment-index="0">
-                            <span class="formula-part">13C1</span>
-                            <span class="formula-hint">(트리플 rank)</span>
-                        </div>
-
-                        <div class="formula-line fragment" data-fragment-index="1">
-                            <span class="formula-operator">×</span>
-                            <span class="formula-part">4C3</span>
-                            <span class="formula-hint">(트리플 suit 3개)</span>
-                        </div>
-
-                        <div class="formula-line fragment" data-fragment-index="2">
-                            <span class="formula-operator">×</span>
-                            <span class="formula-part">12C2</span>
-                            <span class="formula-hint">(키커 rank 2개)</span>
-                        </div>
-
-                        <div class="formula-line fragment" data-fragment-index="3">
-                            <span class="formula-operator">×</span>
-                            <span class="formula-part">4²</span>
-                            <span class="formula-hint">(키커 suit)</span>
-                        </div>
-
-                        <div class="formula-separator fragment" data-fragment-index="4"></div>
-
-                        <div class="formula-result fragment" data-fragment-index="4">
-                            <span class="formula-equals">=</span>
-                            <span class="number">54,912</span>
-                        </div>
-                    </div>
-                </div>
-                <aside class="notes">
-                    트리플은 같은 숫자 3장을 가진 패입니다. 쓰리 오브 어 카인드라고도 합니다.
-                    예를 들어 A 세 장과 다른 카드 두 장으로 만듭니다.
-                    트리플할 rank를 선택하고, 그 중 3개 무늬를 선택합니다.
-                    나머지 2장의 키커는 다른 rank 2개를 선택하고, 각각 무늬를 선택합니다.
-                    총 54,912가지 조합이 가능합니다.
-                </aside>
-            </section>
-
-            <!-- Two Pair -->
-            <section>
-                <h2>8. 투 페어</h2>
-                <div class="deck-grid">
-                    <!-- Spades -->
-                    <img src="images/cards/AS.svg" class="fragment" data-fragment-index="0"><img src="images/cards/2S.svg"><img src="images/cards/3S.svg"><img src="images/cards/4S.svg"><img src="images/cards/5S.svg" class="fragment" data-fragment-index="3"><img src="images/cards/6S.svg"><img src="images/cards/7S.svg"><img src="images/cards/8S.svg"><img src="images/cards/9S.svg"><img src="images/cards/10S.svg"><img src="images/cards/JS.svg"><img src="images/cards/QS.svg" class="fragment" data-fragment-index="0"><img src="images/cards/KS.svg" class="fragment" data-fragment-index="0">
-                    <!-- Hearts -->
-                    <img src="images/cards/AH.svg" class="fragment" data-fragment-index="0"><img src="images/cards/2H.svg"><img src="images/cards/3H.svg"><img src="images/cards/4H.svg"><img src="images/cards/5H.svg"><img src="images/cards/6H.svg"><img src="images/cards/7H.svg"><img src="images/cards/8H.svg"><img src="images/cards/9H.svg" class="fragment" data-fragment-index="1"><img src="images/cards/10H.svg"><img src="images/cards/JH.svg"><img src="images/cards/QH.svg" class="fragment" data-fragment-index="1"><img src="images/cards/KH.svg">
-                    <!-- Diamonds -->
-                    <img src="images/cards/AD.svg"><img src="images/cards/2D.svg"><img src="images/cards/3D.svg"><img src="images/cards/4D.svg" class="fragment" data-fragment-index="2"><img src="images/cards/5D.svg"><img src="images/cards/6D.svg"><img src="images/cards/7D.svg"><img src="images/cards/8D.svg"><img src="images/cards/9D.svg"><img src="images/cards/10D.svg"><img src="images/cards/JD.svg"><img src="images/cards/QD.svg"><img src="images/cards/KD.svg">
-                    <!-- Clubs -->
-                    <img src="images/cards/AC.svg"><img src="images/cards/2C.svg"><img src="images/cards/3C.svg" class="fragment" data-fragment-index="3"><img src="images/cards/4C.svg" class="fragment" data-fragment-index="2"><img src="images/cards/5C.svg"><img src="images/cards/6C.svg"><img src="images/cards/7C.svg"><img src="images/cards/8C.svg"><img src="images/cards/9C.svg" class="fragment" data-fragment-index="1"><img src="images/cards/10C.svg"><img src="images/cards/JC.svg"><img src="images/cards/QC.svg"><img src="images/cards/KC.svg">
-
-                    <div class="formula-builder">
-                        <div class="formula-title">가능한 조합</div>
-
-                        <div class="formula-line fragment" data-fragment-index="0">
-                            <span class="formula-part">13C2</span>
-                            <span class="formula-hint">(페어 2개 rank)</span>
-                        </div>
-
-                        <div class="formula-line fragment" data-fragment-index="1">
-                            <span class="formula-operator">×</span>
-                            <span class="formula-part">4C2</span>
-                            <span class="formula-hint">(첫 페어 suit)</span>
-                        </div>
-
-                        <div class="formula-line fragment" data-fragment-index="2">
-                            <span class="formula-operator">×</span>
-                            <span class="formula-part">4C2</span>
-                            <span class="formula-hint">(둘째 페어 suit)</span>
-                        </div>
-
-                        <div class="formula-line fragment" data-fragment-index="3">
-                            <span class="formula-operator">×</span>
-                            <span class="formula-part">44</span>
-                            <span class="formula-hint">(키커 선택)</span>
-                        </div>
-
-                        <div class="formula-separator fragment" data-fragment-index="4"></div>
-
-                        <div class="formula-result fragment" data-fragment-index="4">
-                            <span class="formula-equals">=</span>
-                            <span class="number">123,552</span>
-                        </div>
-                    </div>
-                </div>
-                <aside class="notes">
-                    투 페어는 서로 다른 숫자의 페어 2개를 가진 패입니다.
-                    예를 들어 A 두 장과 K 두 장, 그리고 다른 카드 한 장입니다.
-                    13개 rank 중 2개를 선택하고, 각각 4개 무늬 중 2개씩 선택합니다.
-                    나머지 키커는 남은 44장 중 하나를 선택합니다.
-                    총 123,552가지 조합이 가능합니다.
-                </aside>
-            </section>
-
-            <!-- One Pair -->
-            <section>
-                <h2>9. 원 페어</h2>
-                <div class="deck-grid">
-                    <!-- Spades -->
-                    <img src="images/cards/AS.svg" class="fragment" data-fragment-index="0"><img src="images/cards/2S.svg"><img src="images/cards/3S.svg" class="fragment" data-fragment-index="1"><img src="images/cards/4S.svg"><img src="images/cards/5S.svg" class="fragment" data-fragment-index="0"><img src="images/cards/6S.svg"><img src="images/cards/7S.svg"><img src="images/cards/8S.svg" class="fragment" data-fragment-index="2"><img src="images/cards/9S.svg" class="fragment" data-fragment-index="0"><img src="images/cards/10S.svg"><img src="images/cards/JS.svg" class="fragment" data-fragment-index="2"><img src="images/cards/QS.svg" class="fragment" data-fragment-index="3"><img src="images/cards/KS.svg" class="fragment" data-fragment-index="0">
-                    <!-- Hearts -->
-                    <img src="images/cards/AH.svg" class="fragment" data-fragment-index="0"><img src="images/cards/2H.svg" class="fragment" data-fragment-index="2"><img src="images/cards/3H.svg"><img src="images/cards/4H.svg"><img src="images/cards/5H.svg" class="fragment" data-fragment-index="3"><img src="images/cards/6H.svg"><img src="images/cards/7H.svg" class="fragment" data-fragment-index="1"><img src="images/cards/8H.svg"><img src="images/cards/9H.svg" class="fragment" data-fragment-index="3"><img src="images/cards/10H.svg"><img src="images/cards/JH.svg"><img src="images/cards/QH.svg" class="fragment" data-fragment-index="1"><img src="images/cards/KH.svg" class="fragment" data-fragment-index="2">
-                    <!-- Diamonds -->
-                    <img src="images/cards/AD.svg" class="fragment" data-fragment-index="1"><img src="images/cards/2D.svg"><img src="images/cards/3D.svg"><img src="images/cards/4D.svg"><img src="images/cards/5D.svg"><img src="images/cards/6D.svg"><img src="images/cards/7D.svg" class="fragment" data-fragment-index="1"><img src="images/cards/8D.svg" class="fragment" data-fragment-index="2"><img src="images/cards/9D.svg" class="fragment" data-fragment-index="0"><img src="images/cards/10D.svg"><img src="images/cards/JD.svg"><img src="images/cards/QD.svg" class="fragment" data-fragment-index="3"><img src="images/cards/KD.svg" class="fragment" data-fragment-index="3">
-                    <!-- Clubs -->
-                    <img src="images/cards/AC.svg" class="fragment" data-fragment-index="1"><img src="images/cards/2C.svg" class="fragment" data-fragment-index="2"><img src="images/cards/3C.svg"><img src="images/cards/4C.svg"><img src="images/cards/5C.svg" class="fragment" data-fragment-index="0"><img src="images/cards/6C.svg"><img src="images/cards/7C.svg"><img src="images/cards/8C.svg"><img src="images/cards/9C.svg"><img src="images/cards/10C.svg"><img src="images/cards/JC.svg"><img src="images/cards/QC.svg"><img src="images/cards/KC.svg" class="fragment" data-fragment-index="3">
-
-                    <div class="formula-builder">
-                        <div class="formula-title">가능한 조합</div>
-
-                        <div class="formula-line fragment" data-fragment-index="0">
-                            <span class="formula-part">13C1</span>
-                            <span class="formula-hint">(rank 선택)</span>
-                        </div>
-
-                        <div class="formula-line fragment" data-fragment-index="1">
-                            <span class="formula-operator">×</span>
-                            <span class="formula-part">4C2</span>
-                            <span class="formula-hint">(suit 2개)</span>
-                        </div>
-
-                        <div class="formula-line fragment" data-fragment-index="2">
-                            <span class="formula-operator">×</span>
-                            <span class="formula-part">12C3</span>
-                            <span class="formula-hint">(키커 rank)</span>
-                        </div>
-
-                        <div class="formula-line fragment" data-fragment-index="3">
-                            <span class="formula-operator">×</span>
-                            <span class="formula-part">4³</span>
-                            <span class="formula-hint">(키커 suit)</span>
-                        </div>
-
-                        <div class="formula-separator fragment" data-fragment-index="4"></div>
-
-                        <div class="formula-result fragment" data-fragment-index="4">
-                            <span class="formula-equals">=</span>
-                            <span class="number">1,098,240</span>
-                        </div>
-                    </div>
-                </div>
-                <aside class="notes">
-                    원 페어는 같은 숫자 2장입니다.
-                    A 페어가 될 수도 있고, K 페어, 9 페어, 5 페어, 3 페어... 다양합니다.
-                    나머지 3장은 아무 카드나 가능합니다.
-                    가장 흔한 족보 중 하나로, 실제 게임에서 가장 자주 봅니다.
-                    약 109만 가지 조합이 가능하며, 발생 확률은 약 42%입니다.
-                    대부분의 판에서 "누가 더 높은 페어를 가졌느냐"를 다투게 됩니다.
-                </aside>
-            </section>
-
-            <!-- High Card -->
-            <section>
-                <h2>10. 하이 카드</h2>
-                <div class="deck-grid">
-                    <!-- Spades -->
-                    <img src="images/cards/AS.svg" class="fragment" data-fragment-index="0"><img src="images/cards/2S.svg"><img src="images/cards/3S.svg"><img src="images/cards/4S.svg"><img src="images/cards/5S.svg" class="fragment" data-fragment-index="1"><img src="images/cards/6S.svg"><img src="images/cards/7S.svg" class="fragment" data-fragment-index="2"><img src="images/cards/8S.svg"><img src="images/cards/9S.svg" class="fragment" data-fragment-index="3"><img src="images/cards/10S.svg"><img src="images/cards/JS.svg"><img src="images/cards/QS.svg"><img src="images/cards/KS.svg" class="fragment" data-fragment-index="0">
-                    <!-- Hearts -->
-                    <img src="images/cards/AH.svg"><img src="images/cards/2H.svg" class="fragment" data-fragment-index="1"><img src="images/cards/3H.svg"><img src="images/cards/4H.svg"><img src="images/cards/5H.svg"><img src="images/cards/6H.svg"><img src="images/cards/7H.svg"><img src="images/cards/8H.svg"><img src="images/cards/9H.svg"><img src="images/cards/10H.svg"><img src="images/cards/JH.svg"><img src="images/cards/QH.svg" class="fragment" data-fragment-index="2"><img src="images/cards/KH.svg">
-                    <!-- Diamonds -->
-                    <img src="images/cards/AD.svg"><img src="images/cards/2D.svg"><img src="images/cards/3D.svg"><img src="images/cards/4D.svg" class="fragment" data-fragment-index="3"><img src="images/cards/5D.svg"><img src="images/cards/6D.svg"><img src="images/cards/7D.svg"><img src="images/cards/8D.svg"><img src="images/cards/9D.svg"><img src="images/cards/10D.svg"><img src="images/cards/JD.svg"><img src="images/cards/QD.svg"><img src="images/cards/KD.svg">
-                    <!-- Clubs -->
-                    <img src="images/cards/AC.svg"><img src="images/cards/2C.svg"><img src="images/cards/3C.svg"><img src="images/cards/4C.svg"><img src="images/cards/5C.svg"><img src="images/cards/6C.svg" class="fragment" data-fragment-index="0"><img src="images/cards/7C.svg"><img src="images/cards/8C.svg"><img src="images/cards/9C.svg"><img src="images/cards/10C.svg"><img src="images/cards/JC.svg"><img src="images/cards/QC.svg"><img src="images/cards/KC.svg">
-
-                    <div class="formula-builder">
-                        <div class="formula-title">가능한 조합</div>
-
-                        <div class="formula-line fragment" data-fragment-index="0">
-                            <span class="formula-part">52C5</span>
-                            <span class="formula-hint">(전체 조합)</span>
-                        </div>
-
-                        <div class="formula-line fragment" data-fragment-index="1">
-                            <span class="formula-operator">-</span>
-                            <span class="formula-part">36</span>
-                            <span class="formula-hint">(스트레이트 플러시)</span>
-                        </div>
-
-                        <div class="formula-line fragment" data-fragment-index="2">
-                            <span class="formula-operator">-</span>
-                            <span class="formula-part">624</span>
-                            <span class="formula-hint">(포카드)</span>
-                        </div>
-
-                        <div class="formula-line fragment" data-fragment-index="3">
-                            <span class="formula-operator">- ...</span>
-                            <span class="formula-hint">(다른 모든 족보)</span>
-                        </div>
-
-                        <div class="formula-separator fragment" data-fragment-index="4"></div>
-
-                        <div class="formula-result fragment" data-fragment-index="4">
-                            <span class="formula-equals">=</span>
-                            <span class="number">1,302,540</span>
-                        </div>
-                    </div>
-                </div>
-                <aside class="notes">
-                    하이 카드는 아무 족보도 만들지 못한 패입니다.
-                    페어도 없고, 플러시도 아니고, 스트레이트도 아닌 상태입니다.
-                    이 경우 가장 높은 카드로 승부를 봅니다.
-                    예를 들어 A-K-Q-9-5 (무늬 섞임)는 A 하이 카드입니다.
-                    전체 52장 중 5장을 선택하는 모든 조합에서 다른 족보들을 빼면 계산됩니다.
-                    약 130만 가지로, 의외로 많은 조합이 가능합니다.
-                    실전에서는 약 17%의 확률로 나타납니다.
-                </aside>
-            </section>
-
-            <!-- Texas Hold'em Specifics -->
-            <section>
-                <h2>Texas Hold'em 특징</h2>
-                <p class="fragment">포커의 한 종류</p>
-                <p class="fragment emphasize" style="font-size: 1.4em; margin-top: 1em;">7장 중 5장을 선택해<br>최고의 족보를 만든다</p>
-                <p class="fragment" style="margin-top: 1em;">내 카드 2장 + 공용 카드 5장</p>
-                <aside class="notes">
-                    홀덤은 여러 포커 게임 중 하나입니다.
-                    특징은 총 7장의 카드 중에서 5장을 골라 족보를 만든다는 것입니다.
-                    내가 받는 2장과 테이블 중앙에 공개되는 5장, 총 7장입니다.
-                </aside>
-            </section>
 
             <!-- Poker Table Diagram -->
             <section>
@@ -691,41 +456,98 @@
                 </aside>
             </section>
 
-            <!-- Game Simulation 2: Flop -->
+            <!-- Game Simulation 2: Flop (Enhanced with Diagram System) -->
             <section>
                 <h2>실전 시뮬레이션: 플랍</h2>
-                <div class="poker-table">
-                    <div class="player-seat seat-1">
-                        <span class="card-large">A<span class="spade">♠</span></span>
-                        <span class="card-large">K<span class="spade">♠</span></span>
+
+                <!-- 새로운 다이어그램 시스템 사용 -->
+                <div class="poker-diagram">
+                    <!-- 당신 (Hero) -->
+                    <div class="diagram-player position-hero">
+                        <span class="diagram-player-label">YOU (BTN)</span>
+                        <div class="diagram-cards">
+                            <div class="diagram-card spade">
+                                <span class="rank">A</span>
+                                <span class="suit">♠</span>
+                            </div>
+                            <div class="diagram-card spade">
+                                <span class="rank">K</span>
+                                <span class="suit">♠</span>
+                            </div>
+                        </div>
+                        <span class="diagram-stack">$100</span>
                     </div>
-                    <div class="community-cards">
-                        <span class="card-large fragment">Q<span class="spade">♠</span></span>
-                        <span class="card-large fragment">J<span class="spade">♠</span></span>
-                        <span class="card-large fragment">3<span class="club">♣</span></span>
-                        <span class="card-large card-back"></span>
-                        <span class="card-large card-back"></span>
+
+                    <!-- 상대 (Opponent) -->
+                    <div class="diagram-player position-bb">
+                        <span class="diagram-player-label">BB</span>
+                        <div class="diagram-cards">
+                            <div class="diagram-card hidden"></div>
+                            <div class="diagram-card hidden"></div>
+                        </div>
+                        <span class="diagram-stack">$100</span>
                     </div>
-                    <div class="pot-display fragment">$70</div>
+
+                    <!-- 중앙: 팟 + 보드 -->
+                    <div class="diagram-center">
+                        <div class="diagram-pot">$70</div>
+                        <div class="diagram-board">
+                            <div class="diagram-card spade fragment" data-fragment-index="0">
+                                <span class="rank">Q</span>
+                                <span class="suit">♠</span>
+                            </div>
+                            <div class="diagram-card spade fragment" data-fragment-index="0">
+                                <span class="rank">J</span>
+                                <span class="suit">♠</span>
+                            </div>
+                            <div class="diagram-card club fragment" data-fragment-index="0">
+                                <span class="rank">3</span>
+                                <span class="suit">♣</span>
+                            </div>
+                            <div class="diagram-card hidden"></div>
+                            <div class="diagram-card hidden"></div>
+                        </div>
+                    </div>
+
+                    <!-- 상대 액션 -->
+                    <div class="diagram-action raise fragment" data-fragment-index="1"
+                         style="top: 20%; left: 20%;">
+                        BET $40
+                    </div>
                 </div>
 
-                <div class="fragment" style="margin-top: 1em; text-align: left;">
-                    <p><strong>현재 상황:</strong> 아직 아무것도 없음 (에이스 하이)</p>
-                    <p class="fragment"><strong>하지만...</strong></p>
-                    <ul class="fragment">
-                        <li>스페이드 1장만 더 나오면 → <span class="emphasize">플러시</span></li>
-                        <li>10이 나오면 → <span class="emphasize">스트레이트</span></li>
-                        <li><strong>아웃츠 (Outs)</strong>: 9장 (스페이드) + 3장 (10) = <span class="emphasize">12장</span></li>
-                    </ul>
-                    <p class="fragment" style="margin-top: 1em;">
-                        <strong>승률 계산:</strong> 12 아웃츠 × 4 = <span class="emphasize" style="font-size: 1.3em;">48%</span>
-                    </p>
-                </div>
+                <!-- 계산 오버레이 (새 시스템) -->
+                <div class="diagram-calculation fragment" data-fragment-index="2">
+                    <h4>📊 아웃츠 & 팟 오즈 계산</h4>
 
-                <div class="fragment" style="margin-top: 1em; padding: 1em; background: rgba(52,152,219,0.2); border-radius: 10px;">
-                    <p><strong>상대가 $40 베팅</strong></p>
-                    <p>팟 오즈: $40 / ($70 + $40) = 36.4% 필요</p>
-                    <p class="emphasize">48% > 36.4% → <strong>CALL!</strong></p>
+                    <div class="diagram-calculation-line">
+                        <span class="diagram-calculation-label">플러시 아웃츠</span>
+                        <span class="diagram-calculation-value">9장 (♠)</span>
+                    </div>
+
+                    <div class="diagram-calculation-line">
+                        <span class="diagram-calculation-label">스트레이트 아웃츠</span>
+                        <span class="diagram-calculation-value">3장 (10)</span>
+                    </div>
+
+                    <div class="diagram-calculation-line">
+                        <span class="diagram-calculation-label">총 아웃츠</span>
+                        <span class="diagram-calculation-value">12장</span>
+                    </div>
+
+                    <div class="diagram-calculation-line" style="margin-top: 1em; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 0.8em;">
+                        <span class="diagram-calculation-label">승률 (Rule of 4)</span>
+                        <span class="diagram-calculation-value">12 × 4 = 48%</span>
+                    </div>
+
+                    <div class="diagram-calculation-line">
+                        <span class="diagram-calculation-label">필요 승률 (팟 오즈)</span>
+                        <span class="diagram-calculation-value">40 ÷ 110 = 36.4%</span>
+                    </div>
+
+                    <div class="diagram-calculation-result">
+                        48% > 36.4% → CALL ✅
+                    </div>
                 </div>
 
                 <aside class="notes">
@@ -743,6 +565,76 @@
                     콜하려면 40달러가 필요하므로, 팟 오즈는 40 / 110 = 36.4%입니다.
 
                     내 승률 48%는 필요 승률 36.4%보다 높습니다. 수학적으로 콜이 정답입니다.
+                </aside>
+            </section>
+
+            <!-- NEW: 초보 vs 프로 비교 슬라이드 (Diagram System Showcase) -->
+            <section>
+                <h2>같은 상황, 다른 사고</h2>
+
+                <div class="diagram-comparison">
+                    <!-- 초보자 -->
+                    <div class="diagram-comparison-side beginner fragment" data-fragment-index="0">
+                        <div class="diagram-comparison-title">❌ 초보자</div>
+
+                        <div class="diagram-comparison-thought">
+                            "지금 아무것도 없는데...<br>
+                            상대가 베팅했으니 뭔가 있나봐.<br>
+                            겁나니까 폴드해야겠다."
+                        </div>
+
+                        <p style="margin: 1.5em 0; color: rgba(255,255,255,0.7); font-size: 0.95em;">
+                            → 감에 의존<br>
+                            → 두려움에 지배됨<br>
+                            → 기회 놓침
+                        </p>
+
+                        <div class="diagram-comparison-decision">
+                            FOLD 😢
+                        </div>
+                    </div>
+
+                    <!-- 프로 -->
+                    <div class="diagram-comparison-side pro fragment" data-fragment-index="1">
+                        <div class="diagram-comparison-title">✅ 프로</div>
+
+                        <div class="diagram-comparison-thought">
+                            "아웃츠 12장 = 48% 승률<br>
+                            필요 승률 = 36.4%<br>
+                            <br>
+                            48% > 36.4%<br>
+                            수학적으로 콜이 정답"
+                        </div>
+
+                        <p style="margin: 1.5em 0; color: rgba(255,255,255,0.7); font-size: 0.95em;">
+                            → 계산에 기반<br>
+                            → 감정 배제<br>
+                            → +EV 행동
+                        </p>
+
+                        <div class="diagram-comparison-decision">
+                            CALL ✅
+                        </div>
+                    </div>
+                </div>
+
+                <p class="fragment" data-fragment-index="2" style="margin-top: 2em; font-size: 1.2em; text-align: center; color: #f39c12;">
+                    100번 하면: 초보는 운에 휘둘림 📉, 프로는 안정적 수익 📈
+                </p>
+
+                <aside class="notes">
+                    같은 상황에서 초보자와 프로의 사고방식은 완전히 다릅니다.
+                    초보자는 감에 의존하고, 두려움에 지배됩니다.
+                    지금 아무것도 없으니 포기하는 것이 안전해 보입니다.
+
+                    하지만 프로는 계산합니다.
+                    아웃츠 12장, 승률 48%, 필요 승률 36.4%.
+                    감정을 배제하고 수학적으로 판단합니다.
+                    이것이 +EV 플레이입니다.
+
+                    100번을 하면 차이가 극명합니다.
+                    초보는 운에 휘둘리지만, 프로는 안정적으로 수익을 냅니다.
+                    이것이 도박과 실력 게임의 차이입니다.
                 </aside>
             </section>
 

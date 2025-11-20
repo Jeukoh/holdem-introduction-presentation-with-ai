@@ -21,29 +21,112 @@
     </aside>
 </section>
 
+<!-- 팟 오즈: 실제 상황으로 시각화 (Issue #12) -->
 <section>
     <h3>팟 오즈 (Pot Odds)</h3>
-    <div class="two-column">
-        <div>
-            <h4>정의</h4>
-            <p>콜 금액 대비 팟 크기의 비율</p>
-            <p class="emphasize">필요 승률을 계산</p>
+    <p style="margin-bottom: 2em;">실제 상황에서 어떻게 적용할까?</p>
+
+    <!-- 다이어그램: 턴 상황 -->
+    <div class="poker-diagram">
+        <!-- 당신 -->
+        <div class="diagram-player position-hero">
+            <span class="diagram-player-label">YOU</span>
+            <div class="diagram-cards">
+                <div class="diagram-card heart">
+                    <span class="rank">A</span>
+                    <span class="suit">♥</span>
+                </div>
+                <div class="diagram-card heart">
+                    <span class="rank">8</span>
+                    <span class="suit">♥</span>
+                </div>
+            </div>
+            <span class="diagram-stack">$200</span>
         </div>
-        <div class="fragment">
-            <h4>예시</h4>
-            <p>팟: $100</p>
-            <p>베팅: $20</p>
-            <p>팟 오즈: 20 / (100 + 20) = 16.7%</p>
-            <p class="emphasize">→ 16.7% 이상 승률이면 콜</p>
+
+        <!-- 상대 -->
+        <div class="diagram-player position-bb">
+            <span class="diagram-player-label">Opponent</span>
+            <div class="diagram-cards">
+                <div class="diagram-card hidden"></div>
+                <div class="diagram-card hidden"></div>
+            </div>
+            <span class="diagram-stack">$200</span>
+        </div>
+
+        <!-- 중앙: 팟 + 보드 (턴까지) -->
+        <div class="diagram-center">
+            <div class="diagram-pot">$100</div>
+            <div class="diagram-board">
+                <div class="diagram-card spade">
+                    <span class="rank">K</span>
+                    <span class="suit">♠</span>
+                </div>
+                <div class="diagram-card heart">
+                    <span class="rank">9</span>
+                    <span class="suit">♥</span>
+                </div>
+                <div class="diagram-card heart">
+                    <span class="rank">4</span>
+                    <span class="suit">♥</span>
+                </div>
+                <div class="diagram-card club">
+                    <span class="rank">7</span>
+                    <span class="suit">♣</span>
+                </div>
+                <div class="diagram-card hidden"></div>
+            </div>
+        </div>
+
+        <!-- 상대 액션 -->
+        <div class="diagram-action raise fragment" data-fragment-index="0"
+             style="top: 20%; left: 20%;">
+            BET $20
         </div>
     </div>
+
+    <!-- 계산 오버레이 -->
+    <div class="diagram-calculation fragment" data-fragment-index="1">
+        <h4>📊 팟 오즈 계산</h4>
+
+        <div class="diagram-calculation-line">
+            <span class="diagram-calculation-label">콜 금액</span>
+            <span class="diagram-calculation-value">$20</span>
+        </div>
+
+        <div class="diagram-calculation-line">
+            <span class="diagram-calculation-label">팟 크기</span>
+            <span class="diagram-calculation-value">$100</span>
+        </div>
+
+        <div class="diagram-calculation-line">
+            <span class="diagram-calculation-label">총 팟 (콜 후)</span>
+            <span class="diagram-calculation-value">$120</span>
+        </div>
+
+        <div class="diagram-calculation-line" style="margin-top: 1em; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 0.8em;">
+            <span class="diagram-calculation-label">필요 승률</span>
+            <span class="diagram-calculation-value">20 ÷ 120 = 16.7%</span>
+        </div>
+
+        <div class="diagram-calculation-result">
+            16.7% 이상이면 수학적으로 CALL ✅
+        </div>
+    </div>
+
     <aside class="notes">
         팟 오즈는 가장 기본적인 도구입니다.
         콜하기 위해 필요한 최소 승률을 알려줍니다.
-        팟에 100달러가 있고, 상대가 20달러를 베팅했다면,
+
+        실제 상황을 봅시다. 당신은 A♥ 8♥ 플러시 드로우입니다.
+        팟에 100달러가 있고, 상대가 20달러를 베팅했습니다.
+
+        계산해봅시다.
         당신은 20달러를 내서 120달러를 따낼 수 있습니다.
         20을 120으로 나누면 약 16.7%입니다.
         즉, 16.7% 이상의 승률만 있으면 수학적으로 콜이 정답입니다.
+
+        이 상황에서 플러시 드로우는 약 18% 승률이므로 콜이 정답입니다.
     </aside>
 </section>
 
@@ -75,20 +158,101 @@
 
 <section>
     <h3>기댓값 (Expected Value, EV)</h3>
-    <blockquote>
-        +EV 플레이를 반복하면<br>
-        장기적으로 반드시 승리한다
-    </blockquote>
-    <div class="fragment" style="margin-top: 2em;">
-        <p>EV = (승리 확률 × 승리 금액) - (패배 확률 × 손실 금액)</p>
-        <br>
-        <p class="emphasize">+EV면 콜, -EV면 폴드</p>
+    <p style="margin-bottom: 2em;">이 콜이 장기적으로 돈을 벌까?</p>
+
+    <!-- 공식 빌더 -->
+    <div class="formula-builder">
+        <h4>🧮 EV 공식 계산</h4>
+
+        <!-- 핵심 개념 -->
+        <div class="formula-definition fragment" data-fragment-index="0">
+            <strong>+EV 플레이를 반복하면 장기적으로 반드시 승리한다</strong>
+        </div>
+
+        <!-- 예시 상황 -->
+        <div class="formula-example fragment" data-fragment-index="1">
+            <div class="formula-example-title">📋 상황</div>
+            <div class="formula-example-content">
+                • 당신: A♥ 8♥ (플러시 드로우)<br>
+                • 팟: $100<br>
+                • 상대 베팅: $20<br>
+                • 승률: 약 18% (플러시 9장 + 에이스 3장 = 12 아웃츠 × 1.5)
+            </div>
+        </div>
+
+        <!-- 공식 구성 요소 -->
+        <div class="formula-component fragment" data-fragment-index="2">
+            <span class="formula-component-label">공식</span>
+            <span class="formula-component-value">
+                EV = (승리 확률 × 승리 금액) - (패배 확률 × 손실 금액)
+            </span>
+        </div>
+
+        <div class="formula-divider fragment" data-fragment-index="3"></div>
+
+        <!-- 1단계: 승리 시 -->
+        <div class="formula-component fragment" data-fragment-index="3">
+            <span class="formula-component-label">승리 시</span>
+            <span class="formula-component-value">
+                18% × $120 (팟 + 콜 금액)
+            </span>
+        </div>
+
+        <div class="formula-step fragment" data-fragment-index="4">
+            <span class="value">0.18</span>
+            <span class="operator">×</span>
+            <span class="value">120</span>
+            <span class="operator">=</span>
+            <span class="value">$21.6</span>
+        </div>
+
+        <!-- 2단계: 패배 시 -->
+        <div class="formula-component fragment" data-fragment-index="5">
+            <span class="formula-component-label">패배 시</span>
+            <span class="formula-component-value">
+                82% × $20 (콜 금액)
+            </span>
+        </div>
+
+        <div class="formula-step fragment" data-fragment-index="6">
+            <span class="value">0.82</span>
+            <span class="operator">×</span>
+            <span class="value">20</span>
+            <span class="operator">=</span>
+            <span class="value">$16.4</span>
+        </div>
+
+        <div class="formula-divider fragment" data-fragment-index="7"></div>
+
+        <!-- 최종 계산 -->
+        <div class="formula-step fragment" data-fragment-index="8">
+            <span>EV</span>
+            <span class="operator">=</span>
+            <span class="value">$21.6</span>
+            <span class="operator">-</span>
+            <span class="value">$16.4</span>
+            <span class="operator">=</span>
+            <span class="value">+$5.2</span>
+        </div>
+
+        <!-- 결과 -->
+        <div class="formula-result positive fragment" data-fragment-index="9">
+            <span class="result-value">+$5.2 EV ✅</span>
+            <span class="result-action">
+                100번 반복하면 평균 $520 수익!
+            </span>
+        </div>
     </div>
+
+    <p class="fragment" data-fragment-index="10" style="margin-top: 2em; text-align: center;">
+        감정이 아닌 <span class="emphasize">수학</span>으로 결정하라
+    </p>
+
     <aside class="notes">
         기댓값은 장기적 관점의 핵심입니다.
+        이 예시에서는 18% 승률로 콜했을 때 한 번당 평균 5.2달러를 버는 상황입니다.
         단기적으로는 질 수 있지만, +EV 플레이를 반복하면 결국 이깁니다.
-        EV 공식은 간단합니다. 이길 확률 곱하기 이길 금액에서,
-        질 확률 곱하기 잃을 금액을 빼면 됩니다.
+        100번 하면 평균 520달러를 벌게 됩니다.
         양수면 콜, 음수면 폴드가 정답입니다.
     </aside>
 </section>
@@ -104,76 +268,399 @@
 
 <section>
     <h3>GTO (Game Theory Optimal)</h3>
-    <div class="two-column">
-        <div>
-            <h4>개념</h4>
-            <p>게임 이론 기반 최적 전략</p>
-            <p>상대가 어떻게 하든 손해 없음</p>
-            <p class="emphasize">착취 불가능한 전략</p>
+    <p style="margin-bottom: 2em;">착취 불가능한 완벽한 균형</p>
+
+    <!-- GTO 개념 시각화 -->
+    <div style="display: flex; justify-content: space-around; align-items: center; margin: 2em 0;">
+
+        <!-- 가위바위보 비유 -->
+        <div style="flex: 1; text-align: center;">
+            <h4 style="color: #3498db; margin-bottom: 1em;">🎮 가위바위보 비유</h4>
+
+            <!-- 균형잡힌 원형 다이어그램 -->
+            <div class="fragment" data-fragment-index="0" style="
+                width: 300px;
+                height: 300px;
+                margin: 0 auto 1em;
+                background: conic-gradient(
+                    from 0deg,
+                    #e74c3c 0deg 120deg,
+                    #f39c12 120deg 240deg,
+                    #3498db 240deg 360deg
+                );
+                border-radius: 50%;
+                position: relative;
+                box-shadow: 0 0 30px rgba(52, 152, 219, 0.5);
+            ">
+                <div style="
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    width: 150px;
+                    height: 150px;
+                    background: #1a1a1a;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 2em;
+                    font-weight: bold;
+                    color: #2ecc71;
+                ">
+                    1/3
+                </div>
+            </div>
+
+            <div class="fragment" data-fragment-index="1" style="font-size: 1.1em;">
+                <p>✊ 바위: 33.3%</p>
+                <p>✋ 보: 33.3%</p>
+                <p>✌️ 가위: 33.3%</p>
+            </div>
+
+            <div class="fragment" data-fragment-index="2" style="margin-top: 1em;">
+                <p class="emphasize">→ 상대가 뭘 해도 0 EV</p>
+                <p style="color: #95a5a6; font-size: 0.9em;">착취 불가능!</p>
+            </div>
         </div>
-        <div class="fragment">
-            <h4>비유</h4>
-            <p>가위바위보에서</p>
-            <p>"1/3씩 랜덤"</p>
-            <br>
-            <p class="emphasize">→ 솔버로 계산 가능</p>
-            <p><small>(PioSolver, GTO+)</small></p>
+
+        <!-- 홀덤 적용 -->
+        <div class="fragment" data-fragment-index="3" style="flex: 1; text-align: center;">
+            <h4 style="color: #2ecc71; margin-bottom: 1em;">🃏 홀덤 적용</h4>
+
+            <div style="
+                background: rgba(46, 204, 113, 0.1);
+                border: 2px solid #2ecc71;
+                border-radius: 12px;
+                padding: 2em;
+                max-width: 400px;
+                margin: 0 auto;
+            ">
+                <p style="font-size: 1.2em; margin-bottom: 1em;">
+                    <strong>상황별 최적 빈도</strong>
+                </p>
+
+                <div style="text-align: left; margin: 1em 0;">
+                    <p>• Bluff: 27%</p>
+                    <p>• Value Bet: 73%</p>
+                </div>
+
+                <div style="text-align: left; margin: 1em 0;">
+                    <p>• Check: 45%</p>
+                    <p>• Bet: 55%</p>
+                </div>
+
+                <div style="margin-top: 1.5em; padding-top: 1em; border-top: 1px solid rgba(46, 204, 113, 0.3);">
+                    <p style="font-size: 0.9em; color: #95a5a6;">
+                        솔버가 계산한 비율
+                    </p>
+                    <p style="font-size: 0.8em; color: #7f8c8d;">
+                        (PioSolver, GTO+)
+                    </p>
+                </div>
+            </div>
         </div>
     </div>
+
+    <p class="fragment" data-fragment-index="4" style="text-align: center; margin-top: 2em;">
+        <span class="emphasize">게임 이론 기반 최적 전략</span> - 상대가 어떻게 하든 손해 없음
+    </p>
+
     <aside class="notes">
         GTO는 게임 이론 최적해입니다.
         가위바위보에서 1/3씩 랜덤으로 내는 것과 같은 원리입니다.
         상대가 어떤 전략을 쓰든, 나는 손해를 보지 않습니다.
         홀덤에서는 PioSolver 같은 도구로 GTO 전략을 계산할 수 있습니다.
+        예를 들어 이 상황에서는 블러프 27%, 밸류벳 73%가 최적 빈도입니다.
         놀랍게도, 불완전정보 게임인 홀덤에도 수학적 최적해가 존재합니다.
     </aside>
 </section>
 
 <section>
-    <h3>Exploit (착취 전략)</h3>
-    <div class="two-column">
-        <div>
-            <h4>개념</h4>
-            <p>상대의 약점을 공략</p>
-            <p>GTO에서 벗어나지만</p>
-            <p class="emphasize">더 많이 벌 수 있음</p>
+    <h3>GTO vs Exploit</h3>
+    <p style="margin-bottom: 2em;">두 가지 접근 방식</p>
+
+    <!-- GTO vs Exploit 비교 -->
+    <div class="diagram-comparison">
+
+        <!-- GTO 측면 -->
+        <div class="diagram-comparison-side" style="border-color: #3498db;">
+            <div class="diagram-comparison-title" style="background: rgba(52, 152, 219, 0.2); color: #3498db;">
+                🛡️ GTO (방어적)
+            </div>
+
+            <div class="diagram-comparison-thought">
+                "나는 완벽한 균형을 유지한다"
+            </div>
+
+            <!-- 균형 시각화 -->
+            <div style="margin: 1.5em 0; text-align: center;">
+                <div style="
+                    width: 120px;
+                    height: 120px;
+                    margin: 0 auto;
+                    background: conic-gradient(
+                        from 0deg,
+                        #3498db 0deg 180deg,
+                        #e74c3c 180deg 360deg
+                    );
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    box-shadow: 0 0 20px rgba(52, 152, 219, 0.4);
+                ">
+                    <div style="
+                        width: 60px;
+                        height: 60px;
+                        background: #1a1a1a;
+                        border-radius: 50%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-size: 1.5em;
+                    ">⚖️</div>
+                </div>
+            </div>
+
+            <div style="text-align: left; margin: 1em 0;">
+                <p><strong>특징:</strong></p>
+                <p>✓ 착취 불가능</p>
+                <p>✓ 안정적</p>
+                <p>✓ 상대 무관</p>
+            </div>
+
+            <div style="text-align: left; margin: 1em 0;">
+                <p><strong>수익:</strong></p>
+                <p style="color: #f39c12;">+2 BB/100</p>
+                <p style="font-size: 0.8em; color: #95a5a6;">
+                    (꾸준하지만 보통)
+                </p>
+            </div>
+
+            <div class="diagram-comparison-decision" style="background: rgba(52, 152, 219, 0.2); color: #3498db;">
+                SAFE 🛡️
+            </div>
         </div>
-        <div class="fragment">
-            <h4>예시</h4>
-            <p>상대가 너무 자주 폴드 → 블러프 증가</p>
-            <p>상대가 너무 자주 콜 → 밸류벳 증가</p>
-            <br>
-            <p class="emphasize">→ 약점 파악이 핵심</p>
+
+        <!-- Exploit 측면 -->
+        <div class="diagram-comparison-side fragment" data-fragment-index="0" style="border-color: #f39c12;">
+            <div class="diagram-comparison-title" style="background: rgba(243, 156, 18, 0.2); color: #f39c12;">
+                🎯 Exploit (공격적)
+            </div>
+
+            <div class="diagram-comparison-thought">
+                "상대 약점을 찾아 공략한다"
+            </div>
+
+            <!-- 화살표 시각화 -->
+            <div style="margin: 1.5em 0; text-align: center; position: relative;">
+                <div style="
+                    width: 120px;
+                    height: 120px;
+                    margin: 0 auto;
+                    background: rgba(231, 76, 60, 0.3);
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    border: 3px dashed #e74c3c;
+                    position: relative;
+                ">
+                    <div style="font-size: 2em;">🎯</div>
+                    <div style="
+                        position: absolute;
+                        top: -10px;
+                        right: -10px;
+                        font-size: 2em;
+                        animation: arrow-pulse 1s ease-in-out infinite;
+                    ">➡️</div>
+                </div>
+            </div>
+
+            <div style="text-align: left; margin: 1em 0;">
+                <p><strong>상대 약점별 대응:</strong></p>
+                <p style="font-size: 0.9em;">
+                    • 자주 폴드 → 블러프 ↑<br>
+                    • 자주 콜 → 밸류벳 ↑<br>
+                    • 패시브 → 공격 ↑
+                </p>
+            </div>
+
+            <div style="text-align: left; margin: 1em 0;">
+                <p><strong>수익:</strong></p>
+                <p style="color: #2ecc71;">+5 BB/100</p>
+                <p style="font-size: 0.8em; color: #95a5a6;">
+                    (높지만 상대 의존적)
+                </p>
+            </div>
+
+            <div class="diagram-comparison-decision" style="background: rgba(243, 156, 18, 0.2); color: #f39c12;">
+                HIGH RISK<br>HIGH REWARD 🎯
+            </div>
         </div>
     </div>
+
+    <p class="fragment" data-fragment-index="1" style="text-align: center; margin-top: 2em;">
+        프로는 <span class="emphasize">상황에 따라 전환</span>한다
+    </p>
+
+    <style>
+        @keyframes arrow-pulse {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(5px); }
+        }
+    </style>
+
     <aside class="notes">
-        Exploit는 상대의 약점을 찾아 공략하는 전략입니다.
-        GTO에서 벗어나지만, 상대가 실수를 한다면 더 많이 벌 수 있습니다.
+        GTO와 Exploit의 차이를 비교합니다.
+        GTO는 완벽한 균형으로 착취 불가능하지만, 수익은 보통입니다.
+        Exploit는 상대의 약점을 공략해서 더 많이 벌지만, 상대에게 의존적입니다.
         예를 들어 상대가 너무 자주 폴드한다면, 블러프를 늘립니다.
         상대가 너무 자주 콜한다면, 좋은 패로만 큰 베팅을 합니다.
-        프로들은 상황에 따라 GTO와 Exploit를 전환합니다.
+        프로들은 상황에 따라 GTO와 Exploit를 유연하게 전환합니다.
     </aside>
 </section>
 
 <section>
-    <h3>전략 선택</h3>
-    <div style="margin-top: 2em;">
-        <p class="fragment">모르는 상대 → <span class="emphasize">GTO</span></p>
-        <p class="fragment">약점 파악됨 → <span class="emphasize">Exploit</span></p>
-        <p class="fragment">강한 상대 → <span class="emphasize">GTO</span></p>
+    <h3>전략 선택 플로우</h3>
+    <p style="margin-bottom: 2em;">언제 무엇을 써야 할까?</p>
+
+    <!-- 의사결정 플로우차트 -->
+    <div style="max-width: 900px; margin: 0 auto;">
+
+        <!-- 1단계: 상대 파악 -->
+        <div class="fragment" data-fragment-index="0" style="
+            background: rgba(52, 152, 219, 0.2);
+            border: 3px solid #3498db;
+            border-radius: 12px;
+            padding: 1.5em;
+            text-align: center;
+            margin-bottom: 1em;
+        ">
+            <div style="font-size: 1.3em; font-weight: bold;">🤔 상대를 아는가?</div>
+        </div>
+
+        <!-- 분기 -->
+        <div style="display: flex; gap: 2em; margin: 2em 0;">
+
+            <!-- 왼쪽: 모르는 상대 -->
+            <div class="fragment" data-fragment-index="1" style="flex: 1;">
+                <div style="text-align: center; margin-bottom: 1em;">
+                    <div style="font-size: 2em;">⬇️</div>
+                    <p style="color: #95a5a6;">모른다</p>
+                </div>
+
+                <div style="
+                    background: rgba(52, 152, 219, 0.15);
+                    border: 3px solid #3498db;
+                    border-radius: 12px;
+                    padding: 1.5em;
+                    text-align: center;
+                ">
+                    <div style="font-size: 1.5em; margin-bottom: 0.5em;">🛡️</div>
+                    <div style="font-size: 1.2em; font-weight: bold; color: #3498db;">
+                        GTO 전략
+                    </div>
+                    <p style="margin-top: 1em; font-size: 0.9em;">
+                        안전하게 시작<br>
+                        정보 수집 단계
+                    </p>
+                </div>
+            </div>
+
+            <!-- 오른쪽: 아는 상대 -->
+            <div class="fragment" data-fragment-index="2" style="flex: 1;">
+                <div style="text-align: center; margin-bottom: 1em;">
+                    <div style="font-size: 2em;">⬇️</div>
+                    <p style="color: #95a5a6;">안다</p>
+                </div>
+
+                <!-- 2단계: 강함 판단 -->
+                <div style="
+                    background: rgba(243, 156, 18, 0.15);
+                    border: 3px solid #f39c12;
+                    border-radius: 12px;
+                    padding: 1em;
+                    text-align: center;
+                    margin-bottom: 1em;
+                ">
+                    <div style="font-size: 1.1em; font-weight: bold;">🎯 약점이 있는가?</div>
+                </div>
+
+                <!-- 3단계: 결과 -->
+                <div style="display: flex; flex-direction: column; gap: 0.5em;">
+                    <!-- 약점 있음 -->
+                    <div class="fragment" data-fragment-index="3" style="
+                        background: rgba(46, 204, 113, 0.2);
+                        border: 2px solid #2ecc71;
+                        border-radius: 8px;
+                        padding: 1em;
+                        text-align: center;
+                    ">
+                        <div style="font-size: 0.9em; color: #2ecc71;">✓ 약점 있음</div>
+                        <div style="font-size: 1.1em; font-weight: bold;">
+                            → Exploit 전략
+                        </div>
+                        <div style="font-size: 0.8em; color: #95a5a6;">수익 극대화</div>
+                    </div>
+
+                    <!-- 약점 없음 (강함) -->
+                    <div class="fragment" data-fragment-index="4" style="
+                        background: rgba(52, 152, 219, 0.15);
+                        border: 2px solid #3498db;
+                        border-radius: 8px;
+                        padding: 1em;
+                        text-align: center;
+                    ">
+                        <div style="font-size: 0.9em; color: #e74c3c;">✗ 약점 없음</div>
+                        <div style="font-size: 1.1em; font-weight: bold;">
+                            → GTO 전략
+                        </div>
+                        <div style="font-size: 0.8em; color: #95a5a6;">손실 최소화</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 핵심 요약 -->
+        <div class="fragment" data-fragment-index="5" style="
+            background: linear-gradient(135deg, rgba(52, 152, 219, 0.1), rgba(46, 204, 113, 0.1));
+            border: 2px solid rgba(46, 204, 113, 0.5);
+            border-radius: 12px;
+            padding: 1.5em;
+            margin-top: 2em;
+            text-align: center;
+        ">
+            <div style="font-size: 1.2em; font-weight: bold; margin-bottom: 0.5em;">
+                💡 프로의 접근법
+            </div>
+            <p style="font-size: 1.1em;">
+                GTO로 시작 → 약점 발견 시 Exploit → 강한 상대면 다시 GTO
+            </p>
+            <p style="font-size: 0.9em; color: #95a5a6; margin-top: 0.5em;">
+                유연한 전환이 핵심
+            </p>
+        </div>
     </div>
-    <div class="fragment" style="margin-top: 3em;">
+
+    <!-- 홀덤의 특별함 -->
+    <div class="fragment" data-fragment-index="6" style="margin-top: 3em;">
         <blockquote>
             홀덤의 특별함:<br>
             불완전정보 게임이지만<br>
             수학적 최적해가 존재한다
         </blockquote>
     </div>
+
     <aside class="notes">
-        언제 어떤 전략을 쓸까요?
+        언제 어떤 전략을 쓸까요? 의사결정 플로우를 따라가봅시다.
+        먼저, 상대에 대해 정보가 있는지 판단합니다.
         모르는 상대에게는 GTO로 시작합니다. 안전하니까요.
+        아는 상대라면, 약점이 있는지 판단합니다.
         약점을 발견하면 Exploit로 전환해서 더 많이 벌어봅니다.
-        강한 상대에게는 다시 GTO로 돌아갑니다.
+        약점이 없는 강한 상대에게는 GTO로 돌아갑니다.
+        프로들은 이렇게 상황에 따라 유연하게 전략을 전환합니다.
         홀덤의 특별한 점은, 포커처럼 불완전정보 게임인데도
         체스처럼 수학적 최적해가 존재한다는 것입니다.
     </aside>
@@ -304,20 +791,83 @@
 
 <section>
     <h3>Range Analysis (범위 분석)</h3>
-    <p class="fragment">상대의 한 장 카드가 아닌</p>
-    <p class="fragment emphasize">가능한 모든 핸드의 분포</p>
-    <div class="fragment" style="margin-top: 2em;">
-        <p>상대가 레이즈했다</p>
-        <p>→ AA? KK? AK? 77? A5s?</p>
-        <p>→ 각 경우의 확률 × 승률</p>
-        <p class="emphasize">→ 범위 전체와 싸운다</p>
+    <p style="margin-bottom: 2em;">상대의 한 장 카드가 아닌 <span class="emphasize">가능한 모든 핸드의 분포</span></p>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2em; max-width: 1100px; margin: 0 auto;">
+        <!-- Range Grid Visualization -->
+        <div>
+            <h4 style="margin-bottom: 1em; color: var(--accent-gold);">Opening Range 예시</h4>
+            <div style="display: grid; grid-template-columns: repeat(13, 1fr); gap: 2px; font-size: 0.5em; background: var(--bg-darker); padding: 0.5em; border-radius: 0.5em;">
+                <!-- AA-QQ: Premium -->
+                <div class="fragment range-cell premium">AA</div><div class="range-cell empty">AKs</div><div class="range-cell empty">AQs</div><div class="range-cell empty">AJs</div><div class="range-cell empty">ATs</div><div class="range-cell empty">A9s</div><div class="range-cell empty">A8s</div><div class="range-cell empty">A7s</div><div class="range-cell empty">A6s</div><div class="range-cell empty">A5s</div><div class="range-cell empty">A4s</div><div class="range-cell empty">A3s</div><div class="range-cell empty">A2s</div>
+
+                <div class="range-cell empty">AKo</div><div class="fragment range-cell premium">KK</div><div class="range-cell empty">KQs</div><div class="range-cell empty">KJs</div><div class="range-cell empty">KTs</div><div class="range-cell empty">K9s</div><div class="range-cell empty">K8s</div><div class="range-cell empty">K7s</div><div class="range-cell empty">K6s</div><div class="range-cell empty">K5s</div><div class="range-cell empty">K4s</div><div class="range-cell empty">K3s</div><div class="range-cell empty">K2s</div>
+
+                <div class="range-cell empty">AQo</div><div class="range-cell empty">KQo</div><div class="fragment range-cell premium">QQ</div><div class="range-cell empty">QJs</div><div class="range-cell empty">QTs</div><div class="range-cell empty">Q9s</div><div class="range-cell empty">Q8s</div><div class="range-cell empty">Q7s</div><div class="range-cell empty">Q6s</div><div class="range-cell empty">Q5s</div><div class="range-cell empty">Q4s</div><div class="range-cell empty">Q3s</div><div class="range-cell empty">Q2s</div>
+
+                <!-- JJ-99: Strong -->
+                <div class="fragment range-cell strong">AJo</div><div class="fragment range-cell strong">KJo</div><div class="range-cell empty">QJo</div><div class="fragment range-cell strong">JJ</div><div class="range-cell empty">JTs</div><div class="range-cell empty">J9s</div><div class="range-cell empty">J8s</div><div class="range-cell empty">J7s</div><div class="range-cell empty">J6s</div><div class="range-cell empty">J5s</div><div class="range-cell empty">J4s</div><div class="range-cell empty">J3s</div><div class="range-cell empty">J2s</div>
+
+                <div class="fragment range-cell strong">ATo</div><div class="fragment range-cell strong">KTo</div><div class="range-cell empty">QTo</div><div class="range-cell empty">JTo</div><div class="fragment range-cell strong">TT</div><div class="range-cell empty">T9s</div><div class="range-cell empty">T8s</div><div class="range-cell empty">T7s</div><div class="range-cell empty">T6s</div><div class="range-cell empty">T5s</div><div class="range-cell empty">T4s</div><div class="range-cell empty">T3s</div><div class="range-cell empty">T2s</div>
+
+                <div class="range-cell empty">A9o</div><div class="range-cell empty">K9o</div><div class="range-cell empty">Q9o</div><div class="range-cell empty">J9o</div><div class="range-cell empty">T9o</div><div class="fragment range-cell strong">99</div><div class="range-cell empty">98s</div><div class="range-cell empty">97s</div><div class="range-cell empty">96s</div><div class="range-cell empty">95s</div><div class="range-cell empty">94s</div><div class="range-cell empty">93s</div><div class="range-cell empty">92s</div>
+
+                <!-- 88-77: Medium -->
+                <div class="range-cell empty">A8o</div><div class="range-cell empty">K8o</div><div class="range-cell empty">Q8o</div><div class="range-cell empty">J8o</div><div class="range-cell empty">T8o</div><div class="range-cell empty">98o</div><div class="fragment range-cell medium">88</div><div class="range-cell empty">87s</div><div class="range-cell empty">86s</div><div class="range-cell empty">85s</div><div class="range-cell empty">84s</div><div class="range-cell empty">83s</div><div class="range-cell empty">82s</div>
+
+                <div class="range-cell empty">A7o</div><div class="range-cell empty">K7o</div><div class="range-cell empty">Q7o</div><div class="range-cell empty">J7o</div><div class="range-cell empty">T7o</div><div class="range-cell empty">97o</div><div class="range-cell empty">87o</div><div class="fragment range-cell medium">77</div><div class="range-cell empty">76s</div><div class="range-cell empty">75s</div><div class="range-cell empty">74s</div><div class="range-cell empty">73s</div><div class="range-cell empty">72s</div>
+
+                <!-- Rest -->
+                <div class="range-cell empty">A6o</div><div class="range-cell empty">K6o</div><div class="range-cell empty">Q6o</div><div class="range-cell empty">J6o</div><div class="range-cell empty">T6o</div><div class="range-cell empty">96o</div><div class="range-cell empty">86o</div><div class="range-cell empty">76o</div><div class="range-cell empty">66</div><div class="range-cell empty">65s</div><div class="range-cell empty">64s</div><div class="range-cell empty">63s</div><div class="range-cell empty">62s</div>
+
+                <div class="range-cell empty">A5o</div><div class="range-cell empty">K5o</div><div class="range-cell empty">Q5o</div><div class="range-cell empty">J5o</div><div class="range-cell empty">T5o</div><div class="range-cell empty">95o</div><div class="range-cell empty">85o</div><div class="range-cell empty">75o</div><div class="range-cell empty">65o</div><div class="range-cell empty">55</div><div class="range-cell empty">54s</div><div class="range-cell empty">53s</div><div class="range-cell empty">52s</div>
+
+                <div class="range-cell empty">A4o</div><div class="range-cell empty">K4o</div><div class="range-cell empty">Q4o</div><div class="range-cell empty">J4o</div><div class="range-cell empty">T4o</div><div class="range-cell empty">94o</div><div class="range-cell empty">84o</div><div class="range-cell empty">74o</div><div class="range-cell empty">64o</div><div class="range-cell empty">54o</div><div class="range-cell empty">44</div><div class="range-cell empty">43s</div><div class="range-cell empty">42s</div>
+
+                <div class="range-cell empty">A3o</div><div class="range-cell empty">K3o</div><div class="range-cell empty">Q3o</div><div class="range-cell empty">J3o</div><div class="range-cell empty">T3o</div><div class="range-cell empty">93o</div><div class="range-cell empty">83o</div><div class="range-cell empty">73o</div><div class="range-cell empty">63o</div><div class="range-cell empty">53o</div><div class="range-cell empty">43o</div><div class="range-cell empty">33</div><div class="range-cell empty">32s</div>
+
+                <div class="range-cell empty">A2o</div><div class="range-cell empty">K2o</div><div class="range-cell empty">Q2o</div><div class="range-cell empty">J2o</div><div class="range-cell empty">T2o</div><div class="range-cell empty">92o</div><div class="range-cell empty">82o</div><div class="range-cell empty">72o</div><div class="range-cell empty">62o</div><div class="range-cell empty">52o</div><div class="range-cell empty">42o</div><div class="range-cell empty">32o</div><div class="range-cell empty">22</div>
+            </div>
+            <div style="margin-top: 1em; font-size: 0.75em; display: flex; gap: 1em; justify-content: center;">
+                <div><span style="display: inline-block; width: 15px; height: 15px; background: #d4af37; margin-right: 5px;"></span>Premium (AA-QQ, AK)</div>
+                <div><span style="display: inline-block; width: 15px; height: 15px; background: #e67e22; margin-right: 5px;"></span>Strong (JJ-99)</div>
+                <div><span style="display: inline-block; width: 15px; height: 15px; background: #3498db; margin-right: 5px;"></span>Medium</div>
+            </div>
+        </div>
+
+        <!-- Explanation -->
+        <div style="display: flex; flex-direction: column; justify-content: center;">
+            <div class="fragment" style="background: rgba(255,255,255,0.05); padding: 1.5em; border-radius: 0.8em; margin-bottom: 1em;">
+                <p style="font-size: 0.95em; margin-bottom: 0.8em;">상대가 <span class="emphasize">UTG에서 레이즈</span> 했다면?</p>
+                <p style="font-size: 0.85em; color: rgba(255,255,255,0.8);">
+                    → 하이라이트된 핸드들 중 하나<br>
+                    → 각 핸드의 확률을 계산<br>
+                    → 내 핸드 vs 범위 전체의 승률<br>
+                </p>
+            </div>
+
+            <div class="fragment emphasize" style="background: rgba(212,175,55,0.1); border: 1px solid var(--accent-gold); padding: 1.5em; border-radius: 0.8em;">
+                <p style="font-size: 1em; margin-bottom: 0.5em;">🎯 핵심</p>
+                <p style="font-size: 0.9em;">
+                    특정 카드와 싸우는 게 아니라<br>
+                    <span style="font-size: 1.1em;">범위 전체와 싸운다</span>
+                </p>
+            </div>
+
+            <p class="fragment" style="margin-top: 1.5em; font-size: 0.8em; color: rgba(255,255,255,0.6);">
+                포지션, 스택 크기, 상대의 성향에 따라<br>
+                범위는 계속 달라집니다
+            </p>
+        </div>
     </div>
+
     <aside class="notes">
         Range Analysis는 상대의 핸드를 범위로 봅니다.
-        상대가 레이즈를 했다고 해서, AA일 수도 있고, AK일 수도 있고, 77일 수도 있습니다.
-        프로들은 상대의 가능한 모든 핸드 조합을 생각하고,
-        각 경우의 확률을 곱해서 계산합니다.
+        왼쪽 그리드는 가능한 모든 169가지 핸드 조합을 보여줍니다.
+        상대가 UTG(첫 포지션)에서 레이즈를 했다면, 하이라이트된 핸드들 중 하나일 확률이 높습니다.
+        프로들은 상대의 가능한 모든 핸드 조합을 생각하고, 각 경우의 확률을 곱해서 계산합니다.
         특정 한 장 카드와 싸우는 게 아니라, 범위 전체와 싸우는 겁니다.
+        이것이 홀덤을 어렵고도 재미있게 만드는 핵심 개념입니다.
     </aside>
 </section>
 
