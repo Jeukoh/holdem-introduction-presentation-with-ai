@@ -327,7 +327,7 @@
   position: relative;
   width: 800px;
   height: 500px;
-  margin: 2em auto;
+  margin: 1em auto;  /* Reduced from 2em to prevent vertical overflow */
   background: radial-gradient(ellipse at center, var(--table-green) 0%, var(--table-green-dark) 100%);
   border: 15px solid var(--table-border);
   border-radius: 50%;
@@ -519,7 +519,7 @@
   grid-template-columns: repeat(13, 1fr);
   gap: 0.3em;
   max-width: 1200px;
-  margin: 2em auto;
+  margin: 1em auto;  /* Reduced from 2em to prevent vertical overflow */
 }
 
 .cards-grid .card {
@@ -641,7 +641,7 @@
   grid-template-rows: repeat(4, 1fr);
   gap: 0.5em; /* Increased from 0.3em to prevent overlap with scale(1.08) */
   max-width: 1400px;
-  margin: 2em auto;
+  margin: 1em auto;  /* Reduced from 2em to prevent vertical overflow */
   padding: 1em;
   background: var(--bg-dark-alpha);
   border-radius: 1em;
