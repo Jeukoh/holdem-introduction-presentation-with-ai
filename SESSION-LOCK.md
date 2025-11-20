@@ -124,11 +124,11 @@ Session 1과 병렬 작업을 위해 파일 분리 구조 채택:
 
 ### Session 5: Design Feedback
 
-**Status**: ✅ Completed
+**Status**: ✅ Completed (Extended)
 **Identity**: "나는 Session 5입니다. 디자인 개선 피드백을 생성합니다."
 
 **Locked Resources**:
-- 📄 `DESIGN-FEEDBACK.md` (newly created)
+- 📄 `DESIGN-FEEDBACK.md` (created & updated)
 
 **Completed Tasks**:
 - [x] 현재 디자인 상태 종합 분석 (CSS, HTML, 시각적 일관성)
@@ -137,21 +137,37 @@ Session 1과 병렬 작업을 위해 파일 분리 구조 채택:
 - [x] 인터랙티브 요소 및 애니메이션 개선 제안
 - [x] 접근성 및 사용자 경험 개선 제안
 - [x] 디자인 개선 피드백 문서 작성 (DESIGN-FEEDBACK.md)
+- [x] **UI/UX 레이아웃 버그 분석** (실제 겹침/깨짐 문제)
+  - [x] 포커 테이블 플레이어 위치 충돌 분석
+  - [x] 카드 그리드 겹침 문제 분석
+  - [x] z-index 충돌 문제 식별
+  - [x] 프래그먼트 애니메이션 점프 분석
+  - [x] 반응형 부재로 인한 모바일 깨짐 분석
+  - [x] 22개 구체적 레이아웃 버그 문서화 (라인 번호 포함)
 
 **Key Findings**:
+
+*디자인 시스템*:
 - ✅ 색상 시스템 잘 구축됨 (CSS 변수 활용)
 - ⚠️ 일부 하드코딩된 색상 존재 (CSS 변수로 통일 필요)
 - ⚠️ 반응형 디자인 미흡 (모바일 대응 필요)
 - ⚠️ 접근성 개선 필요 (focus styles, ARIA 속성, 색맹 사용자 고려)
 - ⚠️ 간격 시스템 비일관성 (spacing scale 필요)
 
+*UI/UX 레이아웃 버그* (10개 카테고리, 22개 이슈):
+- 🔴 Critical (5개): 포커 테이블 위치 충돌, 카드 겹침, 팟 표시 겹침, z-index 충돌, 모바일 반응형 부재
+- 🟡 Medium (4개): 프래그먼트 점프, 고정 픽셀 크기, 포뮬라 빌더 간격, CSS 중복
+- 🟢 Low (13개): 마이너 간격/오버플로우 이슈
+
 **Available for**:
 - 디자인 개선사항 실제 구현 (CSS 리팩토링)
+- **레이아웃 버그 수정** (Critical 우선)
 - 반응형 디자인 적용
 - 접근성 개선 작업
 
 **Started**: 2025-11-21 00:45
-**Completed**: 2025-11-21 01:00
+**Initial Completion**: 2025-11-21 01:00
+**Extended Work**: 2025-11-21 01:15
 **Last commit**: (pending - no code changes, documentation only)
 
 ---
