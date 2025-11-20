@@ -4,8 +4,8 @@
 > **업데이트**: 각 세션은 작업 시작/완료 시 이 파일을 업데이트합니다.
 > **규칙**: 작업 방법은 [SESSION-RULES.md](./SESSION-RULES.md) 참조
 
-**Last updated**: 2025-11-21 01:00
-**Active sessions**: 1 working, 1 completed, 1 idle, 1 completed (design)
+**Last updated**: 2025-11-21 05:00
+**Active sessions**: All completed (Session 1, 2, 3, 5)
 
 ---
 
@@ -47,7 +47,7 @@
 
 ### Session 2: Methodology & Review
 
-**Status**: ✅ Idle (completed feedback)
+**Status**: ✅ Completed (Refactoring)
 **Identity**: "나는 Session 2입니다. 방법론 문서화와 리뷰를 담당합니다."
 
 **Locked Resources**: None
@@ -58,13 +58,16 @@
 - [x] Create `ACT2-FEEDBACK-AND-GUIDE.md`
 - [x] Create `SESSION-LOCK.md`
 - [x] Update CLAUDE.md
+- [x] **SESSION-LOCK.md 리팩토링** (2025-11-21 추가)
+  - [x] SESSION-RULES.md 생성 (~150 lines, 읽기 전용)
+  - [x] SESSION-STATE.md 생성 (~200 lines, 자주 업데이트)
+  - [x] SESSION-LOCK.md → redirect 문서로 변경
+  - [x] 상호 참조 업데이트 (CLAUDE.md, sections/act2.html)
+  - [x] ACT2-FEEDBACK-AND-GUIDE.md → development-log/act2-improvement-history.md 변환
+  - [x] Development Log Pattern 11 추가 (책임 분리)
 
-**Available for**:
-- Act 4/5 content review
-- Design feedback
-- Development log updates
-
-**Last commit**: `[Session2] Docs: Create session management system`
+**Completed**: 2025-11-21 (Refactoring phase)
+**Last commit**: Included in `[Session5]` commit (a44a3e9)
 
 ---
 
@@ -73,14 +76,7 @@
 **Status**: ✅ Completed
 **Identity**: "나는 Session 3입니다. Act 3-5 작성과 새 파일 구조를 담당합니다."
 
-**Locked Resources**:
-- 📄 `sections/` (entire directory - created)
-- 📄 `sections/act1.html` (extracted from index.html)
-- 📄 `sections/act2.html` (extracted from index.html, lines 83-716)
-- 📄 `sections/act3.html` (newly created)
-- 📄 `sections/act4.html` (newly created)
-- 📄 `sections/act5.html` (newly created)
-- 📄 `index.tobe.html` (newly created - dynamic loading structure)
+**Locked Resources**: None (released)
 
 **Completed Tasks**:
 - [x] Create sections/ folder structure
@@ -246,4 +242,4 @@ Session 1과 병렬 작업을 위해 파일 분리 구조 채택:
 
 **Note**: 작업 방법은 SESSION-RULES.md를 참조하세요. 이 파일은 상태 정보만 관리합니다.
 
-**Last updated**: 2025-11-21 01:30
+**Last updated**: 2025-11-21 05:00
