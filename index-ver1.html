@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Texas Hold'em 소개 - 불확실성 속 합리적 의사결정</title>
+
+    <!-- Reveal.js CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/theme/black.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/custom.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- ============================================
+                 ACT 1: 시작 - 답하지 않을 질문들
+                 ============================================ -->
+
+            <!-- Title Slide -->
+            <section data-background-gradient="linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)" class="title-slide">
+                <h1>Texas Hold'em</h1>
+                <h3>불확실성 속 합리적 의사결정 훈련 도구</h3>
+                <p style="margin-top: 2em;">
+                    <small>Jeuk Oh @ Letsur</small>
+                </p>
+            </section>
+
+            <!-- Opening -->
+            <section>
+                <h2>오늘은 좀 특별한 주제로...</h2>
+                <p class="fragment">바로... <span class="emphasize">Texas Hold'em</span>입니다.</p>
+            </section>
+
+            <!-- Video 1 -->
+            <section>
+                <h3>짧은 영상 두 개를 보여드리겠습니다</h3>
+                <div class="video-container">
+                    <div class="video-placeholder">
+                        <p><strong>📹 영상 1: 19억짜리 콜</strong></p>
+                        <p><small>images/video-19billion-call.jpg</small></p>
+                        <p><a href="https://www.youtube.com/shorts/4oPDbGzAnwM" target="_blank">YouTube 링크</a></p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Video 2 -->
+            <section>
+                <div class="video-container">
+                    <div class="video-placeholder">
+                        <p><strong>📹 영상 2: A 하이로 히어로콜</strong></p>
+                        <p><small>images/video-hero-call.jpg</small></p>
+                        <p><a href="https://www.youtube.com/shorts/2fYtfQR8UN0" target="_blank">YouTube 링크</a></p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Hook -->
+            <section>
+                <h2>이게 홀덤입니다.</h2>
+                <p class="fragment">짜릿하죠?</p>
+                <p class="fragment" style="margin-top: 1.5em;">솔직히 말씀드리면, 이 발표의 목적은 간단합니다.</p>
+                <p class="fragment emphasize">같이 홀덤 즐길 동료를 찾고 싶어서 이 자리에 섰습니다.</p>
+            </section>
+
+            <!-- Questions Intro -->
+            <section>
+                <h2>하지만 알고 있습니다</h2>
+                <p>여러분 머릿속에 이미 많은 생각들이 스쳐 지나가고 있다는 걸.</p>
+                <p class="fragment" style="margin-top: 1.5em;">그래서 본격적으로 시작하기 전에, 몇 가지 질문을 던지고 싶습니다.</p>
+                <p class="fragment highlight-red"><strong>답은 하지 않을 겁니다.</strong></p>
+                <p class="fragment">그냥... 생각해보세요.</p>
+            </section>
+
+            <!-- Question 1 -->
+            <section class="question-slide">
+                <h2>"홀덤은 바카라, 섯다 같은<br>도박 아닌가요?"</h2>
+            </section>
+
+            <!-- Question 2 -->
+            <section class="question-slide">
+                <h2>"돈 걸고 확률에 맡기는 게임은<br>다 위험하지 않나요?"</h2>
+            </section>
+
+            <!-- Question 3 -->
+            <section class="question-slide">
+                <h2>"홀덤 프로선수는<br>도박중독자 아닌가요?"</h2>
+            </section>
+
+            <!-- Transition -->
+            <section>
+                <p>이 질문들에 대한 답은...</p>
+                <p class="fragment">나중에 여러분이 직접 찾으시길 바랍니다.</p>
+                <p class="fragment" style="margin-top: 2em;">지금부터는, <span class="emphasize">홀덤이 정확히 무엇인지</span>부터 시작하겠습니다.</p>
+            </section>
+
+            <!-- ============================================
+                 ACT 2: 이해 - 게임의 작동 원리
+                 ============================================ -->
+
+            <!-- Section Title -->
+            <section class="section-title">
+                <h1>Act 2</h1>
+                <h2>이해: 게임의 작동 원리</h2>
+            </section>
+
+            <!-- Basic Structure -->
+            <section>
+                <h2>홀덤의 기본 구조</h2>
+                <div class="two-column">
+                    <div>
+                        <h4>홀 카드</h4>
+                        <p>각 플레이어 2장<br>(개인)</p>
+                    </div>
+                    <div>
+                        <h4>커뮤니티 카드</h4>
+                        <p>테이블 중앙 5장<br>(공용)</p>
+                    </div>
+                </div>
+                <p class="fragment" style="margin-top: 1.5em;"><strong>목표:</strong> 총 7장 중 최고의 5장 조합 만들기</p>
+            </section>
+
+            <!-- Game Flow -->
+            <section>
+                <h2>게임 흐름 (4단계)</h2>
+                <ol>
+                    <li class="fragment"><strong>프리플랍</strong> - 홀 카드 받고 첫 베팅</li>
+                    <li class="fragment"><strong>플랍</strong> - 공용 카드 3장 공개, 베팅</li>
+                    <li class="fragment"><strong>턴</strong> - 공용 카드 1장 추가, 베팅</li>
+                    <li class="fragment"><strong>리버</strong> - 마지막 공용 카드, 최종 베팅</li>
+                    <li class="fragment"><strong>쇼다운</strong> - 카드 공개, 승자 결정</li>
+                </ol>
+            </section>
+
+            <!-- Player Actions -->
+            <section>
+                <h2>가능한 선택 (액션)</h2>
+                <div class="fragment">
+                    <div class="action">폴드 (Fold)</div>
+                    <p>포기하고 판에서 빠짐</p>
+                </div>
+                <div class="fragment">
+                    <div class="action">콜 (Call)</div>
+                    <p>상대가 건 금액에 맞춤</p>
+                </div>
+                <div class="fragment">
+                    <div class="action">레이즈 (Raise)</div>
+                    <p>상대보다 더 많이 걸어 압박</p>
+                </div>
+            </section>
+
+            <!-- Key Difference -->
+            <section>
+                <h2>핵심 차이점</h2>
+                <p class="emphasize" style="font-size: 1.5em;">홀덤은 플레이어끼리 경쟁합니다</p>
+                <p class="fragment">바카라나 룰렛처럼 "하우스"와 싸우는 게 아닙니다.</p>
+                <p class="fragment">카지노는 그냥 테이블을 빌려주고 수수료(레이크)만 받아갑니다.</p>
+                <p class="fragment highlight-red" style="margin-top: 1.5em;"><strong>이것이 바카라, 룰렛과의 근본적인 차이입니다.</strong></p>
+            </section>
+
+            <!-- Hand Rankings Intro -->
+            <section>
+                <h2>어떤 패가 강한가? (족보)</h2>
+                <p>총 10단계, 강한 순서대로</p>
+            </section>
+
+            <!-- Hand Rankings Top 5 -->
+            <section>
+                <h3>족보 1-5위 (좋은 패)</h3>
+                <ol>
+                    <li><strong>로열 플러시</strong> - 같은 무늬 10-J-Q-K-A</li>
+                    <li><strong>스트레이트 플러시</strong> - 같은 무늬 연속 5장</li>
+                    <li><strong>포 카드</strong> - 같은 숫자 4장</li>
+                    <li><strong>풀 하우스</strong> - 트리플 + 원페어</li>
+                    <li><strong>플러시</strong> - 같은 무늬 5장</li>
+                </ol>
+            </section>
+
+            <!-- Hand Rankings Bottom 5 -->
+            <section>
+                <h3>족보 6-10위 (일반적 패)</h3>
+                <ol start="6">
+                    <li><strong>스트레이트</strong> - 연속된 숫자 5장</li>
+                    <li><strong>트리플</strong> - 같은 숫자 3장</li>
+                    <li><strong>투 페어</strong> - 페어 2개</li>
+                    <li><strong>원 페어</strong> - 같은 숫자 2장</li>
+                    <li><strong>하이 카드</strong> - 아무것도 없을 때</li>
+                </ol>
+            </section>
+
+            <!-- Hand Frequency -->
+            <section>
+                <h3>실전 빈도</h3>
+                <p>위 5개 (로열~플러시) = "좋은 패", 나오면 기쁨</p>
+                <p class="fragment emphasize">대부분의 판은 원페어나 투페어로 결판!</p>
+                <p class="fragment">스트레이트도 자주 안 나옴</p>
+                <p class="fragment">플러시는 더더욱 안 나옴</p>
+                <p class="fragment" style="margin-top: 1.5em;">"누가 더 큰 페어를 가졌냐"를 싸우는 게임</p>
+            </section>
+
+            <!-- Simulation Intro -->
+            <section>
+                <h2>실제 게임 시뮬레이션</h2>
+                <p>한 판을 처음부터 끝까지 따라가보겠습니다</p>
+                <p class="fragment">여러분이 플레이어라고 상상해보세요</p>
+                <p class="fragment">각 단계마다 여러분 vs 프로의 생각을 비교</p>
+            </section>
+
+            <!-- Scenario Setup -->
+            <section>
+                <h3>시나리오 설정</h3>
+                <ul>
+                    <li>테이블 3명 (당신, 플레이어 A, B)</li>
+                    <li>스몰 블라인드 $5, 빅 블라인드 $10</li>
+                    <li>당신의 스택: $500</li>
+                </ul>
+                <p class="fragment" style="margin-top: 1.5em;">게임 시작!</p>
+            </section>
+
+            <!-- Preflop: Hole Cards -->
+            <section>
+                <h3>프리플랍 - 홀 카드 공개</h3>
+                <p>딜러가 카드를 나눠줍니다</p>
+                <div style="margin-top: 1.5em;">
+                    <span class="card">A<span class="spade">♠</span></span>
+                    <span class="card">K<span class="spade">♠</span></span>
+                </div>
+                <p class="fragment" style="margin-top: 1.5em;">A와 K, 그것도 같은 무늬!</p>
+                <p class="fragment">여러분이라면 어떻게 하시겠어요?</p>
+                <p class="fragment">폴드? 콜? 레이즈?</p>
+            </section>
+
+            <!-- Preflop: Intuition -->
+            <section>
+                <h3>프리플랍 - 직관</h3>
+                <p>A-K는 시작 핸드로 매우 강합니다</p>
+                <p class="fragment">같은 무늬면 플러시 가능성도 있죠</p>
+                <p class="fragment emphasize">레이즈가 맞을 것 같지 않나요?</p>
+                <p class="fragment">맞습니다!</p>
+            </section>
+
+            <!-- Preflop: Action -->
+            <section>
+                <h3>프리플랍 - 액션</h3>
+                <p><strong>당신의 액션:</strong> $30으로 레이즈</p>
+                <div class="fragment">
+                    <p><strong>결과:</strong></p>
+                    <ul>
+                        <li>플레이어 A: 폴드</li>
+                        <li>플레이어 B: 콜</li>
+                    </ul>
+                </div>
+                <div class="fragment pot">현재 팟: $65</div>
+                <p class="fragment">2명 남음. 플랍으로!</p>
+            </section>
+
+            <!-- Flop: Cards -->
+            <section>
+                <h3>플랍 - 커뮤니티 카드 3장 공개</h3>
+                <div style="margin-top: 1.5em;">
+                    <span class="card">Q<span class="spade">♠</span></span>
+                    <span class="card">J<span class="spade">♠</span></span>
+                    <span class="card">3<span class="club">♣</span></span>
+                </div>
+                <div class="fragment" style="margin-top: 1.5em;">
+                    <p><strong>당신이 보고 있는 카드:</strong></p>
+                    <p>홀: <span class="card">A<span class="spade">♠</span></span> <span class="card">K<span class="spade">♠</span></span></p>
+                    <p>보드: <span class="card">Q<span class="spade">♠</span></span> <span class="card">J<span class="spade">♠</span></span> <span class="card">3<span class="club">♣</span></span></p>
+                </div>
+            </section>
+
+            <!-- Flop: Question -->
+            <section>
+                <h3>플랍 - 여러분이라면?</h3>
+                <p>플레이어 B가 $40 베팅했습니다</p>
+                <p class="fragment" style="margin-top: 1.5em;">여러분이라면?</p>
+                <ul class="fragment">
+                    <li>폴드? (포기)</li>
+                    <li>콜? ($40 따라가기)</li>
+                    <li>레이즈? (더 올리기)</li>
+                </ul>
+            </section>
+
+            <!-- Flop: Intuition -->
+            <section>
+                <h3>플랍 - 직관</h3>
+                <p>지금 내가 가진 건?</p>
+                <ul class="fragment">
+                    <li>원페어도 없습니다</li>
+                    <li>그냥 A 하이카드</li>
+                </ul>
+                <p class="fragment" style="margin-top: 1em;">상대가 Q나 J를 가졌으면?</p>
+                <p class="fragment">이미 지고 있습니다</p>
+                <p class="fragment highlight-red" style="margin-top: 1.5em;">폴드해야 할까요?</p>
+            </section>
+
+            <!-- Flop: Pro Analysis - Outs -->
+            <section>
+                <h3>프로의 분석 - 아웃츠</h3>
+                <p><strong>플러시 드로우:</strong></p>
+                <ul>
+                    <li>스페이드 2장 더 나오면 플러시</li>
+                    <li>남은 스페이드: 13 - 4 = <span class="emphasize">9장</span></li>
+                </ul>
+                <p class="fragment" style="margin-top: 1em;"><strong>스트레이트 드로우:</strong></p>
+                <ul class="fragment">
+                    <li>10이 나오면 A-K-Q-J-10</li>
+                    <li>남은 10: <span class="emphasize">4장</span></li>
+                </ul>
+                <p class="fragment" style="margin-top: 1.5em;" class="emphasize">총 아웃츠: 약 12개</p>
+            </section>
+
+            <!-- Flop: Pro Analysis - Win Rate -->
+            <section>
+                <h3>프로의 분석 - 승률</h3>
+                <div class="calculation">
+                    <p><strong>Rule of 4:</strong></p>
+                    <p>플랍에서 리버까지 카드 2장 더 나옴</p>
+                    <p style="margin-top: 1em;">아웃츠 × 4 = 대략 승률</p>
+                    <p class="emphasize" style="font-size: 1.3em;">12 × 4 = 약 48% 승률</p>
+                </div>
+            </section>
+
+            <!-- Flop: Pro Analysis - Pot Odds -->
+            <section>
+                <h3>프로의 분석 - 팟 오즈</h3>
+                <div class="calculation">
+                    <p><strong>현재 상황:</strong></p>
+                    <ul>
+                        <li>팟: $65</li>
+                        <li>플레이어 B 베팅: $40</li>
+                        <li>내가 콜해야 할 금액: $40</li>
+                    </ul>
+                    <p style="margin-top: 1em;">팟 오즈:</p>
+                    <p>$40 / ($65 + $40 + $40) = <span class="emphasize">27.6%</span></p>
+                </div>
+            </section>
+
+            <!-- Flop: Decision -->
+            <section>
+                <h3>플랍 - 의사결정</h3>
+                <div class="comparison">
+                    <p>내 승률: <span class="emphasize">48%</span></p>
+                    <p>필요 승률: <span class="emphasize">27.6%</span></p>
+                    <p style="margin-top: 1em;">48% > 27.6%</p>
+                </div>
+                <p class="fragment highlight-red" style="font-size: 1.5em; margin-top: 1em;">→ 수학적으로 콜이 명백한 정답!</p>
+            </section>
+
+            <!-- Flop: Key Insight -->
+            <section>
+                <h3>플랍 - 핵심</h3>
+                <div class="two-column">
+                    <div>
+                        <h4>직관</h4>
+                        <p>"원페어도 없는데? 약한데?"</p>
+                    </div>
+                    <div>
+                        <h4>수학</h4>
+                        <p>"48% 승률, 필요 27.6%<br>콜이 정답"</p>
+                    </div>
+                </div>
+                <p class="fragment emphasize" style="margin-top: 1.5em; font-size: 1.3em;">직관적으로는 약해 보이지만,<br>수학적으로 계산하면 콜이 명백합니다!</p>
+            </section>
+
+            <!-- Flop: Action Result -->
+            <section>
+                <h3>플랍 - 액션</h3>
+                <p><strong>당신의 액션:</strong> 콜 ($40)</p>
+                <div class="pot fragment">현재 팟: $145</div>
+            </section>
+
+            <!-- Turn: Card -->
+            <section>
+                <h3>턴 - 4번째 카드 공개</h3>
+                <p><strong>턴 카드:</strong> <span class="card">2<span class="spade">♠</span></span></p>
+                <div style="margin-top: 1.5em;">
+                    <p><strong>현재 보드:</strong></p>
+                    <span class="card">Q<span class="spade">♠</span></span>
+                    <span class="card">J<span class="spade">♠</span></span>
+                    <span class="card">3<span class="club">♣</span></span>
+                    <span class="card">2<span class="spade">♠</span></span>
+                </div>
+                <p class="fragment emphasize" style="margin-top: 1.5em; font-size: 1.5em;">스페이드가 4장이 되었습니다!</p>
+            </section>
+
+            <!-- Turn: Flush Completed -->
+            <section>
+                <h3>턴 - 플러시 완성!</h3>
+                <p>당신의 패:</p>
+                <p><span class="card">A<span class="spade">♠</span></span> <span class="card">K<span class="spade">♠</span></span> +
+                   <span class="card">Q<span class="spade">♠</span></span> <span class="card">J<span class="spade">♠</span></span>
+                   <span class="card">3<span class="club">♣</span></span> <span class="card">2<span class="spade">♠</span></span></p>
+                <p class="fragment highlight-red" style="font-size: 1.5em; margin-top: 1em;">플러시 완성!</p>
+            </section>
+
+            <!-- Turn: Question -->
+            <section>
+                <h3>턴 - 여러분이라면?</h3>
+                <p>플레이어 B가 체크했습니다 (패스)</p>
+                <p class="fragment" style="margin-top: 1.5em;">여러분이라면?</p>
+                <ul class="fragment">
+                    <li>체크? (나도 패스)</li>
+                    <li>베팅? (얼마나?)</li>
+                </ul>
+            </section>
+
+            <!-- Turn: Action -->
+            <section>
+                <h3>턴 - 프로의 생각</h3>
+                <ul>
+                    <li>상대가 체크 = 약한 핸드일 가능성</li>
+                    <li>하지만 Q나 J 페어는 가질 수 있음</li>
+                    <li>너무 크게 베팅하면 폴드</li>
+                    <li class="emphasize">밸류 추출: 적당한 사이즈</li>
+                </ul>
+                <p class="fragment" style="margin-top: 1.5em;"><strong>당신의 액션:</strong> $70 베팅 (팟의 약 48%)</p>
+                <p class="fragment"><strong>결과:</strong> 플레이어 B 콜</p>
+                <div class="pot fragment">현재 팟: $285</div>
+            </section>
+
+            <!-- River: Card -->
+            <section>
+                <h3>리버 - 마지막 카드 공개</h3>
+                <p><strong>리버 카드:</strong> <span class="card">9<span class="heart">♥</span></span></p>
+                <div style="margin-top: 1.5em;">
+                    <p><strong>최종 보드:</strong></p>
+                    <span class="card">Q<span class="spade">♠</span></span>
+                    <span class="card">J<span class="spade">♠</span></span>
+                    <span class="card">3<span class="club">♣</span></span>
+                    <span class="card">2<span class="spade">♠</span></span>
+                    <span class="card">9<span class="heart">♥</span></span>
+                </div>
+                <p class="fragment highlight-red" style="margin-top: 1.5em; font-size: 1.3em;">플레이어 B가... 올인!<br>$360을 걸었습니다</p>
+            </section>
+
+            <!-- River: Question -->
+            <section>
+                <h3>리버 - 여러분이라면?</h3>
+                <p>여러분이라면?</p>
+                <ul class="fragment">
+                    <li>콜? ($360 따라가기)</li>
+                    <li>폴드? (포기하기)</li>
+                </ul>
+            </section>
+
+            <!-- River: Intuition -->
+            <section>
+                <h3>리버 - 직관</h3>
+                <p>나는 A 하이 플러시입니다</p>
+                <p class="fragment">상대가 더 높은 플러시를 가졌을까요?</p>
+                <p class="fragment">K<span class="spade">♠</span> 이상의 플러시?</p>
+                <p class="fragment">겁나지만... 가능성은 낮을 것 같습니다</p>
+            </section>
+
+            <!-- River: Pro Analysis - Range -->
+            <section>
+                <h3>리버 - 프로의 분석: Range</h3>
+                <p><strong>프리플랍을 돌이켜보면:</strong></p>
+                <ul>
+                    <li>상대는 콜만 했음 (레이즈 안 함)</li>
+                    <li>K♠ 있었으면 더 공격적이었을 것</li>
+                </ul>
+                <p class="fragment" style="margin-top: 1em;"><strong>상대의 예상 레인지:</strong></p>
+                <ul class="fragment">
+                    <li>60% Q 페어 또는 J 페어</li>
+                    <li>30% 낮은 플러시 (10 이하)</li>
+                    <li>10% 블러프</li>
+                </ul>
+            </section>
+
+            <!-- River: Pot Odds -->
+            <section>
+                <h3>리버 - 팟 오즈</h3>
+                <div class="calculation">
+                    <p>콜: $360</p>
+                    <p>팟: $285 + $360 = $645</p>
+                    <p>필요 승률: $360 / $645 = <span class="emphasize">56%</span></p>
+                    <p style="margin-top: 1em;">예상 승률 (Range 분석): 약 <span class="emphasize">70-80%</span></p>
+                    <p style="margin-top: 1em;">70% > 56%</p>
+                </div>
+                <p class="fragment highlight-red" style="font-size: 1.5em;">→ 콜!</p>
+            </section>
+
+            <!-- River: Showdown -->
+            <section>
+                <h3>쇼다운</h3>
+                <p><strong>당신의 액션:</strong> 콜 ($360)</p>
+                <p class="fragment" style="margin-top: 1.5em;">카드 공개!</p>
+                <div class="fragment" style="margin-top: 1em;">
+                    <p><strong>당신:</strong> <span class="card">A<span class="spade">♠</span></span> <span class="card">K<span class="spade">♠</span></span> (A 하이 플러시)</p>
+                    <p><strong>플레이어 B:</strong> <span class="card">Q<span class="diamond">♦</span></span> <span class="card">J<span class="diamond">♦</span></span> (투 페어)</p>
+                </div>
+                <p class="fragment emphasize" style="font-size: 2em; margin-top: 1em;">승리!</p>
+                <div class="pot fragment">최종 팟: $1,005 획득!</div>
+            </section>
+
+            <!-- Simulation Key Takeaways -->
+            <section>
+                <h3>이 시나리오에서 배운 것</h3>
+                <div>
+                    <h4>1. 게임 진행 과정 경험</h4>
+                    <p>프리플랍 → 플랍 → 턴 → 리버<br>각 단계마다 새로운 정보와 의사결정</p>
+                </div>
+                <div class="fragment" style="margin-top: 1.5em;">
+                    <h4>2. 직관 → 수학적 모델링</h4>
+                    <ul>
+                        <li><strong>플랍:</strong> "원페어도 없는데?" → 아웃츠 계산 48% 승률</li>
+                        <li><strong>턴:</strong> "플러시 완성!" → 밸류 추출</li>
+                        <li><strong>리버:</strong> "상대 올인..." → Range 분석 + 팟 오즈</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Core Message -->
+            <section>
+                <blockquote>
+                    여러분이 직관적으로 판단하던 것들,<br>
+                    실제로는 수학적으로 모델링할 수 있습니다.<br><br>
+                    그리고 그 수학적 모델이<br>
+                    여러분의 직관을 <strong>검증</strong>하고 <strong>개선</strong>합니다.
+                </blockquote>
+            </section>
+
+            <!-- But This Is Just The Start -->
+            <section>
+                <h3>하지만 이것은 시작일 뿐</h3>
+                <p>실제로는 훨씬 더 복잡합니다</p>
+                <ul class="fragment">
+                    <li><strong>Implied Odds:</strong> 상대 칩 스택의 미래 가치</li>
+                    <li><strong>ICM:</strong> 토너먼트에서 칩의 가치 ≠ 돈의 가치</li>
+                    <li><strong>Range Analysis:</strong> 상대의 가능한 모든 핸드 분포</li>
+                </ul>
+                <p class="fragment" style="margin-top: 1.5em;">이런 <span class="emphasize">메타데이터</span>까지 고려하는 것이 3부의 내용입니다</p>
+            </section>
+
+            <!-- Placeholder for Act 3-5 -->
+            <section class="section-title">
+                <h1>Act 3-5</h1>
+                <h2>다음 단계에서 추가 예정</h2>
+                <p><small>계속 작성 중...</small></p>
+            </section>
+
+        </div>
+    </div>
+
+    <!-- Reveal.js Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            slideNumber: 'c/t',
+            transition: 'slide',
+            progress: true,
+            center: true,
+            controls: true,
+            width: 1920,
+            height: 1080,
+            margin: 0.04,
+            minScale: 0.5,
+            maxScale: 1.5
+        });
+    </script>
+</body>
+</html>

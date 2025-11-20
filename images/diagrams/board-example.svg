@@ -1,0 +1,113 @@
+<svg width="1000" height="600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700&amp;display=swap');
+      .title { font-family: 'Noto Sans KR', sans-serif; font-size: 28px; font-weight: 700; fill: #ffffff; }
+      .subtitle { font-family: 'Noto Sans KR', sans-serif; font-size: 18px; font-weight: 600; fill: #cccccc; }
+      .label { font-family: 'Noto Sans KR', sans-serif; font-size: 14px; font-weight: 400; fill: #aaaaaa; }
+      .card-rank { font-family: 'Arial', sans-serif; font-size: 24px; font-weight: bold; }
+      .card-suit { font-family: 'Arial', sans-serif; font-size: 20px; }
+    </style>
+
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a2e;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#16213e;stop-opacity:1" />
+    </linearGradient>
+
+    <filter id="shadow">
+      <feDropShadow dx="2" dy="2" stdDeviation="3" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1000" height="600" fill="url(#bgGrad)"/>
+
+  <!-- Title -->
+  <text x="500" y="40" class="title" text-anchor="middle">실전 보드 예시: A♠K♠로 플레이하기</text>
+
+  <!-- Hole Cards Section -->
+  <g transform="translate(100, 80)">
+    <text x="0" y="0" class="subtitle">나의 홀 카드</text>
+
+    <g transform="translate(0, 20)">
+      <rect width="80" height="112" rx="6" fill="#ffffff" filter="url(#shadow)"/>
+      <text x="15" y="32" class="card-rank" fill="#000000">A</text>
+      <text x="15" y="56" class="card-suit" fill="#000000">♠</text>
+      <text x="40" y="90" class="card-suit" fill="#000000" font-size="40">♠</text>
+    </g>
+
+    <g transform="translate(100, 20)">
+      <rect width="80" height="112" rx="6" fill="#ffffff" filter="url(#shadow)"/>
+      <text x="15" y="32" class="card-rank" fill="#000000">K</text>
+      <text x="15" y="56" class="card-suit" fill="#000000">♠</text>
+      <text x="40" y="90" class="card-suit" fill="#000000" font-size="40">♠</text>
+    </g>
+  </g>
+
+  <!-- Community Cards Section -->
+  <g transform="translate(100, 260)">
+    <text x="0" y="0" class="subtitle">커뮤니티 카드 (플랍)</text>
+
+    <!-- Card 1 -->
+    <g transform="translate(0, 20)">
+      <rect width="80" height="112" rx="6" fill="#ffffff" filter="url(#shadow)"/>
+      <text x="15" y="32" class="card-rank" fill="#e74c3c">Q</text>
+      <text x="15" y="56" class="card-suit" fill="#e74c3c">♥</text>
+      <text x="40" y="90" class="card-suit" fill="#e74c3c" font-size="40">♥</text>
+    </g>
+
+    <!-- Card 2 -->
+    <g transform="translate(100, 20)">
+      <rect width="80" height="112" rx="6" fill="#ffffff" filter="url(#shadow)"/>
+      <text x="15" y="32" class="card-rank" fill="#000000">J</text>
+      <text x="15" y="56" class="card-suit" fill="#000000">♠</text>
+      <text x="40" y="90" class="card-suit" fill="#000000" font-size="40">♠</text>
+    </g>
+
+    <!-- Card 3 -->
+    <g transform="translate(200, 20)">
+      <rect width="80" height="112" rx="6" fill="#ffffff" filter="url(#shadow)"/>
+      <text x="15" y="32" class="card-rank" fill="#000000">10</text>
+      <text x="15" y="56" class="card-suit" fill="#000000">♠</text>
+      <text x="40" y="90" class="card-suit" fill="#000000" font-size="40">♠</text>
+    </g>
+
+    <!-- Turn -->
+    <g transform="translate(320, 20)">
+      <rect width="80" height="112" rx="6" fill="#ffffff" opacity="0.3" stroke="#ffffff" stroke-width="2" stroke-dasharray="5,5"/>
+      <text x="40" y="70" class="card-rank" fill="#aaaaaa" text-anchor="middle">턴</text>
+    </g>
+
+    <!-- River -->
+    <g transform="translate(420, 20)">
+      <rect width="80" height="112" rx="6" fill="#ffffff" opacity="0.3" stroke="#ffffff" stroke-width="2" stroke-dasharray="5,5"/>
+      <text x="40" y="70" class="card-rank" fill="#aaaaaa" text-anchor="middle">리버</text>
+    </g>
+  </g>
+
+  <!-- Analysis Section -->
+  <g transform="translate(550, 80)">
+    <rect width="400" height="480" rx="10" fill="#0f4c75" opacity="0.3"/>
+
+    <text x="200" y="35" class="subtitle" text-anchor="middle">현재 상황 분석</text>
+
+    <text x="20" y="70" class="label">✓ 현재 핸드: 로열 플러시 드로우</text>
+    <text x="20" y="100" class="label">✓ 내가 가진 것:</text>
+    <text x="40" y="125" class="label">  - A♠ K♠ (홀 카드)</text>
+    <text x="40" y="145" class="label">  - Q♥ J♠ 10♠ (플랍)</text>
+
+    <text x="20" y="180" class="label">✓ 만들 수 있는 핸드:</text>
+    <text x="40" y="205" class="label" fill="#2ecc71">  1. 로열 플러시 (A♠ K♠ Q J♠ 10♠)</text>
+    <text x="40" y="225" class="label">     → 필요: 아무 카드</text>
+    <text x="40" y="250" class="label" fill="#3498db">  2. 스트레이트 (A K Q J 10)</text>
+    <text x="40" y="270" class="label">     → 이미 완성!</text>
+
+    <text x="20" y="310" class="label">✓ 개선 가능성:</text>
+    <text x="40" y="335" class="label">  - 스페이드가 나오면 플러시</text>
+    <text x="40" y="355" class="label">  - 현재도 높은 스트레이트</text>
+
+    <text x="20" y="395" class="label" fill="#f39c12">⚠ 주의할 점:</text>
+    <text x="40" y="420" class="label">  - 상대가 풀하우스 가능성</text>
+    <text x="40" y="440" class="label">  - 팟 사이즈와 베팅 패턴 관찰</text>
+  </g>
+</svg>

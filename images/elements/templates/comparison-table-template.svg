@@ -1,0 +1,32 @@
+<svg width="500" height="300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="shadow">
+      <feDropShadow dx="1" dy="2" stdDeviation="2" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <!-- Main container -->
+  <rect width="500" height="300" rx="10" fill="#ecf0f1" filter="url(#shadow)"/>
+
+  <!-- Header row -->
+  <rect x="10" y="10" width="480" height="50" rx="5" fill="#34495e"/>
+
+  <!-- Dividing line -->
+  <line x1="250" y1="10" x2="250" y2="290" stroke="#95a5a6" stroke-width="2"/>
+
+  <!-- Left header text -->
+  <text x="130" y="43" font-family="Arial" font-size="20" font-weight="bold" fill="#ffffff" text-anchor="middle">Option A</text>
+
+  <!-- Right header text -->
+  <text x="370" y="43" font-family="Arial" font-size="20" font-weight="bold" fill="#ffffff" text-anchor="middle">Option B</text>
+
+  <!-- Content rows (empty boxes for filling) -->
+  <rect x="15" y="70" width="220" height="60" rx="5" fill="#ffffff" stroke="#bdc3c7" stroke-width="2"/>
+  <rect x="265" y="70" width="220" height="60" rx="5" fill="#ffffff" stroke="#bdc3c7" stroke-width="2"/>
+
+  <rect x="15" y="140" width="220" height="60" rx="5" fill="#ffffff" stroke="#bdc3c7" stroke-width="2"/>
+  <rect x="265" y="140" width="220" height="60" rx="5" fill="#ffffff" stroke="#bdc3c7" stroke-width="2"/>
+
+  <rect x="15" y="210" width="220" height="60" rx="5" fill="#ffffff" stroke="#bdc3c7" stroke-width="2"/>
+  <rect x="265" y="210" width="220" height="60" rx="5" fill="#ffffff" stroke="#bdc3c7" stroke-width="2"/>
+</svg>

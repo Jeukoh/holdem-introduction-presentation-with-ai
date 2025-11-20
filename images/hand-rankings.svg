@@ -1,0 +1,593 @@
+<svg width="1000" height="1100" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&amp;display=swap');
+      .title { font-family: 'Noto Sans KR', sans-serif; font-size: 36px; font-weight: 700; fill: #ffffff; }
+      .subtitle { font-family: 'Noto Sans KR', sans-serif; font-size: 18px; font-weight: 400; fill: #cccccc; }
+      .hand-text { font-family: 'Arial', monospace; font-size: 13px; font-weight: bold; }
+      .legend-text { font-family: 'Noto Sans KR', sans-serif; font-size: 16px; font-weight: 600; fill: #ffffff; }
+    </style>
+
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a2e;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#16213e;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1000" height="1100" fill="url(#bgGrad)"/>
+
+  <!-- Title -->
+  <text x="500" y="50" class="title" text-anchor="middle">텍사스 홀덤 스타팅 핸드 차트</text>
+  <text x="500" y="80" class="subtitle" text-anchor="middle">Preflop Starting Hands Power Chart</text>
+
+  <!-- Legend -->
+  <g transform="translate(50, 110)">
+    <rect x="0" y="0" width="220" height="35" fill="#2ecc71" rx="5"/>
+    <text x="110" y="23" class="legend-text" text-anchor="middle">프리미엄 (Premium)</text>
+
+    <rect x="230" y="0" width="220" height="35" fill="#3498db" rx="5"/>
+    <text x="340" y="23" class="legend-text" text-anchor="middle">강함 (Strong)</text>
+
+    <rect x="460" y="0" width="220" height="35" fill="#f39c12" rx="5"/>
+    <text x="570" y="23" class="legend-text" text-anchor="middle">플레이 가능 (Playable)</text>
+
+    <rect x="690" y="0" width="220" height="35" fill="#e74c3c" rx="5"/>
+    <text x="800" y="23" class="legend-text" text-anchor="middle">약함 (Weak)</text>
+  </g>
+
+  <!-- Grid Labels -->
+  <text x="80" y="200" class="subtitle" text-anchor="end">A</text>
+  <text x="80" y="260" class="subtitle" text-anchor="end">K</text>
+  <text x="80" y="320" class="subtitle" text-anchor="end">Q</text>
+  <text x="80" y="380" class="subtitle" text-anchor="end">J</text>
+  <text x="80" y="440" class="subtitle" text-anchor="end">T</text>
+  <text x="80" y="500" class="subtitle" text-anchor="end">9</text>
+  <text x="80" y="560" class="subtitle" text-anchor="end">8</text>
+  <text x="80" y="620" class="subtitle" text-anchor="end">7</text>
+  <text x="80" y="680" class="subtitle" text-anchor="end">6</text>
+  <text x="80" y="740" class="subtitle" text-anchor="end">5</text>
+  <text x="80" y="800" class="subtitle" text-anchor="end">4</text>
+  <text x="80" y="860" class="subtitle" text-anchor="end">3</text>
+  <text x="80" y="920" class="subtitle" text-anchor="end">2</text>
+
+  <text x="125" y="165" class="subtitle" text-anchor="middle">A</text>
+  <text x="185" y="165" class="subtitle" text-anchor="middle">K</text>
+  <text x="245" y="165" class="subtitle" text-anchor="middle">Q</text>
+  <text x="305" y="165" class="subtitle" text-anchor="middle">J</text>
+  <text x="365" y="165" class="subtitle" text-anchor="middle">T</text>
+  <text x="425" y="165" class="subtitle" text-anchor="middle">9</text>
+  <text x="485" y="165" class="subtitle" text-anchor="middle">8</text>
+  <text x="545" y="165" class="subtitle" text-anchor="middle">7</text>
+  <text x="605" y="165" class="subtitle" text-anchor="middle">6</text>
+  <text x="665" y="165" class="subtitle" text-anchor="middle">5</text>
+  <text x="725" y="165" class="subtitle" text-anchor="middle">4</text>
+  <text x="785" y="165" class="subtitle" text-anchor="middle">3</text>
+  <text x="845" y="165" class="subtitle" text-anchor="middle">2</text>
+
+  <!-- Hand Range Grid (13x13) -->
+  <!-- Row 1: A -->
+  <rect x="100" y="180" width="50" height="50" fill="#2ecc71" stroke="#fff" stroke-width="1"/>
+  <text x="125" y="210" class="hand-text" text-anchor="middle" fill="#000">AA</text>
+
+  <rect x="160" y="180" width="50" height="50" fill="#2ecc71" stroke="#fff" stroke-width="1"/>
+  <text x="185" y="210" class="hand-text" text-anchor="middle" fill="#000">AKs</text>
+
+  <rect x="220" y="180" width="50" height="50" fill="#3498db" stroke="#fff" stroke-width="1"/>
+  <text x="245" y="210" class="hand-text" text-anchor="middle" fill="#000">AQs</text>
+
+  <rect x="280" y="180" width="50" height="50" fill="#3498db" stroke="#fff" stroke-width="1"/>
+  <text x="305" y="210" class="hand-text" text-anchor="middle" fill="#000">AJs</text>
+
+  <rect x="340" y="180" width="50" height="50" fill="#3498db" stroke="#fff" stroke-width="1"/>
+  <text x="365" y="210" class="hand-text" text-anchor="middle" fill="#000">ATs</text>
+
+  <rect x="400" y="180" width="50" height="50" fill="#f39c12" stroke="#fff" stroke-width="1"/>
+  <text x="425" y="210" class="hand-text" text-anchor="middle" fill="#000">A9s</text>
+
+  <rect x="460" y="180" width="50" height="50" fill="#f39c12" stroke="#fff" stroke-width="1"/>
+  <text x="485" y="210" class="hand-text" text-anchor="middle" fill="#000">A8s</text>
+
+  <rect x="520" y="180" width="50" height="50" fill="#f39c12" stroke="#fff" stroke-width="1"/>
+  <text x="545" y="210" class="hand-text" text-anchor="middle" fill="#000">A7s</text>
+
+  <rect x="580" y="180" width="50" height="50" fill="#f39c12" stroke="#fff" stroke-width="1"/>
+  <text x="605" y="210" class="hand-text" text-anchor="middle" fill="#000">A6s</text>
+
+  <rect x="640" y="180" width="50" height="50" fill="#f39c12" stroke="#fff" stroke-width="1"/>
+  <text x="665" y="210" class="hand-text" text-anchor="middle" fill="#000">A5s</text>
+
+  <rect x="700" y="180" width="50" height="50" fill="#f39c12" stroke="#fff" stroke-width="1"/>
+  <text x="725" y="210" class="hand-text" text-anchor="middle" fill="#000">A4s</text>
+
+  <rect x="760" y="180" width="50" height="50" fill="#f39c12" stroke="#fff" stroke-width="1"/>
+  <text x="785" y="210" class="hand-text" text-anchor="middle" fill="#000">A3s</text>
+
+  <rect x="820" y="180" width="50" height="50" fill="#f39c12" stroke="#fff" stroke-width="1"/>
+  <text x="845" y="210" class="hand-text" text-anchor="middle" fill="#000">A2s</text>
+
+  <!-- Row 2: K -->
+  <rect x="100" y="240" width="50" height="50" fill="#2ecc71" stroke="#fff" stroke-width="1"/>
+  <text x="125" y="270" class="hand-text" text-anchor="middle" fill="#000">AKo</text>
+
+  <rect x="160" y="240" width="50" height="50" fill="#2ecc71" stroke="#fff" stroke-width="1"/>
+  <text x="185" y="270" class="hand-text" text-anchor="middle" fill="#000">KK</text>
+
+  <rect x="220" y="240" width="50" height="50" fill="#3498db" stroke="#fff" stroke-width="1"/>
+  <text x="245" y="270" class="hand-text" text-anchor="middle" fill="#000">KQs</text>
+
+  <rect x="280" y="240" width="50" height="50" fill="#3498db" stroke="#fff" stroke-width="1"/>
+  <text x="305" y="270" class="hand-text" text-anchor="middle" fill="#000">KJs</text>
+
+  <rect x="340" y="240" width="50" height="50" fill="#3498db" stroke="#fff" stroke-width="1"/>
+  <text x="365" y="270" class="hand-text" text-anchor="middle" fill="#000">KTs</text>
+
+  <rect x="400" y="240" width="50" height="50" fill="#f39c12" stroke="#fff" stroke-width="1"/>
+  <text x="425" y="270" class="hand-text" text-anchor="middle" fill="#000">K9s</text>
+
+  <rect x="460" y="240" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="485" y="270" class="hand-text" text-anchor="middle" fill="#000">K8s</text>
+
+  <rect x="520" y="240" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="545" y="270" class="hand-text" text-anchor="middle" fill="#000">K7s</text>
+
+  <rect x="580" y="240" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="605" y="270" class="hand-text" text-anchor="middle" fill="#000">K6s</text>
+
+  <rect x="640" y="240" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="665" y="270" class="hand-text" text-anchor="middle" fill="#000">K5s</text>
+
+  <rect x="700" y="240" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="725" y="270" class="hand-text" text-anchor="middle" fill="#000">K4s</text>
+
+  <rect x="760" y="240" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="785" y="270" class="hand-text" text-anchor="middle" fill="#000">K3s</text>
+
+  <rect x="820" y="240" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="845" y="270" class="hand-text" text-anchor="middle" fill="#000">K2s</text>
+
+  <!-- Row 3: Q -->
+  <rect x="100" y="300" width="50" height="50" fill="#3498db" stroke="#fff" stroke-width="1"/>
+  <text x="125" y="330" class="hand-text" text-anchor="middle" fill="#000">AQo</text>
+
+  <rect x="160" y="300" width="50" height="50" fill="#3498db" stroke="#fff" stroke-width="1"/>
+  <text x="185" y="330" class="hand-text" text-anchor="middle" fill="#000">KQo</text>
+
+  <rect x="220" y="300" width="50" height="50" fill="#2ecc71" stroke="#fff" stroke-width="1"/>
+  <text x="245" y="330" class="hand-text" text-anchor="middle" fill="#000">QQ</text>
+
+  <rect x="280" y="300" width="50" height="50" fill="#3498db" stroke="#fff" stroke-width="1"/>
+  <text x="305" y="330" class="hand-text" text-anchor="middle" fill="#000">QJs</text>
+
+  <rect x="340" y="300" width="50" height="50" fill="#3498db" stroke="#fff" stroke-width="1"/>
+  <text x="365" y="330" class="hand-text" text-anchor="middle" fill="#000">QTs</text>
+
+  <rect x="400" y="300" width="50" height="50" fill="#f39c12" stroke="#fff" stroke-width="1"/>
+  <text x="425" y="330" class="hand-text" text-anchor="middle" fill="#000">Q9s</text>
+
+  <rect x="460" y="300" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="485" y="330" class="hand-text" text-anchor="middle" fill="#000">Q8s</text>
+
+  <rect x="520" y="300" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="545" y="330" class="hand-text" text-anchor="middle" fill="#000">Q7s</text>
+
+  <rect x="580" y="300" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="605" y="330" class="hand-text" text-anchor="middle" fill="#000">Q6s</text>
+
+  <rect x="640" y="300" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="665" y="330" class="hand-text" text-anchor="middle" fill="#000">Q5s</text>
+
+  <rect x="700" y="300" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="725" y="330" class="hand-text" text-anchor="middle" fill="#000">Q4s</text>
+
+  <rect x="760" y="300" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="785" y="330" class="hand-text" text-anchor="middle" fill="#000">Q3s</text>
+
+  <rect x="820" y="300" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="845" y="330" class="hand-text" text-anchor="middle" fill="#000">Q2s</text>
+
+  <!-- Row 4: J -->
+  <rect x="100" y="360" width="50" height="50" fill="#3498db" stroke="#fff" stroke-width="1"/>
+  <text x="125" y="390" class="hand-text" text-anchor="middle" fill="#000">AJo</text>
+
+  <rect x="160" y="360" width="50" height="50" fill="#f39c12" stroke="#fff" stroke-width="1"/>
+  <text x="185" y="390" class="hand-text" text-anchor="middle" fill="#000">KJo</text>
+
+  <rect x="220" y="360" width="50" height="50" fill="#3498db" stroke="#fff" stroke-width="1"/>
+  <text x="245" y="390" class="hand-text" text-anchor="middle" fill="#000">QJo</text>
+
+  <rect x="280" y="360" width="50" height="50" fill="#2ecc71" stroke="#fff" stroke-width="1"/>
+  <text x="305" y="390" class="hand-text" text-anchor="middle" fill="#000">JJ</text>
+
+  <rect x="340" y="360" width="50" height="50" fill="#3498db" stroke="#fff" stroke-width="1"/>
+  <text x="365" y="390" class="hand-text" text-anchor="middle" fill="#000">JTs</text>
+
+  <rect x="400" y="360" width="50" height="50" fill="#f39c12" stroke="#fff" stroke-width="1"/>
+  <text x="425" y="390" class="hand-text" text-anchor="middle" fill="#000">J9s</text>
+
+  <rect x="460" y="360" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="485" y="390" class="hand-text" text-anchor="middle" fill="#000">J8s</text>
+
+  <rect x="520" y="360" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="545" y="390" class="hand-text" text-anchor="middle" fill="#000">J7s</text>
+
+  <rect x="580" y="360" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="605" y="390" class="hand-text" text-anchor="middle" fill="#000">J6s</text>
+
+  <rect x="640" y="360" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="665" y="390" class="hand-text" text-anchor="middle" fill="#000">J5s</text>
+
+  <rect x="700" y="360" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="725" y="390" class="hand-text" text-anchor="middle" fill="#000">J4s</text>
+
+  <rect x="760" y="360" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="785" y="390" class="hand-text" text-anchor="middle" fill="#000">J3s</text>
+
+  <rect x="820" y="360" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="845" y="390" class="hand-text" text-anchor="middle" fill="#000">J2s</text>
+
+  <!-- Row 5: T -->
+  <rect x="100" y="420" width="50" height="50" fill="#3498db" stroke="#fff" stroke-width="1"/>
+  <text x="125" y="450" class="hand-text" text-anchor="middle" fill="#000">ATo</text>
+
+  <rect x="160" y="420" width="50" height="50" fill="#f39c12" stroke="#fff" stroke-width="1"/>
+  <text x="185" y="450" class="hand-text" text-anchor="middle" fill="#000">KTo</text>
+
+  <rect x="220" y="420" width="50" height="50" fill="#f39c12" stroke="#fff" stroke-width="1"/>
+  <text x="245" y="450" class="hand-text" text-anchor="middle" fill="#000">QTo</text>
+
+  <rect x="280" y="420" width="50" height="50" fill="#f39c12" stroke="#fff" stroke-width="1"/>
+  <text x="305" y="450" class="hand-text" text-anchor="middle" fill="#000">JTo</text>
+
+  <rect x="340" y="420" width="50" height="50" fill="#2ecc71" stroke="#fff" stroke-width="1"/>
+  <text x="365" y="450" class="hand-text" text-anchor="middle" fill="#000">TT</text>
+
+  <rect x="400" y="420" width="50" height="50" fill="#3498db" stroke="#fff" stroke-width="1"/>
+  <text x="425" y="450" class="hand-text" text-anchor="middle" fill="#000">T9s</text>
+
+  <rect x="460" y="420" width="50" height="50" fill="#f39c12" stroke="#fff" stroke-width="1"/>
+  <text x="485" y="450" class="hand-text" text-anchor="middle" fill="#000">T8s</text>
+
+  <rect x="520" y="420" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="545" y="450" class="hand-text" text-anchor="middle" fill="#000">T7s</text>
+
+  <rect x="580" y="420" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="605" y="450" class="hand-text" text-anchor="middle" fill="#000">T6s</text>
+
+  <rect x="640" y="420" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="665" y="450" class="hand-text" text-anchor="middle" fill="#000">T5s</text>
+
+  <rect x="700" y="420" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="725" y="450" class="hand-text" text-anchor="middle" fill="#000">T4s</text>
+
+  <rect x="760" y="420" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="785" y="450" class="hand-text" text-anchor="middle" fill="#000">T3s</text>
+
+  <rect x="820" y="420" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="845" y="450" class="hand-text" text-anchor="middle" fill="#000">T2s</text>
+
+  <!-- Row 6: 9 -->
+  <rect x="100" y="480" width="50" height="50" fill="#f39c12" stroke="#fff" stroke-width="1"/>
+  <text x="125" y="510" class="hand-text" text-anchor="middle" fill="#000">A9o</text>
+
+  <rect x="160" y="480" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="185" y="510" class="hand-text" text-anchor="middle" fill="#000">K9o</text>
+
+  <rect x="220" y="480" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="245" y="510" class="hand-text" text-anchor="middle" fill="#000">Q9o</text>
+
+  <rect x="280" y="480" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="305" y="510" class="hand-text" text-anchor="middle" fill="#000">J9o</text>
+
+  <rect x="340" y="480" width="50" height="50" fill="#f39c12" stroke="#fff" stroke-width="1"/>
+  <text x="365" y="510" class="hand-text" text-anchor="middle" fill="#000">T9o</text>
+
+  <rect x="400" y="480" width="50" height="50" fill="#3498db" stroke="#fff" stroke-width="1"/>
+  <text x="425" y="510" class="hand-text" text-anchor="middle" fill="#000">99</text>
+
+  <rect x="460" y="480" width="50" height="50" fill="#3498db" stroke="#fff" stroke-width="1"/>
+  <text x="485" y="510" class="hand-text" text-anchor="middle" fill="#000">98s</text>
+
+  <rect x="520" y="480" width="50" height="50" fill="#f39c12" stroke="#fff" stroke-width="1"/>
+  <text x="545" y="510" class="hand-text" text-anchor="middle" fill="#000">97s</text>
+
+  <rect x="580" y="480" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="605" y="510" class="hand-text" text-anchor="middle" fill="#000">96s</text>
+
+  <rect x="640" y="480" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="665" y="510" class="hand-text" text-anchor="middle" fill="#000">95s</text>
+
+  <rect x="700" y="480" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="725" y="510" class="hand-text" text-anchor="middle" fill="#000">94s</text>
+
+  <rect x="760" y="480" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="785" y="510" class="hand-text" text-anchor="middle" fill="#000">93s</text>
+
+  <rect x="820" y="480" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="845" y="510" class="hand-text" text-anchor="middle" fill="#000">92s</text>
+
+  <!-- Row 7: 8 -->
+  <rect x="100" y="540" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="125" y="570" class="hand-text" text-anchor="middle" fill="#000">A8o</text>
+
+  <rect x="160" y="540" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="185" y="570" class="hand-text" text-anchor="middle" fill="#000">K8o</text>
+
+  <rect x="220" y="540" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="245" y="570" class="hand-text" text-anchor="middle" fill="#000">Q8o</text>
+
+  <rect x="280" y="540" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="305" y="570" class="hand-text" text-anchor="middle" fill="#000">J8o</text>
+
+  <rect x="340" y="540" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="365" y="570" class="hand-text" text-anchor="middle" fill="#000">T8o</text>
+
+  <rect x="400" y="540" width="50" height="50" fill="#f39c12" stroke="#fff" stroke-width="1"/>
+  <text x="425" y="570" class="hand-text" text-anchor="middle" fill="#000">98o</text>
+
+  <rect x="460" y="540" width="50" height="50" fill="#3498db" stroke="#fff" stroke-width="1"/>
+  <text x="485" y="570" class="hand-text" text-anchor="middle" fill="#000">88</text>
+
+  <rect x="520" y="540" width="50" height="50" fill="#3498db" stroke="#fff" stroke-width="1"/>
+  <text x="545" y="570" class="hand-text" text-anchor="middle" fill="#000">87s</text>
+
+  <rect x="580" y="540" width="50" height="50" fill="#f39c12" stroke="#fff" stroke-width="1"/>
+  <text x="605" y="570" class="hand-text" text-anchor="middle" fill="#000">86s</text>
+
+  <rect x="640" y="540" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="665" y="570" class="hand-text" text-anchor="middle" fill="#000">85s</text>
+
+  <rect x="700" y="540" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="725" y="570" class="hand-text" text-anchor="middle" fill="#000">84s</text>
+
+  <rect x="760" y="540" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="785" y="570" class="hand-text" text-anchor="middle" fill="#000">83s</text>
+
+  <rect x="820" y="540" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="845" y="570" class="hand-text" text-anchor="middle" fill="#000">82s</text>
+
+  <!-- Row 8: 7 -->
+  <rect x="100" y="600" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="125" y="630" class="hand-text" text-anchor="middle" fill="#000">A7o</text>
+
+  <rect x="160" y="600" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="185" y="630" class="hand-text" text-anchor="middle" fill="#000">K7o</text>
+
+  <rect x="220" y="600" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="245" y="630" class="hand-text" text-anchor="middle" fill="#000">Q7o</text>
+
+  <rect x="280" y="600" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="305" y="630" class="hand-text" text-anchor="middle" fill="#000">J7o</text>
+
+  <rect x="340" y="600" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="365" y="630" class="hand-text" text-anchor="middle" fill="#000">T7o</text>
+
+  <rect x="400" y="600" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="425" y="630" class="hand-text" text-anchor="middle" fill="#000">97o</text>
+
+  <rect x="460" y="600" width="50" height="50" fill="#f39c12" stroke="#fff" stroke-width="1"/>
+  <text x="485" y="630" class="hand-text" text-anchor="middle" fill="#000">87o</text>
+
+  <rect x="520" y="600" width="50" height="50" fill="#3498db" stroke="#fff" stroke-width="1"/>
+  <text x="545" y="630" class="hand-text" text-anchor="middle" fill="#000">77</text>
+
+  <rect x="580" y="600" width="50" height="50" fill="#3498db" stroke="#fff" stroke-width="1"/>
+  <text x="605" y="630" class="hand-text" text-anchor="middle" fill="#000">76s</text>
+
+  <rect x="640" y="600" width="50" height="50" fill="#f39c12" stroke="#fff" stroke-width="1"/>
+  <text x="665" y="630" class="hand-text" text-anchor="middle" fill="#000">75s</text>
+
+  <rect x="700" y="600" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="725" y="630" class="hand-text" text-anchor="middle" fill="#000">74s</text>
+
+  <rect x="760" y="600" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="785" y="630" class="hand-text" text-anchor="middle" fill="#000">73s</text>
+
+  <rect x="820" y="600" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="845" y="630" class="hand-text" text-anchor="middle" fill="#000">72s</text>
+
+  <!-- Row 9: 6 -->
+  <rect x="100" y="660" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="125" y="690" class="hand-text" text-anchor="middle" fill="#000">A6o</text>
+
+  <rect x="160" y="660" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="185" y="690" class="hand-text" text-anchor="middle" fill="#000">K6o</text>
+
+  <rect x="220" y="660" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="245" y="690" class="hand-text" text-anchor="middle" fill="#000">Q6o</text>
+
+  <rect x="280" y="660" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="305" y="690" class="hand-text" text-anchor="middle" fill="#000">J6o</text>
+
+  <rect x="340" y="660" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="365" y="690" class="hand-text" text-anchor="middle" fill="#000">T6o</text>
+
+  <rect x="400" y="660" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="425" y="690" class="hand-text" text-anchor="middle" fill="#000">96o</text>
+
+  <rect x="460" y="660" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="485" y="690" class="hand-text" text-anchor="middle" fill="#000">86o</text>
+
+  <rect x="520" y="660" width="50" height="50" fill="#f39c12" stroke="#fff" stroke-width="1"/>
+  <text x="545" y="690" class="hand-text" text-anchor="middle" fill="#000">76o</text>
+
+  <rect x="580" y="660" width="50" height="50" fill="#3498db" stroke="#fff" stroke-width="1"/>
+  <text x="605" y="690" class="hand-text" text-anchor="middle" fill="#000">66</text>
+
+  <rect x="640" y="660" width="50" height="50" fill="#3498db" stroke="#fff" stroke-width="1"/>
+  <text x="665" y="690" class="hand-text" text-anchor="middle" fill="#000">65s</text>
+
+  <rect x="700" y="660" width="50" height="50" fill="#f39c12" stroke="#fff" stroke-width="1"/>
+  <text x="725" y="690" class="hand-text" text-anchor="middle" fill="#000">64s</text>
+
+  <rect x="760" y="660" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="785" y="690" class="hand-text" text-anchor="middle" fill="#000">63s</text>
+
+  <rect x="820" y="660" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="845" y="690" class="hand-text" text-anchor="middle" fill="#000">62s</text>
+
+  <!-- Row 10: 5 -->
+  <rect x="100" y="720" width="50" height="50" fill="#f39c12" stroke="#fff" stroke-width="1"/>
+  <text x="125" y="750" class="hand-text" text-anchor="middle" fill="#000">A5o</text>
+
+  <rect x="160" y="720" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="185" y="750" class="hand-text" text-anchor="middle" fill="#000">K5o</text>
+
+  <rect x="220" y="720" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="245" y="750" class="hand-text" text-anchor="middle" fill="#000">Q5o</text>
+
+  <rect x="280" y="720" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="305" y="750" class="hand-text" text-anchor="middle" fill="#000">J5o</text>
+
+  <rect x="340" y="720" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="365" y="750" class="hand-text" text-anchor="middle" fill="#000">T5o</text>
+
+  <rect x="400" y="720" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="425" y="750" class="hand-text" text-anchor="middle" fill="#000">95o</text>
+
+  <rect x="460" y="720" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="485" y="750" class="hand-text" text-anchor="middle" fill="#000">85o</text>
+
+  <rect x="520" y="720" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="545" y="750" class="hand-text" text-anchor="middle" fill="#000">75o</text>
+
+  <rect x="580" y="720" width="50" height="50" fill="#f39c12" stroke="#fff" stroke-width="1"/>
+  <text x="605" y="750" class="hand-text" text-anchor="middle" fill="#000">65o</text>
+
+  <rect x="640" y="720" width="50" height="50" fill="#3498db" stroke="#fff" stroke-width="1"/>
+  <text x="665" y="750" class="hand-text" text-anchor="middle" fill="#000">55</text>
+
+  <rect x="700" y="720" width="50" height="50" fill="#3498db" stroke="#fff" stroke-width="1"/>
+  <text x="725" y="750" class="hand-text" text-anchor="middle" fill="#000">54s</text>
+
+  <rect x="760" y="720" width="50" height="50" fill="#f39c12" stroke="#fff" stroke-width="1"/>
+  <text x="785" y="750" class="hand-text" text-anchor="middle" fill="#000">53s</text>
+
+  <rect x="820" y="720" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="845" y="750" class="hand-text" text-anchor="middle" fill="#000">52s</text>
+
+  <!-- Row 11: 4 -->
+  <rect x="100" y="780" width="50" height="50" fill="#f39c12" stroke="#fff" stroke-width="1"/>
+  <text x="125" y="810" class="hand-text" text-anchor="middle" fill="#000">A4o</text>
+
+  <rect x="160" y="780" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="185" y="810" class="hand-text" text-anchor="middle" fill="#000">K4o</text>
+
+  <rect x="220" y="780" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="245" y="810" class="hand-text" text-anchor="middle" fill="#000">Q4o</text>
+
+  <rect x="280" y="780" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="305" y="810" class="hand-text" text-anchor="middle" fill="#000">J4o</text>
+
+  <rect x="340" y="780" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="365" y="810" class="hand-text" text-anchor="middle" fill="#000">T4o</text>
+
+  <rect x="400" y="780" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="425" y="810" class="hand-text" text-anchor="middle" fill="#000">94o</text>
+
+  <rect x="460" y="780" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="485" y="810" class="hand-text" text-anchor="middle" fill="#000">84o</text>
+
+  <rect x="520" y="780" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="545" y="810" class="hand-text" text-anchor="middle" fill="#000">74o</text>
+
+  <rect x="580" y="780" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="605" y="810" class="hand-text" text-anchor="middle" fill="#000">64o</text>
+
+  <rect x="640" y="780" width="50" height="50" fill="#f39c12" stroke="#fff" stroke-width="1"/>
+  <text x="665" y="810" class="hand-text" text-anchor="middle" fill="#000">54o</text>
+
+  <rect x="700" y="780" width="50" height="50" fill="#3498db" stroke="#fff" stroke-width="1"/>
+  <text x="725" y="810" class="hand-text" text-anchor="middle" fill="#000">44</text>
+
+  <rect x="760" y="780" width="50" height="50" fill="#f39c12" stroke="#fff" stroke-width="1"/>
+  <text x="785" y="810" class="hand-text" text-anchor="middle" fill="#000">43s</text>
+
+  <rect x="820" y="780" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="845" y="810" class="hand-text" text-anchor="middle" fill="#000">42s</text>
+
+  <!-- Row 12: 3 -->
+  <rect x="100" y="840" width="50" height="50" fill="#f39c12" stroke="#fff" stroke-width="1"/>
+  <text x="125" y="870" class="hand-text" text-anchor="middle" fill="#000">A3o</text>
+
+  <rect x="160" y="840" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="185" y="870" class="hand-text" text-anchor="middle" fill="#000">K3o</text>
+
+  <rect x="220" y="840" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="245" y="870" class="hand-text" text-anchor="middle" fill="#000">Q3o</text>
+
+  <rect x="280" y="840" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="305" y="870" class="hand-text" text-anchor="middle" fill="#000">J3o</text>
+
+  <rect x="340" y="840" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="365" y="870" class="hand-text" text-anchor="middle" fill="#000">T3o</text>
+
+  <rect x="400" y="840" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="425" y="870" class="hand-text" text-anchor="middle" fill="#000">93o</text>
+
+  <rect x="460" y="840" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="485" y="870" class="hand-text" text-anchor="middle" fill="#000">83o</text>
+
+  <rect x="520" y="840" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="545" y="870" class="hand-text" text-anchor="middle" fill="#000">73o</text>
+
+  <rect x="580" y="840" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="605" y="870" class="hand-text" text-anchor="middle" fill="#000">63o</text>
+
+  <rect x="640" y="840" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="665" y="870" class="hand-text" text-anchor="middle" fill="#000">53o</text>
+
+  <rect x="700" y="840" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="725" y="870" class="hand-text" text-anchor="middle" fill="#000">43o</text>
+
+  <rect x="760" y="840" width="50" height="50" fill="#3498db" stroke="#fff" stroke-width="1"/>
+  <text x="785" y="870" class="hand-text" text-anchor="middle" fill="#000">33</text>
+
+  <rect x="820" y="840" width="50" height="50" fill="#f39c12" stroke="#fff" stroke-width="1"/>
+  <text x="845" y="870" class="hand-text" text-anchor="middle" fill="#000">32s</text>
+
+  <!-- Row 13: 2 -->
+  <rect x="100" y="900" width="50" height="50" fill="#f39c12" stroke="#fff" stroke-width="1"/>
+  <text x="125" y="930" class="hand-text" text-anchor="middle" fill="#000">A2o</text>
+
+  <rect x="160" y="900" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="185" y="930" class="hand-text" text-anchor="middle" fill="#000">K2o</text>
+
+  <rect x="220" y="900" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="245" y="930" class="hand-text" text-anchor="middle" fill="#000">Q2o</text>
+
+  <rect x="280" y="900" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="305" y="930" class="hand-text" text-anchor="middle" fill="#000">J2o</text>
+
+  <rect x="340" y="900" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="365" y="930" class="hand-text" text-anchor="middle" fill="#000">T2o</text>
+
+  <rect x="400" y="900" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="425" y="930" class="hand-text" text-anchor="middle" fill="#000">92o</text>
+
+  <rect x="460" y="900" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="485" y="930" class="hand-text" text-anchor="middle" fill="#000">82o</text>
+
+  <rect x="520" y="900" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="545" y="930" class="hand-text" text-anchor="middle" fill="#000">72o</text>
+
+  <rect x="580" y="900" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="605" y="930" class="hand-text" text-anchor="middle" fill="#000">62o</text>
+
+  <rect x="640" y="900" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="665" y="930" class="hand-text" text-anchor="middle" fill="#000">52o</text>
+
+  <rect x="700" y="900" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="725" y="930" class="hand-text" text-anchor="middle" fill="#000">42o</text>
+
+  <rect x="760" y="900" width="50" height="50" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+  <text x="785" y="930" class="hand-text" text-anchor="middle" fill="#000">32o</text>
+
+  <rect x="820" y="900" width="50" height="50" fill="#3498db" stroke="#fff" stroke-width="1"/>
+  <text x="845" y="930" class="hand-text" text-anchor="middle" fill="#000">22</text>
+
+  <!-- Notes -->
+  <text x="100" y="1000" class="subtitle" fill="#aaaaaa">참고: 대각선 = 페어, 우상단 = 같은무늬(s), 좌하단 = 다른무늬(o)</text>
+  <text x="100" y="1030" class="subtitle" fill="#aaaaaa">예시: AKs = A♠K♠, AKo = A♠K♥</text>
+  <text x="100" y="1060" class="subtitle" fill="#aaaaaa">포지션과 상황에 따라 플레이 범위가 달라집니다</text>
+</svg>

@@ -1,0 +1,17 @@
+<svg width="140" height="100" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="shadow">
+      <feDropShadow dx="2" dy="2" stdDeviation="3" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <!-- Speech bubble -->
+  <ellipse cx="90" cy="45" rx="45" ry="35" fill="#ecf0f1" stroke="#95a5a6" stroke-width="2" filter="url(#shadow)"/>
+
+  <!-- Thought bubbles (small circles) -->
+  <circle cx="50" cy="75" r="8" fill="#ecf0f1" stroke="#95a5a6" stroke-width="2"/>
+  <circle cx="30" cy="85" r="5" fill="#ecf0f1" stroke="#95a5a6" stroke-width="2"/>
+
+  <!-- Question marks inside -->
+  <text x="90" y="55" font-family="Arial" font-size="28" font-weight="bold" fill="#7f8c8d" text-anchor="middle">?</text>
+</svg>

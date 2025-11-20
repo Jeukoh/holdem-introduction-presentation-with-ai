@@ -1,0 +1,43 @@
+<svg width="600" height="200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .spade { fill: #2c3e50; }
+      .heart { fill: #e74c3c; }
+      .club { fill: #2c3e50; }
+      .diamond { fill: #e74c3c; }
+    </style>
+
+    <filter id="iconShadow">
+      <feDropShadow dx="3" dy="3" stdDeviation="4" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="600" height="200" fill="#ecf0f1" rx="10"/>
+
+  <!-- Spade ♠ -->
+  <g transform="translate(75, 100)" filter="url(#iconShadow)">
+    <text x="0" y="0" font-size="100" class="spade" text-anchor="middle" dominant-baseline="middle">♠</text>
+  </g>
+
+  <!-- Heart ♥ -->
+  <g transform="translate(225, 100)" filter="url(#iconShadow)">
+    <text x="0" y="0" font-size="100" class="heart" text-anchor="middle" dominant-baseline="middle">♥</text>
+  </g>
+
+  <!-- Diamond ♦ -->
+  <g transform="translate(375, 100)" filter="url(#iconShadow)">
+    <text x="0" y="0" font-size="100" class="diamond" text-anchor="middle" dominant-baseline="middle">♦</text>
+  </g>
+
+  <!-- Club ♣ -->
+  <g transform="translate(525, 100)" filter="url(#iconShadow)">
+    <text x="0" y="0" font-size="100" class="club" text-anchor="middle" dominant-baseline="middle">♣</text>
+  </g>
+
+  <!-- Labels -->
+  <text x="75" y="170" font-family="Arial" font-size="14" fill="#7f8c8d" text-anchor="middle">Spade</text>
+  <text x="225" y="170" font-family="Arial" font-size="14" fill="#7f8c8d" text-anchor="middle">Heart</text>
+  <text x="375" y="170" font-family="Arial" font-size="14" fill="#7f8c8d" text-anchor="middle">Diamond</text>
+  <text x="525" y="170" font-family="Arial" font-size="14" fill="#7f8c8d" text-anchor="middle">Club</text>
+</svg>

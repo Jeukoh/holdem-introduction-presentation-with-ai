@@ -1,0 +1,84 @@
+<svg width="1000" height="600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700&amp;display=swap');
+      .title { font-family: 'Noto Sans KR', sans-serif; font-size: 32px; font-weight: 700; fill: #ffffff; }
+      .subtitle { font-family: 'Noto Sans KR', sans-serif; font-size: 20px; font-weight: 600; fill: #ffffff; }
+      .label { font-family: 'Noto Sans KR', sans-serif; font-size: 16px; font-weight: 400; fill: #cccccc; }
+      .number { font-family: 'Arial', sans-serif; font-size: 48px; font-weight: 700; fill: #2ecc71; }
+      .formula { font-family: 'Arial', sans-serif; font-size: 18px; font-weight: 400; fill: #3498db; }
+    </style>
+
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a2e;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#16213e;stop-opacity:1" />
+    </linearGradient>
+
+    <filter id="shadow">
+      <feDropShadow dx="2" dy="2" stdDeviation="3" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1000" height="600" fill="url(#bgGrad)"/>
+
+  <!-- Title -->
+  <text x="500" y="50" class="title" text-anchor="middle">팟 오즈 (Pot Odds) 계산</text>
+
+  <!-- Example Scenario -->
+  <g transform="translate(50, 100)">
+    <rect width="400" height="420" rx="10" fill="#0f4c75" opacity="0.4" filter="url(#shadow)"/>
+
+    <text x="200" y="40" class="subtitle" text-anchor="middle">상황 예시</text>
+
+    <!-- Pot visualization -->
+    <g transform="translate(100, 80)">
+      <circle cx="100" cy="80" r="70" fill="#f39c12" opacity="0.6" filter="url(#shadow)"/>
+      <text x="100" y="70" class="number" text-anchor="middle" fill="#ffffff">$100</text>
+      <text x="100" y="100" class="label" text-anchor="middle">현재 팟</text>
+    </g>
+
+    <text x="200" y="210" class="label" text-anchor="middle">상대가 $50 베팅</text>
+
+    <!-- Arrow down -->
+    <line x1="200" y1="220" x2="200" y2="250" stroke="#3282b8" stroke-width="3"/>
+    <polygon points="195,250 200,260 205,250" fill="#3282b8"/>
+
+    <!-- New pot -->
+    <g transform="translate(100, 270)">
+      <circle cx="100" cy="50" r="60" fill="#e74c3c" opacity="0.6" filter="url(#shadow)"/>
+      <text x="100" y="45" class="number" text-anchor="middle" fill="#ffffff" font-size="40">$150</text>
+      <text x="100" y="70" class="label" text-anchor="middle">새로운 팟</text>
+    </g>
+
+    <text x="200" y="380" class="label" text-anchor="middle" fill="#f39c12">내가 콜하려면: $50 필요</text>
+  </g>
+
+  <!-- Calculation -->
+  <g transform="translate(500, 100)">
+    <rect width="450" height="420" rx="10" fill="#2d6a4f" opacity="0.4" filter="url(#shadow)"/>
+
+    <text x="225" y="40" class="subtitle" text-anchor="middle">팟 오즈 계산</text>
+
+    <text x="225" y="90" class="label" text-anchor="middle">1단계: 비율 계산</text>
+    <text x="225" y="125" class="formula" text-anchor="middle">팟 오즈 = 팟 크기 : 콜 금액</text>
+    <text x="225" y="155" class="formula" text-anchor="middle">= $150 : $50</text>
+    <text x="225" y="185" class="number" text-anchor="middle" font-size="36" fill="#3498db">= 3 : 1</text>
+
+    <line x1="50" y1="210" x2="400" y2="210" stroke="#ffffff" stroke-width="1" opacity="0.3"/>
+
+    <text x="225" y="245" class="label" text-anchor="middle">2단계: 필요 승률 계산</text>
+    <text x="225" y="280" class="formula" text-anchor="middle">필요 승률 = 콜 금액 / (팟 + 콜 금액)</text>
+    <text x="225" y="310" class="formula" text-anchor="middle">= $50 / ($150 + $50)</text>
+    <text x="225" y="340" class="formula" text-anchor="middle">= $50 / $200</text>
+    <text x="225" y="370" class="number" text-anchor="middle" font-size="36" fill="#2ecc71">= 25%</text>
+
+    <rect x="50" y="390" width="350" height="20" rx="10" fill="#ffffff" opacity="0.2"/>
+    <text x="225" y="405" class="label" text-anchor="middle" font-size="14">→ 승률이 25% 이상이면 콜 +EV!</text>
+  </g>
+
+  <!-- Bottom note -->
+  <text x="500" y="570" class="label" text-anchor="middle" fill="#95a5a6">
+    팟 오즈가 좋을수록 (예: 5:1) 낮은 승률로도 수익적 콜이 가능합니다
+  </text>
+</svg>

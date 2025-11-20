@@ -1,0 +1,160 @@
+<svg width="1200" height="600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700&amp;display=swap');
+      .title { font-family: 'Noto Sans KR', sans-serif; font-size: 32px; font-weight: 700; fill: #ffffff; }
+      .stage-title { font-family: 'Noto Sans KR', sans-serif; font-size: 20px; font-weight: 700; fill: #ffffff; }
+      .stage-desc { font-family: 'Noto Sans KR', sans-serif; font-size: 14px; font-weight: 400; fill: #cccccc; }
+      .card-text { font-family: 'Arial', sans-serif; font-size: 18px; font-weight: bold; fill: #000000; }
+    </style>
+
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a2e;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#16213e;stop-opacity:1" />
+    </linearGradient>
+
+    <filter id="shadow">
+      <feDropShadow dx="2" dy="2" stdDeviation="3" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="600" fill="url(#bgGrad)"/>
+
+  <!-- Title -->
+  <text x="600" y="50" class="title" text-anchor="middle">텍사스 홀덤 게임 흐름 (4단계)</text>
+
+  <!-- Arrow base -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#3282b8"/>
+    </marker>
+  </defs>
+
+  <!-- Stage 1: Preflop -->
+  <g transform="translate(50, 120)">
+    <rect width="240" height="380" rx="10" fill="#2d6a4f" opacity="0.8" filter="url(#shadow)"/>
+    <text x="120" y="35" class="stage-title" text-anchor="middle">1. 프리플랍</text>
+    <text x="120" y="60" class="stage-desc" text-anchor="middle">(Preflop)</text>
+
+    <!-- Hole cards -->
+    <g transform="translate(50, 90)">
+      <rect width="60" height="84" rx="5" fill="#ffffff" filter="url(#shadow)"/>
+      <text x="30" y="50" class="card-text" text-anchor="middle">?</text>
+    </g>
+    <g transform="translate(130, 90)">
+      <rect width="60" height="84" rx="5" fill="#ffffff" filter="url(#shadow)"/>
+      <text x="30" y="50" class="card-text" text-anchor="middle">?</text>
+    </g>
+
+    <text x="120" y="200" class="stage-desc" text-anchor="middle">홀 카드 2장 받음</text>
+    <text x="120" y="230" class="stage-desc" text-anchor="middle">커뮤니티: 0장</text>
+
+    <rect x="20" y="260" width="200" height="90" rx="5" fill="#0f4c75" opacity="0.5"/>
+    <text x="120" y="290" class="stage-desc" text-anchor="middle" font-weight="600">1차 베팅 라운드</text>
+    <text x="120" y="315" class="stage-desc" text-anchor="middle">폴드 / 콜 / 레이즈</text>
+  </g>
+
+  <!-- Arrow 1 -->
+  <line x1="290" y1="310" x2="320" y2="310" stroke="#3282b8" stroke-width="3" marker-end="url(#arrowhead)"/>
+
+  <!-- Stage 2: Flop -->
+  <g transform="translate(320, 120)">
+    <rect width="240" height="380" rx="10" fill="#2d6a4f" opacity="0.8" filter="url(#shadow)"/>
+    <text x="120" y="35" class="stage-title" text-anchor="middle">2. 플랍</text>
+    <text x="120" y="60" class="stage-desc" text-anchor="middle">(Flop)</text>
+
+    <!-- Community cards -->
+    <g transform="translate(20, 90)">
+      <rect width="60" height="84" rx="5" fill="#ffffff" filter="url(#shadow)"/>
+      <text x="30" y="50" class="card-text" text-anchor="middle" fill="#e74c3c">A♥</text>
+    </g>
+    <g transform="translate(90, 90)">
+      <rect width="60" height="84" rx="5" fill="#ffffff" filter="url(#shadow)"/>
+      <text x="30" y="50" class="card-text" text-anchor="middle">K♠</text>
+    </g>
+    <g transform="translate(160, 90)">
+      <rect width="60" height="84" rx="5" fill="#ffffff" filter="url(#shadow)"/>
+      <text x="30" y="50" class="card-text" text-anchor="middle">7♣</text>
+    </g>
+
+    <text x="120" y="200" class="stage-desc" text-anchor="middle">커뮤니티 3장 공개</text>
+    <text x="120" y="230" class="stage-desc" text-anchor="middle">총 5장으로 판단</text>
+
+    <rect x="20" y="260" width="200" height="90" rx="5" fill="#0f4c75" opacity="0.5"/>
+    <text x="120" y="290" class="stage-desc" text-anchor="middle" font-weight="600">2차 베팅 라운드</text>
+    <text x="120" y="315" class="stage-desc" text-anchor="middle">체크 / 벳 / 레이즈</text>
+  </g>
+
+  <!-- Arrow 2 -->
+  <line x1="560" y1="310" x2="590" y2="310" stroke="#3282b8" stroke-width="3" marker-end="url(#arrowhead)"/>
+
+  <!-- Stage 3: Turn -->
+  <g transform="translate(590, 120)">
+    <rect width="240" height="380" rx="10" fill="#2d6a4f" opacity="0.8" filter="url(#shadow)"/>
+    <text x="120" y="35" class="stage-title" text-anchor="middle">3. 턴</text>
+    <text x="120" y="60" class="stage-desc" text-anchor="middle">(Turn)</text>
+
+    <!-- Community cards -->
+    <g transform="translate(5, 90)">
+      <rect width="50" height="70" rx="4" fill="#ffffff" opacity="0.3"/>
+      <text x="25" y="45" class="card-text" text-anchor="middle" font-size="14">...</text>
+    </g>
+    <g transform="translate(65, 90)">
+      <rect width="50" height="70" rx="4" fill="#ffffff" opacity="0.3"/>
+      <text x="25" y="45" class="card-text" text-anchor="middle" font-size="14">...</text>
+    </g>
+    <g transform="translate(125, 90)">
+      <rect width="50" height="70" rx="4" fill="#ffffff" opacity="0.3"/>
+      <text x="25" y="45" class="card-text" text-anchor="middle" font-size="14">...</text>
+    </g>
+    <g transform="translate(185, 90)">
+      <rect width="50" height="70" rx="4" fill="#ffffff" filter="url(#shadow)"/>
+      <text x="25" y="45" class="card-text" text-anchor="middle" font-size="14" fill="#e74c3c">Q♦</text>
+    </g>
+
+    <text x="120" y="185" class="stage-desc" text-anchor="middle">커뮤니티 1장 추가</text>
+    <text x="120" y="210" class="stage-desc" text-anchor="middle">총 6장으로 판단</text>
+
+    <rect x="20" y="240" width="200" height="90" rx="5" fill="#0f4c75" opacity="0.5"/>
+    <text x="120" y="270" class="stage-desc" text-anchor="middle" font-weight="600">3차 베팅 라운드</text>
+    <text x="120" y="295" class="stage-desc" text-anchor="middle">베팅 금액 증가</text>
+  </g>
+
+  <!-- Arrow 3 -->
+  <line x1="830" y1="310" x2="860" y2="310" stroke="#3282b8" stroke-width="3" marker-end="url(#arrowhead)"/>
+
+  <!-- Stage 4: River -->
+  <g transform="translate(860, 120)">
+    <rect width="290" height="380" rx="10" fill="#2d6a4f" opacity="0.8" filter="url(#shadow)"/>
+    <text x="145" y="35" class="stage-title" text-anchor="middle">4. 리버 & 쇼다운</text>
+    <text x="145" y="60" class="stage-desc" text-anchor="middle">(River & Showdown)</text>
+
+    <!-- Community cards -->
+    <g transform="translate(15, 90)">
+      <rect width="48" height="67" rx="4" fill="#ffffff" opacity="0.3"/>
+    </g>
+    <g transform="translate(70, 90)">
+      <rect width="48" height="67" rx="4" fill="#ffffff" opacity="0.3"/>
+    </g>
+    <g transform="translate(125, 90)">
+      <rect width="48" height="67" rx="4" fill="#ffffff" opacity="0.3"/>
+    </g>
+    <g transform="translate(180, 90)">
+      <rect width="48" height="67" rx="4" fill="#ffffff" opacity="0.3"/>
+    </g>
+    <g transform="translate(235, 90)">
+      <rect width="48" height="67" rx="4" fill="#ffffff" filter="url(#shadow)"/>
+      <text x="24" y="43" class="card-text" text-anchor="middle" font-size="14">3♠</text>
+    </g>
+
+    <text x="145" y="185" class="stage-desc" text-anchor="middle">마지막 카드 공개</text>
+    <text x="145" y="210" class="stage-desc" text-anchor="middle">총 7장 완성</text>
+
+    <rect x="45" y="240" width="200" height="50" rx="5" fill="#0f4c75" opacity="0.5"/>
+    <text x="145" y="270" class="stage-desc" text-anchor="middle" font-weight="600">최종 베팅 라운드</text>
+
+    <rect x="45" y="310" width="200" height="50" rx="5" fill="#e74c3c" opacity="0.5"/>
+    <text x="145" y="340" class="stage-desc" text-anchor="middle" font-weight="600">쇼다운: 최고패 승리</text>
+  </g>
+</svg>

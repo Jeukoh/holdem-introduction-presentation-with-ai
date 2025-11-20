@@ -1,0 +1,68 @@
+<svg width="900" height="400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700&amp;display=swap');
+      .title { font-family: 'Noto Sans KR', sans-serif; font-size: 32px; font-weight: 700; fill: #ffffff; }
+      .action-title { font-family: 'Noto Sans KR', sans-serif; font-size: 24px; font-weight: 700; fill: #ffffff; }
+      .action-desc { font-family: 'Noto Sans KR', sans-serif; font-size: 16px; font-weight: 400; fill: #ffffff; }
+      .action-detail { font-family: 'Noto Sans KR', sans-serif; font-size: 14px; font-weight: 400; fill: #cccccc; }
+    </style>
+
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a2e;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#16213e;stop-opacity:1" />
+    </linearGradient>
+
+    <filter id="shadow">
+      <feDropShadow dx="2" dy="2" stdDeviation="3" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="900" height="400" fill="url(#bgGrad)"/>
+
+  <!-- Title -->
+  <text x="450" y="50" class="title" text-anchor="middle">플레이어 액션 (Player Actions)</text>
+
+  <!-- Fold Button -->
+  <g transform="translate(50, 100)">
+    <rect width="240" height="230" rx="15" fill="#e74c3c" filter="url(#shadow)"/>
+    <rect x="10" y="10" width="220" height="210" rx="10" fill="#c0392b"/>
+
+    <text x="120" y="80" class="action-title" text-anchor="middle">FOLD</text>
+    <text x="120" y="110" class="action-desc" text-anchor="middle">폴드</text>
+
+    <text x="120" y="150" class="action-detail" text-anchor="middle">카드를 버리고</text>
+    <text x="120" y="175" class="action-detail" text-anchor="middle">이번 판 포기</text>
+    <text x="120" y="200" class="action-detail" text-anchor="middle">손실: 이미 넣은 칩</text>
+  </g>
+
+  <!-- Call Button -->
+  <g transform="translate(330, 100)">
+    <rect width="240" height="230" rx="15" fill="#3498db" filter="url(#shadow)"/>
+    <rect x="10" y="10" width="220" height="210" rx="10" fill="#2980b9"/>
+
+    <text x="120" y="80" class="action-title" text-anchor="middle">CALL</text>
+    <text x="120" y="110" class="action-desc" text-anchor="middle">콜 / 체크</text>
+
+    <text x="120" y="150" class="action-detail" text-anchor="middle">상대 베팅을</text>
+    <text x="120" y="175" class="action-detail" text-anchor="middle">따라가기</text>
+    <text x="120" y="200" class="action-detail" text-anchor="middle">베팅 없으면 체크</text>
+  </g>
+
+  <!-- Raise Button -->
+  <g transform="translate(610, 100)">
+    <rect width="240" height="230" rx="15" fill="#2ecc71" filter="url(#shadow)"/>
+    <rect x="10" y="10" width="220" height="210" rx="10" fill="#27ae60"/>
+
+    <text x="120" y="80" class="action-title" text-anchor="middle">RAISE</text>
+    <text x="120" y="110" class="action-desc" text-anchor="middle">레이즈 / 벳</text>
+
+    <text x="120" y="150" class="action-detail" text-anchor="middle">베팅 금액을</text>
+    <text x="120" y="175" class="action-detail" text-anchor="middle">올리기</text>
+    <text x="120" y="200" class="action-detail" text-anchor="middle">공격적 플레이</text>
+  </g>
+
+  <!-- Note -->
+  <text x="450" y="370" class="action-detail" text-anchor="middle" fill="#95a5a6">각 베팅 라운드마다 플레이어는 이 3가지 액션 중 하나를 선택합니다</text>
+</svg>

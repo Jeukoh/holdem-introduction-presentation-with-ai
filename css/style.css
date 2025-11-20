@@ -1,0 +1,481 @@
+/* 전체 스타일 - 모던하고 미니멀한 디자인 */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Montserrat:wght@400;600;700&display=swap');
+
+:root {
+    --primary-color: #00d4ff;
+    --secondary-color: #ff6b6b;
+    --accent-color: #4ecdc4;
+    --dark-bg: #1a1a2e;
+    --light-text: #eaeaea;
+    --highlight: #ffd93d;
+}
+
+.reveal {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 32px;
+}
+
+.reveal h1, .reveal h2, .reveal h3 {
+    font-family: 'Montserrat', 'Noto Sans KR', sans-serif;
+    font-weight: 700;
+    text-transform: none;
+}
+
+.reveal h1 {
+    font-size: 3.5em;
+    margin-bottom: 0.5em;
+    text-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+}
+
+.reveal h2 {
+    font-size: 2.5em;
+    margin-bottom: 0.8em;
+    color: var(--primary-color);
+}
+
+.reveal h3 {
+    font-size: 1.8em;
+    margin-bottom: 0.5em;
+    color: var(--accent-color);
+}
+
+/* 타이틀 슬라이드 */
+.title-main {
+    font-size: 5em !important;
+    font-weight: 900;
+    background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.2em !important;
+}
+
+.title-sub {
+    font-size: 2.2em !important;
+    color: var(--light-text);
+    font-weight: 500;
+}
+
+.subtitle {
+    font-size: 1.2em;
+    color: #999;
+    margin-top: 2em;
+    font-weight: 300;
+}
+
+/* 인용문 스타일 */
+.quote {
+    font-size: 1.5em;
+    font-style: italic;
+    color: #999;
+    margin: 0.8em 0;
+    padding: 0.5em 1em;
+    border-left: 5px solid var(--secondary-color);
+    text-align: left;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* 큰 텍스트 */
+.large-text {
+    font-size: 2em;
+    font-weight: 600;
+    margin: 0.5em 0;
+    color: var(--accent-color);
+}
+
+/* 통계 */
+.stat {
+    font-size: 2.5em;
+    font-weight: 700;
+    color: var(--highlight);
+    margin: 0.5em 0;
+}
+
+.stat-detail {
+    font-size: 1.3em;
+    color: #ccc;
+}
+
+/* 게임 소개 */
+.game-intro {
+    background: rgba(78, 205, 196, 0.1);
+    padding: 2em;
+    border-radius: 20px;
+    margin: 1em 0;
+}
+
+.game-intro p {
+    font-size: 1.5em;
+    margin: 0.5em 0;
+}
+
+.highlight {
+    color: var(--highlight);
+    font-size: 1.3em;
+    margin: 1em 0;
+}
+
+/* 2단 레이아웃 */
+.two-column {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3em;
+    margin-top: 2em;
+}
+
+.two-column h3 {
+    margin-bottom: 0.5em;
+}
+
+.two-column ul {
+    text-align: left;
+    font-size: 1.1em;
+    line-height: 1.8;
+}
+
+/* 수학 섹션 */
+.math-section {
+    margin-top: 2em;
+}
+
+.math-section h3 {
+    color: var(--primary-color);
+    margin-bottom: 0.3em;
+}
+
+.formula {
+    font-family: 'Courier New', monospace;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 1em 2em;
+    border-radius: 10px;
+    font-size: 1.3em;
+    margin: 0.5em 0;
+    color: var(--accent-color);
+}
+
+.example {
+    font-size: 1.1em;
+    color: #aaa;
+    margin-bottom: 2em;
+}
+
+/* GTO 섹션 */
+.gto-intro {
+    font-size: 1.4em;
+    color: var(--light-text);
+    margin-bottom: 1.5em;
+}
+
+.gto-concept {
+    background: rgba(0, 212, 255, 0.1);
+    padding: 1.5em;
+    border-radius: 15px;
+    margin: 1em 0;
+}
+
+.gto-concept p {
+    font-size: 1.3em;
+    margin: 0.5em 0;
+}
+
+.small-text {
+    font-size: 0.9em;
+    color: #888;
+    margin-top: 1em;
+}
+
+/* 게임 진행 */
+.game-flow {
+    display: grid;
+    gap: 1.5em;
+    margin-top: 2em;
+}
+
+.game-flow h3 {
+    color: var(--primary-color);
+    margin-bottom: 0.3em;
+}
+
+.game-flow p {
+    font-size: 1.1em;
+    margin: 0.3em 0;
+}
+
+.cards {
+    font-size: 1.8em;
+    font-weight: 700;
+    color: var(--highlight);
+    margin-top: 0.5em;
+    letter-spacing: 0.1em;
+}
+
+/* 핸드 랭킹 */
+.hand-rankings {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    margin-top: 1.5em;
+}
+
+.hand-rank {
+    display: grid;
+    grid-template-columns: 80px 1fr 2fr;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 1em 1.5em;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.hand-rank:hover {
+    background: rgba(0, 212, 255, 0.1);
+    transform: translateX(10px);
+}
+
+.rank-number {
+    font-size: 2em;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.rank-name {
+    font-size: 1.3em;
+    font-weight: 600;
+    color: var(--light-text);
+}
+
+.rank-example {
+    font-size: 1.2em;
+    font-family: 'Courier New', monospace;
+    color: var(--highlight);
+    letter-spacing: 0.05em;
+    text-align: right;
+}
+
+/* 전략의 깊이 */
+.strategy-depth {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2em;
+    margin-top: 2em;
+}
+
+.strategy-depth h3 {
+    margin-bottom: 0.5em;
+}
+
+.strategy-depth p {
+    font-size: 1.1em;
+    line-height: 1.6;
+}
+
+/* 인터랙티브 예시 */
+.interactive-example {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.situation {
+    background: rgba(255, 107, 107, 0.1);
+    padding: 1.5em;
+    border-radius: 15px;
+    margin-bottom: 2em;
+}
+
+.situation p {
+    font-size: 1.2em;
+    margin: 0.5em 0;
+    text-align: left;
+}
+
+.situation strong {
+    color: var(--secondary-color);
+}
+
+.analysis {
+    background: rgba(78, 205, 196, 0.1);
+    padding: 1.5em;
+    border-radius: 15px;
+}
+
+.analysis h3 {
+    margin-bottom: 1em;
+}
+
+.analysis ul {
+    text-align: left;
+    font-size: 1.1em;
+    line-height: 1.8;
+}
+
+.positive {
+    color: #6BCF7F;
+    font-size: 1.3em;
+}
+
+/* 마인드 스포츠 */
+.mind-sport {
+    display: grid;
+    gap: 1.5em;
+    margin-top: 2em;
+}
+
+.value-point {
+    font-size: 1.4em;
+    margin-bottom: 0.3em;
+}
+
+/* 인생 교훈 */
+.life-lessons {
+    margin-top: 2em;
+}
+
+.life-quote {
+    font-size: 2em;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin: 1em 0 0.5em 0;
+    font-style: italic;
+}
+
+.lesson-detail {
+    font-size: 1.2em;
+    color: #aaa;
+    margin-bottom: 2em;
+}
+
+/* 프로의 세계 */
+.pro-world {
+    margin-top: 2em;
+}
+
+.pro-world h3 {
+    margin-bottom: 0.5em;
+}
+
+.pro-world p {
+    font-size: 1.2em;
+    margin: 0.5em 0;
+}
+
+/* 피드백 시스템 */
+.feedback-system {
+    display: grid;
+    gap: 2em;
+    margin-top: 2em;
+}
+
+.feedback-point {
+    font-size: 1.4em;
+    margin-bottom: 0.5em;
+}
+
+.feedback-system p {
+    font-size: 1.1em;
+    line-height: 1.6;
+    color: #ccc;
+}
+
+/* 시작하기 */
+.get-started {
+    margin-top: 2em;
+}
+
+.get-started h3 {
+    margin-bottom: 0.8em;
+}
+
+.get-started p {
+    font-size: 1.1em;
+    margin: 0.5em 0;
+    line-height: 1.6;
+}
+
+/* 마무리 */
+.closing {
+    margin-top: 2em;
+}
+
+.closing-text {
+    font-size: 1.8em;
+    margin: 0.8em 0;
+    color: var(--light-text);
+}
+
+.closing-text strong {
+    color: var(--primary-color);
+    font-weight: 700;
+}
+
+.final-message {
+    font-size: 2.5em !important;
+    margin-top: 2em !important;
+    color: var(--highlight) !important;
+}
+
+/* 애니메이션 */
+@keyframes glow {
+    0%, 100% {
+        text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+    }
+    50% {
+        text-shadow: 0 0 20px rgba(0, 212, 255, 0.8), 0 0 30px rgba(0, 212, 255, 0.6);
+    }
+}
+
+.reveal h1 {
+    animation: glow 3s ease-in-out infinite;
+}
+
+/* 반응형 */
+@media (max-width: 768px) {
+    .reveal {
+        font-size: 24px;
+    }
+
+    .two-column,
+    .strategy-depth {
+        grid-template-columns: 1fr;
+        gap: 1.5em;
+    }
+
+    .hand-rank {
+        grid-template-columns: 60px 1fr;
+        gap: 0.5em;
+    }
+
+    .rank-example {
+        grid-column: 2;
+        text-align: left;
+        margin-top: 0.5em;
+    }
+}
+
+/* 리스트 스타일 */
+.reveal ul, .reveal ol {
+    margin: 0;
+    padding: 0;
+}
+
+.reveal li {
+    margin: 0.5em 0;
+}
+
+/* 강조 */
+strong {
+    color: var(--accent-color);
+    font-weight: 600;
+}
+
+/* 링크 */
+.reveal a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.reveal a:hover {
+    color: var(--accent-color);
+}

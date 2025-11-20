@@ -1,0 +1,30 @@
+<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGrad3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#16213e;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1a1a2e;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="600" fill="url(#bgGrad3)"/>
+
+  <!-- Decorative poker suits -->
+  <text x="50" y="80" font-size="60" fill="#e94560" opacity="0.2">♥</text>
+  <text x="720" y="550" font-size="60" fill="#ffffff" opacity="0.1">♠</text>
+
+  <!-- Main quote -->
+  <text x="400" y="270" font-family="'Noto Sans KR', sans-serif" font-size="32" font-weight="700" fill="#ffffff" text-anchor="middle">
+    오직 하나만이 확실했다...
+  </text>
+
+  <!-- Subtext -->
+  <text x="400" y="350" font-family="'Noto Sans KR', sans-serif" font-size="20" fill="#aaaaaa" text-anchor="middle">
+    웹툰 『텍사스 홀덤』 中
+  </text>
+
+  <!-- Author -->
+  <text x="400" y="500" font-family="'Noto Sans KR', sans-serif" font-size="18" fill="#888888" text-anchor="middle">
+    - 원사운드
+  </text>
+</svg>

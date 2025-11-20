@@ -1,0 +1,53 @@
+<svg width="600" height="350" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="shadow">
+      <feDropShadow dx="1" dy="2" stdDeviation="2" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <!-- Pro box (left) -->
+  <rect x="10" y="10" width="280" height="330" rx="10" fill="#2ecc71" opacity="0.15" filter="url(#shadow)"/>
+  <rect x="10" y="10" width="280" height="60" rx="10" fill="#2ecc71" filter="url(#shadow)"/>
+
+  <!-- Pro header -->
+  <text x="150" y="50" font-family="Arial" font-size="28" font-weight="bold" fill="#ffffff" text-anchor="middle">장점 (Pro)</text>
+
+  <!-- Pro checkmarks -->
+  <circle cx="35" cy="110" r="12" fill="#27ae60"/>
+  <path d="M 30 110 L 33 113 L 40 106" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="35" cy="160" r="12" fill="#27ae60"/>
+  <path d="M 30 160 L 33 163 L 40 156" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="35" cy="210" r="12" fill="#27ae60"/>
+  <path d="M 30 210 L 33 213 L 40 206" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="35" cy="260" r="12" fill="#27ae60"/>
+  <path d="M 30 260 L 33 263 L 40 256" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+
+  <!-- Pro text lines (placeholder) -->
+  <line x1="55" y1="110" x2="270" y2="110" stroke="#95a5a6" stroke-width="2" stroke-linecap="round"/>
+  <line x1="55" y1="160" x2="270" y2="160" stroke="#95a5a6" stroke-width="2" stroke-linecap="round"/>
+  <line x1="55" y1="210" x2="270" y2="210" stroke="#95a5a6" stroke-width="2" stroke-linecap="round"/>
+  <line x1="55" y1="260" x2="270" y2="260" stroke="#95a5a6" stroke-width="2" stroke-linecap="round"/>
+
+  <!-- Con box (right) -->
+  <rect x="310" y="10" width="280" height="330" rx="10" fill="#e74c3c" opacity="0.15" filter="url(#shadow)"/>
+  <rect x="310" y="10" width="280" height="60" rx="10" fill="#e74c3c" filter="url(#shadow)"/>
+
+  <!-- Con header -->
+  <text x="450" y="50" font-family="Arial" font-size="28" font-weight="bold" fill="#ffffff" text-anchor="middle">단점 (Con)</text>
+
+  <!-- Con X marks -->
+  <circle cx="335" cy="110" r="12" fill="#c0392b"/>
+  <path d="M 330 105 L 340 115 M 340 105 L 330 115" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="335" cy="160" r="12" fill="#c0392b"/>
+  <path d="M 330 155 L 340 165 M 340 155 L 330 165" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="335" cy="210" r="12" fill="#c0392b"/>
+  <path d="M 330 205 L 340 215 M 340 205 L 330 215" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="335" cy="260" r="12" fill="#c0392b"/>
+  <path d="M 330 255 L 340 265 M 340 255 L 330 265" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+
+  <!-- Con text lines (placeholder) -->
+  <line x1="355" y1="110" x2="570" y2="110" stroke="#95a5a6" stroke-width="2" stroke-linecap="round"/>
+  <line x1="355" y1="160" x2="570" y2="160" stroke="#95a5a6" stroke-width="2" stroke-linecap="round"/>
+  <line x1="355" y1="210" x2="570" y2="210" stroke="#95a5a6" stroke-width="2" stroke-linecap="round"/>
+  <line x1="355" y1="260" x2="570" y2="260" stroke="#95a5a6" stroke-width="2" stroke-linecap="round"/>
+</svg>

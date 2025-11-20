@@ -1,0 +1,22 @@
+<svg width="400" height="120" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.2"/>
+    </filter>
+  </defs>
+
+  <!-- Background area -->
+  <rect width="400" height="120" rx="10" fill="#2d6a4f" opacity="0.3" filter="url(#shadow)"/>
+
+  <!-- Card slots (5 cards) -->
+  <rect x="10" y="18" width="68" height="84" rx="5" fill="#ffffff" opacity="0.1" stroke="#95d5b2" stroke-width="2" stroke-dasharray="5,5"/>
+  <rect x="88" y="18" width="68" height="84" rx="5" fill="#ffffff" opacity="0.1" stroke="#95d5b2" stroke-width="2" stroke-dasharray="5,5"/>
+  <rect x="166" y="18" width="68" height="84" rx="5" fill="#ffffff" opacity="0.1" stroke="#95d5b2" stroke-width="2" stroke-dasharray="5,5"/>
+  <rect x="244" y="18" width="68" height="84" rx="5" fill="#ffffff" opacity="0.1" stroke="#95d5b2" stroke-width="2" stroke-dasharray="5,5"/>
+  <rect x="322" y="18" width="68" height="84" rx="5" fill="#ffffff" opacity="0.1" stroke="#95d5b2" stroke-width="2" stroke-dasharray="5,5"/>
+
+  <!-- Labels -->
+  <text x="122" y="14" font-family="Arial" font-size="12" fill="#95d5b2" text-anchor="middle">FLOP</text>
+  <text x="278" y="14" font-family="Arial" font-size="11" fill="#95d5b2" text-anchor="middle">TURN</text>
+  <text x="356" y="14" font-family="Arial" font-size="11" fill="#95d5b2" text-anchor="middle">RIVER</text>
+</svg>

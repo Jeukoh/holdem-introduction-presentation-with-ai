@@ -1,0 +1,13 @@
+<svg width="60" height="84" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="shadow">
+      <feDropShadow dx="1" dy="1" stdDeviation="2" flood-opacity="0.2"/>
+    </filter>
+  </defs>
+
+  <!-- Card outline -->
+  <rect width="60" height="84" rx="5" fill="#ffffff" opacity="0.1" stroke="#ffffff" stroke-width="2" stroke-dasharray="5,5" filter="url(#shadow)"/>
+
+  <!-- Question mark or empty indicator -->
+  <text x="30" y="52" font-family="Arial" font-size="36" font-weight="bold" fill="#7f8c8d" text-anchor="middle" opacity="0.5">?</text>
+</svg>

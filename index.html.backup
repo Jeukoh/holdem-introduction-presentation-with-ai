@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>홀덤: 생각보다 깊은 마인드 스포츠</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/theme/black.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- 슬라이드 1: 타이틀 -->
+            <section data-background-gradient="linear-gradient(to bottom, #1a1a2e, #16213e)">
+                <h1 class="title-main">홀덤</h1>
+                <h2 class="title-sub">생각보다 깊은 마인드 스포츠</h2>
+                <p class="subtitle">불확실성 속에서 최선의 결정을 내리는 법</p>
+            </section>
+
+            <!-- 슬라이드 2: 도발적인 질문 -->
+            <section>
+                <h2>이런 생각 해보신 적 있나요?</h2>
+                <div class="fragment fade-up">
+                    <p class="quote">"포커는 도박이잖아?"</p>
+                </div>
+                <div class="fragment fade-up">
+                    <p class="quote">"운에 좌우되는 게임 아닌가?"</p>
+                </div>
+                <div class="fragment fade-up">
+                    <p class="quote">"시간 낭비 같은데..."</p>
+                </div>
+            </section>
+
+            <!-- 슬라이드 3: 통념 깨기 -->
+            <section data-background-color="#0f3460">
+                <h2>잠깐!</h2>
+                <div class="fragment">
+                    <p class="large-text">그렇다면 왜 같은 사람들이</p>
+                    <p class="large-text">계속 우승할까요?</p>
+                </div>
+                <div class="fragment">
+                    <p class="stat">프로 포커 플레이어 상위 1%</p>
+                    <p class="stat-detail">전체 상금의 80% 이상을 차지</p>
+                </div>
+            </section>
+
+            <!-- 슬라이드 4: 홀덤이란? -->
+            <section>
+                <h2>텍사스 홀덤이란?</h2>
+                <div class="game-intro">
+                    <p>2장의 개인 카드 + 5장의 공용 카드</p>
+                    <p>= 최고의 5장 조합을 만드는 게임</p>
+                </div>
+                <div class="fragment">
+                    <p class="highlight">하지만 단순히 카드 게임이 아닙니다</p>
+                    <p>수학, 심리학, 전략이 결합된 <strong>마인드 스포츠</strong></p>
+                </div>
+            </section>
+
+            <!-- 슬라이드 5: 왜 도박이 아닌가? -->
+            <section>
+                <h2>왜 도박이 아닌가?</h2>
+                <div class="two-column">
+                    <div class="fragment">
+                        <h3>🎲 도박</h3>
+                        <ul>
+                            <li>하우스가 항상 승리</li>
+                            <li>확률을 계산할 수 없음</li>
+                            <li>실력의 여지 없음</li>
+                        </ul>
+                    </div>
+                    <div class="fragment">
+                        <h3>🧠 홀덤</h3>
+                        <ul>
+                            <li>플레이어끼리 경쟁</li>
+                            <li>모든 확률을 계산 가능</li>
+                            <li>실력이 장기적 결과 결정</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 슬라이드 6: 수학적 게임 -->
+            <section data-background-color="#16213e">
+                <h2>수학적 게임</h2>
+                <div class="math-section">
+                    <div class="fragment">
+                        <h3>팟 오즈 (Pot Odds)</h3>
+                        <p class="formula">콜 금액 : 팟 크기 vs 승률</p>
+                        <p class="example">예: 100원 콜로 1000원 팟 → 최소 10% 승률 필요</p>
+                    </div>
+                    <div class="fragment">
+                        <h3>기댓값 (Expected Value)</h3>
+                        <p class="formula">EV = (승률 × 획득 금액) - (패배 확률 × 손실 금액)</p>
+                        <p class="example">장기적으로 +EV 플레이만 하면 반드시 수익</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 슬라이드 7: GTO (게임 이론 최적화) -->
+            <section>
+                <h2>GTO - Game Theory Optimal</h2>
+                <p class="gto-intro">게임 이론에 기반한 최적 전략</p>
+                <div class="fragment">
+                    <div class="gto-concept">
+                        <p>📊 상대가 어떤 플레이를 하든</p>
+                        <p>손해를 보지 않는 전략</p>
+                    </div>
+                </div>
+                <div class="fragment">
+                    <p class="highlight">프로 선수들은 AI로 GTO를 학습합니다</p>
+                    <p class="small-text">PokerSnowie, PioSolver, GTO+ 등</p>
+                </div>
+            </section>
+
+            <!-- 슬라이드 8: 게임 진행 -->
+            <section>
+                <h2>게임은 어떻게 진행될까?</h2>
+                <div class="game-flow">
+                    <div class="fragment fade-right">
+                        <h3>1️⃣ 프리플랍 (Pre-flop)</h3>
+                        <p>각자 2장의 카드를 받음</p>
+                        <p class="cards">예: A♠ K♥</p>
+                    </div>
+                    <div class="fragment fade-right">
+                        <h3>2️⃣ 플랍 (Flop)</h3>
+                        <p>공용 카드 3장 오픈</p>
+                        <p class="cards">예: A♦ 7♣ 2♠</p>
+                    </div>
+                    <div class="fragment fade-right">
+                        <h3>3️⃣ 턴 (Turn)</h3>
+                        <p>공용 카드 1장 추가</p>
+                        <p class="cards">예: K♣</p>
+                    </div>
+                    <div class="fragment fade-right">
+                        <h3>4️⃣ 리버 (River)</h3>
+                        <p>마지막 공용 카드 1장</p>
+                        <p class="cards">예: 9♥</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 슬라이드 9: 핸드 랭킹 -->
+            <section>
+                <h2>핸드 랭킹 (족보)</h2>
+                <div class="hand-rankings">
+                    <div class="hand-rank fragment">
+                        <span class="rank-number">1</span>
+                        <span class="rank-name">로열 플러시</span>
+                        <span class="rank-example">A♠ K♠ Q♠ J♠ 10♠</span>
+                    </div>
+                    <div class="hand-rank fragment">
+                        <span class="rank-number">2</span>
+                        <span class="rank-name">스트레이트 플러시</span>
+                        <span class="rank-example">9♥ 8♥ 7♥ 6♥ 5♥</span>
+                    </div>
+                    <div class="hand-rank fragment">
+                        <span class="rank-number">3</span>
+                        <span class="rank-name">포 카드</span>
+                        <span class="rank-example">K♠ K♥ K♦ K♣ A♠</span>
+                    </div>
+                    <div class="hand-rank fragment">
+                        <span class="rank-number">4</span>
+                        <span class="rank-name">풀 하우스</span>
+                        <span class="rank-example">Q♠ Q♥ Q♦ 7♣ 7♠</span>
+                    </div>
+                    <div class="hand-rank fragment">
+                        <span class="rank-number">5</span>
+                        <span class="rank-name">플러시</span>
+                        <span class="rank-example">A♦ J♦ 8♦ 5♦ 3♦</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 슬라이드 10: 핸드 랭킹 계속 -->
+            <section>
+                <h2>핸드 랭킹 (계속)</h2>
+                <div class="hand-rankings">
+                    <div class="hand-rank fragment">
+                        <span class="rank-number">6</span>
+                        <span class="rank-name">스트레이트</span>
+                        <span class="rank-example">10♠ 9♥ 8♦ 7♣ 6♠</span>
+                    </div>
+                    <div class="hand-rank fragment">
+                        <span class="rank-number">7</span>
+                        <span class="rank-name">트리플 (쓰리 오브 어 카인드)</span>
+                        <span class="rank-example">J♠ J♥ J♦ A♠ 9♣</span>
+                    </div>
+                    <div class="hand-rank fragment">
+                        <span class="rank-number">8</span>
+                        <span class="rank-name">투 페어</span>
+                        <span class="rank-example">A♠ A♥ 8♦ 8♣ K♠</span>
+                    </div>
+                    <div class="hand-rank fragment">
+                        <span class="rank-number">9</span>
+                        <span class="rank-name">원 페어</span>
+                        <span class="rank-example">K♠ K♥ Q♦ 9♣ 5♠</span>
+                    </div>
+                    <div class="hand-rank fragment">
+                        <span class="rank-number">10</span>
+                        <span class="rank-name">하이 카드</span>
+                        <span class="rank-example">A♠ J♥ 9♦ 7♣ 3♠</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 슬라이드 11: 전략의 깊이 -->
+            <section data-background-color="#0f3460">
+                <h2>전략의 깊이</h2>
+                <div class="strategy-depth">
+                    <div class="fragment">
+                        <h3>🎯 포지션</h3>
+                        <p>늦게 행동할수록 유리 (정보 우위)</p>
+                    </div>
+                    <div class="fragment">
+                        <h3>🎭 심리전</h3>
+                        <p>베팅 패턴, 타이밍, 상대 리딩</p>
+                    </div>
+                    <div class="fragment">
+                        <h3>📈 뱅크롤 관리</h3>
+                        <p>분산(Variance)을 견디는 자금 관리</p>
+                    </div>
+                    <div class="fragment">
+                        <h3>🔄 적응력</h3>
+                        <p>상대와 상황에 맞는 전략 조정</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 슬라이드 12: 인터랙티브 예시 -->
+            <section>
+                <h2>실전 예시: 의사결정</h2>
+                <div class="interactive-example">
+                    <div class="situation">
+                        <p><strong>상황:</strong></p>
+                        <p>내 핸드: A♠ K♥</p>
+                        <p>보드: Q♠ J♠ 3♣ 2♠</p>
+                        <p>팟: 10,000원 | 상대 베팅: 5,000원</p>
+                    </div>
+                    <div class="fragment">
+                        <div class="analysis">
+                            <h3>분석</h3>
+                            <ul>
+                                <li>넛 플러시 드로우 (9아웃)</li>
+                                <li>넛 스트레이트 드로우 (4아웃)</li>
+                                <li>총 약 13아웃 ≈ 50% 승률</li>
+                                <li>팟 오즈: 5,000 : 15,000 = 1:3 (25%)</li>
+                                <li><strong class="positive">✅ 콜은 +EV!</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 슬라이드 13: 마인드 스포츠로서의 가치 -->
+            <section>
+                <h2>왜 마인드 스포츠인가?</h2>
+                <div class="mind-sport">
+                    <div class="fragment">
+                        <p class="value-point">🎓 <strong>비판적 사고</strong></p>
+                        <p>불완전한 정보로 최선의 판단</p>
+                    </div>
+                    <div class="fragment">
+                        <p class="value-point">📊 <strong>확률적 사고</strong></p>
+                        <p>단일 결과가 아닌 장기적 기댓값</p>
+                    </div>
+                    <div class="fragment">
+                        <p class="value-point">🧘 <strong>감정 조절</strong></p>
+                        <p>배드 비트를 견디는 멘탈 관리</p>
+                    </div>
+                    <div class="fragment">
+                        <p class="value-point">🔍 <strong>자기 반성</strong></p>
+                        <p>모든 핸드를 리뷰하며 개선점 찾기</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 슬라이드 14: 인생에 주는 교훈 -->
+            <section data-background-gradient="linear-gradient(to right, #2c3e50, #3498db)">
+                <h2>홀덤이 가르쳐주는 인생의 교훈</h2>
+                <div class="life-lessons">
+                    <div class="fragment fade-up">
+                        <blockquote class="life-quote">
+                            "결과가 아니라 과정에 집중하라"
+                        </blockquote>
+                        <p class="lesson-detail">좋은 결정도 나쁜 결과를 낳을 수 있고, 그 반대도 가능합니다</p>
+                    </div>
+                    <div class="fragment fade-up">
+                        <blockquote class="life-quote">
+                            "불확실성을 받아들여라"
+                        </blockquote>
+                        <p class="lesson-detail">모든 정보를 알 수 없는 상황에서도 결정해야 합니다</p>
+                    </div>
+                    <div class="fragment fade-up">
+                        <blockquote class="life-quote">
+                            "감정을 관리하라"
+                        </blockquote>
+                        <p class="lesson-detail">틸트(감정적 플레이)는 최악의 적입니다</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 슬라이드 15: 프로의 세계 -->
+            <section>
+                <h2>프로들의 세계</h2>
+                <div class="pro-world">
+                    <div class="fragment">
+                        <h3>🏆 World Series of Poker (WSOP)</h3>
+                        <p>메인 이벤트 우승 상금: 약 100억원</p>
+                    </div>
+                    <div class="fragment">
+                        <h3>💰 프로 플레이어 연봉</h3>
+                        <p>상위 프로: 수십억 ~ 수백억원</p>
+                    </div>
+                    <div class="fragment">
+                        <h3>🎓 학습과 연습</h3>
+                        <p>하루 8시간 이상 공부하는 프로들</p>
+                        <p class="small-text">솔버 분석, 핸드 리뷰, 멘탈 트레이닝</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 슬라이드 16: 피드백이 가능한 게임 -->
+            <section>
+                <h2>자기 의사결정에 대한 피드백</h2>
+                <div class="feedback-system">
+                    <div class="fragment">
+                        <p class="feedback-point">📝 <strong>모든 핸드 기록 가능</strong></p>
+                        <p>온라인: 자동 핸드 히스토리</p>
+                        <p>오프라인: 메모 및 복기</p>
+                    </div>
+                    <div class="fragment">
+                        <p class="feedback-point">🔬 <strong>솔버로 정확한 분석</strong></p>
+                        <p>내 플레이가 GTO 대비 어땠는지 확인</p>
+                        <p>실수를 정량적으로 측정</p>
+                    </div>
+                    <div class="fragment">
+                        <p class="feedback-point">📚 <strong>커뮤니티와 코칭</strong></p>
+                        <p>다른 플레이어들과 핸드 토론</p>
+                        <p>프로 코치의 피드백</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 슬라이드 17: 시작하기 -->
+            <section data-background-color="#16213e">
+                <h2>어디서 시작할까요?</h2>
+                <div class="get-started">
+                    <div class="fragment">
+                        <h3>1. 무료로 연습</h3>
+                        <p>PokerStars Play, Zynga Poker (플레이 머니)</p>
+                    </div>
+                    <div class="fragment">
+                        <h3>2. 학습 자료</h3>
+                        <p>📚 책: "Harrington on Hold'em", "The Theory of Poker"</p>
+                        <p>🎥 유튜브: Daniel Negreanu, Phil Ivey 하이라이트</p>
+                        <p>💻 사이트: Upswing Poker, Run It Once</p>
+                    </div>
+                    <div class="fragment">
+                        <h3>3. 책임감 있게 즐기기</h3>
+                        <p>⚠️ 잃어도 되는 금액으로만</p>
+                        <p>⚠️ 뱅크롤 관리 철저히</p>
+                        <p>⚠️ 학습과 개선에 집중</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 슬라이드 18: 마무리 -->
+            <section data-background-gradient="linear-gradient(to bottom, #1a1a2e, #16213e)">
+                <h2>홀덤은</h2>
+                <div class="closing">
+                    <p class="closing-text fragment">운이 아니라 <strong>실력</strong>의 게임</p>
+                    <p class="closing-text fragment">도박이 아니라 <strong>마인드 스포츠</strong></p>
+                    <p class="closing-text fragment">단순히 카드를 맞추는 게 아니라</p>
+                    <p class="closing-text fragment"><strong>불확실성 속에서 최선을 찾는</strong></p>
+                    <p class="closing-text fragment">인생의 축소판입니다</p>
+                </div>
+                <div class="fragment">
+                    <h3 class="final-message">당신도 도전해보시겠습니까?</h3>
+                </div>
+            </section>
+
+            <!-- 슬라이드 19: Q&A -->
+            <section>
+                <h1>Q & A</h1>
+                <p>질문 있으신가요?</p>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/notes/notes.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/zoom/zoom.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            transition: 'slide',
+            transitionSpeed: 'default',
+            backgroundTransition: 'fade',
+            controls: true,
+            progress: true,
+            center: true,
+            plugins: [ RevealNotes, RevealZoom ]
+        });
+    </script>
+</body>
+</html>

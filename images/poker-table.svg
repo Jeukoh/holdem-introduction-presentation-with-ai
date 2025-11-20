@@ -1,0 +1,116 @@
+<svg width="1200" height="800" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="tableGradient" cx="50%" cy="50%">
+      <stop offset="0%" style="stop-color:#2d6a4f;stop-opacity:1" />
+      <stop offset="70%" style="stop-color:#1b4332;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#081c15;stop-opacity:1" />
+    </radialGradient>
+
+    <linearGradient id="feltTexture" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2d6a4f;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#40916c;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2d6a4f;stop-opacity:1" />
+    </linearGradient>
+
+    <filter id="tableShadow">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="8"/>
+      <feOffset dx="0" dy="4" result="offsetblur"/>
+      <feComponentTransfer>
+        <feFuncA type="linear" slope="0.5"/>
+      </feComponentTransfer>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <filter id="chipShadow">
+      <feDropShadow dx="2" dy="2" stdDeviation="2" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+
+  <!-- Background (darker room) -->
+  <rect width="1200" height="800" fill="#0a0e0d"/>
+
+  <!-- Table outer rim (wood) -->
+  <ellipse cx="600" cy="400" rx="550" ry="350" fill="#5a3825" filter="url(#tableShadow)"/>
+
+  <!-- Padding rail -->
+  <ellipse cx="600" cy="400" rx="530" ry="330" fill="#3d2314"/>
+
+  <!-- Main felt surface -->
+  <ellipse cx="600" cy="400" rx="480" ry="300" fill="url(#feltTexture)"/>
+
+  <!-- Table markings - dealer button position -->
+  <circle cx="600" cy="280" r="25" fill="#1b4332" opacity="0.5"/>
+  <text x="600" y="290" font-family="Arial" font-size="16" font-weight="bold" fill="#95d5b2" text-anchor="middle">D</text>
+
+  <!-- Community card positions (5 cards) -->
+  <rect x="370" y="360" width="60" height="85" rx="5" fill="#ffffff" opacity="0.15" stroke="#95d5b2" stroke-width="2" stroke-dasharray="5,5"/>
+  <rect x="450" y="360" width="60" height="85" rx="5" fill="#ffffff" opacity="0.15" stroke="#95d5b2" stroke-width="2" stroke-dasharray="5,5"/>
+  <rect x="530" y="360" width="60" height="85" rx="5" fill="#ffffff" opacity="0.15" stroke="#95d5b2" stroke-width="2" stroke-dasharray="5,5"/>
+  <rect x="610" y="360" width="60" height="85" rx="5" fill="#ffffff" opacity="0.15" stroke="#95d5b2" stroke-width="2" stroke-dasharray="5,5"/>
+  <rect x="690" y="360" width="60" height="85" rx="5" fill="#ffffff" opacity="0.15" stroke="#95d5b2" stroke-width="2" stroke-dasharray="5,5"/>
+
+  <!-- Pot area -->
+  <text x="600" y="330" font-family="Arial" font-size="14" fill="#95d5b2" text-anchor="middle" opacity="0.7">POT</text>
+
+  <!-- Player positions (3 players) -->
+  <!-- Player 1 (bottom) -->
+  <g transform="translate(600, 650)">
+    <circle r="8" fill="#e63946"/>
+    <text y="25" font-family="Arial" font-size="12" fill="#d4a574" text-anchor="middle">Player 1</text>
+  </g>
+
+  <!-- Player 2 (left) -->
+  <g transform="translate(250, 380)">
+    <circle r="8" fill="#457b9d"/>
+    <text y="25" font-family="Arial" font-size="12" fill="#d4a574" text-anchor="middle">Player 2</text>
+  </g>
+
+  <!-- Player 3 (right) -->
+  <g transform="translate(950, 380)">
+    <circle r="8" fill="#2a9d8f"/>
+    <text y="25" font-family="Arial" font-size="12" fill="#d4a574" text-anchor="middle">Player 3</text>
+  </g>
+
+  <!-- Poker chips (decorative) -->
+  <!-- Red chips -->
+  <g transform="translate(150, 200)" filter="url(#chipShadow)">
+    <circle r="20" fill="#e63946"/>
+    <circle r="20" fill="none" stroke="#ffffff" stroke-width="3"/>
+    <circle r="12" fill="none" stroke="#ffffff" stroke-width="1"/>
+  </g>
+
+  <g transform="translate(170, 210)" filter="url(#chipShadow)">
+    <circle r="20" fill="#e63946"/>
+    <circle r="20" fill="none" stroke="#ffffff" stroke-width="3"/>
+    <circle r="12" fill="none" stroke="#ffffff" stroke-width="1"/>
+  </g>
+
+  <!-- Blue chips -->
+  <g transform="translate(1030, 220)" filter="url(#chipShadow)">
+    <circle r="20" fill="#457b9d"/>
+    <circle r="20" fill="none" stroke="#ffffff" stroke-width="3"/>
+    <circle r="12" fill="none" stroke="#ffffff" stroke-width="1"/>
+  </g>
+
+  <g transform="translate(1050, 230)" filter="url(#chipShadow)">
+    <circle r="20" fill="#457b9d"/>
+    <circle r="20" fill="none" stroke="#ffffff" stroke-width="3"/>
+    <circle r="12" fill="none" stroke="#ffffff" stroke-width="1"/>
+  </g>
+
+  <!-- Green chips -->
+  <g transform="translate(1040, 580)" filter="url(#chipShadow)">
+    <circle r="20" fill="#2a9d8f"/>
+    <circle r="20" fill="none" stroke="#ffffff" stroke-width="3"/>
+    <circle r="12" fill="none" stroke="#ffffff" stroke-width="1"/>
+  </g>
+
+  <!-- Card suits decoration in corners -->
+  <text x="100" y="100" font-size="40" fill="#95d5b2" opacity="0.2">♠</text>
+  <text x="1100" y="100" font-size="40" fill="#95d5b2" opacity="0.2">♥</text>
+  <text x="100" y="750" font-size="40" fill="#95d5b2" opacity="0.2">♣</text>
+  <text x="1100" y="750" font-size="40" fill="#95d5b2" opacity="0.2">♦</text>
+</svg>

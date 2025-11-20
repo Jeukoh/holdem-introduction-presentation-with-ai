@@ -1,0 +1,5 @@
+[게임영상:당신이라면 A 하이로 히어로콜?](https://www.youtube.com/shorts/2fYtfQR8UN0)
+[게임영상:해설있음:19억짜리 콜](https://www.youtube.com/shorts/4oPDbGzAnwM?feature=share)
+[모던이론:GTO란?](https://youtu.be/MKREMFQfY3Q)
+[모던이론:익ttps://youtu.be/wgK4e42HbUM)
+[족보및전략/치트싯]() # images에 파일있음 / 출처 (https://www.reddit.com/r/poker/comments/1edzshm/poker_cheat_sheet_for_new_players/?tl=ko)
