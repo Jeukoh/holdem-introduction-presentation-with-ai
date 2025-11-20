@@ -221,6 +221,13 @@
   background: var(--bg-darker);
   padding: 1em;
   border-radius: 0.5em;
+  text-align: center;
+}
+
+.video-container iframe {
+  max-width: 100%;
+  border-radius: 0.3em;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
 
 .video-placeholder {
@@ -817,7 +824,7 @@
 
 .flow-stage.current-fragment {
   background: var(--overlay-bg-darker);
-  transform: translateX(10px);
+  margin-left: 10px;  /* Changed from transform to prevent reflow */
   border-left-color: var(--accent-gold);
 }
 
