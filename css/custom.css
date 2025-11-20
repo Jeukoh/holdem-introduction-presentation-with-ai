@@ -870,7 +870,8 @@
 .action-card.current-fragment {
   background: var(--overlay-bg-darker);
   border-color: var(--accent-red);
-  transform: translateY(-5px);
+  margin-top: -5px;  /* Changed from transform to prevent baseline misalignment */
+  margin-bottom: 5px;  /* Reserve space for shadow */
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
 }
 
