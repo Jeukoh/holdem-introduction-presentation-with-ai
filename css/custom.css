@@ -682,6 +682,46 @@
   margin-bottom: 0.5em;
 }
 
+/* Range Grid Cells (for Range Analysis visualization) */
+.range-cell {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 3px;
+  font-weight: bold;
+  font-size: 1.4em;
+  transition: all 0.3s ease;
+}
+
+.range-cell.empty {
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.range-cell.premium {
+  background: #d4af37;
+  color: #000;
+  box-shadow: 0 2px 4px rgba(212, 175, 55, 0.5);
+}
+
+.range-cell.strong {
+  background: #e67e22;
+  color: #fff;
+  box-shadow: 0 2px 4px rgba(230, 126, 34, 0.5);
+}
+
+.range-cell.medium {
+  background: #3498db;
+  color: #fff;
+  box-shadow: 0 2px 4px rgba(52, 152, 219, 0.5);
+}
+
+.range-cell.weak {
+  background: #95a5a6;
+  color: #fff;
+}
+
 /* Highlight Overlay - positions specific cards in the grid */
 .highlight-overlay {
   position: absolute;
@@ -738,7 +778,9 @@
 .formula-builder {
   grid-column: 1 / -1;
   justify-self: center;
-  margin-top: 2em;
+  margin-top: 3em;  /* Increased from 2em for better visual separation */
+  padding-top: 1.5em;  /* Additional top padding */
+  border-top: 2px solid var(--accent-gold);  /* Visual divider from deck */
   background: var(--accent-red);
   color: white;
   padding: 1em 2em;
