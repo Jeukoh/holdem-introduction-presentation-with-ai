@@ -96,6 +96,77 @@
 
 ---
 
+## 🔗 GitHub Issues Integration
+
+### When to Use Issues
+
+**✅ Create an issue when**:
+- **크로스세션 작업**: 여러 세션이 나눠서 하거나 누가 할지 미정인 작업
+- **버그 발견**: 레이아웃, 애니메이션, 기능 오류
+- **블로킹 작업**: 다른 작업이 이것을 기다리는 경우
+- **토론 필요**: 디자인/컨텐츠 결정이 필요한 경우
+
+**❌ Don't create when**:
+- 30분 미만 즉시 수정 가능한 작업
+- 현재 세션에서 바로 처리 중
+- SESSION-STATE.md 체크리스트에만 있는 세션 전용 작업
+
+### Issue Workflow (5 Steps)
+
+```bash
+# 1. 가용 작업 확인
+gh issue list --label "phase: ready" --label "session: unassigned"
+
+# 2. 이슈 클레임 & SESSION-STATE.md 업데이트
+gh issue comment 7 --body "Session 6 claiming this"
+gh issue edit 7 --add-label "session: 6" --add-label "phase: in-progress"
+
+# 3. 작업 수행
+
+# 4. 커밋 with issue reference
+git commit -m "[Session6] Fix #7: Description
+
+Fixes #7"
+
+# 5. Push (이슈 자동 close)
+git push
+```
+
+### Labels
+
+**Type** (필수): `type: bug`, `type: design`, `type: content`, `type: infra`, `type: research`, `type: enhancement`
+
+**Priority** (필수): `priority: critical`, `priority: high`, `priority: medium`, `priority: low`
+
+**Session** (선택): `session: 1-6`, `session: unassigned`
+
+**Phase** (선택): `phase: planning`, `phase: ready`, `phase: in-progress`, `phase: review`, `phase: blocked`
+
+### SESSION-STATE.md 동기화
+
+**SESSION-STATE.md**에 추가:
+```markdown
+GitHub Issues:
+- #7 (in-progress)
+- #12 (next)
+
+Tasks:
+- [ ] Fix video centering (Issue #7)
+```
+
+**Issue description**에 추가:
+```markdown
+## Session Assignment
+**Assigned to**: Session 6
+**Tracking**: SESSION-STATE.md (Session 6 section)
+```
+
+### See Also
+
+📖 **[GITHUB-ISSUES-GUIDE.md](./GITHUB-ISSUES-GUIDE.md)** - 상세한 워크플로우 및 예제
+
+---
+
 ## 💡 Tips & Best Practices
 
 ### 세션 시작 시
@@ -136,6 +207,7 @@ Session 2: "development-log/* 를 lock하고 작업 시작하겠습니다."
 
 ### 상태 관리
 - **`SESSION-STATE.md`** ⭐: 현재 세션 상태, Lock 정보, Task Queue
+- **`GITHUB-ISSUES-GUIDE.md`** 🔗: GitHub Issues 사용 가이드 및 워크플로우
 
 ### 프로젝트 가이드
 - **`development-log/CLAUDE.md`**: 프로젝트 전체 원칙 및 목적
@@ -145,6 +217,10 @@ Session 2: "development-log/* 를 lock하고 작업 시작하겠습니다."
 ### 작업 가이드 (작업별)
 - **`ACT2-FEEDBACK-AND-GUIDE.md`**: Session 1용 Act 2 개선 가이드
 - **`DESIGN-FEEDBACK.md`**: Session 5용 디자인 개선 피드백
+
+### Issue Templates
+- **`.github/ISSUE_TEMPLATE/standard-task.md`**: 일반 작업 이슈 템플릿
+- **`.github/ISSUE_TEMPLATE/quick-task.md`**: 간단한 작업 이슈 템플릿
 
 ---
 
