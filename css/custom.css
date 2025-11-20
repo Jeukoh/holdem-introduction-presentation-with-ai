@@ -1026,6 +1026,109 @@
   font-weight: 600;
 }
 
+/* ============================================
+   ACT 3: GTO VS EXPLOIT COMPARISON
+   ============================================ */
+
+/* Comparison Diagram Container */
+.diagram-comparison {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2em;
+  max-width: 1000px;
+  margin: 2em auto;
+  padding: 1em;
+}
+
+/* Comparison Side Panel */
+.diagram-comparison-side {
+  background: var(--overlay-bg);
+  border: 3px solid;
+  border-radius: 1em;
+  padding: 2em;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.diagram-comparison-side:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
+}
+
+.diagram-comparison-side.fragment.current-fragment {
+  transform: scale(1.05);
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.5);
+}
+
+/* Title */
+.diagram-comparison-title {
+  font-size: 1.4em;
+  font-weight: 700;
+  text-align: center;
+  padding: 0.8em;
+  border-radius: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+/* Thought Bubble */
+.diagram-comparison-thought {
+  font-style: italic;
+  text-align: center;
+  padding: 1em;
+  background: var(--bg-dark-alpha);
+  border-radius: 0.8em;
+  position: relative;
+  margin: 0.5em 0 1em;
+  border: 2px dashed rgba(255, 255, 255, 0.2);
+}
+
+.diagram-comparison-thought::before {
+  content: '"';
+  font-size: 2em;
+  position: absolute;
+  top: -0.2em;
+  left: 0.2em;
+  color: var(--accent-gold);
+  opacity: 0.5;
+}
+
+.diagram-comparison-thought::after {
+  content: '"';
+  font-size: 2em;
+  position: absolute;
+  bottom: -0.5em;
+  right: 0.2em;
+  color: var(--accent-gold);
+  opacity: 0.5;
+}
+
+/* Decision Badge */
+.diagram-comparison-decision {
+  font-size: 1.2em;
+  font-weight: 700;
+  text-align: center;
+  padding: 1em;
+  border-radius: 0.8em;
+  margin-top: auto;
+  border: 2px solid;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Responsive: Stack on Mobile */
+@media screen and (max-width: 768px) {
+  .diagram-comparison {
+    grid-template-columns: 1fr;
+    gap: 1.5em;
+  }
+
+  .diagram-comparison-side {
+    padding: 1.5em;
+  }
+}
+
 /* Game Flow Stages */
 .game-flow {
   display: flex;
