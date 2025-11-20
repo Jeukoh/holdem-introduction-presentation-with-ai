@@ -206,25 +206,27 @@ Session 1과 병렬 작업을 위해 파일 분리 구조 채택:
 ### Waiting
 - *(None)*
 
-### Backlog
-1. **Act 2 Synchronization**
-   - Needs: Session 1 completion
-   - Merge Session 1's Act 2 improvements into sections/act2.html
-   - Priority: High
+4. ✅ **Index Migration** (Session 5)
+   - Completed: 2025-11-21 16:15
+   - Result: Already completed - index.html uses dynamic loading
+   - Closed: Issue #8
 
-2. **Index Migration**
-   - Migrate from index.html to index.tobe.html
-   - Test dynamic loading
+5. ✅ **Act 2 Synchronization** (Session 5)
+   - Completed: 2025-11-21 16:20
+   - sections/act2.html: 866 → 872 lines (+6 lines)
+   - Session 1 improvements fully synced
+   - Closed: Issue #9
+
+### Ready
+- *(None)*
+
+### Backlog
+1. **Design Implementation Phase 2** (GitHub Issues #1-7)
+   - 🟡 Medium (6개, ~1-1.5시간): #1-6
+   - 🟢 Low (1개, ~5분): #7
    - Priority: Medium
 
-3. **Design Implementation** (Based on DESIGN-FEEDBACK.md)
-   - Phase 1: CSS 변수 확장, 반응형 디자인 기본, 접근성 기본 (Critical)
-   - Phase 2: 간격 시스템, 타이포그래피 개선, 애니메이션 최적화 (Important)
-   - Phase 3: CSS 리팩토링, ARIA 개선 (Nice to Have)
-   - Ref: `DESIGN-FEEDBACK.md` 참조
-   - Priority: Medium (Session 1 완료 후)
-
-4. **Final Review**
+2. **Final Review**
    - End-to-end testing
    - Timing check (30-35min target)
    - Priority: High (but last)
