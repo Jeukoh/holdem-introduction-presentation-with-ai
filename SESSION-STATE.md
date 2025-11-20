@@ -164,10 +164,17 @@ Session 1과 병렬 작업을 위해 파일 분리 구조 채택:
 - ✅ Responsive design: 0 → 2 breakpoints (768px, 480px)
 - ✅ Files modified: css/custom.css (+150 lines), sections/*.html (alt text)
 
-**Remaining Work** (optional for future sessions):
-- Phase 2: Medium priority bugs (4개, ~1.5시간)
-- Phase 3: Low priority issues (13개, ~30분)
-- Visual QA: Browser testing across all slides
+**Remaining Work** (tracked in GitHub Issues):
+- 🟡 **Medium** (6개, ~1-1.5시간):
+  - #1: Formula builder spacing
+  - #2: Flow stage horizontal jump
+  - #3: Action card jump
+  - #4: Two-column CSS conflicts
+  - #5: Community cards width overflow
+  - #6: Slide vertical overflow
+- 🟢 **Low** (1개, ~5분):
+  - #7: Video container centering
+- Visual QA: Browser testing across all slides (not in issues yet)
 
 **Started**: 2025-11-21 00:45
 **Initial Analysis**: 2025-11-21 01:00
