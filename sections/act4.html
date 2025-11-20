@@ -76,72 +76,134 @@
 </section>
 
 <section>
-    <h3>홀짝 vs 홀덤</h3>
-    <div class="two-column">
-        <div>
-            <h4>홀짝 (동전 던지기)</h4>
-            <ul class="fragment">
-                <li>50:50 확률</li>
-                <li>레이크 있으면 -EV</li>
-                <li>레이크 없어도 0 EV</li>
-                <li class="highlight-red">+EV 전략 불가능</li>
-            </ul>
-            <p class="fragment emphasize">순수 우연성에 거는 게임</p>
-        </div>
-        <div>
-            <h4>홀덤</h4>
-            <ul class="fragment">
-                <li>플레이어 간 경쟁</li>
-                <li>+EV 전략 존재</li>
-                <li>GTO로 수학적 증명</li>
-                <li class="emphasize">이기는 방법 연구 가능</li>
-            </ul>
-            <p class="fragment emphasize">전략과 실력의 게임</p>
-        </div>
-    </div>
-    <aside class="notes">
-        홀짝은 50대 50 확률 게임입니다.
-        레이크가 있으면 -EV, 없어도 0 EV입니다.
-        +EV 전략이 수학적으로 불가능합니다.
-        순수하게 우연성에 거는 게임입니다.
-        반면 홀덤은 플레이어 간 경쟁입니다.
-        +EV 전략이 자명하게 존재하고, GTO로 수학적 증명도 가능합니다.
-        이기는 방법을 연구할 수 있는 게임입니다.
-    </aside>
-</section>
+    <h3>게임 비교: 홀짝 vs 섯다 vs 홀덤</h3>
+    <p style="margin-bottom: 2em;">왜 홀덤이 특별한가?</p>
 
-<section>
-    <h3>섯다 vs 홀덤</h3>
-    <div class="two-column">
-        <div>
-            <h4>섯다</h4>
-            <ul class="fragment">
-                <li>전략이 존재</li>
-                <li>하지만 정보가 너무 적음</li>
-                <li>심리에 과도하게 의존</li>
-                <li class="highlight-red">불확정성이 매우 큼</li>
-            </ul>
-            <p class="fragment">실력 < 운</p>
+    <!-- 3-Way 비교 다이어그램 -->
+    <div class="game-comparison">
+
+        <!-- 홀짝 (동전 던지기) -->
+        <div class="game-card" data-game="holjjak">
+            <div class="game-icon">🪙</div>
+            <div class="game-title">홀짝</div>
+            <div class="game-subtitle">동전 던지기</div>
+
+            <div class="game-metrics">
+                <div class="metric">
+                    <div class="metric-label">+EV 가능성</div>
+                    <div class="metric-bar">
+                        <div class="metric-fill" style="width: 0%; background: #e74c3c;"></div>
+                    </div>
+                    <div class="metric-value">❌ 불가능</div>
+                </div>
+
+                <div class="metric fragment" data-fragment-index="0">
+                    <div class="metric-label">정보량</div>
+                    <div class="metric-bar">
+                        <div class="metric-fill" style="width: 0%; background: #e74c3c;"></div>
+                    </div>
+                    <div class="metric-value">없음</div>
+                </div>
+
+                <div class="metric fragment" data-fragment-index="1">
+                    <div class="metric-label">분석 가능성</div>
+                    <div class="metric-bar">
+                        <div class="metric-fill" style="width: 0%; background: #e74c3c;"></div>
+                    </div>
+                    <div class="metric-value">없음</div>
+                </div>
+            </div>
+
+            <div class="game-verdict negative">
+                순수 운 게임
+            </div>
         </div>
-        <div>
-            <h4>홀덤</h4>
-            <ul class="fragment">
-                <li>충분한 정보 (5장 공용)</li>
-                <li>핸드 레인지 분석 가능</li>
-                <li>수학적 최적해 존재</li>
-                <li class="emphasize">불확정성을 계산 가능</li>
-            </ul>
-            <p class="fragment emphasize">실력 > 운 (장기적)</p>
+
+        <!-- 섯다 -->
+        <div class="game-card fragment" data-fragment-index="2" data-game="seotda">
+            <div class="game-icon">🃏</div>
+            <div class="game-title">섯다</div>
+            <div class="game-subtitle">한국 전통 카드 게임</div>
+
+            <div class="game-metrics">
+                <div class="metric">
+                    <div class="metric-label">+EV 가능성</div>
+                    <div class="metric-bar">
+                        <div class="metric-fill" style="width: 40%; background: #f39c12;"></div>
+                    </div>
+                    <div class="metric-value">🔸 제한적</div>
+                </div>
+
+                <div class="metric fragment" data-fragment-index="3">
+                    <div class="metric-label">정보량</div>
+                    <div class="metric-bar">
+                        <div class="metric-fill" style="width: 30%; background: #f39c12;"></div>
+                    </div>
+                    <div class="metric-value">매우 적음</div>
+                </div>
+
+                <div class="metric fragment" data-fragment-index="4">
+                    <div class="metric-label">분석 가능성</div>
+                    <div class="metric-bar">
+                        <div class="metric-fill" style="width: 35%; background: #f39c12;"></div>
+                    </div>
+                    <div class="metric-value">제한적</div>
+                </div>
+            </div>
+
+            <div class="game-verdict medium">
+                실력 < 운
+            </div>
+        </div>
+
+        <!-- 홀덤 -->
+        <div class="game-card fragment" data-fragment-index="5" data-game="holdem">
+            <div class="game-icon">♠️</div>
+            <div class="game-title">텍사스 홀덤</div>
+            <div class="game-subtitle">불완전 정보 전략 게임</div>
+
+            <div class="game-metrics">
+                <div class="metric">
+                    <div class="metric-label">+EV 가능성</div>
+                    <div class="metric-bar">
+                        <div class="metric-fill" style="width: 100%; background: #2ecc71;"></div>
+                    </div>
+                    <div class="metric-value">✅ 확실</div>
+                </div>
+
+                <div class="metric fragment" data-fragment-index="6">
+                    <div class="metric-label">정보량</div>
+                    <div class="metric-bar">
+                        <div class="metric-fill" style="width: 85%; background: #2ecc71;"></div>
+                    </div>
+                    <div class="metric-value">풍부함</div>
+                </div>
+
+                <div class="metric fragment" data-fragment-index="7">
+                    <div class="metric-label">분석 가능성</div>
+                    <div class="metric-bar">
+                        <div class="metric-fill" style="width: 95%; background: #2ecc71;"></div>
+                    </div>
+                    <div class="metric-value">매우 높음</div>
+                </div>
+            </div>
+
+            <div class="game-verdict positive">
+                실력 > 운 ✅
+            </div>
         </div>
     </div>
+
+    <p class="fragment" data-fragment-index="8" style="text-align: center; margin-top: 2em;">
+        홀덤은 <span class="emphasize">운과 실력이 균형잡힌</span> 최적의 게임
+    </p>
+
     <aside class="notes">
-        섯다도 전략이 있는 게임입니다.
-        하지만 정보가 너무 적습니다. 심리에 과도하게 의존하고,
-        불확정성이 홀덤보다 훨씬 큽니다.
-        장기적으로 실력보다 운의 영향이 더 큽니다.
-        반면 홀덤은 5장의 공용 카드로 충분한 정보를 제공합니다.
-        핸드 레인지 분석이 가능하고, 수학적 최적해가 존재합니다.
-        불확정성을 계산할 수 있어서, 장기적으로는 실력이 운을 이깁니다.
+        세 게임을 비교합니다.
+        홀짝은 50대 50 확률 게임입니다. +EV 전략이 불가능하고, 정보도 없고, 분석할 것도 없습니다. 순수한 운 게임입니다.
+        섯다는 전략이 존재하지만 정보가 매우 적습니다. 심리에 과도하게 의존하고, 분석도 제한적입니다. 장기적으로 실력보다 운의 영향이 더 큽니다.
+        홀덤은 +EV 전략이 명확히 존재합니다. 5장의 공용 카드로 충분한 정보를 제공하고, 핸드 레인지 분석이 가능합니다. 수학적 최적해도 존재합니다.
+        홀덤은 운과 실력이 균형잡힌 최적의 게임입니다.
     </aside>
 </section>
 
