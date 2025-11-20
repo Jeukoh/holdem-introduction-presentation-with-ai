@@ -105,32 +105,59 @@
 
 <section>
     <h3>학습 자료</h3>
-    <div class="fragment">
-        <h4>YouTube</h4>
-        <ul>
-            <li>"모던 이론" - GTO 기초</li>
-            <li>"PokerStars" 공식 채널</li>
-        </ul>
+
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 2em; max-width: 1000px; margin: 2em auto;">
+        <!-- YouTube -->
+        <div class="fragment resource-card">
+            <h4 style="color: var(--accent-gold); margin-bottom: 1em;">📺 YouTube</h4>
+            <ul style="text-align: left; font-size: 0.9em; line-height: 1.6;">
+                <li>"모던 이론" - GTO 기초</li>
+                <li>"PokerStars" 공식 채널</li>
+            </ul>
+            <div class="qr-placeholder fragment" data-fragment-index="1" style="margin-top: 1em;">
+                <div style="width: 100px; height: 100px; background: white; margin: 0 auto; display: flex; align-items: center; justify-content: center; border-radius: 8px;">
+                    <span style="color: #333; font-size: 0.7em; text-align: center; padding: 0.5em;">QR<br>YouTube</span>
+                </div>
+                <p style="font-size: 0.7em; margin-top: 0.5em; color: rgba(255,255,255,0.6);">스캔하여 바로 이동</p>
+            </div>
+        </div>
+
+        <!-- Books -->
+        <div class="fragment resource-card">
+            <h4 style="color: var(--accent-gold); margin-bottom: 1em;">📚 책</h4>
+            <ul style="text-align: left; font-size: 0.9em; line-height: 1.6;">
+                <li>《The Theory of Poker》<br><small>David Sklansky</small></li>
+                <li>《어플라이드 홀덤》<br><small>매튜 제플린</small></li>
+            </ul>
+            <p style="font-size: 0.8em; margin-top: 1em; color: rgba(255,255,255,0.7);">기초부터 고급까지</p>
+        </div>
+
+        <!-- Community -->
+        <div class="fragment resource-card">
+            <h4 style="color: var(--accent-gold); margin-bottom: 1em;">👥 커뮤니티</h4>
+            <ul style="text-align: left; font-size: 0.9em; line-height: 1.6;">
+                <li>"홀덤 인 코리아"<br><small>네이버 카페</small></li>
+                <li>Discord 홀덤 채널</li>
+            </ul>
+            <div class="qr-placeholder fragment" data-fragment-index="1" style="margin-top: 1em;">
+                <div style="width: 100px; height: 100px; background: white; margin: 0 auto; display: flex; align-items: center; justify-content: center; border-radius: 8px;">
+                    <span style="color: #333; font-size: 0.7em; text-align: center; padding: 0.5em;">QR<br>커뮤니티</span>
+                </div>
+                <p style="font-size: 0.7em; margin-top: 0.5em; color: rgba(255,255,255,0.6);">스캔하여 바로 가입</p>
+            </div>
+        </div>
     </div>
-    <div class="fragment">
-        <h4>책</h4>
-        <ul>
-            <li>《The Theory of Poker》 - David Sklansky</li>
-            <li>《어플라이드 홀덤》 - 매튜 제플린</li>
-        </ul>
-    </div>
-    <div class="fragment">
-        <h4>커뮤니티</h4>
-        <ul>
-            <li>"홀덤 인 코리아" - 네이버 카페</li>
-            <li>Discord 홀덤 학습 채널</li>
-        </ul>
-    </div>
+
+    <p class="fragment" data-fragment-index="2" style="margin-top: 2em; font-size: 0.9em; color: rgba(255,255,255,0.7);">
+        💡 QR 코드로 바로 접속 가능합니다
+    </p>
+
     <aside class="notes">
         학습 자료도 많습니다.
         YouTube에는 모던 이론 채널이 GTO 기초를 잘 설명합니다.
         책으로는 The Theory of Poker, 어플라이드 홀덤이 추천됩니다.
         커뮤니티로는 홀덤 인 코리아 카페나 Discord 채널이 있습니다.
+        QR 코드로 바로 접속할 수 있도록 준비했습니다.
     </aside>
 </section>
 
@@ -166,13 +193,16 @@
     <blockquote class="emphasize">
         같이 하실 분, 연락주세요
     </blockquote>
-    <div class="fragment" style="margin-top: 2em;">
-        <p>Slack DM / 이메일</p>
-        <p><small>함께 배우고, 함께 성장하고, 함께 즐깁시다</small></p>
+    <div class="fragment cta-container" style="margin-top: 2em;">
+        <a href="mailto:jeuk.oh@letsur.io" class="cta-button">
+            📧 jeuk.oh@letsur.io
+        </a>
+        <p style="margin-top: 1.5em; font-size: 1.1em;">또는 Slack DM</p>
+        <p style="margin-top: 1.5em;"><small>함께 배우고, 함께 성장하고, 함께 즐깁시다</small></p>
     </div>
     <aside class="notes">
         같이 하실 분, 연락주세요.
-        Slack이나 이메일로 연락주시면 됩니다.
+        이메일이나 Slack으로 연락주시면 됩니다.
         함께 배우고, 함께 성장하고, 함께 즐깁시다.
     </aside>
 </section>

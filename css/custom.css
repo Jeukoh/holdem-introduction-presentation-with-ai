@@ -964,6 +964,66 @@
 }
 
 /* ============================================
+   ACT 5: RESOURCES & CTA
+   ============================================ */
+
+/* Resource Cards */
+.resource-card {
+  background: var(--overlay-bg);
+  padding: 1.5em;
+  border-radius: 1em;
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.resource-card:hover {
+  background: var(--overlay-bg-darker);
+  border-color: var(--accent-gold);
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.resource-card h4 {
+  margin-top: 0;
+}
+
+/* QR Code Placeholder */
+.qr-placeholder {
+  margin-top: 1em;
+}
+
+/* CTA Section */
+.cta-container {
+  margin: 2em auto;
+  max-width: 600px;
+}
+
+.cta-button {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-red) 100%);
+  color: var(--bg-dark);
+  padding: 1em 2.5em;
+  border-radius: 3em;
+  font-size: 1.3em;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  border: 3px solid var(--accent-gold);
+}
+
+.cta-button:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 8px 16px rgba(244, 162, 97, 0.5);
+  text-decoration: none;
+}
+
+.cta-button:active {
+  transform: translateY(-1px) scale(1.02);
+}
+
+/* ============================================
    RESPONSIVE DESIGN
    ============================================ */
 
