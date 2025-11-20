@@ -118,6 +118,11 @@
 }
 
 /* 2단 레이아웃 */
+/* DEPRECATED: Moved to css/custom.css to avoid conflicts (Session 5, Issue #4)
+ * All .two-column styles are now centralized in custom.css
+ * If you need to modify .two-column, edit css/custom.css instead
+ */
+/*
 .two-column {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -134,6 +139,7 @@
     font-size: 1.1em;
     line-height: 1.8;
 }
+*/
 
 /* 수학 섹션 */
 .math-section {
