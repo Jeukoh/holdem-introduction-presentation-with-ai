@@ -34,44 +34,54 @@
                 </aside>
             </section>
 
-            <!-- 2-2. Game Flow -->
+            <!-- 2-2. Game Flow (Visual Progressive) -->
             <section>
                 <h2>게임 흐름</h2>
-                <div class="game-flow">
-                    <div class="flow-stage fragment" data-fragment-index="0">
-                        <h3>1️⃣ Pre-Flop</h3>
-                        <p>각자 2장씩 받음</p>
-                        <p class="stage-detail">가장 정보가 적은 순간</p>
+                <div style="display: flex; flex-direction: column; align-items: center; gap: 1.5em; margin-top: 2em;">
+                    <!-- Pre-Flop: Hole Cards -->
+                    <div class="fragment" data-fragment-index="0" style="display: flex; align-items: center; gap: 1em;">
+                        <h3 style="font-size: 2.5em; margin: 0;">1️⃣</h3>
+                        <div style="display: flex; gap: 0.5em;">
+                            <span class="progressive-icon" style="font-size: 5em;">🂠</span>
+                            <span class="progressive-icon" style="font-size: 5em;">🂠</span>
+                        </div>
+                        <p style="font-size: 1.5em; margin: 0; color: var(--accent-gold);">Pre-Flop</p>
                     </div>
 
-                    <div class="flow-stage fragment" data-fragment-index="1">
-                        <h3>2️⃣ Flop</h3>
-                        <p>공용 카드 3장 공개</p>
-                        <p class="stage-detail">내 패 윤곽 드러남</p>
+                    <!-- Flop: +3 Cards -->
+                    <div class="fragment" data-fragment-index="1" style="display: flex; align-items: center; gap: 1em;">
+                        <h3 style="font-size: 2.5em; margin: 0;">2️⃣</h3>
+                        <span style="font-size: 3em; color: var(--text-dim);">+</span>
+                        <div style="display: flex; gap: 0.5em;">
+                            <span class="progressive-icon" style="font-size: 5em;">🃏</span>
+                            <span class="progressive-icon" style="font-size: 5em;">🃏</span>
+                            <span class="progressive-icon" style="font-size: 5em;">🃏</span>
+                        </div>
+                        <p style="font-size: 1.5em; margin: 0; color: var(--accent-gold);">Flop</p>
                     </div>
 
-                    <div class="flow-stage fragment" data-fragment-index="2">
-                        <h3>3️⃣ Turn</h3>
-                        <p>공용 카드 1장 추가 (총 4장)</p>
-                        <p class="stage-detail">완성 vs 드로우 결정</p>
+                    <!-- Turn: +1 Card -->
+                    <div class="fragment" data-fragment-index="2" style="display: flex; align-items: center; gap: 1em;">
+                        <h3 style="font-size: 2.5em; margin: 0;">3️⃣</h3>
+                        <span style="font-size: 3em; color: var(--text-dim);">+</span>
+                        <span class="progressive-icon" style="font-size: 5em;">🃏</span>
+                        <p style="font-size: 1.5em; margin: 0; color: var(--accent-gold);">Turn</p>
                     </div>
 
-                    <div class="flow-stage fragment" data-fragment-index="3">
-                        <h3>4️⃣ River</h3>
-                        <p>공용 카드 1장 추가 (총 5장)</p>
-                        <p class="stage-detail">마지막 카드, 최종 판단</p>
+                    <!-- River: +1 Card -->
+                    <div class="fragment" data-fragment-index="3" style="display: flex; align-items: center; gap: 1em;">
+                        <h3 style="font-size: 2.5em; margin: 0;">4️⃣</h3>
+                        <span style="font-size: 3em; color: var(--text-dim);">+</span>
+                        <span class="progressive-icon" style="font-size: 5em;">🃏</span>
+                        <p style="font-size: 1.5em; margin: 0; color: var(--accent-gold);">River</p>
                     </div>
 
-                    <div class="flow-stage fragment" data-fragment-index="4">
-                        <h3>5️⃣ Showdown</h3>
-                        <p>살아남은 사람들 카드 공개</p>
-                        <p class="stage-detail">가장 좋은 족보가 승리</p>
+                    <!-- Showdown -->
+                    <div class="fragment" data-fragment-index="4" style="margin-top: 1em;">
+                        <p style="font-size: 5em; margin: 0;">✨</p>
+                        <p style="font-size: 2em; margin-top: 0.5em; color: var(--accent-gold);">Showdown</p>
                     </div>
                 </div>
-
-                <p class="fragment" data-fragment-index="5" style="margin-top: 2em; font-size: 0.9em; color: rgba(255,255,255,0.7);">
-                    각 단계마다 베팅 라운드가 있습니다
-                </p>
 
                 <aside class="notes">
                     홀덤은 5단계로 진행됩니다.
@@ -82,48 +92,33 @@
                 </aside>
             </section>
 
-            <!-- 2-3. Player Actions -->
+            <!-- 2-3. Player Actions (Simplified) -->
             <section>
                 <h2>플레이어의 선택</h2>
-                <p style="margin-bottom: 2em;">각 베팅 라운드마다 선택해야 합니다</p>
-
-                <div style="display: flex; justify-content: space-around; align-items: flex-start; gap: 2em;">
-                    <div class="action-card fragment" data-fragment-index="0">
-                        <h3>🚫 폴드 (Fold)</h3>
-                        <p class="action-desc">포기하고 나가기</p>
-                        <p class="action-detail">내 카드를 버리고<br>이번 판 포기</p>
-                        <p class="action-note">손해: 이미 넣은 칩</p>
+                <div style="display: flex; justify-content: center; align-items: center; gap: 4em; margin-top: 3em;">
+                    <!-- Fold -->
+                    <div class="fragment progressive-icon" data-fragment-index="0" style="text-align: center;">
+                        <p style="font-size: 8em; margin: 0;">🚫</p>
+                        <h3 style="font-size: 2em; margin-top: 0.5em; color: var(--accent-gold);">Fold</h3>
                     </div>
 
-                    <div class="action-card fragment" data-fragment-index="1">
-                        <h3>💰 콜 (Call)</h3>
-                        <p class="action-desc">현재 베팅 따라가기</p>
-                        <p class="action-detail">다른 사람이 건<br>금액만큼 맞추기</p>
-                        <p class="action-note">리스크: 중간</p>
+                    <!-- Call -->
+                    <div class="fragment progressive-icon" data-fragment-index="1" style="text-align: center;">
+                        <p style="font-size: 8em; margin: 0;">💰</p>
+                        <h3 style="font-size: 2em; margin-top: 0.5em; color: var(--accent-gold);">Call</h3>
                     </div>
 
-                    <div class="action-card fragment" data-fragment-index="2">
-                        <h3>🔥 레이즈 (Raise)</h3>
-                        <p class="action-desc">베팅 금액 올리기</p>
-                        <p class="action-detail">더 많은 칩을 걸어<br>압박하기</p>
-                        <p class="action-note">리스크: 높음</p>
+                    <!-- Raise -->
+                    <div class="fragment progressive-icon" data-fragment-index="2" style="text-align: center;">
+                        <p style="font-size: 8em; margin: 0;">🔥</p>
+                        <h3 style="font-size: 2em; margin-top: 0.5em; color: var(--accent-gold);">Raise</h3>
                     </div>
-                </div>
-
-                <div class="fragment" data-fragment-index="3" style="margin-top: 2em; padding: 1em; background: rgba(255,255,255,0.1); border-radius: 10px;">
-                    <p class="emphasize">🎯 핵심: 언제 어떤 선택을 하느냐가 실력</p>
-                    <p style="font-size: 0.9em; margin-top: 0.5em;">
-                        같은 카드라도 상황에 따라 다른 선택이 최선일 수 있습니다
-                    </p>
                 </div>
 
                 <aside class="notes">
                     각 베팅 라운드마다 플레이어는 세 가지 중 하나를 선택합니다.
-                    폴드는 포기하는 것입니다. 이미 넣은 칩은 돌려받지 못합니다.
-                    콜은 현재 베팅 금액을 맞추는 것입니다.
-                    레이즈는 더 많은 금액을 걸어서 상대를 압박하는 것입니다.
-                    같은 카드를 받아도 상황에 따라 최선의 선택이 달라집니다.
-                    이것이 홀덤이 실력 게임인 이유입니다.
+                    폴드는 포기, 콜은 현재 베팅을 따라가기, 레이즈는 베팅 금액을 올리는 것입니다.
+                    같은 카드를 받아도 상황에 따라 최선의 선택이 달라지며, 이것이 홀덤이 실력 게임인 이유입니다.
                 </aside>
             </section>
 

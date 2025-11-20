@@ -999,6 +999,28 @@
   box-shadow: 0 0 0 4px rgba(244, 162, 97, 0.3);
 }
 
+/* Progressive Icon Animation (Steve Jobs style) */
+.progressive-icon {
+  opacity: 0.25;
+  filter: grayscale(80%);
+  transform: scale(0.95);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.progressive-icon.current-fragment,
+.fragment.progressive-icon.current-fragment {
+  opacity: 1;
+  filter: grayscale(0%);
+  transform: scale(1.05);
+}
+
+/* For nested progressive icons inside fragments */
+.fragment.current-fragment .progressive-icon {
+  opacity: 1;
+  filter: grayscale(0%);
+  transform: scale(1);
+}
+
 /* Reduced Motion Support */
 @media (prefers-reduced-motion: reduce) {
   *,
