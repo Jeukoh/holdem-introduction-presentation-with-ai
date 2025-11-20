@@ -424,7 +424,10 @@
   left: 50%;
   transform: translate(-50%, -50%);
   display: flex;
+  flex-wrap: wrap;  /* Allow wrapping on narrow screens */
+  justify-content: center;  /* Center wrapped cards */
   gap: 0.5em;
+  max-width: 95%;  /* Prevent overflow on small screens */
 }
 
 /* Card - Enhanced */
@@ -434,9 +437,10 @@
   color: var(--card-black);
   padding: 1em 0.8em;
   border-radius: 0.5em;
-  font-size: 2em;
+  font-size: clamp(1.2em, 3vw, 2em);  /* Responsive font size */
   font-weight: 700;
   min-width: 1.5em;
+  max-width: 90%;  /* Prevent overflow */
   text-align: center;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
   border: 2px solid var(--card-border-light);
