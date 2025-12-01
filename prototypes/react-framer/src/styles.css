@@ -15,11 +15,16 @@
     box-sizing: border-box;
 }
 
+html, body {
+    overflow-x: auto;
+}
+
 body {
     background: #0a0a0a;
     color: #fff;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     min-height: 100vh;
+    min-width: 1100px;  /* Ensure space for side players */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -30,13 +35,14 @@ body {
     flex-direction: column;
     align-items: center;
     gap: 30px;
-    padding: 40px;
+    padding: 40px 120px;  /* Extra horizontal padding for side players */
     min-height: 100vh;
+    min-width: fit-content;
 }
 
 /* Embed mode - minimal UI */
 .container.embed-mode {
-    padding: 20px;
+    padding: 20px 120px;  /* Keep horizontal padding for side players */
     justify-content: center;
 }
 
@@ -83,6 +89,7 @@ h1 {
     width: 800px;
     height: 500px;
     margin: 100px auto;  /* Add margin for players outside table */
+    overflow: visible;   /* Show players positioned outside table bounds */
 }
 
 .table-felt {
@@ -108,15 +115,12 @@ h1 {
     box-shadow: 0 0 20px rgba(0,0,0,0.5);
 }
 
-/* Game phase indicator */
+/* Game phase indicator - above table */
 .game-phase {
-    position: absolute;
-    top: -50px;
-    left: 50%;
-    transform: translateX(-50%);
     display: flex;
+    justify-content: center;
     gap: 15px;
-    z-index: 100;
+    margin-bottom: 20px;
 }
 
 .phase {
@@ -146,6 +150,26 @@ h1 {
     flex-direction: column;
     align-items: center;
     gap: 8px;
+}
+
+/* Side players (left/right) - horizontal layout */
+.player.left,
+.player.right {
+    flex-direction: column;
+}
+
+.player-side-content {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.player.left .player-side-content {
+    flex-direction: row;
+}
+
+.player.right .player-side-content {
+    flex-direction: row-reverse;
 }
 
 .player-avatar {
@@ -273,6 +297,10 @@ h1 {
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
+    z-index: 50;
+    background: rgba(26, 95, 60, 0.9);
+    padding: 8px 16px;
+    border-radius: 8px;
 }
 
 .pot-label {
@@ -289,11 +317,12 @@ h1 {
 /* Community cards */
 .community-cards {
     position: absolute;
-    top: 50%;
+    top: 55%;
     left: 50%;
     transform: translate(-50%, -50%);
     display: flex;
     gap: 8px;
+    z-index: 10;
 }
 
 /* Dealer button */
