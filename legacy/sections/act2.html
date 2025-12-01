@@ -1,0 +1,597 @@
+<!-- ACT 2: 순수 비주얼 시뮬레이션 - 텍스트 없이 에셋만
+     ============================================
+
+     발표자가 말하고, 화면은 에셋의 움직임만 보여줌
+     카드 딜링, 칩 이동, 카드 뒤집기 애니메이션
+     -->
+
+<!-- Slide 1: 테이블 세팅 & 카드 딜링 -->
+<section class="sim-slide slide-deal" data-state="table-setup">
+  <div class="poker-table">
+    <div class="dealer-button">D</div>
+    <div class="pot-value">0</div>
+
+    <!-- 6 Players -->
+    <div class="player seat-btn">
+      <img src="images/positions/BTN.svg" class="pos-icon" alt="BTN" width="50">
+      <div class="stack-val">120</div>
+      <div class="holecards">
+        <img src="images/cards/back.svg" class="card">
+        <img src="images/cards/back.svg" class="card">
+      </div>
+    </div>
+
+    <div class="player seat-sb">
+      <img src="images/positions/SB.svg" class="pos-icon" alt="SB" width="50">
+      <div class="stack-val">50</div>
+      <div class="holecards">
+        <img src="images/cards/back.svg" class="card">
+        <img src="images/cards/back.svg" class="card">
+      </div>
+    </div>
+
+    <div class="player seat-bb">
+      <img src="images/positions/BB.svg" class="pos-icon" alt="BB" width="50">
+      <div class="stack-val">100</div>
+      <div class="holecards">
+        <img src="images/cards/back.svg" class="card">
+        <img src="images/cards/back.svg" class="card">
+      </div>
+    </div>
+
+    <div class="player seat-utg">
+      <img src="images/positions/UTG.svg" class="pos-icon" alt="UTG" width="50">
+      <div class="stack-val">85</div>
+      <div class="holecards">
+        <img src="images/cards/back.svg" class="card">
+        <img src="images/cards/back.svg" class="card">
+      </div>
+    </div>
+
+    <div class="player seat-mp">
+      <img src="images/positions/MP.svg" class="pos-icon" alt="MP" width="50">
+      <div class="stack-val">95</div>
+      <div class="holecards">
+        <img src="images/cards/back.svg" class="card">
+        <img src="images/cards/back.svg" class="card">
+      </div>
+    </div>
+
+    <div class="player seat-hero is-hero">
+      <img src="images/positions/CO.svg" class="pos-icon" alt="CO" width="50">
+      <div class="stack-val">110</div>
+      <div class="holecards">
+        <img src="images/cards/back.svg" class="card">
+        <img src="images/cards/back.svg" class="card">
+      </div>
+    </div>
+
+    <!-- Community cards -->
+    <div class="community">
+      <img src="images/cards/back.svg" class="card slot-f1">
+      <img src="images/cards/back.svg" class="card slot-f2">
+      <img src="images/cards/back.svg" class="card slot-f3">
+      <img src="images/cards/back.svg" class="card slot-turn">
+      <img src="images/cards/back.svg" class="card slot-river">
+    </div>
+  </div>
+
+  <!-- Fragment: Card dealing animation -->
+  <div class="fragment card-deal orbit-1" data-fragment-index="1"></div>
+  <div class="fragment card-deal orbit-2" data-fragment-index="2"></div>
+
+  <aside class="notes">
+    Fragment 0: "6명의 플레이어가 테이블에 앉아 있습니다."
+    Fragment 1: "딜러가 첫 번째 카드를 순서대로 나눠줍니다."
+    Fragment 2: "두 번째 카드까지 돌면서 모두 2장씩 받습니다."
+  </aside>
+</section>
+
+<!-- Slide 2: 블라인드 칩 이동 -->
+<section class="sim-slide slide-blinds" data-state="blinds">
+  <div class="poker-table">
+    <div class="dealer-button">D</div>
+    <div class="pot-value">0</div>
+    <div class="pot-value fragment" data-fragment-index="1">5</div>
+    <div class="pot-value fragment" data-fragment-index="2">15</div>
+
+    <div class="player seat-btn">
+      <img src="images/positions/BTN.svg" class="pos-icon" alt="BTN" width="50">
+      <div class="stack-val">120</div>
+      <div class="holecards">
+        <img src="images/cards/back.svg" class="card">
+        <img src="images/cards/back.svg" class="card">
+      </div>
+    </div>
+
+    <div class="player seat-sb">
+      <img src="images/positions/SB.svg" class="pos-icon" alt="SB" width="50">
+      <div class="stack-val">50</div>
+      <div class="stack-val fragment" data-fragment-index="1">45</div>
+      <div class="holecards">
+        <img src="images/cards/back.svg" class="card">
+        <img src="images/cards/back.svg" class="card">
+      </div>
+    </div>
+
+    <div class="player seat-bb">
+      <img src="images/positions/BB.svg" class="pos-icon" alt="BB" width="50">
+      <div class="stack-val">100</div>
+      <div class="stack-val fragment" data-fragment-index="2">90</div>
+      <div class="holecards">
+        <img src="images/cards/back.svg" class="card">
+        <img src="images/cards/back.svg" class="card">
+      </div>
+    </div>
+
+    <div class="player seat-utg">
+      <img src="images/positions/UTG.svg" class="pos-icon" alt="UTG" width="50">
+      <div class="stack-val">85</div>
+      <div class="holecards">
+        <img src="images/cards/back.svg" class="card">
+        <img src="images/cards/back.svg" class="card">
+      </div>
+    </div>
+
+    <div class="player seat-mp">
+      <img src="images/positions/MP.svg" class="pos-icon" alt="MP" width="50">
+      <div class="stack-val">95</div>
+      <div class="holecards">
+        <img src="images/cards/back.svg" class="card">
+        <img src="images/cards/back.svg" class="card">
+      </div>
+    </div>
+
+    <div class="player seat-hero is-hero">
+      <img src="images/positions/CO.svg" class="pos-icon" alt="CO" width="50">
+      <div class="stack-val">110</div>
+      <div class="holecards">
+        <img src="images/cards/back.svg" class="card">
+        <img src="images/cards/back.svg" class="card">
+      </div>
+    </div>
+
+    <div class="community">
+      <img src="images/cards/back.svg" class="card slot-f1">
+      <img src="images/cards/back.svg" class="card slot-f2">
+      <img src="images/cards/back.svg" class="card slot-f3">
+      <img src="images/cards/back.svg" class="card slot-turn">
+      <img src="images/cards/back.svg" class="card slot-river">
+    </div>
+  </div>
+
+  <!-- Chip movement animations -->
+  <div class="fragment chip-move from-sb" data-fragment-index="1"></div>
+  <div class="fragment chip-move from-bb" data-fragment-index="2"></div>
+
+  <!-- Tutorial Overlay: SB/BB 설명 -->
+  <div class="tutorial-overlay fragment fade-in-then-out" data-fragment-index="3">
+    <div class="overlay-content">
+      <h3>블라인드는 테이블을 돌리는 입장료</h3>
+      <p class="overlay-lede">버튼 왼쪽 두 자리가 먼저 공용 팟을 채운다.</p>
+      <div class="overlay-chip-grid">
+        <div class="chip-card">
+          <span class="chip-label">SB</span>
+          <span class="chip-value">$5</span>
+          <span class="chip-note">버튼 바로 옆, 최소 베팅의 절반</span>
+        </div>
+        <div class="chip-card">
+          <span class="chip-label">BB</span>
+          <span class="chip-value">$10</span>
+          <span class="chip-note">그다음 자리, 최소 베팅 전액</span>
+        </div>
+      </div>
+      <p class="overlay-muted">지금 포트엔 $15. 이 금액을 두고 모든 액션이 열린다.</p>
+      <p class="overlay-tip">블라인드가 없으면 다들 프리미엄 카드만 기다리며 게임이 멈춘다.</p>
+    </div>
+  </div>
+
+  <aside class="notes">
+    Fragment 0: "블라인드 전 상태입니다."
+    Fragment 1: "스몰 블라인드가 5달러를 팟에 넣습니다."
+    Fragment 2: "빅 블라인드가 10달러를 추가해 팟이 15달러가 됩니다."
+    Fragment 3: "오버레이로 블라인드 개념을 설명합니다. 자동으로 사라집니다."
+  </aside>
+</section>
+
+<!-- Slide 3: 히어로 카드 공개 (A♠ K♥) -->
+<section class="sim-slide slide-hero-cards" data-state="hero-reveal">
+  <div class="poker-table">
+    <div class="dealer-button">D</div>
+    <div class="pot-value">15</div>
+
+    <div class="player seat-btn">
+      <img src="images/positions/BTN.svg" class="pos-icon" alt="BTN" width="50">
+      <div class="stack-val">120</div>
+      <div class="holecards">
+        <img src="images/cards/back.svg" class="card">
+        <img src="images/cards/back.svg" class="card">
+      </div>
+    </div>
+
+    <div class="player seat-sb">
+      <img src="images/positions/SB.svg" class="pos-icon" alt="SB" width="50">
+      <div class="stack-val">45</div>
+      <div class="holecards">
+        <img src="images/cards/back.svg" class="card">
+        <img src="images/cards/back.svg" class="card">
+      </div>
+    </div>
+
+    <div class="player seat-bb">
+      <img src="images/positions/BB.svg" class="pos-icon" alt="BB" width="50">
+      <div class="stack-val">90</div>
+      <div class="holecards">
+        <img src="images/cards/back.svg" class="card">
+        <img src="images/cards/back.svg" class="card">
+      </div>
+    </div>
+
+    <div class="player seat-utg">
+      <img src="images/positions/UTG.svg" class="pos-icon" alt="UTG" width="50">
+      <div class="stack-val">85</div>
+      <div class="holecards">
+        <img src="images/cards/back.svg" class="card">
+        <img src="images/cards/back.svg" class="card">
+      </div>
+    </div>
+
+    <div class="player seat-mp">
+      <img src="images/positions/MP.svg" class="pos-icon" alt="MP" width="50">
+      <div class="stack-val">95</div>
+      <div class="holecards">
+        <img src="images/cards/back.svg" class="card">
+        <img src="images/cards/back.svg" class="card">
+      </div>
+    </div>
+
+    <div class="player seat-hero is-hero">
+      <img src="images/positions/CO.svg" class="pos-icon" alt="CO" width="50">
+      <div class="stack-val">110</div>
+      <div class="holecards">
+        <img src="images/cards/back.svg" class="card">
+        <img src="images/cards/back.svg" class="card">
+        <!-- Revealed cards appear on fragment -->
+        <img src="images/cards/AS.svg" class="card front spade fragment" data-fragment-index="1">
+        <img src="images/cards/KH.svg" class="card front heart fragment" data-fragment-index="1">
+      </div>
+    </div>
+
+    <div class="community">
+      <img src="images/cards/back.svg" class="card slot-f1">
+      <img src="images/cards/back.svg" class="card slot-f2">
+      <img src="images/cards/back.svg" class="card slot-f3">
+      <img src="images/cards/back.svg" class="card slot-turn">
+      <img src="images/cards/back.svg" class="card slot-river">
+    </div>
+  </div>
+
+  <!-- Player turn highlight -->
+  <div class="fragment player-glow seat-hero" data-fragment-index="2"></div>
+
+  <aside class="notes">
+    Fragment 0: "여러분은 컷오프 자리에 앉아 있습니다."
+    Fragment 1: "카드를 확인하니 스페이드 A와 하트 K입니다."
+    Fragment 2: "곧 액션 차례가 올 것을 강조합니다."
+  </aside>
+</section>
+
+<!-- Slide 4: 프리플랍 폴드 체인 -->
+<section class="sim-slide slide-preflop" data-state="fold-chain">
+  <div class="poker-table">
+    <div class="dealer-button">D</div>
+    <div class="pot-value">15</div>
+
+    <div class="player seat-btn">
+      <img src="images/positions/BTN.svg" class="pos-icon" alt="BTN" width="50">
+      <div class="stack-val">120</div>
+      <div class="holecards fragment folded" data-fragment-index="3">
+        <img src="images/cards/back.svg" class="card dimmed">
+        <img src="images/cards/back.svg" class="card dimmed">
+        <img src="images/elements/actions/action-fold.svg" class="fold-icon">
+      </div>
+    </div>
+
+    <div class="player seat-sb">
+      <img src="images/positions/SB.svg" class="pos-icon" alt="SB" width="50">
+      <div class="stack-val">45</div>
+      <div class="holecards">
+        <img src="images/cards/back.svg" class="card">
+        <img src="images/cards/back.svg" class="card">
+      </div>
+    </div>
+
+    <div class="player seat-bb">
+      <img src="images/positions/BB.svg" class="pos-icon" alt="BB" width="50">
+      <div class="stack-val">90</div>
+      <div class="holecards">
+        <img src="images/cards/back.svg" class="card">
+        <img src="images/cards/back.svg" class="card">
+      </div>
+    </div>
+
+    <div class="player seat-utg">
+      <img src="images/positions/UTG.svg" class="pos-icon" alt="UTG" width="50">
+      <div class="stack-val">85</div>
+      <div class="holecards fragment folded" data-fragment-index="1">
+        <img src="images/cards/back.svg" class="card dimmed">
+        <img src="images/cards/back.svg" class="card dimmed">
+        <img src="images/elements/actions/action-fold.svg" class="fold-icon">
+      </div>
+    </div>
+
+    <div class="player seat-mp">
+      <img src="images/positions/MP.svg" class="pos-icon" alt="MP" width="50">
+      <div class="stack-val">95</div>
+      <div class="holecards fragment folded" data-fragment-index="2">
+        <img src="images/cards/back.svg" class="card dimmed">
+        <img src="images/cards/back.svg" class="card dimmed">
+        <img src="images/elements/actions/action-fold.svg" class="fold-icon">
+      </div>
+    </div>
+
+    <div class="player seat-hero is-hero">
+      <img src="images/positions/CO.svg" class="pos-icon" alt="CO" width="50">
+      <div class="stack-val">110</div>
+      <div class="holecards">
+        <img src="images/cards/AS.svg" class="card front spade">
+        <img src="images/cards/KH.svg" class="card front heart">
+      </div>
+    </div>
+
+    <div class="community">
+      <img src="images/cards/back.svg" class="card slot-f1">
+      <img src="images/cards/back.svg" class="card slot-f2">
+      <img src="images/cards/back.svg" class="card slot-f3">
+      <img src="images/cards/back.svg" class="card slot-turn">
+      <img src="images/cards/back.svg" class="card slot-river">
+    </div>
+  </div>
+
+  <!-- Turn indicator moves to hero -->
+  <div class="fragment player-glow seat-hero" data-fragment-index="4"></div>
+
+  <!-- Tutorial Overlay: Fold/Call/Raise 설명 -->
+  <div class="tutorial-overlay fragment fade-in-then-out" data-fragment-index="5">
+    <div class="overlay-content">
+      <h3>이제 우리 차례, 세 가지 버튼</h3>
+      <p class="overlay-lede">A♠K♥면 주도권을 잡을 이유가 충분하다.</p>
+      <div class="action-options-grid">
+        <div class="action-option">
+          <div class="action-icon" aria-hidden="true">
+            <svg viewBox="0 0 32 32" aria-hidden="true">
+              <path d="M10 10 L22 22"></path>
+              <path d="M22 10 L10 22"></path>
+            </svg>
+          </div>
+          <div class="action-name">Fold</div>
+          <div class="action-desc">카드를 덮고 이번 판은 그대로 넘긴다.</div>
+          <div class="action-meta">팟 포기</div>
+        </div>
+        <div class="action-option">
+          <div class="action-icon" aria-hidden="true">
+            <svg viewBox="0 0 32 32" aria-hidden="true">
+              <path d="M9 17 L14 22 L24 12"></path>
+            </svg>
+          </div>
+          <div class="action-name">Call</div>
+          <div class="action-desc">$10 맞춰서 플롭을 보고 판세를 확인한다.</div>
+          <div class="action-meta">팟 유지</div>
+        </div>
+        <div class="action-option highlight">
+          <div class="action-icon" aria-hidden="true">
+            <svg viewBox="0 0 32 32" aria-hidden="true">
+              <path d="M16 24 L16 9"></path>
+              <polyline points="10 15 16 9 22 15"></polyline>
+            </svg>
+          </div>
+          <div class="action-name">Raise</div>
+          <div class="action-desc">30~40까지 올려 상대를 압박하고 주도권을 잡는다.</div>
+          <div class="action-meta accent">압박 + 주도권</div>
+        </div>
+      </div>
+      <p class="overlay-tip action-hint">상대가 주저하면 35~40까지 키워 흐름을 가져온다.</p>
+    </div>
+  </div>
+
+  <aside class="notes">
+    Fragment 0: "UTG부터 액션이 시작됩니다."
+    Fragment 1: "UTG가 폴드합니다."
+    Fragment 2: "MP도 폴드합니다."
+    Fragment 3: "버튼도 폴드합니다."
+    Fragment 4: "이제 여러분 차례입니다."
+    Fragment 5: "오버레이로 세 가지 액션을 설명합니다. 자동으로 사라집니다."
+  </aside>
+</section>
+
+<!-- Slide 5: 히어로 레이즈 -->
+<section class="sim-slide slide-raise" data-state="hero-raise">
+  <div class="poker-table">
+    <div class="dealer-button">D</div>
+    <div class="pot-value">15</div>
+    <div class="pot-value fragment" data-fragment-index="2">50</div>
+
+    <div class="player seat-btn folded">
+      <img src="images/positions/BTN.svg" class="pos-icon" alt="BTN" width="50">
+      <div class="stack-val">120</div>
+      <div class="holecards folded">
+        <img src="images/cards/back.svg" class="card dimmed">
+        <img src="images/cards/back.svg" class="card dimmed">
+      </div>
+    </div>
+
+    <div class="player seat-sb">
+      <img src="images/positions/SB.svg" class="pos-icon" alt="SB" width="50">
+      <div class="stack-val">45</div>
+      <div class="holecards">
+        <img src="images/cards/back.svg" class="card">
+        <img src="images/cards/back.svg" class="card">
+      </div>
+    </div>
+
+    <div class="player seat-bb">
+      <img src="images/positions/BB.svg" class="pos-icon" alt="BB" width="50">
+      <div class="stack-val">90</div>
+      <div class="holecards">
+        <img src="images/cards/back.svg" class="card pulse">
+        <img src="images/cards/back.svg" class="card pulse">
+      </div>
+    </div>
+
+    <div class="player seat-utg folded">
+      <img src="images/positions/UTG.svg" class="pos-icon" alt="UTG" width="50">
+      <div class="stack-val">85</div>
+      <div class="holecards folded">
+        <img src="images/cards/back.svg" class="card dimmed">
+        <img src="images/cards/back.svg" class="card dimmed">
+      </div>
+    </div>
+
+    <div class="player seat-mp folded">
+      <img src="images/positions/MP.svg" class="pos-icon" alt="MP" width="50">
+      <div class="stack-val">95</div>
+      <div class="holecards folded">
+        <img src="images/cards/back.svg" class="card dimmed">
+        <img src="images/cards/back.svg" class="card dimmed">
+      </div>
+    </div>
+
+    <div class="player seat-hero is-hero">
+      <img src="images/positions/CO.svg" class="pos-icon" alt="CO" width="50">
+      <div class="stack-val">110</div>
+      <div class="stack-val fragment" data-fragment-index="2">75</div>
+      <div class="holecards">
+        <img src="images/cards/AS.svg" class="card front spade">
+        <img src="images/cards/KH.svg" class="card front heart">
+      </div>
+    </div>
+
+    <div class="community">
+      <img src="images/cards/back.svg" class="card slot-f1">
+      <img src="images/cards/back.svg" class="card slot-f2">
+      <img src="images/cards/back.svg" class="card slot-f3">
+      <img src="images/cards/back.svg" class="card slot-turn">
+      <img src="images/cards/back.svg" class="card slot-river">
+    </div>
+  </div>
+
+  <!-- Raise action icon -->
+  <img src="images/elements/actions/action-raise.svg" class="fragment raise-icon seat-hero" data-fragment-index="1">
+  <!-- Chip movement -->
+  <div class="fragment chip-move from-hero" data-fragment-index="2"></div>
+
+  <aside class="notes">
+    Fragment 0: "히어로가 결정을 내립니다."
+    Fragment 1: "35달러로 레이즈합니다."
+    Fragment 2: "칩이 팟으로 이동하며 팟은 50달러, 히어로 스택은 75달러가 됩니다."
+  </aside>
+</section>
+
+<!-- Slide 6: 플랍 공개 & 스트레이트 -->
+<section class="sim-slide slide-flop" data-state="flop-reveal">
+  <div class="poker-table">
+    <div class="dealer-button">D</div>
+    <div class="pot-value">50</div>
+
+    <div class="player seat-btn folded">
+      <img src="images/positions/BTN.svg" class="pos-icon" alt="BTN" width="50">
+      <div class="stack-val">120</div>
+      <div class="holecards folded">
+        <img src="images/cards/back.svg" class="card dimmed">
+        <img src="images/cards/back.svg" class="card dimmed">
+      </div>
+    </div>
+
+    <div class="player seat-sb">
+      <img src="images/positions/SB.svg" class="pos-icon" alt="SB" width="50">
+      <div class="stack-val">45</div>
+      <div class="holecards">
+        <img src="images/cards/back.svg" class="card">
+        <img src="images/cards/back.svg" class="card">
+      </div>
+    </div>
+
+    <div class="player seat-bb">
+      <img src="images/positions/BB.svg" class="pos-icon" alt="BB" width="50">
+      <div class="stack-val">90</div>
+      <div class="holecards">
+        <img src="images/cards/back.svg" class="card">
+        <img src="images/cards/back.svg" class="card">
+      </div>
+    </div>
+
+    <div class="player seat-utg folded">
+      <img src="images/positions/UTG.svg" class="pos-icon" alt="UTG" width="50">
+      <div class="stack-val">85</div>
+      <div class="holecards folded">
+        <img src="images/cards/back.svg" class="card dimmed">
+        <img src="images/cards/back.svg" class="card dimmed">
+      </div>
+    </div>
+
+    <div class="player seat-mp folded">
+      <img src="images/positions/MP.svg" class="pos-icon" alt="MP" width="50">
+      <div class="stack-val">95</div>
+      <div class="holecards folded">
+        <img src="images/cards/back.svg" class="card dimmed">
+        <img src="images/cards/back.svg" class="card dimmed">
+      </div>
+    </div>
+
+    <div class="player seat-hero is-hero">
+      <img src="images/positions/CO.svg" class="pos-icon" alt="CO" width="50">
+      <div class="stack-val">75</div>
+      <div class="holecards">
+        <img src="images/cards/AS.svg" class="card front spade">
+        <img src="images/cards/KH.svg" class="card front heart">
+      </div>
+    </div>
+
+    <!-- Community cards with flop reveal -->
+    <div class="community">
+      <img src="images/cards/back.svg" class="card slot-f1">
+      <img src="images/cards/back.svg" class="card slot-f2">
+      <img src="images/cards/back.svg" class="card slot-f3">
+      <img src="images/cards/back.svg" class="card slot-turn">
+      <img src="images/cards/back.svg" class="card slot-river">
+      <!-- Flop cards revealed -->
+      <img src="images/cards/QS.svg" class="card front spade fragment slot-f1" data-fragment-index="1">
+      <img src="images/cards/JS.svg" class="card front spade fragment slot-f2" data-fragment-index="1">
+      <img src="images/cards/10H.svg" class="card front heart fragment slot-f3" data-fragment-index="1">
+    </div>
+  </div>
+
+  <!-- Tutorial Overlay: 핸드 분석 -->
+  <div class="tutorial-overlay fragment fade-in-then-out" data-fragment-index="2">
+    <div class="overlay-content">
+      <h3>플랍에서 바로 브로드웨이 완성</h3>
+      <p class="overlay-lede">플롭이 맞자마자 턴 이후 베팅 플랜을 그린다.</p>
+      <div class="calculation-steps">
+        <div class="calculation-step">
+          <span class="calculation-label">내 카드</span>
+          <span class="calculation-value">A♠ K♥</span>
+        </div>
+        <div class="calculation-step">
+          <span class="calculation-label">보드</span>
+          <span class="calculation-value">Q♠ J♠ 10♥</span>
+        </div>
+        <div class="calculation-step total">
+          <span class="calculation-label">완성된 족보</span>
+          <span class="calculation-value">브로드웨이 스트레이트</span>
+        </div>
+      </div>
+      <p class="overlay-muted">턴과 리버에서 스페이드가 붙으면 플러시 역전을 조심한다.</p>
+      <p class="overlay-tip">선공으로 베팅을 던져 팟을 키우고 레이즈를 유도한다.</p>
+    </div>
+  </div>
+
+  <!-- Straight highlight overlay -->
+  <div class="fragment straight-glow" data-fragment-index="3"></div>
+
+  <aside class="notes">
+    Fragment 0: "프리플랍 액션이 끝나고 플랍을 봅니다."
+    Fragment 1: "플랍은 스페이드 Q, 스페이드 J, 하트 10입니다."
+    Fragment 2: "오버레이로 핸드 분석을 보여줍니다. 스트레이트 완성!"
+    Fragment 3: "히어로의 AK와 연결되어 브로드웨이 스트레이트가 완성되었음을 시각적으로 강조합니다."
+  </aside>
+</section>

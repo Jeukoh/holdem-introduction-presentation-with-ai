@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>홀덤 입문 - Reveal.js + React Engine</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/theme/black.css">
+    <style>
+        :root {
+            --gold: #f1c40f;
+            --accent: #3498db;
+        }
+
+        .reveal {
+            background: #0a0a0a;
+        }
+
+        .reveal h1, .reveal h2, .reveal h3 {
+            color: #fff;
+        }
+
+        .reveal .slides section {
+            height: 100%;
+        }
+
+        /* Holdem engine iframe */
+        .holdem-frame {
+            width: 100%;
+            height: 700px;
+            border: none;
+            border-radius: 16px;
+            background: #0a0a0a;
+        }
+
+        /* Slide with explanation */
+        .slide-with-explanation {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .explanation-panel {
+            width: 300px;
+            text-align: left;
+            padding: 30px;
+            background: rgba(52, 73, 94, 0.5);
+            border-radius: 16px;
+            border-left: 4px solid var(--gold);
+        }
+
+        .explanation-panel h3 {
+            color: var(--gold);
+            margin-bottom: 20px;
+        }
+
+        .explanation-panel p {
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        .key-hint {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.8);
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            color: #7f8c8d;
+        }
+
+        .key-hint kbd {
+            background: #34495e;
+            padding: 4px 8px;
+            border-radius: 4px;
+            margin: 0 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <!-- Slide 1: Title -->
+            <section>
+                <h1>Texas Hold'em 입문</h1>
+                <p style="color: #7f8c8d;">함께 홀덤 칠 사람을 찾습니다</p>
+                <p style="margin-top: 40px;">
+                    <small>Press <kbd>→</kbd> to continue</small>
+                </p>
+            </section>
+
+            <!-- Slide 2: Pre-flop - Setup -->
+            <section>
+                <h2>Pre-flop: 게임 시작</h2>
+                <iframe
+                    id="holdem-preflop-1"
+                    class="holdem-frame"
+                    src="http://localhost:5173/?scenario=preflop&step=1&embed=true"
+                ></iframe>
+            </section>
+
+            <!-- Slide 3: Pre-flop - Cards Dealt -->
+            <section>
+                <h2>카드가 딜링됩니다</h2>
+                <p style="color: #7f8c8d; margin-bottom: 20px;">SB부터 시계방향으로 한 장씩</p>
+                <iframe
+                    id="holdem-preflop-2"
+                    class="holdem-frame"
+                    src="http://localhost:5173/?scenario=preflop&step=2&embed=true"
+                ></iframe>
+            </section>
+
+            <!-- Slide 4: Pre-flop - Action -->
+            <section>
+                <div class="slide-with-explanation">
+                    <iframe
+                        id="holdem-preflop-4"
+                        class="holdem-frame"
+                        style="width: 800px; height: 600px;"
+                        src="http://localhost:5173/?scenario=preflop&step=4&embed=true"
+                    ></iframe>
+                    <div class="explanation-panel">
+                        <h3>UTG가 폴드</h3>
+                        <p>
+                            <strong>UTG (Under the Gun)</strong>는
+                            빅블라인드 다음 자리로, 가장 먼저 액션해야 합니다.
+                        </p>
+                        <p style="margin-top: 20px; color: #e74c3c;">
+                            불리한 포지션 → 좋은 핸드만 플레이
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 5: Your Turn -->
+            <section>
+                <h2 style="color: var(--gold);">당신의 차례입니다</h2>
+                <iframe
+                    id="holdem-preflop-5"
+                    class="holdem-frame"
+                    src="http://localhost:5173/?scenario=preflop&step=5&embed=true"
+                ></iframe>
+            </section>
+
+            <!-- Slide 6: End -->
+            <section>
+                <h2>다음: Pot Odds 계산</h2>
+                <p>언제 콜하고, 언제 폴드할까?</p>
+                <p style="margin-top: 40px; color: var(--gold);">
+                    → 수학이 답을 알려줍니다
+                </p>
+            </section>
+        </div>
+    </div>
+
+    <div class="key-hint">
+        <kbd>→</kbd> Next |
+        <kbd>←</kbd> Prev |
+        <kbd>Space</kbd> Next |
+        <kbd>Esc</kbd> Overview
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            transition: 'slide',
+            // Disable keyboard in iframes
+            keyboard: {
+                // Prevent arrow keys from controlling iframes
+            }
+        });
+
+        // Optional: Control holdem engine from Reveal.js
+        function sendToHoldem(iframeId, action, data = {}) {
+            const iframe = document.getElementById(iframeId);
+            if (iframe && iframe.contentWindow) {
+                iframe.contentWindow.postMessage({
+                    type: 'holdem-control',
+                    action: action,
+                    ...data
+                }, '*');
+            }
+        }
+
+        // Example: When slide changes, you could send commands
+        Reveal.on('slidechanged', event => {
+            // Could trigger animations or step changes here
+            console.log('Slide changed to:', event.indexh);
+        });
+    </script>
+</body>
+</html>
