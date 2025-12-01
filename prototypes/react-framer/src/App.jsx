@@ -134,25 +134,28 @@ const positionColors = {
 // ASSET HELPERS
 // ===========================================
 
+// Base URL for assets (supports sub-path hosting like GitHub Pages)
+const BASE = import.meta.env.BASE_URL || '/'
+
 // Convert suit symbol to file code
 const suitToCode = { '♥': 'H', '♦': 'D', '♣': 'C', '♠': 'S' }
 
 // Get card image URL
 function getCardImageUrl(card) {
-    if (!card) return '/assets/cards/back.svg'
+    if (!card) return `${BASE}assets/cards/back.svg`
     const suitCode = suitToCode[card.suit] || 'S'
     const rankCode = card.rank === '10' ? '10' : card.rank
-    return `/assets/cards/${rankCode}${suitCode}.svg`
+    return `${BASE}assets/cards/${rankCode}${suitCode}.svg`
 }
 
 // Get position icon URL
 function getPositionIconUrl(position) {
-    return `/assets/positions/${position}.svg`
+    return `${BASE}assets/positions/${position}.svg`
 }
 
 // Get dealer button URL
 function getDealerButtonUrl() {
-    return `/assets/decorative/dealer-button.svg`
+    return `${BASE}assets/decorative/dealer-button.svg`
 }
 
 // Your cards
@@ -163,7 +166,7 @@ const yourCards = [
 
 function Card({ card, dealOrder = 0, isFolded = false, isHidden = true }) {
     const delay = dealOrder * 0.15
-    const imgSrc = isHidden ? '/assets/cards/back.svg' : getCardImageUrl(card)
+    const imgSrc = isHidden ? getCardImageUrl(null) : getCardImageUrl(card)
 
     return (
         <motion.div
@@ -231,6 +234,7 @@ function ActionIndicator({ action, delay }) {
 }
 
 function Player({ player, step, cardsDealt }) {
+    const [iconError, setIconError] = useState(false)
     const showCards = cardsDealt && step >= 2
     // UTG folds first (after blinds posted), then HJ calls
     const showAction = (player.position === 'UTG' && step >= 3) || (player.position === 'HJ' && step >= 4)
@@ -259,17 +263,18 @@ function Player({ player, step, cardsDealt }) {
                     />
                 ))}
             </div>
-            <div className="position-icon">
-                <img
-                    src={positionIconUrl}
-                    alt={player.position}
-                    onError={(e) => {
-                        // Fallback to colored circle if SVG not found
-                        e.target.style.display = 'none'
-                        e.target.parentElement.style.background = positionColor
-                        e.target.parentElement.innerHTML = `<span style="color:#fff;font-weight:bold;font-size:14px">${player.position}</span>`
-                    }}
-                />
+            <div className="position-icon" style={iconError ? { background: positionColor } : {}}>
+                {iconError ? (
+                    <span style={{ color: '#fff', fontWeight: 'bold', fontSize: '14px' }}>
+                        {player.position}
+                    </span>
+                ) : (
+                    <img
+                        src={positionIconUrl}
+                        alt={player.position}
+                        onError={() => setIconError(true)}
+                    />
+                )}
             </div>
             <div className="player-info">
                 <div className="player-name" style={player.isYou ? { color: positionColor } : {}}>

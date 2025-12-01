@@ -189,36 +189,6 @@ h1 {
     height: 70px;
 }
 
-/* Card */
-.card {
-    width: 45px;
-    height: 65px;
-    border-radius: 6px;
-    background: var(--card-back);
-    border: 2px solid #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    font-weight: bold;
-    color: #fff;
-    box-shadow: 2px 2px 8px rgba(0,0,0,0.5);
-}
-
-.card.red {
-    color: #e74c3c;
-    background: #fff;
-}
-
-.card.black {
-    color: #2c3e50;
-    background: #fff;
-}
-
-.card.folded {
-    opacity: 0.3;
-}
-
 /* Card wrapper for SVG cards */
 .card-wrapper {
     width: 45px;
@@ -326,29 +296,6 @@ h1 {
     gap: 8px;
 }
 
-.community-card {
-    width: 55px;
-    height: 80px;
-    border-radius: 8px;
-    background: #fff;
-    border: 2px solid #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 16px;
-    font-weight: bold;
-    box-shadow: 2px 2px 8px rgba(0,0,0,0.5);
-    color: #2c3e50;
-}
-
-.community-card.red {
-    color: #e74c3c;
-}
-
-.community-card.black {
-    color: #2c3e50;
-}
-
 /* Dealer button */
 .dealer-button {
     position: absolute;
@@ -366,89 +313,6 @@ h1 {
     width: 100%;
     height: 100%;
     object-fit: cover;
-}
-
-/* Explanation overlay */
-.explanation-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.85);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 200px;
-}
-
-.explanation-content {
-    text-align: center;
-    padding: 40px;
-    max-width: 500px;
-}
-
-.explanation-title {
-    font-size: 32px;
-    font-weight: bold;
-    color: var(--gold);
-    margin-bottom: 20px;
-}
-
-.explanation-text {
-    font-size: 20px;
-    color: #ecf0f1;
-    line-height: 1.6;
-}
-
-/* Interrupt Overlay - Tutorial explanations */
-.interrupt-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.9);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
-}
-
-.interrupt-panel {
-    background: linear-gradient(145deg, #1a1a2e 0%, #16213e 100%);
-    border: 2px solid var(--gold);
-    border-radius: 20px;
-    padding: 40px 50px;
-    max-width: 500px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 40px rgba(241, 196, 99, 0.1);
-}
-
-.interrupt-title {
-    font-size: 28px;
-    font-weight: bold;
-    color: var(--gold);
-    margin-bottom: 25px;
-    text-align: center;
-}
-
-.interrupt-content {
-    color: #ecf0f1;
-    font-size: 16px;
-    line-height: 1.6;
-}
-
-.interrupt-content p {
-    margin-bottom: 15px;
-}
-
-.interrupt-hint {
-    margin-top: 30px;
-    text-align: center;
-    color: #7f8c8d;
-    font-size: 14px;
-    padding-top: 20px;
-    border-top: 1px solid #34495e;
 }
 
 /* Step indicator */
