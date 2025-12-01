@@ -111,27 +111,26 @@ const scenarios = {
 
 // 6-handed table positions (clockwise from top)
 // Dealing order: SB → BB → UTG → HJ → CO → BTN
-// Layout: CO(top) → BTN(right-top) → SB(right-bottom) → BB(bottom) → UTG(left-bottom) → HJ(left-top)
-// All players positioned inside or on the edge of table with cards toward center
+// Layout: Position icons OUTSIDE table (seats), cards INSIDE table
 const playerPositions = [
-    // Top: CO - inside table at top edge (positioned higher to avoid pot overlap)
+    // Top: CO - seat above table
     { id: 1, position: 'CO', name: 'CO', chips: 5000, dealOrder: 5, layoutPosition: 'top',
-      style: { top: '50px', left: '50%', transform: 'translateX(-50%)' } },
-    // Right-top: BTN - inside table on right
+      style: { top: '-75px', left: '50%', transform: 'translateX(-50%)' } },
+    // Right-top: BTN - seat on right side
     { id: 2, position: 'BTN', name: 'BTN', chips: 7500, dealOrder: 6, layoutPosition: 'right',
-      style: { top: '120px', right: '30px' } },
-    // Right-bottom: SB - inside table on right lower
+      style: { top: '100px', right: '-90px' } },
+    // Right-bottom: SB - seat on right side lower
     { id: 3, position: 'SB', name: 'SB', chips: 4200, dealOrder: 1, layoutPosition: 'right',
-      style: { bottom: '120px', right: '30px' } },
-    // Bottom: BB (you) - inside table at bottom edge
+      style: { bottom: '100px', right: '-90px' } },
+    // Bottom: BB (you) - seat below table
     { id: 4, position: 'BB', name: 'YOU (BB)', chips: 6000, dealOrder: 2, isYou: true, layoutPosition: 'bottom',
-      style: { bottom: '60px', left: '50%', transform: 'translateX(-50%)' } },
-    // Left-bottom: UTG - inside table on left lower
+      style: { bottom: '-75px', left: '50%', transform: 'translateX(-50%)' } },
+    // Left-bottom: UTG - seat on left side lower
     { id: 5, position: 'UTG', name: 'UTG', chips: 3800, dealOrder: 3, layoutPosition: 'left',
-      style: { bottom: '120px', left: '30px' } },
-    // Left-top: HJ - inside table on left upper
+      style: { bottom: '100px', left: '-90px' } },
+    // Left-top: HJ - seat on left side upper
     { id: 6, position: 'HJ', name: 'HJ', chips: 5500, dealOrder: 4, layoutPosition: 'left',
-      style: { top: '120px', left: '30px' } },
+      style: { top: '100px', left: '-90px' } },
 ]
 
 // Position colors (fallback if SVG not loaded)
@@ -256,22 +255,19 @@ function Player({ player, step, cardsDealt }) {
     const positionColor = positionColors[player.position]
     const positionIconUrl = getPositionIconUrl(player.position)
 
-    // Determine flex direction based on layout position
-    // Top players: column-reverse (cards below icon)
-    // Bottom players: column (cards above icon, icon below - closer to their seat)
-    // Side players: row layout
     const isTop = player.layoutPosition === 'top'
     const isBottom = player.layoutPosition === 'bottom'
     const isLeft = player.layoutPosition === 'left'
     const isRight = player.layoutPosition === 'right'
 
-    const playerStyle = {
-        ...player.style,
-        flexDirection: isTop ? 'column' : isBottom ? 'column-reverse' : (isLeft ? 'row-reverse' : 'row'),
-    }
+    // Cards offset toward table center
+    const cardOffset = isTop ? { top: '100%', left: '50%', transform: 'translateX(-50%)' }
+        : isBottom ? { bottom: '100%', left: '50%', transform: 'translateX(-50%)' }
+        : isLeft ? { left: '100%', top: '50%', transform: 'translateY(-50%)' }
+        : { right: '100%', top: '50%', transform: 'translateY(-50%)' }
 
     const PlayerCards = () => (
-        <div className="player-cards">
+        <div className="player-cards" style={{ position: 'absolute', ...cardOffset }}>
             {showCards && cards.map((card, i) => (
                 <Card
                     key={i}
@@ -312,35 +308,16 @@ function Player({ player, step, cardsDealt }) {
     return (
         <motion.div
             className={`player ${player.isYou ? 'you' : ''} ${player.layoutPosition || ''}`}
-            style={playerStyle}
+            style={player.style}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: player.id * 0.1 }}
         >
-            {/* Layout based on position:
-                - Top: Icon above, cards below (info hidden to avoid pot overlap)
-                - Bottom: Cards above, icon below, info below icon
-                - Left/Right: Horizontal layout with info beside */}
-            {isTop ? (
-                <>
-                    <PositionIcon />
-                    <PlayerCards />
-                </>
-            ) : isBottom ? (
-                <>
-                    <PlayerInfo />
-                    <PlayerCards />
-                    <PositionIcon />
-                </>
-            ) : (
-                <>
-                    <div className="player-side-content">
-                        <PlayerCards />
-                        <PositionIcon />
-                    </div>
-                    <PlayerInfo />
-                </>
-            )}
+            {/* Seat: icon + info (outside table) */}
+            <PositionIcon />
+            <PlayerInfo />
+            {/* Cards: positioned toward table center */}
+            <PlayerCards />
             <AnimatePresence>
                 {player.position === 'UTG' && step >= 3 && (
                     <ActionIndicator action="FOLD" delay={0} />
@@ -509,10 +486,10 @@ export default function App() {
     if (urlParams.embed) {
         return (
             <div className="container embed-mode">
+                <GamePhase currentPhase={currentPhase} />
                 <div className="poker-table">
                     <div className="table-rail" />
                     <div className="table-felt" />
-                    <GamePhase currentPhase={currentPhase} />
                     {step >= 1 && playerPositions.map(player => (
                         <Player key={player.id} player={player} step={step} cardsDealt={step >= 2} />
                     ))}
@@ -559,11 +536,11 @@ export default function App() {
                 </select>
             </div>
 
+            <GamePhase currentPhase={currentPhase} />
+
             <div className="poker-table">
                 <div className="table-rail" />
                 <div className="table-felt" />
-
-                <GamePhase currentPhase={currentPhase} />
 
                 {step >= 1 && playerPositions.map(player => (
                     <Player
