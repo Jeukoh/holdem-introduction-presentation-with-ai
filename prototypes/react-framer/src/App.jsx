@@ -3,7 +3,8 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { parsePHH, examplePHH } from './phhParser'
 
 // ===========================================
-// SCENARIO ENGINE - 시나리오 정의
+// GAME ENGINE - 순수 게임 시뮬레이션
+// 발표 로직 없음, 게임 상태만 관리
 // ===========================================
 
 // Parse example PHH to create a scenario
@@ -13,91 +14,35 @@ const scenarios = {
     phh: phhScenario,  // PHH로 생성된 시나리오
 
     // ===========================================
-    // 튜토리얼: 홀덤을 처음 배우는 사람을 위한 시나리오
-    // 게임 진행 중 Interrupt로 설명 삽입
+    // 튜토리얼: 한 판의 홀덤 전체 흐름
+    // 순수 게임 시뮬레이션 (설명은 Reveal.js에서)
     // ===========================================
     tutorial: {
-        name: '🎓 Tutorial: 처음 배우는 홀덤',
+        name: '🎓 Tutorial: 한 판의 홀덤',
         yourPosition: 'BB',
         yourCards: [
             { suit: '♥', rank: 'A', color: 'red' },
             { suit: '♠', rank: '7', color: 'black' }
         ],
         steps: [
-            // 1. 테이블에 앉음
-            { type: 'setup', description: '6인 테이블에 앉았습니다' },
+            // 1. 테이블 셋업
+            { type: 'setup', description: '테이블 셋업' },
 
-            // 2. Interrupt: 포지션 설명
-            {
-                type: 'interrupt',
-                title: '🪑 포지션이란?',
-                content: `
-                    <div style="text-align: left; line-height: 1.8;">
-                        <p><strong style="color: #f1c40f;">BTN (버튼/딜러)</strong><br/>
-                        가장 유리한 자리. 마지막에 행동합니다.</p>
+            // 2. 카드 딜링
+            { type: 'deal', description: '카드 딜링' },
 
-                        <p><strong style="color: #e74c3c;">SB (스몰 블라인드)</strong><br/>
-                        강제로 작은 금액을 냅니다. ($50)</p>
+            // 3. 블라인드 포스팅
+            { type: 'blinds', pot: 150, description: 'SB $50 + BB $100' },
 
-                        <p><strong style="color: #e74c3c;">BB (빅 블라인드)</strong><br/>
-                        강제로 큰 금액을 냅니다. ($100)<br/>
-                        <em>→ 지금 당신의 자리!</em></p>
+            // 4. Pre-flop 액션들
+            { type: 'action', player: 'UTG', action: 'FOLD', pot: 150, description: 'UTG 폴드' },
+            { type: 'action', player: 'HJ', action: 'CALL', pot: 250, description: 'HJ $100 콜' },
+            { type: 'action', player: 'CO', action: 'FOLD', pot: 250, description: 'CO 폴드' },
+            { type: 'action', player: 'BTN', action: 'FOLD', pot: 250, description: 'BTN 폴드' },
+            { type: 'action', player: 'SB', action: 'CALL', pot: 300, description: 'SB $50 콜' },
+            { type: 'action', player: 'BB', action: 'CHECK', pot: 300, description: 'BB 체크' },
 
-                        <p><strong style="color: #3498db;">UTG (언더 더 건)</strong><br/>
-                        가장 먼저 행동해야 하는 불리한 자리.</p>
-                    </div>
-                `
-            },
-
-            // 3. 카드 딜링
-            { type: 'deal', description: '모든 플레이어에게 카드 2장씩' },
-
-            // 4. 블라인드 포스팅
-            { type: 'blinds', pot: 150, description: 'SB $50 + BB $100 = $150' },
-
-            // 5. UTG 폴드
-            { type: 'action', player: 'UTG', action: 'FOLD', description: 'UTG가 폴드합니다' },
-
-            // 6. HJ 콜
-            { type: 'action', player: 'HJ', action: 'CALL', pot: 250, description: 'HJ가 $100 콜' },
-
-            // 7. CO, BTN 폴드
-            { type: 'action', player: 'CO', action: 'FOLD', description: 'CO 폴드' },
-            { type: 'action', player: 'BTN', action: 'FOLD', description: 'BTN 폴드' },
-
-            // 8. SB 콜
-            { type: 'action', player: 'SB', action: 'CALL', pot: 300, description: 'SB가 $50 추가 콜' },
-
-            // 9. 당신의 차례!
-            { type: 'your_turn', description: '당신의 차례입니다!' },
-
-            // 10. Interrupt: 액션 설명
-            {
-                type: 'interrupt',
-                title: '🎯 무엇을 할 수 있나요?',
-                content: `
-                    <div style="text-align: left; line-height: 1.8;">
-                        <p><strong style="color: #e74c3c;">FOLD (폴드)</strong><br/>
-                        포기합니다. 낸 돈은 잃지만 더 이상 잃지 않습니다.</p>
-
-                        <p><strong style="color: #3498db;">CHECK (체크)</strong><br/>
-                        BB는 이미 $100을 냈으므로, 추가 베팅 없이 넘길 수 있습니다.</p>
-
-                        <p><strong style="color: #27ae60;">RAISE (레이즈)</strong><br/>
-                        베팅을 올립니다. 다른 플레이어들이 더 내야 합니다.</p>
-
-                        <p style="margin-top: 20px; padding: 10px; background: rgba(241,196,99,0.2); border-radius: 8px;">
-                            💡 <strong>A♥ 7♠</strong>는 괜찮은 핸드!<br/>
-                            체크하고 플랍을 보는 게 좋겠습니다.
-                        </p>
-                    </div>
-                `
-            },
-
-            // 11. BB 체크
-            { type: 'action', player: 'BB', action: 'CHECK', description: '체크합니다' },
-
-            // 12. 플랍!
+            // 5. 플랍
             {
                 type: 'flop',
                 cards: [
@@ -105,82 +50,24 @@ const scenarios = {
                     { suit: '♦', rank: '7', color: 'red' },
                     { suit: '♣', rank: '2', color: 'black' }
                 ],
+                pot: 300,
                 description: '플랍: K♥ 7♦ 2♣'
             },
 
-            // 13. Interrupt: 플랍 설명
-            {
-                type: 'interrupt',
-                title: '🃏 플랍 (Flop)',
-                content: `
-                    <div style="text-align: left; line-height: 1.8;">
-                        <p>커뮤니티 카드 3장이 공개되었습니다!</p>
-
-                        <p><strong>보드:</strong> K♥ 7♦ 2♣</p>
-                        <p><strong>내 핸드:</strong> A♥ 7♠</p>
-
-                        <p style="margin-top: 20px; padding: 15px; background: rgba(39,174,96,0.2); border-radius: 8px;">
-                            🎉 <strong>페어!</strong><br/>
-                            7♦와 내 7♠로 원페어 완성!
-                        </p>
-
-                        <p style="margin-top: 15px; color: #7f8c8d;">
-                            이제 턴(Turn)과 리버(River)에서<br/>
-                            카드가 한 장씩 더 공개됩니다.
-                        </p>
-                    </div>
-                `
-            },
-
-            // 14. 턴
+            // 6. 턴
             {
                 type: 'turn',
                 card: { suit: '♠', rank: '3', color: 'black' },
+                pot: 300,
                 description: '턴: 3♠'
             },
 
-            // 15. Interrupt: 턴 설명
-            {
-                type: 'interrupt',
-                title: '🃏 턴 (Turn)',
-                content: `
-                    <div style="text-align: left; line-height: 1.8;">
-                        <p>네 번째 커뮤니티 카드가 공개되었습니다.</p>
-
-                        <p><strong>보드:</strong> K♥ 7♦ 2♣ 3♠</p>
-
-                        <p>여전히 세븐 원페어를 들고 있습니다.</p>
-                    </div>
-                `
-            },
-
-            // 16. 리버
+            // 7. 리버
             {
                 type: 'river',
                 card: { suit: '♥', rank: 'A', color: 'red' },
+                pot: 300,
                 description: '리버: A♥'
-            },
-
-            // 17. Interrupt: 리버 + 결과
-            {
-                type: 'interrupt',
-                title: '🎊 투페어 완성!',
-                content: `
-                    <div style="text-align: left; line-height: 1.8;">
-                        <p><strong>최종 보드:</strong> K♥ 7♦ 2♣ 3♠ A♥</p>
-                        <p><strong>내 핸드:</strong> A♥ 7♠</p>
-
-                        <p style="margin-top: 20px; padding: 15px; background: rgba(241,196,99,0.3); border-radius: 8px;">
-                            🏆 <strong>에이스-세븐 투페어!</strong><br/>
-                            A + A♥ (보드) = 에이스 페어<br/>
-                            7♠ + 7♦ (보드) = 세븐 페어
-                        </p>
-
-                        <p style="margin-top: 20px; text-align: center; font-size: 1.2em;">
-                            이것이 한 판의 홀덤입니다! 🎴
-                        </p>
-                    </div>
-                `
             }
         ]
     },
@@ -233,7 +120,7 @@ const playerPositions = [
     { id: 6, position: 'HJ', name: 'HJ', chips: 5500, dealOrder: 4, style: { top: '60px', left: '-100px' } },
 ]
 
-// Position colors
+// Position colors (fallback if SVG not loaded)
 const positionColors = {
     BTN: '#f1c40f',  // Gold - Dealer
     SB: '#e74c3c',   // Red
@@ -243,6 +130,34 @@ const positionColors = {
     CO: '#27ae60',   // Green - Late
 }
 
+// ===========================================
+// ASSET HELPERS
+// ===========================================
+
+// Base URL for assets (supports sub-path hosting like GitHub Pages)
+const BASE = import.meta.env.BASE_URL || '/'
+
+// Convert suit symbol to file code
+const suitToCode = { '♥': 'H', '♦': 'D', '♣': 'C', '♠': 'S' }
+
+// Get card image URL
+function getCardImageUrl(card) {
+    if (!card) return `${BASE}assets/cards/back.svg`
+    const suitCode = suitToCode[card.suit] || 'S'
+    const rankCode = card.rank === '10' ? '10' : card.rank
+    return `${BASE}assets/cards/${rankCode}${suitCode}.svg`
+}
+
+// Get position icon URL
+function getPositionIconUrl(position) {
+    return `${BASE}assets/positions/${position}.svg`
+}
+
+// Get dealer button URL
+function getDealerButtonUrl() {
+    return `${BASE}assets/decorative/dealer-button.svg`
+}
+
 // Your cards
 const yourCards = [
     { suit: '♥', rank: 'A', color: 'red' },
@@ -250,12 +165,12 @@ const yourCards = [
 ]
 
 function Card({ card, dealOrder = 0, isFolded = false, isHidden = true }) {
-    // Deal cards based on position order (SB first, then BB, UTG, etc.)
     const delay = dealOrder * 0.15
+    const imgSrc = isHidden ? getCardImageUrl(null) : getCardImageUrl(card)
 
     return (
         <motion.div
-            className={`card ${card?.color || ''} ${isFolded ? 'folded' : ''}`}
+            className={`card-wrapper ${isFolded ? 'folded' : ''}`}
             initial={{ opacity: 0, y: -100, rotateY: 180 }}
             animate={{
                 opacity: isFolded ? 0.3 : 1,
@@ -269,7 +184,32 @@ function Card({ card, dealOrder = 0, isFolded = false, isHidden = true }) {
                 stiffness: 200
             }}
         >
-            {!isHidden && card && `${card.rank}${card.suit}`}
+            <img
+                src={imgSrc}
+                alt={isHidden ? 'Card back' : `${card?.rank}${card?.suit}`}
+                className="card-image"
+            />
+        </motion.div>
+    )
+}
+
+// Community card with SVG
+function CommunityCard({ card, dealOrder = 0 }) {
+    const delay = dealOrder * 0.15
+    const imgSrc = getCardImageUrl(card)
+
+    return (
+        <motion.div
+            className="community-card-wrapper"
+            initial={{ opacity: 0, y: -50, rotateY: 180 }}
+            animate={{ opacity: 1, y: 0, rotateY: 0 }}
+            transition={{ delay, duration: 0.4, type: 'spring' }}
+        >
+            <img
+                src={imgSrc}
+                alt={`${card?.rank}${card?.suit}`}
+                className="community-card-image"
+            />
         </motion.div>
     )
 }
@@ -294,6 +234,7 @@ function ActionIndicator({ action, delay }) {
 }
 
 function Player({ player, step, cardsDealt }) {
+    const [iconError, setIconError] = useState(false)
     const showCards = cardsDealt && step >= 2
     // UTG folds first (after blinds posted), then HJ calls
     const showAction = (player.position === 'UTG' && step >= 3) || (player.position === 'HJ' && step >= 4)
@@ -301,6 +242,7 @@ function Player({ player, step, cardsDealt }) {
 
     const cards = player.isYou ? yourCards : [null, null]
     const positionColor = positionColors[player.position]
+    const positionIconUrl = getPositionIconUrl(player.position)
 
     return (
         <motion.div
@@ -321,17 +263,18 @@ function Player({ player, step, cardsDealt }) {
                     />
                 ))}
             </div>
-            <div
-                className="player-avatar position-badge"
-                style={{
-                    background: positionColor,
-                    border: player.position === 'BTN' ? '3px solid #fff' : 'none',
-                    color: '#fff',
-                    fontSize: '14px',
-                    fontWeight: 'bold'
-                }}
-            >
-                {player.position}
+            <div className="position-icon" style={iconError ? { background: positionColor } : {}}>
+                {iconError ? (
+                    <span style={{ color: '#fff', fontWeight: 'bold', fontSize: '14px' }}>
+                        {player.position}
+                    </span>
+                ) : (
+                    <img
+                        src={positionIconUrl}
+                        alt={player.position}
+                        onError={() => setIconError(true)}
+                    />
+                )}
             </div>
             <div className="player-info">
                 <div className="player-name" style={player.isYou ? { color: positionColor } : {}}>
@@ -372,67 +315,11 @@ function Pot({ amount }) {
     )
 }
 
-function ExplanationOverlay({ description = '당신의 차례입니다' }) {
-    return (
-        <motion.div
-            className="explanation-overlay"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.5 }}
-        >
-            <div className="explanation-content">
-                <motion.div
-                    className="explanation-title"
-                    initial={{ y: -20, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ delay: 0.2 }}
-                >
-                    {description}
-                </motion.div>
-                <motion.div
-                    className="explanation-text"
-                    initial={{ y: 20, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ delay: 0.4 }}
-                >
-                    A♥ 7♠를 들고 있습니다.<br /><br />
-                    <strong>선택지:</strong><br />
-                    Fold / Call $100 / Raise
-                </motion.div>
-            </div>
-        </motion.div>
-    )
-}
-
-// Interrupt Overlay - 튜토리얼 설명 패널
-function InterruptOverlay({ title, content }) {
-    return (
-        <motion.div
-            className="interrupt-overlay"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.4 }}
-        >
-            <motion.div
-                className="interrupt-panel"
-                initial={{ scale: 0.9, y: 30 }}
-                animate={{ scale: 1, y: 0 }}
-                transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-            >
-                <div className="interrupt-title">{title}</div>
-                <div
-                    className="interrupt-content"
-                    dangerouslySetInnerHTML={{ __html: content }}
-                />
-                <div className="interrupt-hint">
-                    Space / → 를 눌러 계속
-                </div>
-            </motion.div>
-        </motion.div>
-    )
-}
+// ===========================================
+// NOTE: ExplanationOverlay와 InterruptOverlay 제거됨
+// 발표용 설명은 Reveal.js 슬라이드에서 담당
+// 이 엔진은 순수 게임 시뮬레이션만 수행
+// ===========================================
 
 function GamePhase({ currentPhase }) {
     const phases = ['Pre-flop', 'Flop', 'Turn', 'River']
@@ -550,9 +437,6 @@ export default function App() {
         }
     }
 
-    // Check if current step is interrupt
-    const isInterrupt = currentStepData.type === 'interrupt'
-
     // Determine current game phase
     let currentPhase = 'preflop'
     for (let i = 0; i <= step; i++) {
@@ -574,34 +458,23 @@ export default function App() {
                         <Player key={player.id} player={player} step={step} cardsDealt={step >= 2} />
                     ))}
                     {step >= 1 && (
-                        <motion.div className="dealer-button" style={{ bottom: '90px', left: 'calc(50% + 80px)' }}
-                            initial={{ opacity: 0, scale: 0 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.6 }}>
-                            D
+                        <motion.div
+                            className="dealer-button"
+                            style={{ bottom: '90px', left: 'calc(50% + 80px)' }}
+                            initial={{ opacity: 0, scale: 0 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ delay: 0.6 }}
+                        >
+                            <img src={getDealerButtonUrl()} alt="Dealer" className="dealer-button-img" />
                         </motion.div>
                     )}
                     {step >= 2 && <Pot amount={potAmount} />}
                     <div className="community-cards">
                         {communityCards.map((card, i) => (
-                            <motion.div
-                                key={i}
-                                className={`community-card ${card.color}`}
-                                initial={{ opacity: 0, y: -50, rotateY: 180 }}
-                                animate={{ opacity: 1, y: 0, rotateY: 0 }}
-                                transition={{ delay: i * 0.15, duration: 0.4, type: 'spring' }}
-                            >
-                                {card.rank}{card.suit}
-                            </motion.div>
+                            <CommunityCard key={i} card={card} dealOrder={i} />
                         ))}
                     </div>
-                    <AnimatePresence>
-                        {currentStepData.type === 'your_turn' && <ExplanationOverlay description={currentStepData.description} />}
-                        {isInterrupt && (
-                            <InterruptOverlay
-                                title={currentStepData.title}
-                                content={currentStepData.content}
-                            />
-                        )}
-                    </AnimatePresence>
+                    <StepIndicator step={step} totalSteps={totalSteps} />
                 </div>
             </div>
         )
@@ -650,7 +523,7 @@ export default function App() {
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ delay: 0.6 }}
                     >
-                        D
+                        <img src={getDealerButtonUrl()} alt="Dealer" className="dealer-button-img" />
                     </motion.div>
                 )}
 
@@ -658,29 +531,9 @@ export default function App() {
 
                 <div className="community-cards">
                     {communityCards.map((card, i) => (
-                        <motion.div
-                            key={i}
-                            className={`community-card ${card.color}`}
-                            initial={{ opacity: 0, y: -50, rotateY: 180 }}
-                            animate={{ opacity: 1, y: 0, rotateY: 0 }}
-                            transition={{ delay: i * 0.15, duration: 0.4, type: 'spring' }}
-                        >
-                            {card.rank}{card.suit}
-                        </motion.div>
+                        <CommunityCard key={i} card={card} dealOrder={i} />
                     ))}
                 </div>
-
-                <AnimatePresence>
-                    {currentStepData.type === 'your_turn' && (
-                        <ExplanationOverlay description={currentStepData.description} />
-                    )}
-                    {isInterrupt && (
-                        <InterruptOverlay
-                            title={currentStepData.title}
-                            content={currentStepData.content}
-                        />
-                    )}
-                </AnimatePresence>
 
                 <StepIndicator step={step} totalSteps={totalSteps} />
             </div>
