@@ -1,0 +1,674 @@
+<!-- ============================================
+     ACT 4: 통찰 - 모든 것은 도박이다, 하지만...
+     ============================================ -->
+
+<!-- Section Title -->
+<section class="section-title" data-background-gradient="linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)">
+    <h1>Act 4</h1>
+    <h2>통찰: 모든 것은 도박이다, 하지만...</h2>
+    <aside class="notes">
+        이제 더 깊은 질문으로 들어갑니다.
+        홀덤은 도박일까요? 아닐까요?
+        솔직하게 답해보겠습니다.
+    </aside>
+</section>
+
+<!-- 4-1. 솔직한 고백 -->
+<section>
+    <h2>4-1. 솔직한 고백</h2>
+    <blockquote class="fragment">
+        모든 것은 불확실성 속의 도박입니다
+    </blockquote>
+    <aside class="notes">
+        솔직하게 인정합니다.
+        모든 것은 어느 정도 도박입니다.
+    </aside>
+</section>
+
+<section>
+    <h3>모든 것은 불확실성 속의 도박</h3>
+    <ul class="fragment">
+        <li>동전 던지기 - 도박</li>
+        <li>홀덤 - 도박</li>
+        <li>주식 - 도박?</li>
+        <li>인생 - 도박??</li>
+    </ul>
+    <div class="fragment" style="margin-top: 2em;">
+        <p>공통점:</p>
+        <ul>
+            <li>미래를 알 수 없음</li>
+            <li>운이 작용함</li>
+            <li>장기적 관점 필요</li>
+        </ul>
+    </div>
+    <aside class="notes">
+        동전 던지기는 도박입니다. 홀덤도 도박입니다.
+        그런데 주식은? 인생은?
+        사실 모두 불확실성 속에서 결정을 내리는 것입니다.
+        미래를 알 수 없고, 운이 작용하며, 장기적 관점이 필요합니다.
+        그렇다면 왜 어떤 것은 도박이라 부르고, 어떤 것은 투자라 부를까요?
+    </aside>
+</section>
+
+<section>
+    <h3>그런데 왜 구분할까?</h3>
+    <div class="fragment">
+        <p>어떤 것은 "도박"</p>
+        <p>어떤 것은 "투자" 또는 "전략"</p>
+    </div>
+    <div class="fragment" style="margin-top: 2em;">
+        <p class="emphasize">차이는 무엇일까?</p>
+    </div>
+    <aside class="notes">
+        그렇다면 차이는 무엇일까요?
+        왜 어떤 것은 도박이라 부르고, 어떤 것은 투자나 전략이라 부를까요?
+        다음 섹션에서 이 질문에 답하겠습니다.
+    </aside>
+</section>
+
+<!-- 4-2. 첫 번째 차이: +EV 전략의 존재 -->
+<section>
+    <h2>4-2. 첫 번째 차이</h2>
+    <h3 class="emphasize">+EV 전략의 존재</h3>
+    <aside class="notes">
+        첫 번째 차이는 +EV 전략이 존재하느냐입니다.
+    </aside>
+</section>
+
+<section>
+    <h3>게임 비교: 홀짝 vs 섯다 vs 홀덤</h3>
+    <p style="margin-bottom: 2em;">왜 홀덤이 특별한가?</p>
+
+    <!-- 3-Way 비교 다이어그램 -->
+    <div class="game-comparison">
+
+        <!-- 홀짝 (동전 던지기) -->
+        <div class="game-card" data-game="holjjak">
+            <div class="game-icon">🪙</div>
+            <div class="game-title">홀짝</div>
+            <div class="game-subtitle">동전 던지기</div>
+
+            <div class="game-metrics">
+                <div class="metric">
+                    <div class="metric-label">+EV 가능성</div>
+                    <div class="metric-bar">
+                        <div class="metric-fill" style="width: 0%; background: #e74c3c;"></div>
+                    </div>
+                    <div class="metric-value">❌ 불가능</div>
+                </div>
+
+                <div class="metric fragment" data-fragment-index="0">
+                    <div class="metric-label">정보량</div>
+                    <div class="metric-bar">
+                        <div class="metric-fill" style="width: 0%; background: #e74c3c;"></div>
+                    </div>
+                    <div class="metric-value">없음</div>
+                </div>
+
+                <div class="metric fragment" data-fragment-index="1">
+                    <div class="metric-label">분석 가능성</div>
+                    <div class="metric-bar">
+                        <div class="metric-fill" style="width: 0%; background: #e74c3c;"></div>
+                    </div>
+                    <div class="metric-value">없음</div>
+                </div>
+            </div>
+
+            <div class="game-verdict negative">
+                순수 운 게임
+            </div>
+        </div>
+
+        <!-- 섯다 -->
+        <div class="game-card fragment" data-fragment-index="2" data-game="seotda">
+            <div class="game-icon">🃏</div>
+            <div class="game-title">섯다</div>
+            <div class="game-subtitle">한국 전통 카드 게임</div>
+
+            <div class="game-metrics">
+                <div class="metric">
+                    <div class="metric-label">+EV 가능성</div>
+                    <div class="metric-bar">
+                        <div class="metric-fill" style="width: 40%; background: #f39c12;"></div>
+                    </div>
+                    <div class="metric-value">🔸 제한적</div>
+                </div>
+
+                <div class="metric fragment" data-fragment-index="3">
+                    <div class="metric-label">정보량</div>
+                    <div class="metric-bar">
+                        <div class="metric-fill" style="width: 30%; background: #f39c12;"></div>
+                    </div>
+                    <div class="metric-value">매우 적음</div>
+                </div>
+
+                <div class="metric fragment" data-fragment-index="4">
+                    <div class="metric-label">분석 가능성</div>
+                    <div class="metric-bar">
+                        <div class="metric-fill" style="width: 35%; background: #f39c12;"></div>
+                    </div>
+                    <div class="metric-value">제한적</div>
+                </div>
+            </div>
+
+            <div class="game-verdict medium">
+                실력 < 운
+            </div>
+        </div>
+
+        <!-- 홀덤 -->
+        <div class="game-card fragment" data-fragment-index="5" data-game="holdem">
+            <div class="game-icon">♠️</div>
+            <div class="game-title">텍사스 홀덤</div>
+            <div class="game-subtitle">불완전 정보 전략 게임</div>
+
+            <div class="game-metrics">
+                <div class="metric">
+                    <div class="metric-label">+EV 가능성</div>
+                    <div class="metric-bar">
+                        <div class="metric-fill" style="width: 100%; background: #2ecc71;"></div>
+                    </div>
+                    <div class="metric-value">✅ 확실</div>
+                </div>
+
+                <div class="metric fragment" data-fragment-index="6">
+                    <div class="metric-label">정보량</div>
+                    <div class="metric-bar">
+                        <div class="metric-fill" style="width: 85%; background: #2ecc71;"></div>
+                    </div>
+                    <div class="metric-value">풍부함</div>
+                </div>
+
+                <div class="metric fragment" data-fragment-index="7">
+                    <div class="metric-label">분석 가능성</div>
+                    <div class="metric-bar">
+                        <div class="metric-fill" style="width: 95%; background: #2ecc71;"></div>
+                    </div>
+                    <div class="metric-value">매우 높음</div>
+                </div>
+            </div>
+
+            <div class="game-verdict positive">
+                실력 > 운 ✅
+            </div>
+        </div>
+    </div>
+
+    <p class="fragment" data-fragment-index="8" style="text-align: center; margin-top: 2em;">
+        홀덤은 <span class="emphasize">운과 실력이 균형잡힌</span> 최적의 게임
+    </p>
+
+    <aside class="notes">
+        세 게임을 비교합니다.
+        홀짝은 50대 50 확률 게임입니다. +EV 전략이 불가능하고, 정보도 없고, 분석할 것도 없습니다. 순수한 운 게임입니다.
+        섯다는 전략이 존재하지만 정보가 매우 적습니다. 심리에 과도하게 의존하고, 분석도 제한적입니다. 장기적으로 실력보다 운의 영향이 더 큽니다.
+        홀덤은 +EV 전략이 명확히 존재합니다. 5장의 공용 카드로 충분한 정보를 제공하고, 핸드 레인지 분석이 가능합니다. 수학적 최적해도 존재합니다.
+        홀덤은 운과 실력이 균형잡힌 최적의 게임입니다.
+    </aside>
+</section>
+
+<section>
+    <h3>다른 게임과의 비교</h3>
+    <div class="fragment">
+        <p><strong>체스</strong>: 완전정보, 계산으로 해결</p>
+    </div>
+    <div class="fragment">
+        <p><strong>주식</strong>: 불완전정보, 하지만 장기적 +EV 가능</p>
+    </div>
+    <div class="fragment">
+        <p class="emphasize"><strong>홀덤</strong>: 불완전정보 + 수학적으로 풀리는 최적해</p>
+    </div>
+    <aside class="notes">
+        체스는 완전정보 게임입니다. 충분한 계산으로 해결 가능합니다.
+        주식은 불완전정보지만, 분석과 연구로 장기적 +EV가 가능합니다.
+        홀덤은 독특합니다. 불완전정보 게임이지만,
+        동시에 수학적으로 풀리는 최적해가 존재합니다.
+    </aside>
+</section>
+
+<!-- 4-3. 두 번째 차이: 피드백과 반성의 가능성 -->
+<section>
+    <h2>4-3. 두 번째 차이</h2>
+    <h3 class="emphasize">피드백과 반성의 가능성</h3>
+    <aside class="notes">
+        두 번째 차이는 피드백과 반성이 가능하냐입니다.
+    </aside>
+</section>
+
+<section>
+    <h3>홀짝의 피드백</h3>
+    <div class="fragment">
+        <p>졌다 → "운이 나빴다"</p>
+        <p>이겼다 → "운이 좋았다"</p>
+    </div>
+    <div class="fragment" style="margin-top: 2em;">
+        <p class="highlight-red">개선 방법 없음</p>
+    </div>
+    <aside class="notes">
+        홀짝에서는 지면 "운이 나빴다", 이기면 "운이 좋았다"입니다.
+        개선할 방법이 없습니다.
+    </aside>
+</section>
+
+<section>
+    <h3>홀덤의 피드백</h3>
+    <div class="fragment">
+        <p>졌다 → 솔버 분석</p>
+        <ul>
+            <li>"내 실수" 또는 "운이 나빴음" 구분 가능</li>
+        </ul>
+    </div>
+    <div class="fragment" style="margin-top: 2em;">
+        <p class="emphasize">다음에 개선 방법 명확</p>
+    </div>
+    <aside class="notes">
+        홀덤에서는 지면 솔버로 분석합니다.
+        내 실수였는지, 아니면 정말 운이 나빴는지 구분할 수 있습니다.
+        다음에 어떻게 개선할지 명확합니다.
+    </aside>
+</section>
+
+<section>
+    <h3>핵심 차이: 홀짝 vs 홀덤</h3>
+
+    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 2em; max-width: 1000px; margin: 2em auto;">
+        <!-- +EV 전략 -->
+        <div class="fragment comparison-card" data-fragment-index="0">
+            <h4 style="font-size: 1.1em; margin-bottom: 1.2em; color: var(--accent-gold);">+EV 전략 존재</h4>
+            <div style="display: flex; justify-content: space-around; align-items: center;">
+                <div style="text-align: center; flex: 1;">
+                    <div style="font-size: 0.9em; margin-bottom: 0.8em; color: rgba(255,255,255,0.6);">홀짝</div>
+                    <div style="font-size: 3em; color: #e74c3c;">❌</div>
+                    <div style="font-size: 0.8em; margin-top: 0.5em; color: rgba(231, 76, 60, 0.8);">불가능</div>
+                </div>
+                <div style="font-size: 2em; color: rgba(255,255,255,0.3);">→</div>
+                <div style="text-align: center; flex: 1;">
+                    <div style="font-size: 0.9em; margin-bottom: 0.8em; color: rgba(255,255,255,0.6);">홀덤</div>
+                    <div style="font-size: 3em; color: #2ecc71;">✅</div>
+                    <div style="font-size: 0.8em; margin-top: 0.5em; color: rgba(46, 204, 113, 0.8);">존재</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 피드백 -->
+        <div class="fragment comparison-card" data-fragment-index="1">
+            <h4 style="font-size: 1.1em; margin-bottom: 1.2em; color: var(--accent-gold);">피드백 & 학습</h4>
+            <div style="display: flex; justify-content: space-around; align-items: center;">
+                <div style="text-align: center; flex: 1;">
+                    <div style="font-size: 0.9em; margin-bottom: 0.8em; color: rgba(255,255,255,0.6);">홀짝</div>
+                    <div style="font-size: 3em; color: #e74c3c;">❌</div>
+                    <div style="font-size: 0.8em; margin-top: 0.5em; color: rgba(231, 76, 60, 0.8);">불가능</div>
+                </div>
+                <div style="font-size: 2em; color: rgba(255,255,255,0.3);">→</div>
+                <div style="text-align: center; flex: 1;">
+                    <div style="font-size: 0.9em; margin-bottom: 0.8em; color: rgba(255,255,255,0.6);">홀덤</div>
+                    <div style="font-size: 3em; color: #2ecc71;">✅</div>
+                    <div style="font-size: 0.8em; margin-top: 0.5em; color: rgba(46, 204, 113, 0.8);">핸드 분석 가능</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 합리적 분석 -->
+        <div class="fragment comparison-card" data-fragment-index="2">
+            <h4 style="font-size: 1.1em; margin-bottom: 1.2em; color: var(--accent-gold);">합리적 분석</h4>
+            <div style="display: flex; justify-content: space-around; align-items: center;">
+                <div style="text-align: center; flex: 1;">
+                    <div style="font-size: 0.9em; margin-bottom: 0.8em; color: rgba(255,255,255,0.6);">홀짝</div>
+                    <div style="font-size: 3em; color: #e74c3c;">❌</div>
+                    <div style="font-size: 0.8em; margin-top: 0.5em; color: rgba(231, 76, 60, 0.8);">정보 없음</div>
+                </div>
+                <div style="font-size: 2em; color: rgba(255,255,255,0.3);">→</div>
+                <div style="text-align: center; flex: 1;">
+                    <div style="font-size: 0.9em; margin-bottom: 0.8em; color: rgba(255,255,255,0.6);">홀덤</div>
+                    <div style="font-size: 3em; color: #2ecc71;">✅</div>
+                    <div style="font-size: 0.8em; margin-top: 0.5em; color: rgba(46, 204, 113, 0.8);">확률 계산 가능</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 장기적 개선 -->
+        <div class="fragment comparison-card" data-fragment-index="3">
+            <h4 style="font-size: 1.1em; margin-bottom: 1.2em; color: var(--accent-gold);">장기적 개선</h4>
+            <div style="display: flex; justify-content: space-around; align-items: center;">
+                <div style="text-align: center; flex: 1;">
+                    <div style="font-size: 0.9em; margin-bottom: 0.8em; color: rgba(255,255,255,0.6);">홀짝</div>
+                    <div style="font-size: 3em; color: #e74c3c;">❌</div>
+                    <div style="font-size: 0.8em; margin-top: 0.5em; color: rgba(231, 76, 60, 0.8);">성장 없음</div>
+                </div>
+                <div style="font-size: 2em; color: rgba(255,255,255,0.3);">→</div>
+                <div style="text-align: center; flex: 1;">
+                    <div style="font-size: 0.9em; margin-bottom: 0.8em; color: rgba(255,255,255,0.6);">홀덤</div>
+                    <div style="font-size: 3em; color: #2ecc71;">✅</div>
+                    <div style="font-size: 0.8em; margin-top: 0.5em; color: rgba(46, 204, 113, 0.8);">실력 향상</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="fragment" data-fragment-index="4" style="margin-top: 3em; padding: 2em; background: linear-gradient(135deg, rgba(52, 152, 219, 0.2) 0%, rgba(155, 89, 182, 0.2) 100%); border-radius: 15px; border: 2px solid var(--accent-gold);">
+        <blockquote style="font-size: 1.4em; margin: 0; font-style: italic; line-height: 1.5;">
+            피드백과 반성이 가능하면<br>
+            <span style="color: var(--accent-gold); font-weight: 600;">도박이 아니라 의사결정 훈련</span>
+        </blockquote>
+    </div>
+
+    <aside class="notes">
+        정리하면, 홀짝은 +EV 전략도 없고, 피드백도 없고, 분석도 안 되고, 개선도 불가능합니다.
+        반면 홀덤은 모두 가능합니다.
+        각 항목이 카드로 표시되면서 차이가 명확하게 보입니다.
+        핵심은, 피드백과 반성이 가능하면 도박이 아니라 의사결정 훈련입니다.
+    </aside>
+</section>
+
+<!-- 4-4. 과정과 결과 - +EV vs +V -->
+<section>
+    <h2>4-4. 과정과 결과</h2>
+    <h3 class="emphasize">+EV vs +V</h3>
+    <aside class="notes">
+        이제 가장 중요한 개념을 설명하겠습니다.
+        과정과 결과의 차이입니다.
+    </aside>
+</section>
+
+<section>
+    <h3>일반인: 결과 중심 (+V)</h3>
+    <ul class="fragment">
+        <li>AA로 올인 → 졌다 → <span class="highlight-red">실패</span></li>
+        <li>쓰레기로 블러프 → 이겼다 → <span class="emphasize">성공</span></li>
+    </ul>
+    <aside class="notes">
+        일반인은 결과를 봅니다.
+        AA로 올인했는데 졌으면 실패입니다.
+        쓰레기 패로 블러프했는데 이겼으면 성공입니다.
+    </aside>
+</section>
+
+<section>
+    <h3>프로: 과정 중심 (+EV)</h3>
+    <ul class="fragment">
+        <li>AA로 올인 → 졌다 → <span class="emphasize">올바른 결정</span></li>
+        <li>쓰레기로 블러프 → 이겼다 → <span class="highlight-red">-EV 플레이</span></li>
+    </ul>
+    <aside class="notes">
+        프로는 과정을 봅니다.
+        AA로 올인했는데 졌어도, 그건 올바른 결정입니다.
+        쓰레기 패로 블러프해서 이겨도, 그게 -EV였다면 잘못된 플레이입니다.
+    </aside>
+</section>
+
+<section>
+    <h3>+V vs +EV: 사고방식 비교</h3>
+    <p style="margin-bottom: 2em;">같은 상황, 다른 시각</p>
+
+    <!-- +V vs +EV 비교 다이어그램 -->
+    <div class="mindset-comparison">
+
+        <!-- 결과 중심 (+V) -->
+        <div class="mindset-side result-focused">
+            <div class="mindset-title" style="background: rgba(231, 76, 60, 0.2); color: #e74c3c;">
+                🎲 결과 중심 (+V)
+            </div>
+
+            <div class="mindset-persona">
+                <div style="font-size: 2em; margin-bottom: 0.5em;">😰</div>
+                <p style="font-style: italic;">"이겼나? 졌나?"</p>
+            </div>
+
+            <!-- 단기 그래프 -->
+            <div class="mindset-graph">
+                <div class="graph-title">단기 수익 곡선</div>
+                <svg viewBox="0 0 200 100" class="graph-svg">
+                    <!-- 축 -->
+                    <line x1="10" y1="50" x2="190" y2="50" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+                    <line x1="10" y1="10" x2="10" y2="90" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+
+                    <!-- 변동 곡선 (단기 등락) -->
+                    <path d="M 10 50 L 30 45 L 50 60 L 70 40 L 90 65 L 110 35 L 130 55 L 150 45 L 170 60 L 190 50"
+                          stroke="#e74c3c"
+                          stroke-width="3"
+                          fill="none"
+                          stroke-dasharray="5,5"/>
+                </svg>
+                <p style="font-size: 0.8em; color: #e74c3c; margin-top: 0.5em;">등락 반복</p>
+            </div>
+
+            <div class="mindset-traits">
+                <p>✗ 단기 운에 휘둘림</p>
+                <p>✗ 감정적 결정</p>
+                <p>✗ 실수 반복</p>
+            </div>
+
+            <div class="mindset-outcome negative">
+                장기적 손실
+            </div>
+        </div>
+
+        <!-- 과정 중심 (+EV) -->
+        <div class="mindset-side process-focused fragment" data-fragment-index="0">
+            <div class="mindset-title" style="background: rgba(46, 204, 113, 0.2); color: #2ecc71;">
+                📈 과정 중심 (+EV)
+            </div>
+
+            <div class="mindset-persona">
+                <div style="font-size: 2em; margin-bottom: 0.5em;">🧘</div>
+                <p style="font-style: italic;">"올바른 결정이었나?"</p>
+            </div>
+
+            <!-- 장기 그래프 -->
+            <div class="mindset-graph">
+                <div class="graph-title">장기 수익 곡선</div>
+                <svg viewBox="0 0 200 100" class="graph-svg">
+                    <!-- 축 -->
+                    <line x1="10" y1="50" x2="190" y2="50" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+                    <line x1="10" y1="10" x2="10" y2="90" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+
+                    <!-- 우상향 곡선 (장기 상승) -->
+                    <path d="M 10 70 L 30 68 L 50 60 L 70 58 L 90 50 L 110 48 L 130 40 L 150 38 L 170 30 L 190 25"
+                          stroke="#2ecc71"
+                          stroke-width="3"
+                          fill="none"/>
+
+                    <!-- 작은 변동 (반투명) -->
+                    <path d="M 10 70 L 30 72 L 50 63 L 70 61 L 90 52 L 110 54 L 130 43 L 150 41 L 170 32 L 190 28"
+                          stroke="#2ecc71"
+                          stroke-width="1"
+                          fill="none"
+                          opacity="0.3"/>
+                </svg>
+                <p style="font-size: 0.8em; color: #2ecc71; margin-top: 0.5em;">지속 상승</p>
+            </div>
+
+            <div class="mindset-traits">
+                <p>✓ 장기 전략</p>
+                <p>✓ 합리적 판단</p>
+                <p>✓ 지속 개선</p>
+            </div>
+
+            <div class="mindset-outcome positive">
+                장기적 승리 ✅
+            </div>
+        </div>
+    </div>
+
+    <p class="fragment" data-fragment-index="1" style="text-align: center; margin-top: 2em;">
+        <span class="emphasize">프로는 과정을 믿고, 결과는 따라온다</span>
+    </p>
+
+    <aside class="notes">
+        결과 중심과 과정 중심의 차이를 비교합니다.
+        결과만 보는 사람은 단기 등락에 휘둘립니다. 이겼나 졌나만 봅니다.
+        과정을 보는 사람은 장기적으로 우상향합니다. 올바른 결정을 했는지를 봅니다.
+        +V만 보면 감정적이 되고 실수를 반복합니다.
+        +EV를 보면 합리적으로 판단하고 지속적으로 개선합니다.
+        프로는 과정을 믿고, 결과는 따라온다고 믿습니다.
+    </aside>
+</section>
+
+<section>
+    <h3>올바른 폴드도 승리</h3>
+    <p class="fragment">60% 승률이지만 팟 오즈 안 맞으면 폴드</p>
+    <p class="fragment">나중에 상대가 블러프였어도 올바른 결정</p>
+    <div class="fragment" style="margin-top: 2em;">
+        <blockquote>
+            프로는 +EV를 쫓음<br>
+            단기적 패배를 감수<br>
+            장기적 승리를 추구
+        </blockquote>
+    </div>
+    <aside class="notes">
+        60% 승률이 있어도, 팟 오즈가 안 맞으면 폴드합니다.
+        나중에 알고 보니 상대가 블러프였어도, 그건 올바른 결정입니다.
+        프로는 +EV를 쫓습니다. 단기적 패배를 감수하고, 장기적 승리를 추구합니다.
+    </aside>
+</section>
+
+<!-- 4-5. 내가 홀덤을 좋아하는 이유 -->
+<section>
+    <h2>4-5. 내가 홀덤을 좋아하는 이유</h2>
+    <aside class="notes">
+        이제 개인적인 이야기를 하겠습니다.
+        왜 제가 홀덤을 좋아하는지.
+    </aside>
+</section>
+
+<section>
+    <h3>세상은 불공평하다</h3>
+    <ul class="fragment">
+        <li>우리는 부모를 고를 수 없다</li>
+        <li>출발선이 다르다 (빅스택 vs 숏스택)</li>
+        <li>핸드와 보드는 내가 어쩔 수 없는 것들</li>
+    </ul>
+    <aside class="notes">
+        세상은 불공평합니다.
+        우리는 부모를 고를 수 없고, 출발선이 다릅니다.
+        홀덤에서도, 어떤 사람은 빅스택으로 시작하고, 어떤 사람은 숏스택입니다.
+        받는 핸드와 나오는 보드는 내가 어쩔 수 없는 것들입니다.
+    </aside>
+</section>
+
+<section>
+    <h3>그럼에도 불구하고</h3>
+    <div class="fragment">
+        <p>홀덤은 묻는다:</p>
+        <blockquote>
+            "나는 불확실함과 싸우기에<br>
+            좋은 태도를 가지고 있는가?"
+        </blockquote>
+    </div>
+    <div class="fragment" style="margin-top: 2em;">
+        <ul>
+            <li>배우고, 계산하고, 도전할 수 있는가?</li>
+            <li>스스로 할 수 있는 최선을 다 했는가?</li>
+        </ul>
+    </div>
+    <aside class="notes">
+        그럼에도 불구하고, 홀덤은 묻습니다.
+        나는 불확실함과 싸우기에 좋은 태도를 가지고 있는가?
+        배우고, 계산하고, 도전할 수 있는가?
+        스스로 할 수 있는 최선을 다 했는가?
+    </aside>
+</section>
+
+<section>
+    <h3>웹툰 《텍사스 홀덤》 (원사운드)</h3>
+    <blockquote class="fragment">
+        "이길 확률이 낮은 것은 문제가 아니다.<br>
+        이게 지금 할 수 있는 최선의 액션인가?"
+    </blockquote>
+    <blockquote class="fragment">
+        "나는 행운을 바라지 않았다.<br>
+        예측 범위 밖의 일이라는 점에서,<br>
+        본질은 불행과 같기 때문이다."
+    </blockquote>
+    <blockquote class="fragment">
+        "오직 하나만이 확실했다.<br>
+        나는 이 올인을 후회하지 않는다는 것."
+    </blockquote>
+    <aside class="notes">
+        웹툰 텍사스 홀덤에서 인용합니다.
+        "이길 확률이 낮은 것은 문제가 아니다. 이게 지금 할 수 있는 최선의 액션인가?"
+        "나는 행운을 바라지 않았다. 예측 범위 밖의 일이라는 점에서, 본질은 불행과 같기 때문이다."
+        "오직 하나만이 확실했다. 나는 이 올인을 후회하지 않는다는 것."
+    </aside>
+</section>
+
+<section>
+    <h3>핵심</h3>
+    <blockquote>
+        "세상은 불공평하다.<br>
+        그럼에도, 스스로가 끝까지 좋은 자세였는가?"
+    </blockquote>
+    <aside class="notes">
+        핵심은 이것입니다.
+        세상은 불공평합니다. 그럼에도 불구하고,
+        스스로가 끝까지 좋은 자세였는가?
+        이것이 제가 홀덤을 좋아하는 이유입니다.
+    </aside>
+</section>
+
+<!-- 4-6. 질문을 다시 꺼내며 -->
+<section>
+    <h2>4-6. 질문을 다시 꺼내며</h2>
+    <aside class="notes">
+        처음에 던진 세 가지 질문을 다시 꺼내봅니다.
+    </aside>
+</section>
+
+<section>
+    <h3>1. "홀덤은 도박 아닌가?"</h3>
+    <div class="fragment">
+        <ul>
+            <li>홀짝: 하우스 엣지, 피드백 불가</li>
+            <li>섯다: 전략 있으나 정보 부족, 불확정성 큼</li>
+            <li class="emphasize">홀덤: +EV 존재, 피드백 가능, 수학적 최적해</li>
+        </ul>
+    </div>
+    <aside class="notes">
+        홀덤은 도박인가요?
+        홀짝은 순수 도박입니다. 하우스 엣지가 있고, 피드백이 불가능합니다.
+        섯다는 전략이 있지만 정보가 부족하고 불확정성이 큽니다.
+        홀덤은 +EV 전략이 존재하고, 피드백이 가능하며, 수학적 최적해가 있습니다.
+    </aside>
+</section>
+
+<section>
+    <h3>2. "확률에 맡기는 게임은 위험하지 않나?"</h3>
+    <div class="fragment">
+        <ul>
+            <li>확률에 "맡기는" 게 아니라 "계산하고 활용"</li>
+            <li>주식도 확률 있지만 분석 가능하면 투자</li>
+        </ul>
+    </div>
+    <aside class="notes">
+        확률에 맡기는 게임은 위험하지 않나요?
+        홀덤은 확률에 맡기는 게 아니라, 확률을 계산하고 활용하는 게임입니다.
+        주식도 확률이 있지만, 분석이 가능하면 투자라고 부릅니다.
+    </aside>
+</section>
+
+<section>
+    <h3>3. "프로선수는 도박중독자 아닌가?"</h3>
+    <div class="fragment">
+        <ul>
+            <li>도박중독자: 합리성 상실, -EV 반복</li>
+            <li class="emphasize">프로: 수학/통계, +EV만 반복</li>
+        </ul>
+    </div>
+    <aside class="notes">
+        프로선수는 도박중독자인가요?
+        도박중독자는 합리성을 잃고 -EV 행동을 반복합니다.
+        프로는 수학과 통계로 무장하고 +EV 행동만 반복합니다.
+    </aside>
+</section>
+
+<section>
+    <h3>결론</h3>
+    <blockquote>
+        홀덤 = 불확실성 속<br>
+        합리적 의사결정 훈련 도구
+    </blockquote>
+    <aside class="notes">
+        결론입니다.
+        홀덤은 불확실성 속에서 합리적 의사결정을 훈련하는 도구입니다.
+    </aside>
+</section>

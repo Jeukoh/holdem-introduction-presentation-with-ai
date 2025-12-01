@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Holdem Table - Reveal.js + GSAP</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/theme/black.css">
+    <style>
+        :root {
+            --table-green: #1a5f3c;
+            --table-border: #8b4513;
+            --felt-pattern: linear-gradient(135deg, #1a5f3c 0%, #0d3d26 100%);
+            --card-back: #2c3e50;
+            --chip-red: #e74c3c;
+            --chip-blue: #3498db;
+            --chip-green: #27ae60;
+            --gold: #f1c40f;
+        }
+
+        .reveal {
+            background: #0a0a0a;
+        }
+
+        .poker-table {
+            position: relative;
+            width: 800px;
+            height: 500px;
+            margin: 100px auto;  /* Add margin for players outside table */
+        }
+
+        .table-felt {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: var(--felt-pattern);
+            border-radius: 200px;
+            border: 12px solid var(--table-border);
+            box-shadow:
+                inset 0 0 100px rgba(0,0,0,0.5),
+                0 10px 30px rgba(0,0,0,0.8);
+        }
+
+        .table-rail {
+            position: absolute;
+            width: calc(100% + 24px);
+            height: calc(100% + 24px);
+            top: -12px;
+            left: -12px;
+            border-radius: 212px;
+            border: 8px solid #5a3921;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        }
+
+        /* Player positions - 6 players */
+        .player {
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            opacity: 0;
+        }
+
+        .player-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: #34495e;
+            border: 3px solid #7f8c8d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .player-info {
+            text-align: center;
+            font-size: 12px;
+        }
+
+        .player-name {
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .player-chips {
+            color: var(--gold);
+            font-size: 11px;
+        }
+
+        .player-cards {
+            display: flex;
+            gap: 4px;
+        }
+
+        .card {
+            width: 45px;
+            height: 65px;
+            border-radius: 6px;
+            background: var(--card-back);
+            border: 2px solid #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: bold;
+            color: #fff;
+            box-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+            opacity: 0;
+            transform: translateY(-100px) rotateY(180deg);
+        }
+
+        .card.red { color: #e74c3c; background: #fff; }
+        .card.black { color: #2c3e50; background: #fff; }
+
+        /* Player positions - outside the table to prevent overlap */
+        .player-1 { top: -80px; left: 50%; transform: translateX(-50%); } /* CO */
+        .player-2 { top: 60px; right: -100px; }  /* BTN */
+        .player-3 { bottom: 60px; right: -100px; }  /* SB */
+        .player-4 { bottom: -80px; left: 50%; transform: translateX(-50%); }  /* BB (YOU) */
+        .player-5 { bottom: 60px; left: -100px; }  /* UTG */
+        .player-6 { top: 60px; left: -100px; }  /* HJ */
+
+        .player-4 .player-avatar { border-color: var(--gold); }
+        .player-4 .player-name { color: var(--gold); }
+
+        /* Position badge colors */
+        .position-badge {
+            font-size: 14px !important;
+            font-weight: bold;
+            color: #fff !important;
+        }
+        .position-btn { background: #f1c40f !important; border: 3px solid #fff !important; }
+        .position-sb { background: #e74c3c !important; }
+        .position-bb { background: #e74c3c !important; }
+        .position-utg { background: #3498db !important; }
+        .position-hj { background: #9b59b6 !important; }
+        .position-co { background: #27ae60 !important; }
+
+        /* Community cards */
+        .community-cards {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            gap: 8px;
+        }
+
+        .community-card {
+            width: 55px;
+            height: 80px;
+            border-radius: 8px;
+            background: var(--card-back);
+            border: 2px solid #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: bold;
+            box-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+            opacity: 0;
+        }
+
+        /* Pot */
+        .pot {
+            position: absolute;
+            top: 35%;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            opacity: 0;
+        }
+
+        .pot-label {
+            font-size: 12px;
+            color: #95a5a6;
+        }
+
+        .pot-amount {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--gold);
+        }
+
+        /* Action indicator */
+        .action-indicator {
+            position: absolute;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 14px;
+            opacity: 0;
+            transform: scale(0);
+        }
+
+        .action-fold {
+            background: #e74c3c;
+            color: #fff;
+        }
+
+        .action-call {
+            background: #3498db;
+            color: #fff;
+        }
+
+        .action-raise {
+            background: #27ae60;
+            color: #fff;
+        }
+
+        /* Chips animation */
+        .chip-stack {
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: -8px;
+            opacity: 0;
+        }
+
+        .chip {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 3px dashed #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        /* Explanation overlay */
+        .explanation-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.85);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .explanation-content {
+            text-align: center;
+            padding: 40px;
+            max-width: 500px;
+        }
+
+        .explanation-title {
+            font-size: 32px;
+            font-weight: bold;
+            color: var(--gold);
+            margin-bottom: 20px;
+        }
+
+        .explanation-text {
+            font-size: 20px;
+            color: #ecf0f1;
+            line-height: 1.6;
+        }
+
+        /* Dealer button */
+        .dealer-button {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: #fff;
+            color: #000;
+            font-weight: bold;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+            opacity: 0;
+        }
+
+        /* Progress indicator */
+        .game-phase {
+            position: absolute;
+            top: -60px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+        }
+
+        .phase {
+            padding: 8px 16px;
+            border-radius: 20px;
+            background: #2c3e50;
+            color: #7f8c8d;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .phase.active {
+            background: var(--gold);
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <section>
+                <h2>Reveal.js + GSAP Prototype</h2>
+                <p>Press → to start animation</p>
+                <p style="font-size: 14px; color: #7f8c8d;">Press ← to go back and reset | Press 'R' to restart animation</p>
+            </section>
+
+            <section data-auto-animate>
+                <div class="poker-table" id="table">
+                    <div class="table-rail"></div>
+                    <div class="table-felt"></div>
+
+                    <div class="game-phase">
+                        <span class="phase" id="phase-preflop">Pre-flop</span>
+                        <span class="phase" id="phase-flop">Flop</span>
+                        <span class="phase" id="phase-turn">Turn</span>
+                        <span class="phase" id="phase-river">River</span>
+                    </div>
+
+                    <!-- Players with position badges -->
+                    <!-- Dealing order: SB(3) → BB(4) → UTG(5) → HJ(6) → CO(1) → BTN(2) -->
+
+                    <!-- Player 1: CO (Cut Off) - deal order 5 -->
+                    <div class="player player-1" id="player1">
+                        <div class="player-cards">
+                            <div class="card" id="p1-card1" data-deal="5"></div>
+                            <div class="card" id="p1-card2" data-deal="5"></div>
+                        </div>
+                        <div class="player-avatar position-badge position-co">CO</div>
+                        <div class="player-info">
+                            <div class="player-name">CO</div>
+                            <div class="player-chips">$5,000</div>
+                        </div>
+                    </div>
+
+                    <!-- Player 2: BTN (Dealer) - deal order 6 -->
+                    <div class="player player-2" id="player2">
+                        <div class="player-cards">
+                            <div class="card" id="p2-card1" data-deal="6"></div>
+                            <div class="card" id="p2-card2" data-deal="6"></div>
+                        </div>
+                        <div class="player-avatar position-badge position-btn">BTN</div>
+                        <div class="player-info">
+                            <div class="player-name">BTN</div>
+                            <div class="player-chips">$7,500</div>
+                        </div>
+                    </div>
+
+                    <!-- Player 3: SB (Small Blind) - deal order 1 -->
+                    <div class="player player-3" id="player3">
+                        <div class="player-cards">
+                            <div class="card" id="p3-card1" data-deal="1"></div>
+                            <div class="card" id="p3-card2" data-deal="1"></div>
+                        </div>
+                        <div class="player-avatar position-badge position-sb">SB</div>
+                        <div class="player-info">
+                            <div class="player-name">SB</div>
+                            <div class="player-chips">$4,200</div>
+                        </div>
+                    </div>
+
+                    <!-- Player 4: BB (Big Blind) - YOU - deal order 2 -->
+                    <div class="player player-4" id="player4">
+                        <div class="player-cards">
+                            <div class="card red" id="p4-card1" data-deal="2">A♥</div>
+                            <div class="card black" id="p4-card2" data-deal="2">7♠</div>
+                        </div>
+                        <div class="player-avatar position-badge position-bb">BB</div>
+                        <div class="player-info">
+                            <div class="player-name">YOU (BB)</div>
+                            <div class="player-chips">$6,000</div>
+                        </div>
+                    </div>
+
+                    <!-- Player 5: UTG (Under the Gun) - deal order 3 - FOLDS -->
+                    <div class="player player-5" id="player5">
+                        <div class="player-cards">
+                            <div class="card" id="p5-card1" data-deal="3"></div>
+                            <div class="card" id="p5-card2" data-deal="3"></div>
+                        </div>
+                        <div class="player-avatar position-badge position-utg">UTG</div>
+                        <div class="player-info">
+                            <div class="player-name">UTG</div>
+                            <div class="player-chips">$3,800</div>
+                        </div>
+                        <div class="action-indicator action-fold" id="p5-action">FOLD</div>
+                    </div>
+
+                    <!-- Player 6: HJ (Hijack) - deal order 4 - CALLS -->
+                    <div class="player player-6" id="player6">
+                        <div class="player-cards">
+                            <div class="card" id="p6-card1" data-deal="4"></div>
+                            <div class="card" id="p6-card2" data-deal="4"></div>
+                        </div>
+                        <div class="player-avatar position-badge position-hj">HJ</div>
+                        <div class="player-info">
+                            <div class="player-name">HJ</div>
+                            <div class="player-chips">$5,500</div>
+                        </div>
+                        <div class="action-indicator action-call" id="p6-action">CALL</div>
+                    </div>
+
+                    <!-- Dealer Button -->
+                    <div class="dealer-button" id="dealer-btn" style="bottom: 90px; left: calc(50% + 80px);">D</div>
+
+                    <!-- Pot -->
+                    <div class="pot" id="pot">
+                        <div class="pot-label">POT</div>
+                        <div class="pot-amount" id="pot-amount">$0</div>
+                    </div>
+
+                    <!-- Community Cards -->
+                    <div class="community-cards" id="community">
+                        <div class="community-card" id="cc1"></div>
+                        <div class="community-card" id="cc2"></div>
+                        <div class="community-card" id="cc3"></div>
+                        <div class="community-card" id="cc4"></div>
+                        <div class="community-card" id="cc5"></div>
+                    </div>
+
+                    <!-- Explanation Overlay -->
+                    <div class="explanation-overlay" id="explanation">
+                        <div class="explanation-content">
+                            <div class="explanation-title">당신의 차례입니다</div>
+                            <div class="explanation-text">
+                                A♥ 7♠를 들고 있습니다.<br><br>
+                                <strong>선택지:</strong><br>
+                                Fold / Call $100 / Raise
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            transition: 'fade'
+        });
+
+        // Animation timeline
+        let tl = gsap.timeline({ paused: true });
+
+        // Step 1: Show table and players
+        tl.to('.player', {
+            opacity: 1,
+            duration: 0.5,
+            stagger: 0.1
+        })
+        .to('#dealer-btn', { opacity: 1, duration: 0.3 })
+        .to('#pot', { opacity: 1, duration: 0.3 })
+        .to('#phase-preflop', { className: 'phase active', duration: 0.2 });
+
+        // Step 2: Deal cards in correct order (SB → BB → UTG → HJ → CO → BTN)
+        // First round (one card each)
+        const dealOrder = ['#p3-card1', '#p4-card1', '#p5-card1', '#p6-card1', '#p1-card1', '#p2-card1',
+                          '#p3-card2', '#p4-card2', '#p5-card2', '#p6-card2', '#p1-card2', '#p2-card2'];
+
+        dealOrder.forEach((card, i) => {
+            tl.to(card, {
+                opacity: 1,
+                y: 0,
+                rotateY: 0,
+                duration: 0.3,
+                ease: 'back.out(1.7)'
+            }, i === 0 ? '+=0.5' : '-=0.2');
+        });
+
+        // Step 3: Set blinds and initial pot
+        tl.to('#pot-amount', {
+            textContent: '$150',
+            duration: 0.3,
+            snap: { textContent: 1 }
+        }, '+=0.3');
+
+        // Step 4: UTG (Player 5) folds first (first to act pre-flop)
+        tl.to('#p5-action', {
+            opacity: 1,
+            scale: 1,
+            duration: 0.4,
+            ease: 'back.out(2)'
+        }, '+=0.5')
+        .to(['#p5-card1', '#p5-card2'], {
+            opacity: 0.3,
+            duration: 0.3
+        });
+
+        // Step 5: HJ (Player 6) calls
+        tl.to('#p6-action', {
+            opacity: 1,
+            scale: 1,
+            duration: 0.4,
+            ease: 'back.out(2)'
+        }, '+=0.5')
+        .to('#pot-amount', {
+            textContent: '$250',
+            duration: 0.3
+        });
+
+        // Step 6: Show explanation for player (YOU)
+        tl.to('#explanation', {
+            opacity: 1,
+            duration: 0.5
+        }, '+=0.5');
+
+        // Start animation when slide changes
+        Reveal.on('slidechanged', event => {
+            if (event.indexh === 1) {
+                tl.restart();
+            } else if (event.indexh === 0) {
+                tl.pause(0);  // Reset to beginning
+            }
+        });
+
+        // Keyboard shortcut: Press 'R' to reset animation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'r' || e.key === 'R') {
+                tl.restart();
+            }
+        });
+    </script>
+</body>
+</html>

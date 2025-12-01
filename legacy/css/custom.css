@@ -1,0 +1,1788 @@
+/* Texas Hold'em Presentation Custom Styles */
+
+:root {
+  --bg-dark: #050b1f;
+  --bg-darker: #030714;
+  --accent-red: #e94560;
+  --accent-gold: #f6c163;
+  --text-light: #eaeaea;
+  --text-dim: #a0a0a0;
+  --font-body: 'Pretendard Variable', 'Pretendard', 'Noto Sans KR', 'Apple SD Gothic Neo', 'Spoqa Han Sans Neo', 'Segoe UI', sans-serif;
+  --font-ui: 'Space Grotesk', 'Pretendard Variable', 'Pretendard', 'Noto Sans KR', sans-serif;
+
+  /* Card & Table Colors */
+  --card-black: #000000;
+  --card-white: #ffffff;
+  --card-border-light: #dddddd;
+  --table-green: #2a5a2a;
+  --table-green-dark: #1a3a1a;
+  --table-border: #8b4513;
+
+  /* Action Colors */
+  --action-fold: #e74c3c;
+  --action-call: #3498db;
+  --action-raise: #27ae60;
+
+  /* Chip Colors */
+  --chip-red: #c41e3a;
+  --chip-green: #2a5a2a;
+  --chip-black: #1a1a1a;
+  --chip-blue: #2a4a8a;
+
+  /* Overlay & Transparency */
+  --overlay-bg: rgba(6, 10, 25, 0.55);
+  --overlay-bg-darker: rgba(11, 17, 35, 0.82);
+  --overlay-dim: rgba(255, 255, 255, 0.65);
+  --overlay-dimmer: rgba(255, 255, 255, 0.78);
+  --overlay-faint: rgba(255, 255, 255, 0.92);
+  --bg-dark-alpha: rgba(4, 7, 18, 0.7);
+}
+
+/* Global Styles */
+.reveal {
+  font-family: var(--font-body);
+  background: var(--bg-dark);
+  color: var(--text-light);
+}
+
+/* Prevent background text bleed between slides */
+.reveal .slides section {
+  background: var(--bg-dark);
+}
+
+.reveal h1,
+.reveal h2,
+.reveal h3,
+.reveal h4 {
+  color: var(--text-light);
+  font-weight: 700;
+  text-transform: none;
+}
+
+.reveal h1 {
+  font-size: 2.5em;
+  margin-bottom: 0.4em;
+}
+
+.reveal h2 {
+  font-size: 1.8em;
+  color: var(--accent-gold);
+}
+
+.reveal h3 {
+  font-size: 1.5em;
+}
+
+.reveal p {
+  font-size: 1.1em;
+  line-height: 1.5;
+}
+
+.reveal ul {
+  font-size: 1em;
+}
+
+.reveal li {
+  margin-bottom: 0.3em;
+}
+
+/* Card Symbols */
+.spade { color: var(--card-black); }
+.heart { color: var(--accent-red); }
+.club { color: var(--card-black); }
+.diamond { color: var(--accent-red); }
+
+/* Quote Styles */
+.reveal blockquote {
+  background: var(--bg-darker);
+  border-left: 5px solid var(--accent-gold);
+  padding: 1em;
+  font-size: 1.2em;
+  font-style: italic;
+  margin: 0.8em auto;
+  max-width: 80%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* Question Slides */
+.question-slide {
+  background: linear-gradient(135deg, var(--bg-darker) 0%, var(--bg-dark) 100%);
+}
+
+.question-slide h2 {
+  font-size: 2em;
+  color: var(--accent-red);
+  margin-top: 1.5em;
+}
+
+/* Emphasis */
+.emphasize {
+  color: var(--accent-gold);
+  font-weight: 700;
+}
+
+.highlight-red {
+  color: var(--accent-red);
+  font-weight: 700;
+}
+
+/* Table Styles */
+.reveal table {
+  margin: 1em auto;
+  border-collapse: collapse;
+  font-size: 1.1em;
+}
+
+.reveal table th {
+  background: var(--accent-gold);
+  color: var(--bg-dark);
+  padding: 0.8em;
+  font-weight: 700;
+}
+
+.reveal table td {
+  padding: 0.6em;
+  border: 1px solid var(--text-dim);
+}
+
+.reveal table tr:nth-child(even) {
+  background: var(--bg-darker);
+}
+
+/* Card Display */
+.card {
+  display: inline-block;
+  background: var(--card-white);
+  color: var(--card-black);
+  padding: 0.25em 0.4em;
+  border-radius: 0.3em;
+  font-size: 1em;
+  font-weight: 700;
+  margin: 0 0.2em;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Pot Display */
+.pot {
+  background: var(--accent-gold);
+  color: var(--bg-dark);
+  padding: 0.4em 0.8em;
+  border-radius: 0.5em;
+  display: inline-block;
+  font-weight: 700;
+  font-size: 1.1em;
+  margin: 0.4em;
+}
+
+/* Action Buttons */
+.action {
+  background: var(--bg-darker);
+  border: 2px solid var(--accent-gold);
+  color: var(--accent-gold);
+  padding: 0.5em 1em;
+  border-radius: 0.3em;
+  display: inline-block;
+  margin: 0.3em;
+  font-weight: 700;
+}
+
+/* Math/Calculation Display */
+.calculation {
+  background: var(--bg-darker);
+  padding: 0.8em;
+  border-radius: 0.5em;
+  font-family: 'Courier New', monospace;
+  font-size: 1em;
+  margin: 0.8em auto;
+  max-width: 80%;
+  border-left: 3px solid var(--accent-red);
+}
+
+/* Two Column Layout */
+.two-column {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2em;
+  margin-top: 2em;  /* Consistent spacing from previous content */
+  align-items: start;
+}
+
+.two-column h3 {
+  margin-bottom: 0.5em;
+}
+
+.two-column ul {
+  text-align: left;
+  font-size: 1.1em;
+  line-height: 1.8;
+}
+
+/* Comparison Box */
+.comparison {
+  background: var(--bg-darker);
+  padding: 1em;
+  border-radius: 0.5em;
+  margin: 0.8em 0;
+}
+
+.comparison h4 {
+  color: var(--accent-gold);
+  margin-bottom: 0.5em;
+}
+
+/* Video Container */
+.video-container {
+  position: relative;
+  width: min(80%, 800px);  /* More explicit intent, optimized spacing */
+  aspect-ratio: 16/9;  /* Maintain video aspect ratio */
+  margin: 2em auto;
+  background: var(--bg-darker);
+  padding: 1em;
+  border-radius: 0.5em;
+  text-align: center;
+}
+
+.video-container > * {
+  max-width: 100%;  /* Ensure all children fit */
+}
+
+.video-container iframe {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 0.3em;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.video-placeholder {
+  background: #333;
+  color: #999;
+  padding: 3em;
+  text-align: center;
+  border: 2px dashed #555;
+  border-radius: 0.3em;
+}
+
+/* Image Placeholder */
+.image-placeholder {
+  background: var(--bg-darker);
+  border: 2px dashed var(--text-dim);
+  padding: 3em;
+  text-align: center;
+  color: var(--text-dim);
+  margin: 1em auto;
+  max-width: 600px;
+}
+
+/* Fragment Animations */
+.reveal .fragment.highlight-current-red.visible {
+  color: var(--accent-red);
+}
+
+/* Progress Bar */
+.reveal .progress {
+  background: var(--bg-darker);
+  height: 4px;
+}
+
+.reveal .progress span {
+  background: var(--accent-gold);
+}
+
+/* Slide Number */
+.reveal .slide-number {
+  background-color: var(--bg-darker);
+  color: var(--accent-gold);
+  padding: 0.3em 0.6em;
+  border-radius: 0.3em;
+}
+
+/* Special Slide Types */
+.title-slide {
+  background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-darker) 100%);
+}
+
+.section-title {
+  background: var(--bg-darker);
+}
+
+.section-title h1 {
+  color: var(--accent-gold);
+  font-size: 3.5em;
+}
+
+/* Small Text */
+.small {
+  font-size: 0.8em;
+  color: var(--text-dim);
+}
+
+/* Center Content */
+.center {
+  text-align: center;
+}
+
+/* Speaker Notes Style */
+.reveal aside.notes {
+  font-size: 1em;
+  color: #333;
+}
+
+/* ============================================
+   POKER TABLE VISUALIZATION
+   ============================================ */
+
+/* Poker Table Container */
+.poker-table {
+  position: relative;
+  width: 800px;
+  height: 500px;
+  margin: 1em auto;  /* Reduced from 2em to prevent vertical overflow */
+  background: radial-gradient(ellipse at center, var(--table-green) 0%, var(--table-green-dark) 100%);
+  border: 15px solid var(--table-border);
+  border-radius: 50%;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5),
+              inset 0 0 50px rgba(0, 0, 0, 0.3);
+}
+
+/* Player Position */
+.player-seat {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+/* Removed generic .player-seat.highlight rule - now using specific seat highlight rules below */
+
+.player-seat .position-label {
+  background: var(--accent-gold);
+  color: var(--bg-dark);
+  padding: 0.3em 0.6em;
+  border-radius: 0.3em;
+  font-weight: 700;
+  font-size: 0.9em;
+  margin-bottom: 0.5em;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.player-seat .position-desc {
+  font-size: 0.7em;
+  color: var(--text-dim);
+  text-align: center;
+  max-width: 120px;
+}
+
+/* Seat Positions (9-max table) */
+.seat-1 {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) translateY(-130px);
+} /* UTG */
+
+.seat-1.highlight {
+  transform: translate(-50%, -50%) translateY(-130px) scale(1.2);
+}
+
+.seat-2 {
+  top: 30%;
+  left: 70%;
+  transform: translate(-50%, -50%);
+} /* MP */
+
+.seat-2.highlight {
+  transform: translate(-50%, -50%) scale(1.2);
+}
+
+.seat-3 {
+  top: 10%;
+  left: 80%;
+  transform: translate(-50%, -50%);
+} /* CO */
+
+.seat-3.highlight {
+  transform: translate(-50%, -50%) scale(1.2);
+}
+
+.seat-4 {
+  top: 5%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+} /* BTN/D */
+
+.seat-4.highlight {
+  transform: translate(-50%, -50%) scale(1.2);
+}
+
+.seat-5 {
+  top: 10%;
+  left: 20%;
+  transform: translate(-50%, -50%);
+} /* SB */
+
+.seat-5.highlight {
+  transform: translate(-50%, -50%) scale(1.2);
+}
+
+.seat-6 {
+  top: 30%;
+  left: 10%;
+  transform: translate(-50%, -50%);
+} /* BB */
+
+.seat-6.highlight {
+  transform: translate(-50%, -50%) scale(1.2);
+}
+
+/* Community Cards Area */
+.community-cards {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-wrap: wrap;  /* Allow wrapping on narrow screens */
+  justify-content: center;  /* Center wrapped cards */
+  gap: 0.5em;
+  max-width: 95%;  /* Prevent overflow on small screens */
+}
+
+/* Card - Enhanced */
+.card-large {
+  display: inline-block;
+  background: var(--card-white);
+  color: var(--card-black);
+  padding: 1em 0.8em;
+  border-radius: 0.5em;
+  font-size: clamp(1.2em, 3vw, 2em);  /* Responsive font size */
+  font-weight: 700;
+  min-width: 1.5em;
+  max-width: 90%;  /* Prevent overflow */
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+  border: 2px solid var(--card-border-light);
+  transition: all 0.3s ease;
+}
+
+.card-large:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+}
+
+/* Card Back */
+.card-back {
+  background: linear-gradient(135deg, #c41e3a 0%, #8b0000 100%);
+  color: white;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-back::before {
+  content: "🂠";
+  font-size: 1.2em;
+}
+
+/* Hand Rankings Display */
+.hand-ranking {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 1em 0;
+  padding: 1em;
+  background: var(--bg-darker);
+  border-radius: 0.5em;
+  transition: all 0.3s ease;
+}
+
+.hand-ranking.highlight {
+  background: var(--accent-gold);
+  color: var(--bg-dark);
+  transform: scale(1.05);
+}
+
+.hand-ranking .rank-name {
+  font-size: 1.2em;
+  font-weight: 700;
+  margin-bottom: 0.5em;
+}
+
+.hand-ranking .rank-cards {
+  display: flex;
+  gap: 0.3em;
+  margin-bottom: 0.5em;
+}
+
+.hand-ranking .rank-probability {
+  font-size: 0.9em;
+  color: var(--accent-red);
+  font-family: 'Courier New', monospace;
+}
+
+/* 52 Cards Grid */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(13, 1fr);
+  gap: 0.3em;
+  max-width: 1200px;
+  margin: 1em auto;  /* Reduced from 2em to prevent vertical overflow */
+}
+
+.cards-grid .card {
+  font-size: 1.2em;
+  padding: 0.4em;
+}
+
+/* Pot Display - Enhanced */
+.pot-display {
+  position: absolute;
+  top: 70%; /* Increased from 60% to prevent overlap with community cards */
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--accent-gold);
+  color: var(--bg-dark);
+  padding: 0.6em 1.2em;
+  border-radius: 2em;
+  font-weight: 700;
+  font-size: 1.5em;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+  border: 3px solid var(--accent-gold);
+}
+
+.pot-display::before {
+  content: "💰 ";
+}
+
+/* Chip Stack Visualization */
+.chip-stack {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: -0.5em;
+}
+
+.chip {
+  width: 2em;
+  height: 0.4em;
+  border-radius: 50%;
+  border: 2px solid rgba(0, 0, 0, 0.3);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.chip.red { background: var(--chip-red); }
+.chip.green { background: var(--chip-green); }
+.chip.black { background: var(--chip-black); }
+.chip.blue { background: var(--chip-blue); }
+
+/* Action Indicators */
+.action-indicator {
+  position: absolute;
+  background: var(--accent-red);
+  color: white;
+  padding: 0.4em 0.8em;
+  border-radius: 0.3em;
+  font-weight: 700;
+  font-size: 0.9em;
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.1); }
+}
+
+/* Probability Visualization */
+.probability-bar {
+  width: 100%;
+  max-width: 600px;
+  height: 40px;
+  background: var(--bg-darker);
+  border-radius: 0.5em;
+  margin: 1em auto;
+  overflow: hidden;
+  position: relative;
+}
+
+.probability-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent-gold) 0%, var(--accent-red) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  color: white;
+  transition: width 1s ease;
+}
+
+/* Outs Display */
+.outs-display {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5em;
+  justify-content: center;
+  margin: 1em auto;
+  max-width: 800px;
+}
+
+.out-card {
+  opacity: 0.5;
+  transition: all 0.3s ease;
+}
+
+.out-card.highlight {
+  opacity: 1;
+  transform: scale(1.2);
+  box-shadow: 0 0 20px var(--accent-gold);
+}
+
+/* ============================================
+   52 CARDS DECK GRID
+   ============================================ */
+
+/* Full Deck Grid - 4 rows × 13 columns */
+.deck-grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(13, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  gap: 0.5em; /* Increased from 0.3em to prevent overlap with scale(1.08) */
+  max-width: 1400px;
+  margin: 1em auto;  /* Reduced from 2em to prevent vertical overflow */
+  padding: 1em;
+  background: var(--bg-dark-alpha);
+  border-radius: 1em;
+}
+
+.deck-grid img {
+  width: 100%;
+  height: auto;
+  border-radius: 0.2em;
+  opacity: 0.3;
+  transition: all 0.5s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.deck-grid img:hover {
+  opacity: 0.6;
+}
+
+/* Override Reveal.js default fragment hiding - keep fragments visible but dim */
+.deck-grid img.fragment {
+  visibility: visible !important;
+  opacity: 0.3 !important;
+}
+
+/* Fragment cards - only current fragment is bright */
+.deck-grid img.fragment.current-fragment {
+  opacity: 1 !important;
+  box-shadow: 0 0 25px rgba(244, 162, 97, 1),
+              0 0 50px rgba(244, 162, 97, 0.6);
+  transform: scale(1.08);
+  z-index: 10;
+  position: relative;
+  filter: brightness(1.3);
+}
+
+/* Hand Example Cards (for consolidated hand ranking slides) */
+.hand-example {
+  background: var(--overlay-bg);
+  padding: 1.5em;
+  border-radius: 0.8em;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.hand-example:hover {
+  background: var(--overlay-bg-darker);
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.hand-example h3 {
+  color: var(--accent-gold);
+  margin-bottom: 0.5em;
+}
+
+/* Range Grid Cells (for Range Analysis visualization) */
+.range-cell {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 3px;
+  font-weight: bold;
+  font-size: 1.4em;
+  transition: all 0.3s ease;
+}
+
+.range-cell.empty {
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.range-cell.premium {
+  background: #d4af37;
+  color: #000;
+  box-shadow: 0 2px 4px rgba(212, 175, 55, 0.5);
+}
+
+.range-cell.strong {
+  background: #e67e22;
+  color: #fff;
+  box-shadow: 0 2px 4px rgba(230, 126, 34, 0.5);
+}
+
+.range-cell.medium {
+  background: #3498db;
+  color: #fff;
+  box-shadow: 0 2px 4px rgba(52, 152, 219, 0.5);
+}
+
+.range-cell.weak {
+  background: #95a5a6;
+  color: #fff;
+}
+
+/* Highlight Overlay - positions specific cards in the grid */
+.highlight-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(13, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  gap: 0.5em; /* Match deck-grid gap */
+  padding: 1em;
+  pointer-events: none;
+  z-index: 5; /* Fixed: Was z:20 above fragments, now z:5 below fragments */
+}
+
+.highlight-overlay img {
+  width: 100%;
+  height: auto;
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.highlight-overlay.fragment.visible img {
+  opacity: 1;
+  box-shadow: 0 0 25px rgba(244, 162, 97, 1),
+              0 0 50px rgba(244, 162, 97, 0.6);
+  filter: brightness(1.3);
+}
+
+/* Combination Count Display */
+.combo-count {
+  grid-column: 1 / -1;  /* 전체 너비 차지 */
+  justify-self: center; /* 가로 중앙 정렬 */
+  margin-top: 2em;      /* 카드와 간격 */
+  background: var(--accent-red);
+  color: white;
+  padding: 0.8em 1.5em;
+  border-radius: 0.5em;
+  font-size: 1.4em;
+  font-weight: 700;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+  z-index: 5;
+}
+
+.combo-count .number {
+  font-size: 1.8em;
+  color: var(--accent-gold);
+  display: block;
+  margin-top: 0.2em;
+}
+
+/* Formula Builder for animated formula construction */
+.formula-builder {
+  background: var(--bg-darker);
+  color: white;
+  padding: 2em;
+  border-radius: 1em;
+  font-weight: 700;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+  max-width: 900px;
+  margin: 2em auto;
+  border: 2px solid var(--accent-gold);
+}
+
+/* When used inside deck-grid */
+.deck-grid .formula-builder {
+  grid-column: 1 / -1;
+  justify-self: center;
+  margin-top: 3em;
+  padding-top: 1.5em;
+  border-top: 2px solid var(--accent-gold);
+  background: var(--accent-red);
+  min-width: 300px;
+}
+
+.formula-title {
+  font-size: 1.2em;
+  margin-bottom: 0.8em;
+  text-align: center;
+  color: var(--accent-gold);
+}
+
+.formula-line {
+  font-size: 1.1em;
+  font-family: 'Courier New', monospace;
+  margin: 0.4em 0;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5em;
+}
+
+.formula-operator {
+  color: var(--accent-gold);
+  font-size: 1.2em;
+  font-weight: 700;
+}
+
+.formula-part {
+  background: var(--overlay-bg-darker);
+  padding: 0.2em 0.6em;
+  border-radius: 0.3em;
+  font-weight: 700;
+}
+
+.formula-hint {
+  font-size: 0.8em;
+  color: var(--overlay-dimmer);
+  font-family: var(--font-body);
+}
+
+.formula-separator {
+  border-top: 2px solid var(--accent-gold);
+  margin: 0.8em 0;
+}
+
+.formula-result {
+  font-size: 1.3em;
+  text-align: center;
+  margin-top: 0.5em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5em;
+}
+
+.formula-equals {
+  color: var(--accent-gold);
+  font-size: 1.5em;
+}
+
+.formula-result .number {
+  font-size: 1.5em;
+  color: var(--accent-gold);
+  font-weight: 700;
+}
+
+/* Additional Formula Builder Components for Act 3 EV Calculation */
+.formula-definition {
+  background: var(--overlay-bg);
+  padding: 1em 1.5em;
+  border-radius: 0.5em;
+  margin: 1em 0;
+  text-align: center;
+  font-size: 1.1em;
+  border-left: 4px solid var(--accent-gold);
+}
+
+.formula-example {
+  background: var(--overlay-bg);
+  padding: 1.2em;
+  border-radius: 0.5em;
+  margin: 1.5em 0;
+  border: 2px solid var(--accent-gold);
+}
+
+.formula-example-title {
+  font-size: 1.2em;
+  color: var(--accent-gold);
+  margin-bottom: 0.8em;
+  font-weight: 700;
+}
+
+.formula-example-content {
+  font-size: 1em;
+  line-height: 1.8;
+  text-align: left;
+}
+
+.formula-component {
+  background: var(--overlay-bg-darker);
+  padding: 1em;
+  border-radius: 0.5em;
+  margin: 0.8em 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1em;
+  transition: all 0.3s ease;
+}
+
+.formula-component.fragment.current-fragment {
+  background: var(--overlay-bg);
+  border-left: 4px solid var(--accent-gold);
+  transform: translateX(5px);
+}
+
+.formula-component-label {
+  font-size: 1em;
+  color: var(--accent-gold);
+  font-weight: 700;
+  min-width: 80px;
+}
+
+.formula-component-value {
+  font-size: 1.1em;
+  font-family: 'Courier New', monospace;
+  flex: 1;
+  text-align: right;
+}
+
+.formula-step {
+  font-size: 1.3em;
+  font-family: 'Courier New', monospace;
+  margin: 0.5em 0;
+  padding: 0.8em;
+  background: var(--bg-dark-alpha);
+  border-radius: 0.5em;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5em;
+  flex-wrap: wrap;
+  transition: all 0.3s ease;
+}
+
+.formula-step.fragment.current-fragment {
+  background: var(--accent-gold);
+  color: var(--bg-dark);
+  transform: scale(1.05);
+}
+
+.formula-step .value {
+  color: var(--text-light);
+  font-weight: 700;
+}
+
+.formula-step .operator {
+  color: var(--accent-gold);
+  font-size: 1.2em;
+  font-weight: 700;
+  margin: 0 0.2em;
+}
+
+.formula-step.fragment.current-fragment .operator {
+  color: var(--accent-red);
+}
+
+.formula-divider {
+  border-top: 2px solid var(--accent-gold);
+  margin: 1.5em 0;
+  opacity: 0.5;
+}
+
+.formula-result {
+  font-size: 1.3em;
+  text-align: center;
+  margin-top: 1.5em;
+  padding: 1.5em;
+  border-radius: 0.8em;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  font-weight: 700;
+  border: 3px solid;
+  transition: all 0.3s ease;
+}
+
+.formula-result.positive {
+  background: linear-gradient(135deg, rgba(39, 174, 96, 0.2), rgba(39, 174, 96, 0.4));
+  border-color: #27ae60;
+  color: #2ecc71;
+}
+
+.formula-result.negative {
+  background: linear-gradient(135deg, rgba(231, 76, 60, 0.2), rgba(231, 76, 60, 0.4));
+  border-color: #e74c3c;
+  color: #e74c3c;
+}
+
+.formula-result.fragment.current-fragment {
+  transform: scale(1.08);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+.result-value {
+  font-size: 1.5em;
+  font-weight: 700;
+}
+
+.result-action {
+  font-size: 0.9em;
+  color: var(--text-light);
+  font-weight: 600;
+}
+
+/* ============================================
+   ACT 3: GTO VS EXPLOIT COMPARISON
+   ============================================ */
+
+/* Comparison Diagram Container */
+.diagram-comparison {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2em;
+  max-width: 1000px;
+  margin: 2em auto;
+  padding: 1em;
+}
+
+/* Comparison Side Panel */
+.diagram-comparison-side {
+  background: var(--overlay-bg);
+  border: 3px solid;
+  border-radius: 1em;
+  padding: 2em;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.diagram-comparison-side:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
+}
+
+.diagram-comparison-side.fragment.current-fragment {
+  transform: scale(1.05);
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.5);
+}
+
+/* Title */
+.diagram-comparison-title {
+  font-size: 1.4em;
+  font-weight: 700;
+  text-align: center;
+  padding: 0.8em;
+  border-radius: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+/* Thought Bubble */
+.diagram-comparison-thought {
+  font-style: italic;
+  text-align: center;
+  padding: 1em;
+  background: var(--bg-dark-alpha);
+  border-radius: 0.8em;
+  position: relative;
+  margin: 0.5em 0 1em;
+  border: 2px dashed rgba(255, 255, 255, 0.2);
+}
+
+.diagram-comparison-thought::before {
+  content: '"';
+  font-size: 2em;
+  position: absolute;
+  top: -0.2em;
+  left: 0.2em;
+  color: var(--accent-gold);
+  opacity: 0.5;
+}
+
+.diagram-comparison-thought::after {
+  content: '"';
+  font-size: 2em;
+  position: absolute;
+  bottom: -0.5em;
+  right: 0.2em;
+  color: var(--accent-gold);
+  opacity: 0.5;
+}
+
+/* Decision Badge */
+.diagram-comparison-decision {
+  font-size: 1.2em;
+  font-weight: 700;
+  text-align: center;
+  padding: 1em;
+  border-radius: 0.8em;
+  margin-top: auto;
+  border: 2px solid;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Responsive: Stack on Mobile */
+@media screen and (max-width: 768px) {
+  .diagram-comparison {
+    grid-template-columns: 1fr;
+    gap: 1.5em;
+  }
+
+  .diagram-comparison-side {
+    padding: 1.5em;
+  }
+}
+
+/* ============================================
+   ACT 4: +V VS +EV MINDSET COMPARISON
+   ============================================ */
+
+/* Mindset Comparison Container */
+.mindset-comparison {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2em;
+  max-width: 1100px;
+  margin: 2em auto;
+  padding: 1em;
+}
+
+/* Mindset Side Panel */
+.mindset-side {
+  background: var(--overlay-bg);
+  border: 3px solid;
+  border-radius: 1em;
+  padding: 2em 1.5em;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5em;
+}
+
+.mindset-side.result-focused {
+  border-color: #e74c3c;
+}
+
+.mindset-side.process-focused {
+  border-color: #2ecc71;
+}
+
+.mindset-side:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
+}
+
+.mindset-side.fragment.current-fragment {
+  transform: scale(1.05);
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.5);
+}
+
+/* Mindset Title */
+.mindset-title {
+  font-size: 1.3em;
+  font-weight: 700;
+  text-align: center;
+  padding: 1em;
+  border-radius: 0.5em;
+}
+
+/* Persona */
+.mindset-persona {
+  text-align: center;
+  padding: 1em;
+  background: var(--bg-dark-alpha);
+  border-radius: 0.5em;
+}
+
+/* Graph Container */
+.mindset-graph {
+  background: var(--bg-darker);
+  padding: 1em;
+  border-radius: 0.8em;
+  text-align: center;
+}
+
+.graph-title {
+  font-size: 0.9em;
+  color: var(--accent-gold);
+  margin-bottom: 0.8em;
+  font-weight: 600;
+}
+
+.graph-svg {
+  width: 100%;
+  max-width: 200px;
+  height: auto;
+  margin: 0 auto;
+  display: block;
+}
+
+/* Traits List */
+.mindset-traits {
+  text-align: left;
+  padding: 1em;
+  background: var(--overlay-bg-darker);
+  border-radius: 0.5em;
+  line-height: 1.8;
+}
+
+.mindset-traits p {
+  margin: 0.5em 0;
+  font-size: 1em;
+}
+
+/* Outcome Badge */
+.mindset-outcome {
+  font-size: 1.2em;
+  font-weight: 700;
+  text-align: center;
+  padding: 1em;
+  border-radius: 0.8em;
+  margin-top: auto;
+  border: 2px solid;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.mindset-outcome.positive {
+  background: linear-gradient(135deg, rgba(46, 204, 113, 0.2), rgba(46, 204, 113, 0.4));
+  border-color: #2ecc71;
+  color: #2ecc71;
+}
+
+.mindset-outcome.negative {
+  background: linear-gradient(135deg, rgba(231, 76, 60, 0.2), rgba(231, 76, 60, 0.4));
+  border-color: #e74c3c;
+  color: #e74c3c;
+}
+
+/* Responsive: Stack on Mobile */
+@media screen and (max-width: 768px) {
+  .mindset-comparison {
+    grid-template-columns: 1fr;
+    gap: 1.5em;
+  }
+
+  .mindset-side {
+    padding: 1.5em 1em;
+  }
+
+  .graph-svg {
+    max-width: 180px;
+  }
+}
+
+/* ============================================
+   ACT 4: 3-WAY GAME COMPARISON
+   ============================================ */
+
+/* Game Comparison Container */
+.game-comparison {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5em;
+  max-width: 1200px;
+  margin: 2em auto;
+  padding: 1em;
+}
+
+/* Game Card */
+.game-card {
+  background: var(--overlay-bg);
+  border: 3px solid;
+  border-radius: 1em;
+  padding: 2em 1.5em;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5em;
+  align-items: center;
+}
+
+.game-card[data-game="holjjak"] {
+  border-color: #e74c3c;
+}
+
+.game-card[data-game="seotda"] {
+  border-color: #f39c12;
+}
+
+.game-card[data-game="holdem"] {
+  border-color: #2ecc71;
+}
+
+.game-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
+}
+
+.game-card.fragment.current-fragment {
+  transform: scale(1.05);
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.5);
+}
+
+/* Game Icon */
+.game-icon {
+  font-size: 3em;
+  margin-bottom: 0.2em;
+}
+
+/* Game Title & Subtitle */
+.game-title {
+  font-size: 1.5em;
+  font-weight: 700;
+  color: var(--accent-gold);
+  text-align: center;
+  margin-bottom: 0.2em;
+}
+
+.game-subtitle {
+  font-size: 0.9em;
+  color: var(--text-dim);
+  text-align: center;
+  margin-bottom: 0.5em;
+}
+
+/* Game Metrics Container */
+.game-metrics {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2em;
+}
+
+/* Metric */
+.metric {
+  width: 100%;
+}
+
+.metric-label {
+  font-size: 0.9em;
+  color: var(--accent-gold);
+  margin-bottom: 0.5em;
+  font-weight: 600;
+}
+
+/* Metric Bar */
+.metric-bar {
+  width: 100%;
+  height: 8px;
+  background: var(--bg-darker);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 0.5em;
+}
+
+.metric-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.8s ease;
+}
+
+.metric-value {
+  font-size: 0.95em;
+  text-align: center;
+  font-weight: 600;
+}
+
+/* Game Verdict Badge */
+.game-verdict {
+  width: 100%;
+  font-size: 1.1em;
+  font-weight: 700;
+  text-align: center;
+  padding: 1em;
+  border-radius: 0.8em;
+  margin-top: auto;
+  border: 2px solid;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.game-verdict.positive {
+  background: linear-gradient(135deg, rgba(46, 204, 113, 0.2), rgba(46, 204, 113, 0.4));
+  border-color: #2ecc71;
+  color: #2ecc71;
+}
+
+.game-verdict.medium {
+  background: linear-gradient(135deg, rgba(243, 156, 18, 0.2), rgba(243, 156, 18, 0.4));
+  border-color: #f39c12;
+  color: #f39c12;
+}
+
+.game-verdict.negative {
+  background: linear-gradient(135deg, rgba(231, 76, 60, 0.2), rgba(231, 76, 60, 0.4));
+  border-color: #e74c3c;
+  color: #e74c3c;
+}
+
+/* Responsive: 2 columns on tablet, 1 column on mobile */
+@media screen and (max-width: 992px) {
+  .game-comparison {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .game-card[data-game="holdem"] {
+    grid-column: 1 / -1;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .game-comparison {
+    grid-template-columns: 1fr;
+  }
+
+  .game-card {
+    padding: 1.5em 1em;
+  }
+
+  .game-card[data-game="holdem"] {
+    grid-column: auto;
+  }
+}
+
+/* Game Flow Stages */
+.game-flow {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  margin: 2em auto;
+  max-width: 800px;
+}
+
+.flow-stage {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 1em 1.5em;
+  border-radius: 0.8em;
+  border-left: 4px solid var(--accent-red);
+  transition: all 0.3s ease;
+}
+
+.flow-stage h3 {
+  margin: 0 0 0.5em 0;
+  color: var(--accent-gold);
+  font-size: 1.3em;
+}
+
+.flow-stage p {
+  margin: 0.3em 0;
+  font-size: 1em;
+}
+
+.flow-stage .stage-detail {
+  font-size: 0.9em;
+  color: rgba(255, 255, 255, 0.7);
+  font-style: italic;
+}
+
+.flow-stage.current-fragment {
+  background: var(--overlay-bg-darker);
+  margin-left: 10px;  /* Changed from transform to prevent reflow */
+  border-left-color: var(--accent-gold);
+}
+
+/* Player Action Cards */
+.action-card {
+  background: var(--overlay-bg);
+  padding: 1.5em;
+  border-radius: 1em;
+  flex: 1;
+  min-width: 200px;
+  text-align: center;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.action-card h3 {
+  margin: 0 0 0.8em 0;
+  font-size: 1.4em;
+  color: var(--accent-gold);
+}
+
+.action-card .action-desc {
+  font-size: 1.1em;
+  font-weight: 600;
+  margin: 0.5em 0;
+  color: white;
+}
+
+.action-card .action-detail {
+  font-size: 0.95em;
+  margin: 1em 0;
+  line-height: 1.6;
+  color: var(--overlay-faint);
+}
+
+.action-card .action-note {
+  font-size: 0.85em;
+  margin: 1em 0 0 0;
+  color: var(--overlay-dim);
+  font-style: italic;
+}
+
+.action-card.current-fragment {
+  background: var(--overlay-bg-darker);
+  border-color: var(--accent-red);
+  margin-top: -5px;  /* Changed from transform to prevent baseline misalignment */
+  margin-bottom: 5px;  /* Reserve space for shadow */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+}
+
+/* Hand Ranking Image Display */
+.ranking-image {
+  max-width: 90%;
+  margin: 2em auto;
+  border-radius: 1em;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+}
+
+/* ============================================
+   ACT 5: RESOURCES & CTA
+   ============================================ */
+
+/* Resource Cards */
+.resource-card {
+  background: var(--overlay-bg);
+  padding: 1.5em;
+  border-radius: 1em;
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.resource-card:hover {
+  background: var(--overlay-bg-darker);
+  border-color: var(--accent-gold);
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.resource-card h4 {
+  margin-top: 0;
+}
+
+/* Comparison Cards */
+.comparison-card {
+  background: var(--overlay-bg);
+  padding: 1.5em;
+  border-radius: 1em;
+  border: 2px solid rgba(255,255,255,0.1);
+  transition: all 0.3s ease;
+}
+
+.comparison-card:hover {
+  background: var(--overlay-bg-darker);
+  border-color: var(--accent-gold);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+/* QR Code Placeholder */
+.qr-placeholder {
+  margin-top: 1em;
+}
+
+/* CTA Section */
+.cta-container {
+  margin: 2em auto;
+  max-width: 600px;
+}
+
+.cta-button {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-red) 100%);
+  color: var(--bg-dark);
+  padding: 1em 2.5em;
+  border-radius: 3em;
+  font-size: 1.3em;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  border: 3px solid var(--accent-gold);
+}
+
+.cta-button:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 8px 16px rgba(244, 162, 97, 0.5);
+  text-decoration: none;
+}
+
+.cta-button:active {
+  transform: translateY(-1px) scale(1.02);
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
+@media screen and (max-width: 768px) {
+  /* Adjust poker table for smaller screens */
+  .poker-table {
+    width: 90vw;
+    max-width: 600px;
+    height: auto;
+    aspect-ratio: 8 / 5;
+    border-width: 8px;
+  }
+
+  .player-seat {
+    width: 60px;
+    height: 60px;
+  }
+
+  .player-seat .position-label {
+    font-size: 0.7em;
+    padding: 0.2em 0.4em;
+  }
+
+  .player-seat .position-desc {
+    font-size: 0.6em;
+  }
+
+  /* Adjust card sizes */
+  .card {
+    font-size: 0.9em;
+    padding: 0.2em 0.3em;
+  }
+
+  .card-large {
+    font-size: 1.5em;
+    padding: 0.8em 0.6em;
+  }
+
+  /* Adjust deck grid */
+  .deck-grid {
+    max-width: 100%;
+    gap: 0.2em;
+    padding: 0.5em;
+  }
+
+  /* Adjust pot display */
+  .pot-display {
+    font-size: 1.2em;
+    padding: 0.4em 0.8em;
+  }
+
+  /* Two column layout becomes single column */
+  .two-column {
+    grid-template-columns: 1fr;
+    gap: 1em;
+  }
+
+  /* Reduce slide padding */
+  .reveal .slides section {
+    padding: 1em;
+  }
+
+  /* Scale down formula builder */
+  .formula-builder {
+    padding: 0.8em 1.2em;
+    min-width: 200px;
+  }
+
+  .formula-title {
+    font-size: 1em;
+  }
+
+  .formula-line {
+    font-size: 0.9em;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  /* Extra small screens - stack everything */
+  .poker-table {
+    width: 95vw;
+  }
+
+  .deck-grid {
+    gap: 0.1em;
+    padding: 0.3em;
+  }
+
+  .action-card {
+    min-width: 150px;
+    padding: 1em;
+  }
+
+  .card-large {
+    font-size: 1.2em;
+  }
+}
+
+/* ============================================
+   ACCESSIBILITY IMPROVEMENTS
+   ============================================ */
+
+/* Focus Styles for Keyboard Navigation */
+.reveal :focus-visible {
+  outline: 3px solid var(--accent-gold);
+  outline-offset: 4px;
+  border-radius: 0.3em;
+}
+
+.reveal a:focus-visible,
+.reveal button:focus-visible {
+  outline: 3px solid var(--accent-gold);
+  outline-offset: 3px;
+}
+
+.card:focus-visible,
+.card-large:focus-visible,
+.action-card:focus-visible {
+  outline: 3px solid var(--accent-gold);
+  outline-offset: 4px;
+  box-shadow: 0 0 0 4px rgba(244, 162, 97, 0.3);
+}
+
+/* Progressive Icon Animation (Steve Jobs style) */
+.progressive-icon {
+  opacity: 0.25;
+  filter: grayscale(80%);
+  transform: scale(0.95);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.progressive-icon.current-fragment,
+.fragment.progressive-icon.current-fragment {
+  opacity: 1;
+  filter: grayscale(0%);
+  transform: scale(1.05);
+}
+
+/* For nested progressive icons inside fragments */
+.fragment.current-fragment .progressive-icon {
+  opacity: 1;
+  filter: grayscale(0%);
+  transform: scale(1);
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* Keep essential transforms but remove transitions */
+  .fragment,
+  .card-large:hover,
+  .action-card.current-fragment,
+  .deck-grid img.fragment.current-fragment {
+    transition: none !important;
+  }
+}
