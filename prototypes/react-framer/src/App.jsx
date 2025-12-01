@@ -120,7 +120,7 @@ const playerPositions = [
     { id: 6, position: 'HJ', name: 'HJ', chips: 5500, dealOrder: 4, style: { top: '60px', left: '-100px' } },
 ]
 
-// Position colors
+// Position colors (fallback if SVG not loaded)
 const positionColors = {
     BTN: '#f1c40f',  // Gold - Dealer
     SB: '#e74c3c',   // Red
@@ -130,6 +130,31 @@ const positionColors = {
     CO: '#27ae60',   // Green - Late
 }
 
+// ===========================================
+// ASSET HELPERS
+// ===========================================
+
+// Convert suit symbol to file code
+const suitToCode = { '♥': 'H', '♦': 'D', '♣': 'C', '♠': 'S' }
+
+// Get card image URL
+function getCardImageUrl(card) {
+    if (!card) return '/assets/cards/back.svg'
+    const suitCode = suitToCode[card.suit] || 'S'
+    const rankCode = card.rank === '10' ? '10' : card.rank
+    return `/assets/cards/${rankCode}${suitCode}.svg`
+}
+
+// Get position icon URL
+function getPositionIconUrl(position) {
+    return `/assets/positions/${position}.svg`
+}
+
+// Get dealer button URL
+function getDealerButtonUrl() {
+    return `/assets/decorative/dealer-button.svg`
+}
+
 // Your cards
 const yourCards = [
     { suit: '♥', rank: 'A', color: 'red' },
@@ -137,12 +162,12 @@ const yourCards = [
 ]
 
 function Card({ card, dealOrder = 0, isFolded = false, isHidden = true }) {
-    // Deal cards based on position order (SB first, then BB, UTG, etc.)
     const delay = dealOrder * 0.15
+    const imgSrc = isHidden ? '/assets/cards/back.svg' : getCardImageUrl(card)
 
     return (
         <motion.div
-            className={`card ${card?.color || ''} ${isFolded ? 'folded' : ''}`}
+            className={`card-wrapper ${isFolded ? 'folded' : ''}`}
             initial={{ opacity: 0, y: -100, rotateY: 180 }}
             animate={{
                 opacity: isFolded ? 0.3 : 1,
@@ -156,7 +181,32 @@ function Card({ card, dealOrder = 0, isFolded = false, isHidden = true }) {
                 stiffness: 200
             }}
         >
-            {!isHidden && card && `${card.rank}${card.suit}`}
+            <img
+                src={imgSrc}
+                alt={isHidden ? 'Card back' : `${card?.rank}${card?.suit}`}
+                className="card-image"
+            />
+        </motion.div>
+    )
+}
+
+// Community card with SVG
+function CommunityCard({ card, dealOrder = 0 }) {
+    const delay = dealOrder * 0.15
+    const imgSrc = getCardImageUrl(card)
+
+    return (
+        <motion.div
+            className="community-card-wrapper"
+            initial={{ opacity: 0, y: -50, rotateY: 180 }}
+            animate={{ opacity: 1, y: 0, rotateY: 0 }}
+            transition={{ delay, duration: 0.4, type: 'spring' }}
+        >
+            <img
+                src={imgSrc}
+                alt={`${card?.rank}${card?.suit}`}
+                className="community-card-image"
+            />
         </motion.div>
     )
 }
@@ -188,6 +238,7 @@ function Player({ player, step, cardsDealt }) {
 
     const cards = player.isYou ? yourCards : [null, null]
     const positionColor = positionColors[player.position]
+    const positionIconUrl = getPositionIconUrl(player.position)
 
     return (
         <motion.div
@@ -208,17 +259,17 @@ function Player({ player, step, cardsDealt }) {
                     />
                 ))}
             </div>
-            <div
-                className="player-avatar position-badge"
-                style={{
-                    background: positionColor,
-                    border: player.position === 'BTN' ? '3px solid #fff' : 'none',
-                    color: '#fff',
-                    fontSize: '14px',
-                    fontWeight: 'bold'
-                }}
-            >
-                {player.position}
+            <div className="position-icon">
+                <img
+                    src={positionIconUrl}
+                    alt={player.position}
+                    onError={(e) => {
+                        // Fallback to colored circle if SVG not found
+                        e.target.style.display = 'none'
+                        e.target.parentElement.style.background = positionColor
+                        e.target.parentElement.innerHTML = `<span style="color:#fff;font-weight:bold;font-size:14px">${player.position}</span>`
+                    }}
+                />
             </div>
             <div className="player-info">
                 <div className="player-name" style={player.isYou ? { color: positionColor } : {}}>
@@ -402,23 +453,20 @@ export default function App() {
                         <Player key={player.id} player={player} step={step} cardsDealt={step >= 2} />
                     ))}
                     {step >= 1 && (
-                        <motion.div className="dealer-button" style={{ bottom: '90px', left: 'calc(50% + 80px)' }}
-                            initial={{ opacity: 0, scale: 0 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.6 }}>
-                            D
+                        <motion.div
+                            className="dealer-button"
+                            style={{ bottom: '90px', left: 'calc(50% + 80px)' }}
+                            initial={{ opacity: 0, scale: 0 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ delay: 0.6 }}
+                        >
+                            <img src={getDealerButtonUrl()} alt="Dealer" className="dealer-button-img" />
                         </motion.div>
                     )}
                     {step >= 2 && <Pot amount={potAmount} />}
                     <div className="community-cards">
                         {communityCards.map((card, i) => (
-                            <motion.div
-                                key={i}
-                                className={`community-card ${card.color}`}
-                                initial={{ opacity: 0, y: -50, rotateY: 180 }}
-                                animate={{ opacity: 1, y: 0, rotateY: 0 }}
-                                transition={{ delay: i * 0.15, duration: 0.4, type: 'spring' }}
-                            >
-                                {card.rank}{card.suit}
-                            </motion.div>
+                            <CommunityCard key={i} card={card} dealOrder={i} />
                         ))}
                     </div>
                     <StepIndicator step={step} totalSteps={totalSteps} />
@@ -470,7 +518,7 @@ export default function App() {
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ delay: 0.6 }}
                     >
-                        D
+                        <img src={getDealerButtonUrl()} alt="Dealer" className="dealer-button-img" />
                     </motion.div>
                 )}
 
@@ -478,15 +526,7 @@ export default function App() {
 
                 <div className="community-cards">
                     {communityCards.map((card, i) => (
-                        <motion.div
-                            key={i}
-                            className={`community-card ${card.color}`}
-                            initial={{ opacity: 0, y: -50, rotateY: 180 }}
-                            animate={{ opacity: 1, y: 0, rotateY: 0 }}
-                            transition={{ delay: i * 0.15, duration: 0.4, type: 'spring' }}
-                        >
-                            {card.rank}{card.suit}
-                        </motion.div>
+                        <CommunityCard key={i} card={card} dealOrder={i} />
                     ))}
                 </div>
 

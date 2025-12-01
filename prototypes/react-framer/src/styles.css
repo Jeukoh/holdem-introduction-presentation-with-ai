@@ -219,6 +219,60 @@ h1 {
     opacity: 0.3;
 }
 
+/* Card wrapper for SVG cards */
+.card-wrapper {
+    width: 45px;
+    height: 65px;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+}
+
+.card-wrapper.folded {
+    opacity: 0.3;
+}
+
+.card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+/* Community card wrapper for SVG */
+.community-card-wrapper {
+    width: 55px;
+    height: 80px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+}
+
+.community-card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+/* Position icon */
+.position-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+}
+
+.position-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
 /* Action indicator */
 .action-indicator {
     padding: 6px 16px;
@@ -298,17 +352,20 @@ h1 {
 /* Dealer button */
 .dealer-button {
     position: absolute;
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
-    background: #fff;
-    color: #000;
-    font-weight: bold;
-    font-size: 12px;
+    overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
     box-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+}
+
+.dealer-button-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 /* Explanation overlay */
