@@ -111,13 +111,27 @@ const scenarios = {
 
 // 6-handed table positions (clockwise from top)
 // Dealing order: SB → BB → UTG → HJ → CO → BTN
+// Layout: CO(top) → BTN(right-top) → SB(right-bottom) → BB(bottom) → UTG(left-bottom) → HJ(left-top)
+// All players positioned inside or on the edge of table with cards toward center
 const playerPositions = [
-    { id: 1, position: 'CO', name: 'CO', chips: 5000, dealOrder: 5, style: { top: '-80px', left: '50%', transform: 'translateX(-50%)' } },
-    { id: 2, position: 'BTN', name: 'BTN', chips: 7500, dealOrder: 6, style: { top: '60px', right: '-100px' } },
-    { id: 3, position: 'SB', name: 'SB', chips: 4200, dealOrder: 1, style: { bottom: '60px', right: '-100px' } },
-    { id: 4, position: 'BB', name: 'YOU (BB)', chips: 6000, dealOrder: 2, isYou: true, style: { bottom: '-80px', left: '50%', transform: 'translateX(-50%)' } },
-    { id: 5, position: 'UTG', name: 'UTG', chips: 3800, dealOrder: 3, style: { bottom: '60px', left: '-100px' } },
-    { id: 6, position: 'HJ', name: 'HJ', chips: 5500, dealOrder: 4, style: { top: '60px', left: '-100px' } },
+    // Top: CO - inside table at top edge (positioned higher to avoid pot overlap)
+    { id: 1, position: 'CO', name: 'CO', chips: 5000, dealOrder: 5, layoutPosition: 'top',
+      style: { top: '50px', left: '50%', transform: 'translateX(-50%)' } },
+    // Right-top: BTN - inside table on right
+    { id: 2, position: 'BTN', name: 'BTN', chips: 7500, dealOrder: 6, layoutPosition: 'right',
+      style: { top: '120px', right: '30px' } },
+    // Right-bottom: SB - inside table on right lower
+    { id: 3, position: 'SB', name: 'SB', chips: 4200, dealOrder: 1, layoutPosition: 'right',
+      style: { bottom: '120px', right: '30px' } },
+    // Bottom: BB (you) - inside table at bottom edge
+    { id: 4, position: 'BB', name: 'YOU (BB)', chips: 6000, dealOrder: 2, isYou: true, layoutPosition: 'bottom',
+      style: { bottom: '60px', left: '50%', transform: 'translateX(-50%)' } },
+    // Left-bottom: UTG - inside table on left lower
+    { id: 5, position: 'UTG', name: 'UTG', chips: 3800, dealOrder: 3, layoutPosition: 'left',
+      style: { bottom: '120px', left: '30px' } },
+    // Left-top: HJ - inside table on left upper
+    { id: 6, position: 'HJ', name: 'HJ', chips: 5500, dealOrder: 4, layoutPosition: 'left',
+      style: { top: '120px', left: '30px' } },
 ]
 
 // Position colors (fallback if SVG not loaded)
@@ -236,52 +250,97 @@ function ActionIndicator({ action, delay }) {
 function Player({ player, step, cardsDealt }) {
     const [iconError, setIconError] = useState(false)
     const showCards = cardsDealt && step >= 2
-    // UTG folds first (after blinds posted), then HJ calls
-    const showAction = (player.position === 'UTG' && step >= 3) || (player.position === 'HJ' && step >= 4)
     const isFolded = player.position === 'UTG' && step >= 3
 
     const cards = player.isYou ? yourCards : [null, null]
     const positionColor = positionColors[player.position]
     const positionIconUrl = getPositionIconUrl(player.position)
 
+    // Determine flex direction based on layout position
+    // Top players: column-reverse (cards below icon)
+    // Bottom players: column (cards above icon, icon below - closer to their seat)
+    // Side players: row layout
+    const isTop = player.layoutPosition === 'top'
+    const isBottom = player.layoutPosition === 'bottom'
+    const isLeft = player.layoutPosition === 'left'
+    const isRight = player.layoutPosition === 'right'
+
+    const playerStyle = {
+        ...player.style,
+        flexDirection: isTop ? 'column' : isBottom ? 'column-reverse' : (isLeft ? 'row-reverse' : 'row'),
+    }
+
+    const PlayerCards = () => (
+        <div className="player-cards">
+            {showCards && cards.map((card, i) => (
+                <Card
+                    key={i}
+                    card={card}
+                    dealOrder={player.dealOrder}
+                    isFolded={isFolded}
+                    isHidden={!player.isYou}
+                />
+            ))}
+        </div>
+    )
+
+    const PositionIcon = () => (
+        <div className="position-icon" style={iconError ? { background: positionColor } : {}}>
+            {iconError ? (
+                <span style={{ color: '#fff', fontWeight: 'bold', fontSize: '14px' }}>
+                    {player.position}
+                </span>
+            ) : (
+                <img
+                    src={positionIconUrl}
+                    alt={player.position}
+                    onError={() => setIconError(true)}
+                />
+            )}
+        </div>
+    )
+
+    const PlayerInfo = () => (
+        <div className="player-info">
+            <div className="player-name" style={player.isYou ? { color: positionColor } : {}}>
+                {player.isYou ? 'YOU' : player.position}
+            </div>
+            <div className="player-chips">${player.chips.toLocaleString()}</div>
+        </div>
+    )
+
     return (
         <motion.div
-            className={`player ${player.isYou ? 'you' : ''}`}
-            style={player.style}
+            className={`player ${player.isYou ? 'you' : ''} ${player.layoutPosition || ''}`}
+            style={playerStyle}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: player.id * 0.1 }}
         >
-            <div className="player-cards">
-                {showCards && cards.map((card, i) => (
-                    <Card
-                        key={i}
-                        card={card}
-                        dealOrder={player.dealOrder}
-                        isFolded={isFolded}
-                        isHidden={!player.isYou}
-                    />
-                ))}
-            </div>
-            <div className="position-icon" style={iconError ? { background: positionColor } : {}}>
-                {iconError ? (
-                    <span style={{ color: '#fff', fontWeight: 'bold', fontSize: '14px' }}>
-                        {player.position}
-                    </span>
-                ) : (
-                    <img
-                        src={positionIconUrl}
-                        alt={player.position}
-                        onError={() => setIconError(true)}
-                    />
-                )}
-            </div>
-            <div className="player-info">
-                <div className="player-name" style={player.isYou ? { color: positionColor } : {}}>
-                    {player.isYou ? 'YOU' : player.position}
-                </div>
-                <div className="player-chips">${player.chips.toLocaleString()}</div>
-            </div>
+            {/* Layout based on position:
+                - Top: Icon above, cards below (info hidden to avoid pot overlap)
+                - Bottom: Cards above, icon below, info below icon
+                - Left/Right: Horizontal layout with info beside */}
+            {isTop ? (
+                <>
+                    <PositionIcon />
+                    <PlayerCards />
+                </>
+            ) : isBottom ? (
+                <>
+                    <PlayerInfo />
+                    <PlayerCards />
+                    <PositionIcon />
+                </>
+            ) : (
+                <>
+                    <div className="player-side-content">
+                        <PlayerCards />
+                        <PositionIcon />
+                    </div>
+                    <PlayerInfo />
+                </>
+            )}
             <AnimatePresence>
                 {player.position === 'UTG' && step >= 3 && (
                     <ActionIndicator action="FOLD" delay={0} />
@@ -460,7 +519,7 @@ export default function App() {
                     {step >= 1 && (
                         <motion.div
                             className="dealer-button"
-                            style={{ bottom: '90px', left: 'calc(50% + 80px)' }}
+                            style={{ top: '170px', right: '120px' }}
                             initial={{ opacity: 0, scale: 0 }}
                             animate={{ opacity: 1, scale: 1 }}
                             transition={{ delay: 0.6 }}
@@ -518,7 +577,7 @@ export default function App() {
                 {step >= 1 && (
                     <motion.div
                         className="dealer-button"
-                        style={{ bottom: '90px', left: 'calc(50% + 80px)' }}
+                        style={{ top: '170px', right: '120px' }}
                         initial={{ opacity: 0, scale: 0 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ delay: 0.6 }}
