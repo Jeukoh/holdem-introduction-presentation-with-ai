@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/theme/black.css">
 
     <!-- Holdem Engine CSS -->
-    <link rel="stylesheet" href="prototypes/react-framer/dist/holdem-engine.css">
+    <link rel="stylesheet" href="src/react-framer/dist/holdem-engine.css">
 
     <!-- Custom styles -->
     <link rel="stylesheet" href="css/presentation.css">
@@ -20,6 +20,9 @@
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
 </head>
 <body>
+    <!-- 인라인 SVG 스프라이트 (동적 로딩) -->
+    <div id="svg-sprite-container"></div>
+
     <div class="reveal">
         <div class="slides">
             <!-- 동적 로딩 -->
@@ -37,12 +40,21 @@
     <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.js"></script>
 
     <!-- Holdem Engine -->
-    <script src="prototypes/react-framer/dist/holdem-engine.iife.js"></script>
+    <script src="src/react-framer/dist/holdem-engine.iife.js"></script>
 
     <script>
-        // 홀덤 엔진 인스턴스
-        let holdemEngine = null;
-        let isHoldemSlide = false;
+        // 엔진 인스턴스
+        let currentEngine = null;
+        let currentEngineType = null; // 'deck' | 'holdem' | null
+
+        // SVG 스프라이트 인라인 로딩
+        async function loadSprite() {
+            const response = await fetch('assets/cards-sprite.svg');
+            const svgText = await response.text();
+            // XML 선언 제거하고 삽입
+            const cleanSvg = svgText.replace(/<\?xml[^?]*\?>/, '');
+            document.getElementById('svg-sprite-container').innerHTML = cleanSvg;
+        }
 
         // 슬라이드 파일 동적 로딩
         async function loadSlides() {
@@ -61,10 +73,6 @@
             const part2GameplayResponse = await fetch('slides/part2-gameplay.html');
             allSlides += await part2GameplayResponse.text();
 
-            // Part 2.3~2.4: 시나리오 (TODO)
-            // Part 3: 마인드스포츠 (TODO)
-            // Part 4: 소모임 운영 (TODO)
-
             slidesContainer.innerHTML = allSlides;
 
             // Reveal.js 초기화
@@ -72,72 +80,76 @@
                 hash: true,
                 transition: 'slide',
                 showNotes: false,
-
-                // 키보드: 기본 비활성화 (커스텀 처리)
                 keyboard: false,
-
                 plugins: []
             });
 
             // 슬라이드 변경 감지
             Reveal.on('slidechanged', (event) => {
                 const currentSlide = event.currentSlide;
-                const holdemContainer = currentSlide.querySelector('#holdem-container');
 
+                // 이전 엔진 정리
+                if (currentEngine) {
+                    currentEngine.destroy();
+                    currentEngine = null;
+                    currentEngineType = null;
+                }
+
+                // DeckEngine 슬라이드 (2.1.1)
+                const deckContainer = currentSlide.querySelector('#deck-container');
+                if (deckContainer) {
+                    currentEngine = HoldemEngine.DeckEngine.mount(deckContainer);
+                    currentEngineType = 'deck';
+                    return;
+                }
+
+                // HoldemEngine 슬라이드 (2.2)
+                const holdemContainer = currentSlide.querySelector('#holdem-container');
                 if (holdemContainer) {
-                    // 홀덤 슬라이드 진입
-                    isHoldemSlide = true;
-                    if (!holdemEngine) {
-                        holdemEngine = HoldemEngine.mount(holdemContainer, {
-                            scenario: 'tutorial'
-                        });
-                    }
-                } else {
-                    // 홀덤 슬라이드 이탈
-                    isHoldemSlide = false;
-                    if (holdemEngine) {
-                        holdemEngine.destroy();
-                        holdemEngine = null;
-                    }
+                    currentEngine = HoldemEngine.HoldemEngine.mount(holdemContainer, {
+                        scenario: 'tutorial'
+                    });
+                    currentEngineType = 'holdem';
+                    return;
                 }
             });
 
             // 커스텀 키보드 제어
             document.addEventListener('keydown', (e) => {
-                // 홀덤 슬라이드에서 Space → 게임 진행
-                if (isHoldemSlide && e.code === 'Space') {
+                const hasEngine = currentEngine !== null;
+
+                // Space: 엔진 step 진행 또는 다음 슬라이드
+                if (e.code === 'Space') {
                     e.preventDefault();
-                    if (holdemEngine) {
-                        const state = holdemEngine.getState();
+                    if (hasEngine) {
+                        const state = currentEngine.getState();
                         if (state.step < state.totalSteps - 1) {
-                            holdemEngine.nextStep();
+                            currentEngine.nextStep();
                         } else {
-                            // 마지막 스텝이면 다음 슬라이드로
                             Reveal.next();
                         }
+                    } else {
+                        Reveal.next();
                     }
                 }
-                // 일반 슬라이드 또는 화살표 키
-                else if (e.code === 'ArrowRight' || (!isHoldemSlide && e.code === 'Space')) {
+                // ArrowRight: 다음 슬라이드
+                else if (e.code === 'ArrowRight') {
                     Reveal.next();
                 }
+                // ArrowLeft: 이전 step 또는 이전 슬라이드
                 else if (e.code === 'ArrowLeft') {
-                    if (isHoldemSlide && holdemEngine) {
-                        const state = holdemEngine.getState();
+                    if (hasEngine) {
+                        const state = currentEngine.getState();
                         if (state.step > 0) {
-                            holdemEngine.prevStep();
+                            currentEngine.prevStep();
                             return;
                         }
                     }
                     Reveal.prev();
                 }
                 // R: 리셋
-                else if (e.code === 'KeyR' && isHoldemSlide && holdemEngine) {
-                    holdemEngine.reset();
-                }
-                // S: Speaker View
-                else if (e.code === 'KeyS') {
-                    // Reveal.js default behavior
+                else if (e.code === 'KeyR' && hasEngine) {
+                    currentEngine.reset();
                 }
                 // Esc: Overview
                 else if (e.code === 'Escape') {
@@ -146,7 +158,8 @@
             });
         }
 
-        loadSlides();
+        // 스프라이트 먼저 로딩 후 슬라이드 로딩
+        loadSprite().then(() => loadSlides());
     </script>
 </body>
 </html>

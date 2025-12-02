@@ -192,13 +192,14 @@
     font-size: 3em;
 }
 
-.reveal .suit.spade, .reveal .suit.club { color: #333; }
+.reveal .suit.spade, .reveal .suit.club { color: #ecf0f1; }
 .reveal .suit.heart, .reveal .suit.diamond { color: #e74c3c; }
 
 .reveal .rank-row {
-    font-size: 1.5em;
-    letter-spacing: 8px;
+    font-size: 1.3em;
+    letter-spacing: 3px;
     color: var(--text-muted);
+    white-space: nowrap;
 }
 
 .reveal .calc {

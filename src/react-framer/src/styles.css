@@ -1,0 +1,358 @@
+:root {
+    --table-green: #1a5f3c;
+    --table-border: #8b4513;
+    --felt-pattern: linear-gradient(135deg, #1a5f3c 0%, #0d3d26 100%);
+    --card-back: #2c3e50;
+    --chip-red: #e74c3c;
+    --chip-blue: #3498db;
+    --chip-green: #27ae60;
+    --gold: #f1c40f;
+}
+
+/*
+ * Note: Global body styles removed to avoid conflicts with Reveal.js
+ * These styles are only applied to .holdem-engine-container
+ */
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    padding: 40px 120px;  /* Extra horizontal padding for side players */
+    min-height: 100vh;
+    min-width: fit-content;
+}
+
+/* Embed mode - minimal UI */
+.container.embed-mode {
+    padding: 20px 120px;  /* Keep horizontal padding for side players */
+    justify-content: center;
+}
+
+.container.embed-mode .poker-table {
+    margin: 80px auto;
+}
+
+h1 {
+    font-size: 24px;
+    color: #7f8c8d;
+}
+
+.controls {
+    display: flex;
+    gap: 10px;
+}
+
+.controls button {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.controls button:hover {
+    transform: scale(1.05);
+}
+
+.controls button:first-child {
+    background: var(--gold);
+    color: #000;
+}
+
+.controls button:last-child {
+    background: #34495e;
+    color: #fff;
+}
+
+.poker-table {
+    position: relative;
+    width: 800px;
+    height: 500px;
+    margin: 100px auto;  /* Add margin for players outside table */
+    overflow: visible;   /* Show players positioned outside table bounds */
+}
+
+.table-felt {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: var(--felt-pattern);
+    border-radius: 200px;
+    border: 12px solid var(--table-border);
+    box-shadow:
+        inset 0 0 100px rgba(0,0,0,0.5),
+        0 10px 30px rgba(0,0,0,0.8);
+}
+
+.table-rail {
+    position: absolute;
+    width: calc(100% + 24px);
+    height: calc(100% + 24px);
+    top: -12px;
+    left: -12px;
+    border-radius: 212px;
+    border: 8px solid #5a3921;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+}
+
+/* Game phase indicator - above table */
+.game-phase {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.phase {
+    padding: 8px 16px;
+    border-radius: 20px;
+    background: #2c3e50;
+    color: #7f8c8d;
+    font-size: 12px;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+
+.phase.active {
+    background: var(--gold);
+    color: #000;
+}
+
+.phase.completed {
+    background: var(--chip-green);
+    color: #fff;
+}
+
+/* Player */
+.player {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Side players (left/right) - horizontal layout */
+.player.left,
+.player.right {
+    flex-direction: column;
+}
+
+.player-side-content {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.player.left .player-side-content {
+    flex-direction: row;
+}
+
+.player.right .player-side-content {
+    flex-direction: row-reverse;
+}
+
+.player-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: #34495e;
+    border: 3px solid #7f8c8d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+}
+
+.player.you .player-avatar {
+    border-color: var(--gold);
+}
+
+.player-info {
+    text-align: center;
+    font-size: 12px;
+}
+
+.player-name {
+    font-weight: bold;
+    color: #fff;
+}
+
+.player.you .player-name {
+    color: var(--gold);
+}
+
+.player-chips {
+    color: var(--gold);
+    font-size: 11px;
+}
+
+.player-cards {
+    display: flex;
+    gap: 4px;
+    height: 70px;
+}
+
+/* Card wrapper for SVG cards (2.5:3.5 ratio) */
+.card-wrapper {
+    width: 45px;
+    height: 63px;  /* 45 * 3.5 / 2.5 = 63 */
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+    background: white;
+}
+
+.card-wrapper.folded {
+    opacity: 0.3;
+}
+
+.card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: fill;  /* SVG의 preserveAspectRatio="none"과 일치 */
+    border-radius: 6px;
+}
+
+/* Community card wrapper for SVG (2.5:3.5 ratio) */
+.community-card-wrapper {
+    width: 55px;
+    height: 77px;  /* 55 * 3.5 / 2.5 = 77 */
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+    background: white;
+}
+
+.community-card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: fill;  /* SVG의 preserveAspectRatio="none"과 일치 */
+    border-radius: 8px;
+}
+
+/* Position icon */
+.position-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+}
+
+.position-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Action indicator */
+.action-indicator {
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.action-indicator.fold {
+    background: #e74c3c;
+    color: #fff;
+}
+
+.action-indicator.call {
+    background: #3498db;
+    color: #fff;
+}
+
+.action-indicator.raise {
+    background: #27ae60;
+    color: #fff;
+}
+
+/* Pot */
+.pot {
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    z-index: 50;
+    background: rgba(26, 95, 60, 0.9);
+    padding: 8px 16px;
+    border-radius: 8px;
+}
+
+.pot-label {
+    font-size: 12px;
+    color: #95a5a6;
+}
+
+.pot-amount {
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--gold);
+}
+
+/* Community cards */
+.community-cards {
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    gap: 8px;
+    z-index: 10;
+}
+
+/* Dealer button */
+.dealer-button {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+}
+
+.dealer-button-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Step indicator */
+.step-indicator {
+    position: absolute;
+    bottom: -80px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+}
+
+.step-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #34495e;
+    transition: all 0.3s;
+}
+
+.step-dot.active {
+    background: var(--gold);
+    transform: scale(1.2);
+}
+
+.step-dot.completed {
+    background: var(--chip-green);
+}
