@@ -1,21 +1,35 @@
 <!-- Part 2.2: 게임 흐름 (라이브 데모) -->
 
-<!-- 2.2.1: 게임 엔진 라이브 데모 -->
-<section id="holdem-demo">
+<!-- 2.2.1: 시나리오 1 - UTG 관찰자 모드 -->
+<section id="holdem-demo" data-scenario="game1_utg_observer">
     <div id="holdem-container"></div>
     <aside class="notes">
         [Space 누르면서 진행]
 
-        1. 테이블 셋업 - 6명이 앉아있어요
-        2. 카드 딜링 - 각자 2장씩 받아요
-        3. 블라인드 - SB, BB 강제 베팅
-        4. UTG 폴드 - 가장 먼저 결정
-        5. HJ 콜 - 따라가기
-        6. 나머지 액션들...
-        7. 플랍 - 커뮤니티 카드 3장
-        8. 턴 - 4번째 카드
-        9. 리버 - 5번째 카드
+        1판: UTG에서 72o - 최악의 핸드로 폴드
+        - 포지션 설명 모달
+        - 블라인드 구조 (0.5BB / 1BB)
+        - 3-bet / 4-bet 관전
+        - 플랍에서 내가 투페어였으면...! (아쉬움)
 
-        7장 중 최고의 5장으로 승부!
+        교훈: 좋은 핸드만 플레이하자
+    </aside>
+</section>
+
+<!-- 2.2.2: 시나리오 2 - BB에서 AA의 함정 -->
+<section id="holdem-demo-2" data-scenario="game2_bb_aces_trap">
+    <div id="holdem-container-2"></div>
+    <aside class="notes">
+        [Space 누르면서 진행]
+
+        2판: BB에서 AA - 슬로우플레이의 함정
+        - 최고의 핸드 AA를 받음!
+        - 3-bet 안하고 콜만 함 (실수)
+        - 멀티웨이 팟 형성 (4명)
+        - 위험한 보드 (8-7-6 커넥트)
+        - 턴에서 스트레이트 완성됨
+        - AA가 94에게 역전패!
+
+        교훈: 프리미엄 핸드는 레이즈로 상대를 줄여라!
     </aside>
 </section>

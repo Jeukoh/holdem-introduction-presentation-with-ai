@@ -518,9 +518,11 @@
  * =========================================== */
 
 /* Section이 슬라이드 전체 높이를 채우도록 */
+/* 엔진 슬라이드 공통 스타일 - .engine-slide 클래스 또는 개별 ID */
 #deck-slide,
-#holdem-demo,
-#hand-ranking-slide {
+#hand-ranking-slide,
+#holdem-intro-slide,
+[id^="holdem-demo"] {
     height: 100%;
     display: flex !important;
     align-items: center;
@@ -528,8 +530,9 @@
 }
 
 #deck-container,
-#holdem-container,
-#hand-ranking-container {
+#hand-ranking-container,
+#holdem-intro-container,
+[id^="holdem-container"] {
     display: flex;
     align-items: center;
     justify-content: center;

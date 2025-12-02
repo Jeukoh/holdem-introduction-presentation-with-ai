@@ -76,7 +76,7 @@
 .container.embed-mode {
     /* Don't try to fill parent - take natural size */
     padding: 0;
-    gap: calc(8px * var(--scale));
+    gap: calc(60px * var(--scale));
     min-height: auto;
     height: auto;
     width: auto;
@@ -89,7 +89,8 @@
 }
 
 .container.embed-mode .game-phase {
-    margin-bottom: calc(60px * var(--scale));
+    margin-top: calc(-50px * var(--scale));  /* 상단 여백 더 줄이기 */
+    margin-bottom: calc(40px * var(--scale));  /* 테이블과 거리 */
 }
 
 h1 {
@@ -363,6 +364,11 @@ h1 {
     color: #fff;
 }
 
+.action-indicator.bet {
+    background: #e67e22;
+    color: #fff;
+}
+
 .action-indicator.check {
     background: #9b59b6;
     color: #fff;
@@ -430,7 +436,7 @@ h1 {
 /* Step indicator */
 .step-indicator {
     position: absolute;
-    bottom: calc(-80px * var(--scale));
+    bottom: calc(-95px * var(--scale));
     left: 50%;
     transform: translateX(-50%);
     display: flex;

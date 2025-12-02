@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useCardBundle } from '../hooks/useCardBundle';
+import PositionInfoModal from './PositionInfoModal';
+import ActionInfoModal from './ActionInfoModal';
 
 // ===========================================
 // FIXED LAYOUT (Reveal.js handles viewport scaling)
@@ -15,28 +17,30 @@ const FIXED_SCALE = 1;
 // ===========================================
 
 // 6-handed table positions (percentages relative to table)
+// chips are now in BB units (100BB = standard starting stack)
 const playerPositions = [
-    { id: 1, position: 'CO', name: 'CO', chips: 5000, dealOrder: 5, layoutPosition: 'top',
+    { id: 1, position: 'CO', name: 'CO', chips: 100, dealOrder: 5, layoutPosition: 'top',
       style: { top: 'calc(-1 * var(--player-offset-top))', left: '50%', transform: 'translateX(-50%)' } },
-    { id: 2, position: 'BTN', name: 'BTN', chips: 7500, dealOrder: 6, layoutPosition: 'right',
+    { id: 2, position: 'BTN', name: 'BTN', chips: 100, dealOrder: 6, layoutPosition: 'right',
       style: { top: 'var(--player-offset-side-inner)', right: 'calc(-1 * var(--player-offset-side))' } },
-    { id: 3, position: 'SB', name: 'SB', chips: 4200, dealOrder: 1, layoutPosition: 'right',
+    { id: 3, position: 'SB', name: 'SB', chips: 100, dealOrder: 1, layoutPosition: 'right',
       style: { bottom: 'var(--player-offset-side-inner)', right: 'calc(-1 * var(--player-offset-side))' } },
-    { id: 4, position: 'BB', name: 'YOU (BB)', chips: 6000, dealOrder: 2, isYou: true, layoutPosition: 'bottom',
+    { id: 4, position: 'BB', name: 'YOU (BB)', chips: 100, dealOrder: 2, isYou: true, layoutPosition: 'bottom',
       style: { bottom: 'calc(-1 * var(--player-offset-top))', left: '50%', transform: 'translateX(-50%)' } },
-    { id: 5, position: 'UTG', name: 'UTG', chips: 3800, dealOrder: 3, layoutPosition: 'left',
+    { id: 5, position: 'UTG', name: 'UTG', chips: 100, dealOrder: 3, layoutPosition: 'left',
       style: { bottom: 'var(--player-offset-side-inner)', left: 'calc(-1 * var(--player-offset-side))' } },
-    { id: 6, position: 'HJ', name: 'HJ', chips: 5500, dealOrder: 4, layoutPosition: 'left',
+    { id: 6, position: 'HJ', name: 'HJ', chips: 100, dealOrder: 4, layoutPosition: 'left',
       style: { top: 'var(--player-offset-side-inner)', left: 'calc(-1 * var(--player-offset-side))' } },
 ];
 
+// SVG 에셋 색상과 일치 (assets/positions/*.svg 참조)
 const positionColors = {
-    BTN: '#f1c40f',
-    SB: '#e74c3c',
-    BB: '#e74c3c',
-    UTG: '#3498db',
-    HJ: '#9b59b6',
-    CO: '#27ae60',
+    BTN: '#d4a574',  // 베이지
+    SB: '#3498db',   // 파란색
+    BB: '#2ecc71',   // 초록색
+    UTG: '#e74c3c',  // 빨간색
+    HJ: '#9b59b6',   // 보라색
+    CO: '#f39c12',   // 주황색
 };
 
 // ===========================================
@@ -100,18 +104,19 @@ function CardBack() {
     );
 }
 
-function Card({ card, dealOrder = 0, isFolded = false, isHidden = true, cards }) {
+function Card({ card, dealOrder = 0, isFolded = false, isHidden = true, isWinner = false, cards }) {
     const delay = dealOrder * 0.15;
     const cardId = isHidden ? null : getCardId(card);
 
     return (
         <motion.div
-            className={`card-wrapper ${isFolded ? 'folded' : ''}`}
+            className={`card-wrapper ${isFolded ? 'folded' : ''} ${isWinner ? 'winner' : ''}`}
             initial={{ opacity: 0, y: -100, rotateY: 180 }}
             animate={{
                 opacity: isFolded ? 0.3 : 1,
                 y: 0,
-                rotateY: 0
+                rotateY: 0,
+                scale: isWinner ? 1.1 : 1,
             }}
             transition={{
                 delay,
@@ -120,7 +125,7 @@ function Card({ card, dealOrder = 0, isFolded = false, isHidden = true, cards })
                 stiffness: 200
             }}
         >
-            <div className="card-image">
+            <div className="card-image" style={isWinner ? { boxShadow: '0 0 20px #f1c40f' } : {}}>
                 {cardId ? (
                     <CardContent cardId={cardId} cards={cards} />
                 ) : (
@@ -176,59 +181,172 @@ function ActionIndicator({ action, delay }) {
     );
 }
 
-// Chip animation component - shows chips flying from player to pot
-function ChipAnimation({ amount, layoutPosition }) {
+// Chip stack component - shows accumulated chips in front of player during phase
+function PlayerChipStack({ amount, layoutPosition }) {
     if (!amount || amount <= 0) return null;
 
-    // Calculate animation direction based on player position
-    const getAnimationTarget = () => {
+    // 칩 스택 위치 (테이블 중앙 방향으로, 카드와 겹치지 않게)
+    const getChipPosition = () => {
         switch (layoutPosition) {
-            case 'top': return { x: 0, y: 150 };
-            case 'bottom': return { x: 0, y: -150 };
-            case 'left': return { x: 200, y: 0 };
-            case 'right': return { x: -200, y: 0 };
-            default: return { x: 0, y: 0 };
+            case 'top': return { top: 'calc(100% + 50px)', left: '50%', transform: 'translateX(-50%)' };
+            case 'bottom': return { bottom: 'calc(100% + 50px)', left: '50%', transform: 'translateX(-50%)' };
+            case 'left': return { left: 'calc(100% + 80px)', top: '50%', transform: 'translateY(-50%)' };
+            case 'right': return { right: 'calc(100% + 80px)', top: '50%', transform: 'translateY(-50%)' };
+            default: return {};
         }
     };
 
-    const target = getAnimationTarget();
+    // 칩 개수 결정 (BB 기준, 1~5개)
+    const chipCount = Math.min(5, Math.max(1, Math.ceil(amount / 5)));
 
     return (
         <motion.div
-            className="chip-animation"
-            initial={{ opacity: 1, scale: 1, x: 0, y: 0 }}
-            animate={{
-                opacity: [1, 1, 0],
-                scale: [1, 0.8, 0.5],
-                x: target.x,
-                y: target.y
+            className="player-chip-stack"
+            style={{
+                position: 'absolute',
+                ...getChipPosition(),
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                zIndex: 20,
             }}
-            transition={{
-                duration: 0.6,
-                ease: 'easeOut',
-                times: [0, 0.7, 1]
-            }}
+            initial={{ opacity: 0, scale: 0 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0, y: layoutPosition === 'top' ? 50 : layoutPosition === 'bottom' ? -50 : 0 }}
+            transition={{ duration: 0.3 }}
         >
-            <div className="chip-stack">
-                <div className="chip red" />
-                <div className="chip red" />
-                <div className="chip red" />
+            <div className="chip-stack" style={{ display: 'flex', flexDirection: 'column-reverse', marginBottom: 4 }}>
+                {[...Array(chipCount)].map((_, i) => (
+                    <motion.div
+                        key={i}
+                        className="chip red"
+                        style={{
+                            width: 20,
+                            height: 6,
+                            background: 'linear-gradient(180deg, #e74c3c 0%, #c0392b 100%)',
+                            borderRadius: 3,
+                            marginTop: i > 0 ? -3 : 0,
+                            boxShadow: '0 1px 2px rgba(0,0,0,0.3)',
+                            border: '1px solid #a93226',
+                        }}
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: i * 0.05 }}
+                    />
+                ))}
             </div>
-            <span className="chip-amount">${amount}</span>
+            <span style={{
+                fontSize: 10,
+                fontWeight: 'bold',
+                color: '#fff',
+                textShadow: '0 1px 2px rgba(0,0,0,0.8)',
+                background: 'rgba(0,0,0,0.6)',
+                padding: '1px 5px',
+                borderRadius: 4,
+            }}>
+                {amount}BB
+            </span>
         </motion.div>
     );
 }
 
-function Player({ player, step, cardsDealt, yourCards, foldedPlayers, calledPlayers, checkedPlayers, raisedPlayers, blindPlayers, phase, playerChips, latestBet, cards }) {
+// Pot to winner animation
+function PotToWinnerAnimation({ amount, winnerPosition, layoutPosition }) {
+    if (!amount || !winnerPosition) return null;
+
+    // 위너 방향으로 이동
+    const getTargetPosition = () => {
+        switch (layoutPosition) {
+            case 'top': return { x: 0, y: -200 };
+            case 'bottom': return { x: 0, y: 200 };
+            case 'left': return { x: -250, y: 0 };
+            case 'right': return { x: 250, y: 0 };
+            default: return { x: 0, y: 0 };
+        }
+    };
+
+    const target = getTargetPosition();
+
+    return (
+        <motion.div
+            style={{
+                position: 'absolute',
+                top: '50%',
+                left: '50%',
+                transform: 'translate(-50%, -50%)',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                zIndex: 100,
+            }}
+            initial={{ opacity: 1, scale: 1, x: 0, y: 0 }}
+            animate={{
+                opacity: [1, 1, 0],
+                scale: [1, 1.2, 0.8],
+                x: target.x,
+                y: target.y,
+            }}
+            transition={{
+                duration: 1.2,
+                ease: 'easeInOut',
+                times: [0, 0.3, 1],
+            }}
+        >
+            <div style={{ display: 'flex', gap: 2 }}>
+                {[...Array(8)].map((_, i) => (
+                    <motion.div
+                        key={i}
+                        style={{
+                            width: 24,
+                            height: 8,
+                            background: i < 4 ? 'linear-gradient(180deg, #e74c3c 0%, #c0392b 100%)' :
+                                i < 6 ? 'linear-gradient(180deg, #27ae60 0%, #1e8449 100%)' :
+                                    'linear-gradient(180deg, #2980b9 0%, #1a5276 100%)',
+                            borderRadius: 4,
+                            boxShadow: '0 2px 4px rgba(0,0,0,0.4)',
+                        }}
+                        initial={{ rotate: 0 }}
+                        animate={{ rotate: [0, 5, -5, 0] }}
+                        transition={{ duration: 0.3, delay: i * 0.03 }}
+                    />
+                ))}
+            </div>
+            <motion.span
+                style={{
+                    fontSize: 16,
+                    fontWeight: 'bold',
+                    color: '#f1c40f',
+                    textShadow: '0 2px 4px rgba(0,0,0,0.8)',
+                    marginTop: 8,
+                }}
+                initial={{ scale: 1 }}
+                animate={{ scale: [1, 1.3, 1] }}
+                transition={{ duration: 0.4 }}
+            >
+                +{amount}BB
+            </motion.span>
+        </motion.div>
+    );
+}
+
+function Player({ player, step, cardsDealt, yourCards, foldedPlayers, calledPlayers, checkedPlayers, raisedPlayers, betPlayers, blindPlayers, phase, playerChips, latestBet, phaseBets, cards, isShowdown, scenarioPlayerCards, winner }) {
     const [iconError, setIconError] = useState(false);
     const showCards = cardsDealt && step >= 2;
     const isFolded = foldedPlayers.includes(player.position);
     const hasCalled = calledPlayers.includes(player.position);
     const hasChecked = checkedPlayers?.includes(player.position);
+    const hasBet = betPlayers?.includes(player.position);
     const hasRaised = raisedPlayers?.includes(player.position);
     const hasPostedBlind = blindPlayers?.[player.position] && phase === 'preflop';
+    const isWinner = winner === player.position;
 
-    const playerCards = player.isYou ? yourCards : [null, null];
+    // 카드 결정: 자기 카드 또는 쇼다운 시 다른 플레이어 카드
+    let playerCardsToShow = [null, null];
+    if (player.isYou) {
+        playerCardsToShow = yourCards;
+    } else if (isShowdown && !isFolded && scenarioPlayerCards?.[player.position]) {
+        playerCardsToShow = scenarioPlayerCards[player.position];
+    }
     const positionColor = positionColors[player.position];
     const positionIconUrl = getPositionIconUrl(player.position);
 
@@ -247,22 +365,56 @@ function Player({ player, step, cardsDealt, yourCards, foldedPlayers, calledPlay
         : isLeft ? { left: '100%', top: '50%', transform: 'translateY(-50%)' }
         : { right: '100%', top: '50%', transform: 'translateY(-50%)' };
 
-    // 현재 표시할 액션 결정 (우선순위: FOLD > RAISE > CALL > CHECK > BLIND)
+    // 현재 표시할 액션 결정 (우선순위: FOLD > RAISE > BET > CALL > CHECK > BLIND)
     let currentAction = null;
     if (isFolded) currentAction = 'FOLD';
     else if (hasRaised) currentAction = 'RAISE';
+    else if (hasBet) currentAction = 'BET';
     else if (hasCalled) currentAction = 'CALL';
     else if (hasChecked) currentAction = 'CHECK';
-    else if (hasPostedBlind) currentAction = player.position === 'SB' ? 'SB $50' : 'BB $100';
+    else if (hasPostedBlind) {
+        const blindAmount = blindPlayers[player.position];
+        currentAction = `${blindAmount}BB`;
+    }
 
     return (
         <motion.div
             className={`player ${player.isYou ? 'you' : ''} ${player.layoutPosition || ''}`}
-            style={player.style}
+            style={{
+                ...player.style,
+                ...(player.isYou ? {
+                    filter: 'drop-shadow(0 0 12px rgba(231, 76, 60, 0.7))',
+                } : {})
+            }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: player.id * 0.1 }}
         >
+            {/* YOU 배지 - 플레이어 위에 눈에 띄게 표시 */}
+            {player.isYou && (
+                <motion.div
+                    style={{
+                        position: 'absolute',
+                        top: -28,
+                        left: '50%',
+                        transform: 'translateX(-50%)',
+                        background: 'linear-gradient(135deg, #e74c3c 0%, #c0392b 100%)',
+                        color: '#fff',
+                        padding: '4px 12px',
+                        borderRadius: 12,
+                        fontSize: 12,
+                        fontWeight: 'bold',
+                        boxShadow: '0 2px 8px rgba(231, 76, 60, 0.5)',
+                        zIndex: 50,
+                        whiteSpace: 'nowrap',
+                    }}
+                    initial={{ scale: 0, y: 10 }}
+                    animate={{ scale: 1, y: 0 }}
+                    transition={{ delay: 0.3, type: 'spring', stiffness: 300 }}
+                >
+                    👆 YOU
+                </motion.div>
+            )}
             <div className="position-icon" style={iconError ? { background: positionColor } : {}}>
                 {iconError ? (
                     <span style={{ color: '#fff', fontWeight: 'bold', fontSize: '14px' }}>
@@ -277,7 +429,7 @@ function Player({ player, step, cardsDealt, yourCards, foldedPlayers, calledPlay
                 )}
             </div>
             <div className="player-info">
-                <div className="player-name" style={player.isYou ? { color: positionColor } : {}}>
+                <div className="player-name" style={player.isYou ? { color: '#e74c3c', fontWeight: 'bold' } : {}}>
                     {player.isYou ? 'YOU' : player.position}
                 </div>
                 <motion.div
@@ -287,17 +439,18 @@ function Player({ player, step, cardsDealt, yourCards, foldedPlayers, calledPlay
                     animate={{ scale: 1, color: '#f1c40f' }}
                     transition={{ duration: 0.3 }}
                 >
-                    ${currentChips.toLocaleString()}
+                    {currentChips}BB
                 </motion.div>
             </div>
             <div className="player-cards" style={{ position: 'absolute', ...cardOffset }}>
-                {showCards && playerCards.map((card, i) => (
+                {showCards && playerCardsToShow.map((card, i) => (
                     <Card
                         key={i}
                         card={card}
                         dealOrder={player.dealOrder}
                         isFolded={isFolded}
-                        isHidden={!player.isYou}
+                        isHidden={!player.isYou && !isShowdown}
+                        isWinner={isWinner}
                         cards={cards}
                     />
                 ))}
@@ -307,11 +460,12 @@ function Player({ player, step, cardsDealt, yourCards, foldedPlayers, calledPlay
                     <ActionIndicator action={currentAction} delay={0} />
                 )}
             </AnimatePresence>
+            {/* Phase별 베팅 칩 스택 (폴드해도 베팅한 칩은 계속 표시 - Pot에 흡수됨) */}
             <AnimatePresence>
-                {betAmount > 0 && (
-                    <ChipAnimation
-                        key={`chip-${step}`}
-                        amount={betAmount}
+                {phaseBets?.[player.position] > 0 && (
+                    <PlayerChipStack
+                        key={`phase-chips-${phase}`}
+                        amount={phaseBets[player.position]}
                         layoutPosition={player.layoutPosition}
                     />
                 )}
@@ -320,23 +474,95 @@ function Player({ player, step, cardsDealt, yourCards, foldedPlayers, calledPlay
     );
 }
 
-function Pot({ amount }) {
+// 칩 더미 (커뮤니티 카드 위쪽에 표시)
+function PotChips({ amount }) {
+    if (!amount || amount <= 0) return null;
+
+    const chipColors = {
+        red: 'linear-gradient(180deg, #e74c3c 0%, #c0392b 100%)',
+        green: 'linear-gradient(180deg, #27ae60 0%, #1e8449 100%)',
+        blue: 'linear-gradient(180deg, #3498db 0%, #2471a3 100%)',
+    };
+
+    // 칩 더미 생성 (대충 겹쳐서 쌓인 느낌)
+    // 금액에 따라 칩 개수 조절 (많을수록 더 많은 칩)
+    const chipCount = Math.min(12, Math.max(3, Math.ceil(amount / 20)));
+    const chips = [];
+    for (let i = 0; i < chipCount; i++) {
+        const colorIndex = i % 3;
+        const color = colorIndex === 0 ? 'red' : colorIndex === 1 ? 'green' : 'blue';
+        // 랜덤하게 겹치는 느낌
+        const offsetX = (Math.random() - 0.5) * 20;
+        const offsetY = i * -2;
+        chips.push({ color, offsetX, offsetY, delay: i * 0.02 });
+    }
+
     return (
         <motion.div
-            className="pot"
+            className="pot-chips"
+            style={{
+                position: 'absolute',
+                top: '32%',
+                left: '50%',
+                transform: 'translate(-50%, -50%)',
+                zIndex: 25,
+            }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.5 }}
+            transition={{ delay: 0.2 }}
         >
-            <div className="pot-label">POT</div>
-            <motion.div
-                className="pot-amount"
-                key={amount}
-                initial={{ scale: 1.2 }}
-                animate={{ scale: 1 }}
-            >
-                ${amount}
-            </motion.div>
+            <div style={{ position: 'relative', width: 60, height: 40 }}>
+                {chips.map((chip, i) => (
+                    <motion.div
+                        key={i}
+                        style={{
+                            position: 'absolute',
+                            left: 20 + chip.offsetX,
+                            bottom: 0,
+                            width: 20,
+                            height: 8,
+                            background: chipColors[chip.color],
+                            borderRadius: 4,
+                            boxShadow: '0 1px 3px rgba(0,0,0,0.5)',
+                            border: '1px solid rgba(255,255,255,0.2)',
+                            transform: `translateY(${chip.offsetY}px)`,
+                        }}
+                        initial={{ opacity: 0, y: -20 }}
+                        animate={{ opacity: 1, y: chip.offsetY }}
+                        transition={{ delay: chip.delay, type: 'spring', stiffness: 300 }}
+                    />
+                ))}
+            </div>
+        </motion.div>
+    );
+}
+
+// 팟 금액 (테이블 왼쪽 아래 구석에 작게 표시)
+function PotAmount({ amount }) {
+    if (!amount || amount <= 0) return null;
+
+    return (
+        <motion.div
+            className="pot-amount"
+            style={{
+                position: 'absolute',
+                bottom: '-5%',
+                left: '8%',
+                background: 'rgba(0, 0, 0, 0.75)',
+                color: '#f1c40f',
+                padding: '4px 10px',
+                borderRadius: 8,
+                fontSize: 13,
+                fontWeight: 'bold',
+                zIndex: 35,
+                border: '1px solid rgba(241, 196, 15, 0.3)',
+            }}
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.3 }}
+            key={amount}
+        >
+            POT: {amount}BB
         </motion.div>
     );
 }
@@ -388,9 +614,27 @@ export default function HoldemTable({ gameState }) {
         totalSteps,
         phase,
         pot,
+        collectedPot,
         communityCards,
         yourCards,
+        yourPosition,
+        currentStepData,
     } = state;
+
+    // position_modal 타입 체크
+    const showPositionModal = currentStepData?.type === 'position_modal';
+
+    // action_modal 타입 체크
+    const showActionModal = currentStepData?.type === 'action_modal';
+
+    // 쇼다운 체크 - showdown 또는 winner 스텝
+    const isShowdown = currentStepData?.type === 'showdown' || currentStepData?.type === 'winner';
+
+    // 시나리오에서 다른 플레이어 카드 가져오기
+    const scenarioPlayerCards = gameState.scenario.playerCards || {};
+
+    // 승자 정보
+    const winner = currentStepData?.type === 'winner' ? currentStepData.winner : null;
 
     // 현재 Phase에서의 액션만 수집 (Phase 전환 시 리셋)
     // 폴드는 게임 전체에서 유지, 다른 액션은 현재 Phase만
@@ -413,10 +657,10 @@ export default function HoldemTable({ gameState }) {
         if (s?.type === 'action' && s.action === 'FOLD') {
             foldedPlayers.push(s.player);
         }
-        // 블라인드 포스팅 표시
-        if (s?.type === 'blinds') {
-            blindPlayers['SB'] = 'SB';
-            blindPlayers['BB'] = 'BB';
+        // 블라인드 포스팅 표시 (실제 금액 저장)
+        if (s?.type === 'blinds' && s.bets) {
+            blindPlayers['SB'] = s.bets.SB;
+            blindPlayers['BB'] = s.bets.BB;
         }
         // 현재 Phase의 액션만 (폴드 제외)
         if (i >= lastPhaseChangeStep && s?.type === 'action' && s.action !== 'FOLD') {
@@ -424,7 +668,7 @@ export default function HoldemTable({ gameState }) {
         }
     }
 
-    // 현재 Phase의 CALL/CHECK/RAISE 플레이어
+    // 현재 Phase의 CALL/CHECK/RAISE/BET 플레이어
     const calledPlayers = Object.entries(currentPhaseActions)
         .filter(([_, action]) => action === 'CALL')
         .map(([player]) => player);
@@ -434,28 +678,56 @@ export default function HoldemTable({ gameState }) {
     const raisedPlayers = Object.entries(currentPhaseActions)
         .filter(([_, action]) => action === 'RAISE')
         .map(([player]) => player);
+    const betPlayers = Object.entries(currentPhaseActions)
+        .filter(([_, action]) => action === 'BET')
+        .map(([player]) => player);
+
+    // 동적으로 "YOU" 포지션 설정
+    const dynamicPlayerPositions = playerPositions.map(p => ({
+        ...p,
+        isYou: p.position === yourPosition,
+    }));
 
     // Calculate player chip balances (initial - total bets)
     const playerChips = {};
     const latestBet = {}; // { player: { amount, stepIndex } } - for animation
-    playerPositions.forEach(p => {
+    const phaseBets = {}; // { player: total bet amount in current phase }
+    dynamicPlayerPositions.forEach(p => {
         playerChips[p.position] = p.chips; // Start with initial chips
+        phaseBets[p.position] = 0;
     });
 
     for (let i = 0; i <= step; i++) {
         const s = gameState.scenario.steps[i];
+
+        // Phase 전환 시 phaseBets 리셋
+        if (s?.type === 'flop' || s?.type === 'turn' || s?.type === 'river') {
+            dynamicPlayerPositions.forEach(p => {
+                phaseBets[p.position] = 0;
+            });
+        }
+
         // Blind bets
         if (s?.type === 'blinds' && s.bets) {
             Object.entries(s.bets).forEach(([player, amount]) => {
                 playerChips[player] -= amount;
+                phaseBets[player] += amount;
                 if (i === step) latestBet[player] = { amount, stepIndex: i };
             });
         }
         // Action bets
         if (s?.type === 'action' && s.bet > 0) {
             playerChips[s.player] -= s.bet;
+            phaseBets[s.player] += s.bet;
             if (i === step) latestBet[s.player] = { amount: s.bet, stepIndex: i };
         }
+    }
+
+    // showdown/winner 스텝에서는 phaseBets 숨기기
+    if (currentStepData?.type === 'showdown' || currentStepData?.type === 'winner') {
+        dynamicPlayerPositions.forEach(p => {
+            phaseBets[p.position] = 0;
+        });
     }
 
     // CSS 변수로 스케일 전달
@@ -465,6 +737,14 @@ export default function HoldemTable({ gameState }) {
         '--table-height': `${tableWidth * 0.625}px`,
     };
 
+    // 플레이어 표시 시점 결정 (deal 또는 blinds 이후)
+    const showPlayers = gameState.scenario.steps.slice(0, step + 1)
+        .some(s => s?.type === 'deal' || s?.type === 'blinds' || s?.type === 'setup');
+
+    // 카드 딜링 완료 체크
+    const cardsDealt = gameState.scenario.steps.slice(0, step + 1)
+        .some(s => s?.type === 'deal');
+
     return (
         <div className="container embed-mode" style={containerStyle}>
             <GamePhase currentPhase={phase} />
@@ -472,26 +752,31 @@ export default function HoldemTable({ gameState }) {
                 <div className="table-rail" />
                 <div className="table-felt" />
 
-                {step >= 1 && playerPositions.map(player => (
+                {showPlayers && dynamicPlayerPositions.map(player => (
                     <Player
                         key={player.id}
                         player={player}
                         step={step}
-                        cardsDealt={step >= 2}
+                        cardsDealt={cardsDealt}
                         yourCards={yourCards}
                         foldedPlayers={foldedPlayers}
                         calledPlayers={calledPlayers}
                         checkedPlayers={checkedPlayers}
                         raisedPlayers={raisedPlayers}
+                        betPlayers={betPlayers}
                         blindPlayers={blindPlayers}
                         phase={phase}
                         playerChips={playerChips}
                         latestBet={latestBet}
+                        phaseBets={phaseBets}
                         cards={cards}
+                        isShowdown={isShowdown}
+                        scenarioPlayerCards={scenarioPlayerCards}
+                        winner={winner}
                     />
                 ))}
 
-                {step >= 1 && (
+                {showPlayers && (
                     <motion.div
                         className="dealer-button"
                         style={{ top: '34%', right: '15%' }}
@@ -503,7 +788,25 @@ export default function HoldemTable({ gameState }) {
                     </motion.div>
                 )}
 
-                {step >= 2 && <Pot amount={pot} />}
+                {/* 팟 칩 더미 (커뮤니티 카드 위쪽) */}
+                {cardsDealt && collectedPot > 0 && <PotChips amount={collectedPot} />}
+                {/* 팟 금액 (왼쪽 아래 구석) */}
+                {cardsDealt && collectedPot > 0 && <PotAmount amount={collectedPot} />}
+
+                {/* Winner에게 Pot 이동 애니메이션 */}
+                <AnimatePresence>
+                    {winner && (() => {
+                        const winnerPlayer = dynamicPlayerPositions.find(p => p.position === winner);
+                        return winnerPlayer ? (
+                            <PotToWinnerAnimation
+                                key={`pot-to-winner-${step}`}
+                                amount={pot}
+                                winnerPosition={winner}
+                                layoutPosition={winnerPlayer.layoutPosition}
+                            />
+                        ) : null;
+                    })()}
+                </AnimatePresence>
 
                 <div className="community-cards">
                     {communityCards.map((card, i) => (
@@ -512,6 +815,12 @@ export default function HoldemTable({ gameState }) {
                 </div>
 
                 <StepIndicator step={step} totalSteps={totalSteps} />
+
+                {/* 포지션 설명 모달 */}
+                <PositionInfoModal show={showPositionModal} />
+
+                {/* 액션 설명 모달 */}
+                <ActionInfoModal show={showActionModal} />
             </div>
         </div>
     );
