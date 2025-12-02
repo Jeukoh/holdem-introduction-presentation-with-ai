@@ -1,4 +1,26 @@
+# Dependencies
+node_modules/
 
-# Vite cache
+# Build outputs (Vite)
 .vite/
-prototypes/**/.vite/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Logs
+*.log
+npm-debug.log*
+
+# Temp files
+*.tmp
+*.temp
+
+# Legacy prototype folder (moved to src/)
+prototypes/
