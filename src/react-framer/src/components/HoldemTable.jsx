@@ -52,7 +52,6 @@ const positionColors = {
 // ASSET HELPERS
 // ===========================================
 
-const BASE = import.meta.env.BASE_URL || '/';
 // 스프라이트는 HTML에 인라인으로 포함됨 - #cardId 형태로만 참조
 // 카드 ID 변환 (예: {rank: 'A', suit: '♠'} → 'AS')
 const suitToCode = {
@@ -70,11 +69,11 @@ function getCardId(card) {
 }
 
 function getPositionIconUrl(position) {
-    return `${BASE}assets/positions/${position}.svg`;
+    return `assets/positions/${position}.svg`;
 }
 
 function getDealerButtonUrl() {
-    return `${BASE}assets/decorative/dealer-button.svg`;
+    return `assets/decorative/dealer-button.svg`;
 }
 
 // ===========================================

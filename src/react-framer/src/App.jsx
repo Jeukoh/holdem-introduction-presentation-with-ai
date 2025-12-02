@@ -139,28 +139,25 @@ const positionColors = {
 // ASSET HELPERS
 // ===========================================
 
-// Base URL for assets (supports sub-path hosting like GitHub Pages)
-const BASE = import.meta.env.BASE_URL || '/'
-
 // Convert suit symbol to file code
 const suitToCode = { '♥': 'H', '♦': 'D', '♣': 'C', '♠': 'S' }
 
-// Get card image URL
+// Get card image URL (상대 경로 - localhost와 GitHub Pages 모두 작동)
 function getCardImageUrl(card) {
-    if (!card) return `${BASE}assets/cards/back.svg`
+    if (!card) return `assets/cards/back.svg`
     const suitCode = suitToCode[card.suit] || 'S'
     const rankCode = card.rank === '10' ? '10' : card.rank
-    return `${BASE}assets/cards/${rankCode}${suitCode}.svg`
+    return `assets/cards/${rankCode}${suitCode}.svg`
 }
 
 // Get position icon URL
 function getPositionIconUrl(position) {
-    return `${BASE}assets/positions/${position}.svg`
+    return `assets/positions/${position}.svg`
 }
 
 // Get dealer button URL
 function getDealerButtonUrl() {
-    return `${BASE}assets/decorative/dealer-button.svg`
+    return `assets/decorative/dealer-button.svg`
 }
 
 // Your cards

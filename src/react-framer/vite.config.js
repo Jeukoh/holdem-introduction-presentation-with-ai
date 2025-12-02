@@ -35,5 +35,5 @@ export default defineConfig({
     outDir: 'dist',
   },
 
-  base: '/holdem-introduction-presentation-with-ai/',
+  // base는 상대 경로 사용으로 불필요 (localhost + GitHub Pages 모두 동작)
 })
