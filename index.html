@@ -112,6 +112,14 @@
                     currentEngineType = 'holdem';
                     return;
                 }
+
+                // HandRankingEngine 슬라이드 (2.1.2)
+                const handRankingContainer = currentSlide.querySelector('#hand-ranking-container');
+                if (handRankingContainer) {
+                    currentEngine = HoldemEngine.HandRankingEngine.mount(handRankingContainer);
+                    currentEngineType = 'handRanking';
+                    return;
+                }
             });
 
             // 커스텀 키보드 제어

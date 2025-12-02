@@ -2,6 +2,7 @@ import { createRoot } from 'react-dom/client';
 import { GameState, scenarios } from './engine/GameState';
 import HoldemTable from './components/HoldemTable';
 import DeckDisplay from './components/DeckDisplay';
+import HandRankingDisplay, { HAND_RANKING_TOTAL_STEPS } from './components/HandRankingDisplay';
 import './styles.css';
 
 // ===========================================
@@ -12,7 +13,7 @@ class DeckEngine {
     constructor(container, options = {}) {
         this.container = container;
         this.step = 0;
-        this.totalSteps = 8; // 0-7
+        this.totalSteps = 9; // 0-8 (added wave animation at step 7)
         this.root = createRoot(container);
         this.listeners = [];
 
@@ -85,6 +86,86 @@ class DeckEngine {
 }
 
 // ===========================================
+// HAND RANKING ENGINE - Poker Hands Education (Slide 2.1.2)
+// ===========================================
+
+class HandRankingEngine {
+    constructor(container, options = {}) {
+        this.container = container;
+        this.step = 0;
+        this.totalSteps = HAND_RANKING_TOTAL_STEPS;
+        this.root = createRoot(container);
+        this.listeners = [];
+
+        this._render();
+    }
+
+    _render() {
+        this.root.render(<HandRankingDisplay step={this.step} />);
+    }
+
+    _notify() {
+        this.listeners.forEach(fn => fn(this.getState()));
+    }
+
+    subscribe(fn) {
+        this.listeners.push(fn);
+        return () => {
+            this.listeners = this.listeners.filter(l => l !== fn);
+        };
+    }
+
+    nextStep() {
+        if (this.step < this.totalSteps - 1) {
+            this.step++;
+            this._render();
+            this._notify();
+            return true;
+        }
+        return false;
+    }
+
+    prevStep() {
+        if (this.step > 0) {
+            this.step--;
+            this._render();
+            this._notify();
+            return true;
+        }
+        return false;
+    }
+
+    goToStep(n) {
+        if (n >= 0 && n < this.totalSteps) {
+            this.step = n;
+            this._render();
+            this._notify();
+        }
+    }
+
+    reset() {
+        this.step = 0;
+        this._render();
+        this._notify();
+    }
+
+    getState() {
+        return {
+            step: this.step,
+            totalSteps: this.totalSteps,
+        };
+    }
+
+    destroy() {
+        this.root.unmount();
+    }
+
+    static mount(container, options = {}) {
+        return new HandRankingEngine(container, options);
+    }
+}
+
+// ===========================================
 // HOLDEM ENGINE - Native API for Reveal.js
 // ===========================================
 
@@ -152,9 +233,11 @@ class HoldemEngine {
 const HoldemEngines = {
     HoldemEngine,
     DeckEngine,
+    HandRankingEngine,
     // Convenience shortcuts
     mount: HoldemEngine.mount,
     mountDeck: DeckEngine.mount,
+    mountHandRanking: HandRankingEngine.mount,
 };
 
 export default HoldemEngines;

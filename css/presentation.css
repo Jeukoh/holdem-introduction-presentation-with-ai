@@ -519,7 +519,8 @@
 
 /* Section이 슬라이드 전체 높이를 채우도록 */
 #deck-slide,
-#holdem-demo {
+#holdem-demo,
+#hand-ranking-slide {
     height: 100%;
     display: flex !important;
     align-items: center;
@@ -527,7 +528,8 @@
 }
 
 #deck-container,
-#holdem-container {
+#holdem-container,
+#hand-ranking-container {
     display: flex;
     align-items: center;
     justify-content: center;

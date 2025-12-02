@@ -89,8 +89,22 @@ function getCardLayout(step, suitIndex, rankIndex, scale = 1) {
         };
     }
 
-    // Step 7: A열 하이라이트
+    // Step 7: 파도타기 애니메이션 (A→2→3→...→K 순서로 하이라이트)
+    // rankIndex: 0=A, 1=2, 2=3, ..., 12=K
+    // A부터 시작해서 K까지
     if (step === 7) {
+        return {
+            x: centerOffsetX + rankIndex * colGap,
+            y: centerOffsetY + suitIndex * rowGap,
+            opacity: 1,
+            filter: 'none',
+            // waveOrder는 rankIndex 그대로 (A=0, 2=1, ..., K=12)
+            waveOrder: rankIndex,
+        };
+    }
+
+    // Step 8: A열 하이라이트
+    if (step === 8) {
         const isAce = rankIndex === 0;
         return {
             x: centerOffsetX + rankIndex * colGap,
@@ -150,6 +164,17 @@ function DeckCard({ rank, suit, suitIndex, rankIndex, step, scale }) {
     const cardWidth = baseCardWidth * scale;
     const cardHeight = baseCardHeight * scale;
 
+    // Step 7: 파도타기 애니메이션 (A→K, 이전 열은 꺼짐)
+    const isWaveStep = step === 7;
+    const waveOrder = layout.waveOrder || 0;
+    const waveInterval = 0.15; // 각 열 사이 간격
+    const highlightDuration = 0.25; // 하이라이트 지속 시간
+    const totalWaveTime = 13 * waveInterval + highlightDuration; // 전체 애니메이션 시간
+
+    // 파도타기: dim → bright → dim 타이밍 계산
+    const myStartTime = waveOrder * waveInterval;
+    const myEndTime = myStartTime + highlightDuration;
+
     return (
         <motion.div
             style={{
@@ -169,9 +194,19 @@ function DeckCard({ rank, suit, suitIndex, rankIndex, step, scale }) {
                 x: layout.x,
                 y: layout.y,
                 opacity: layout.opacity,
-                filter: layout.filter,
+                filter: isWaveStep ? [
+                    'grayscale(100%) brightness(0.5)',  // 시작: 어둡게
+                    'grayscale(0%) brightness(1.3)',    // 켜짐
+                    'grayscale(100%) brightness(0.5)',  // 다시 어둡게
+                ] : layout.filter,
+                scale: isWaveStep ? [1, 1.1, 1] : 1,
             }}
-            transition={{
+            transition={isWaveStep ? {
+                delay: myStartTime,
+                duration: highlightDuration,
+                times: [0, 0.4, 1],
+                ease: 'easeOut',
+            } : {
                 delay,
                 duration: 0.4,
                 type: 'spring',
