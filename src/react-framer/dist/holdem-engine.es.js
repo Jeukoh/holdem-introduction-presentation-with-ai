@@ -6250,7 +6250,7 @@ const cd = 620, ud = 1, dd = [
   // 보라색
   CO: "#f39c12"
   // 주황색
-}, Zo = "/", fd = {
+}, Zo = "/holdem-introduction-presentation-with-ai/", fd = {
   "♥": "H",
   "♦": "D",
   "♣": "C",

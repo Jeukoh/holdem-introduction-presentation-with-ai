@@ -35,5 +35,5 @@ export default defineConfig({
     outDir: 'dist',
   },
 
-  // base: '/holdem-introduction-presentation-with-ai/',
+  base: '/holdem-introduction-presentation-with-ai/',
 })
