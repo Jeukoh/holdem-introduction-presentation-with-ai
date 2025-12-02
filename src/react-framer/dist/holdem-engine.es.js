@@ -5409,40 +5409,40 @@ function eh(t, e, n) {
   if (t === 0) {
     const a = e * 13 + n;
     return {
-      x: a * 1.5 - 40,
-      y: a * 0.8 - 20,
+      x: a * 1.8 - 50,
+      y: a * 1 - 25,
       opacity: 1,
       filter: "none"
     };
   }
   if (t === 1)
     return {
-      x: n * 3 - 20,
-      y: -93 + e * 62,
+      x: n * 4 - 25,
+      y: -117 + e * 78,
       opacity: 1,
       filter: "none"
     };
   if (t >= 2 && t <= 5) {
-    const a = t - 2, l = n * 3 - 20, u = e === a;
+    const a = t - 2, l = n * 4 - 25, u = e === a;
     return {
       x: l,
-      y: -93 + e * 62,
+      y: -117 + e * 78,
       opacity: 1,
       filter: u ? "none" : "grayscale(100%) brightness(0.6)"
     };
   }
   if (t === 6)
     return {
-      x: -264 + n * 44,
-      y: -93 + e * 62,
+      x: -330 + n * 55,
+      y: -117 + e * 78,
       opacity: 1,
       filter: "none"
     };
   if (t === 7) {
     const a = n === 0;
     return {
-      x: -264 + n * 44,
-      y: -93 + e * 62,
+      x: -330 + n * 55,
+      y: -117 + e * 78,
       opacity: 1,
       filter: a ? "none" : "grayscale(100%) brightness(0.6)"
     };
@@ -5465,7 +5465,7 @@ function sh({ rankSymbol: t, suitSymbol: e, color: n }) {
   ] });
 }
 function ih({ rank: t, suit: e, suitIndex: n, rankIndex: s, step: i }) {
-  const o = eh(i, n, s), r = nh(i, n, s), a = Zu[e], l = `V${t}`, u = a.symbol, c = a.color, h = 40, f = 56;
+  const o = eh(i, n, s), r = nh(i, n, s), a = Zu[e], l = `V${t}`, u = a.symbol, c = a.color, h = 50, f = 70;
   return /* @__PURE__ */ m.jsx(
     et.div,
     {
@@ -5525,8 +5525,8 @@ function rh({ step: t = 0 }) {
             left: "50%",
             top: "50%",
             transform: "translate(-50%, -50%)",
-            width: 572,
-            height: 248
+            width: 715,
+            height: 312
           },
           children: th.map((s) => /* @__PURE__ */ m.jsx(
             ih,

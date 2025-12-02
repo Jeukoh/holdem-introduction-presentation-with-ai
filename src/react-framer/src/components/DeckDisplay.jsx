@@ -31,8 +31,8 @@ const ALL_CARDS = SUITS.flatMap((suit, suitIndex) =>
 
 // Step별 레이아웃 계산 (중앙 기준 좌표)
 function getCardLayout(step, suitIndex, rankIndex) {
-    const colGap = 44;  // 카드 너비(40) + 간격(4)
-    const rowGap = 62;  // 카드 높이(56) + 간격(6)
+    const colGap = 55;  // 카드 너비(50) + 간격(5)
+    const rowGap = 78;  // 카드 높이(70) + 간격(8)
 
     // 그리드 중앙 오프셋 (13열 x 4행 기준)
     const centerOffsetX = -(13 * colGap) / 2 + colGap / 2;
@@ -42,8 +42,8 @@ function getCardLayout(step, suitIndex, rankIndex) {
     if (step === 0) {
         const offset = suitIndex * 13 + rankIndex;
         return {
-            x: offset * 1.5 - 40,
-            y: offset * 0.8 - 20,
+            x: offset * 1.8 - 50,
+            y: offset * 1.0 - 25,
             opacity: 1,
             filter: 'none',
         };
@@ -51,7 +51,7 @@ function getCardLayout(step, suitIndex, rankIndex) {
 
     // Step 1: 행 분리 (무늬별), 열은 겹침
     if (step === 1) {
-        const colOffset = rankIndex * 3 - 20;
+        const colOffset = rankIndex * 4 - 25;
         return {
             x: colOffset,
             y: centerOffsetY + suitIndex * rowGap,
@@ -63,7 +63,7 @@ function getCardLayout(step, suitIndex, rankIndex) {
     // Step 2-5: 무늬별 하이라이트 (행 분리 유지)
     if (step >= 2 && step <= 5) {
         const highlightSuit = step - 2; // 0=S, 1=H, 2=D, 3=C
-        const colOffset = rankIndex * 3 - 20;
+        const colOffset = rankIndex * 4 - 25;
         const isHighlighted = suitIndex === highlightSuit;
         return {
             x: colOffset,
@@ -138,9 +138,9 @@ function DeckCard({ rank, suit, suitIndex, rankIndex, step }) {
     const suitSymbol = suitInfo.symbol;
     const color = suitInfo.color;
 
-    // 카드 크기 (2.5:3.5 비율)
-    const cardWidth = 40;
-    const cardHeight = 56; // 40 * 3.5 / 2.5 = 56
+    // 카드 크기 (2.5:3.5 비율, QHD 대응)
+    const cardWidth = 50;
+    const cardHeight = 70; // 50 * 3.5 / 2.5 = 70
 
     return (
         <motion.div
@@ -184,8 +184,8 @@ function DeckCard({ rank, suit, suitIndex, rankIndex, step }) {
 
 export default function DeckDisplay({ step = 0 }) {
     // 그리드 전체 크기 (13열 x 4행)
-    const gridWidth = 13 * 44;  // 572px
-    const gridHeight = 4 * 62;  // 248px
+    const gridWidth = 13 * 55;  // 715px
+    const gridHeight = 4 * 78;  // 312px
 
     return (
         <div
