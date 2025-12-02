@@ -1,0 +1,28 @@
+<svg width="120" height="168" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .card-rank { font-family: 'Arial', sans-serif; font-size: 24px; font-weight: bold; fill: #000000; }
+      .card-suit-small { font-family: 'Arial', sans-serif; font-size: 20px; fill: #000000; }
+      .card-suit-large { font-family: 'Arial', sans-serif; font-size: 48px; fill: #000000; }
+    </style>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-opacity="0.2"/>
+    </filter>
+  </defs>
+
+  <!-- Card background -->
+  <rect width="120" height="168" rx="8" fill="#ffffff" stroke="#cccccc" stroke-width="2" filter="url(#shadow)"/>
+
+  <!-- Top left corner -->
+  <text x="10" y="28" class="card-rank">10</text>
+  <text x="10" y="48" class="card-suit-small">♠</text>
+
+  <!-- Bottom right corner (rotated) -->
+  <g transform="translate(110, 140) rotate(180)">
+    <text x="0" y="20" class="card-rank">10</text>
+    <text x="0" y="40" class="card-suit-small">♠</text>
+  </g>
+
+  <!-- Center suit symbol -->
+  <text x="60" y="100" class="card-suit-large" text-anchor="middle">♠</text>
+</svg>
