@@ -21,6 +21,11 @@
     <!-- React (for Holdem Engine) -->
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+
+    <!-- Scenarios (엔진 빌드 없이 수정 가능) -->
+    <script src="scenarios/game1-utg-observer.js"></script>
+    <script src="scenarios/game2-bb-aces-trap.js"></script>
+    <script src="scenarios/game2-replay-correct.js"></script>
 </head>
 <body>
     <div class="reveal">
@@ -38,6 +43,7 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/notes/notes.js"></script>
 
     <!-- Holdem Engine -->
     <script src="src/react-framer/dist/holdem-engine.iife.js"></script>
@@ -74,6 +80,10 @@
             const part2GameplayResponse = await fetch('slides/part2-gameplay.html');
             allSlides += await part2GameplayResponse.text();
 
+            // Part 3: 마무리
+            const part3Response = await fetch('slides/part3-closing.html');
+            allSlides += await part3Response.text();
+
             slidesContainer.innerHTML = allSlides;
 
             // Reveal.js 초기화
@@ -82,12 +92,19 @@
                 transition: 'slide',
                 showNotes: false,
                 keyboard: false,
-                plugins: []
+                plugins: [RevealNotes]
             });
 
             // 슬라이드 변경 감지
             Reveal.on('slidechanged', (event) => {
                 const currentSlide = event.currentSlide;
+                const previousSlide = event.previousSlide;
+
+                // 이전 슬라이드의 crossfade 리셋
+                if (previousSlide) {
+                    const crossfade = previousSlide.querySelector('.crossfade-container');
+                    if (crossfade) crossfade.classList.remove('triggered');
+                }
 
                 // 이전 엔진 정리
                 if (currentEngine) {
@@ -104,11 +121,14 @@
                     return;
                 }
 
-                // HoldemEngine 슬라이드 (2.2)
-                const holdemContainer = currentSlide.querySelector('#holdem-container');
+                // HoldemEngine 슬라이드 - 시나리오 자동 감지
+                const holdemContainer = currentSlide.querySelector('[id^="holdem-container"]');
                 if (holdemContainer) {
+                    // data-scenario 속성에서 시나리오 이름 가져오기
+                    const scenarioKey = currentSlide.dataset.scenario || 'game1_utg_observer';
+                    const scenario = window.SCENARIOS?.[scenarioKey];
                     currentEngine = HoldemEngine.HoldemEngine.mount(holdemContainer, {
-                        scenario: 'tutorial'
+                        scenario: scenario
                     });
                     currentEngineType = 'holdem';
                     return;
@@ -121,6 +141,14 @@
                     currentEngineType = 'handRanking';
                     return;
                 }
+
+                // HoldemIntroEngine 슬라이드 (2.1.3)
+                const holdemIntroContainer = currentSlide.querySelector('#holdem-intro-container');
+                if (holdemIntroContainer) {
+                    currentEngine = HoldemEngine.HoldemIntroEngine.mount(holdemIntroContainer);
+                    currentEngineType = 'holdemIntro';
+                    return;
+                }
             });
 
             // 커스텀 키보드 제어
@@ -130,6 +158,15 @@
                 // Space: 엔진 step 진행 또는 다음 슬라이드
                 if (e.code === 'Space') {
                     e.preventDefault();
+
+                    // Crossfade 컨테이너 체크
+                    const currentSlide = Reveal.getCurrentSlide();
+                    const crossfade = currentSlide?.querySelector('.crossfade-container:not(.triggered)');
+                    if (crossfade) {
+                        crossfade.classList.add('triggered');
+                        return;
+                    }
+
                     if (hasEngine) {
                         const state = currentEngine.getState();
                         if (state.step < state.totalSteps - 1) {
@@ -163,6 +200,10 @@
                 // Esc: Overview
                 else if (e.code === 'Escape') {
                     Reveal.toggleOverview();
+                }
+                // S: Speaker Notes
+                else if (e.code === 'KeyS') {
+                    Reveal.getPlugin('notes').open();
                 }
             });
         }

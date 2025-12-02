@@ -1,8 +1,10 @@
 import { createRoot } from 'react-dom/client';
-import { GameState, scenarios } from './engine/GameState';
+import { GameState } from './engine/GameState';
+import { parsePHH } from './phhParser';
 import HoldemTable from './components/HoldemTable';
 import DeckDisplay from './components/DeckDisplay';
 import HandRankingDisplay, { HAND_RANKING_TOTAL_STEPS } from './components/HandRankingDisplay';
+import HoldemIntroDisplay from './components/HoldemIntroDisplay';
 import './styles.css';
 
 // ===========================================
@@ -170,9 +172,15 @@ class HandRankingEngine {
 // ===========================================
 
 class HoldemEngine {
+    /**
+     * @param {HTMLElement} container
+     * @param {Object} options
+     * @param {Object} [options.scenario] - 시나리오 객체 직접 전달
+     * @param {string} [options.phh] - PHH 문자열
+     */
     constructor(container, options = {}) {
         this.container = container;
-        this.gameState = new GameState(options.scenario || 'tutorial');
+        this.gameState = new GameState(options);
         this.root = createRoot(container);
 
         // 상태 변화시 리렌더
@@ -205,8 +213,12 @@ class HoldemEngine {
         this.gameState.reset();
     }
 
-    setScenario(scenarioKey) {
-        this.gameState.setScenario(scenarioKey);
+    /**
+     * 새 시나리오 로드
+     * @param {Object} options - { scenario: {...} } 또는 { phh: "..." }
+     */
+    loadScenario(options) {
+        this.gameState.loadScenario(options);
     }
 
     getState() {
@@ -218,14 +230,94 @@ class HoldemEngine {
         this.root.unmount();
     }
 
-    // Static methods
-    static getScenarios() {
-        return GameState.getScenarios();
-    }
-
     // Static mount for convenience
     static mount(container, options = {}) {
         return new HoldemEngine(container, options);
+    }
+
+    // parsePHH 유틸리티 노출
+    static parsePHH = parsePHH;
+}
+
+// ===========================================
+// HOLDEM INTRO ENGINE - 7장 중 5장 설명 (Slide 2.1.3)
+// ===========================================
+
+const HOLDEM_INTRO_TOTAL_STEPS = 7; // 0-6
+
+class HoldemIntroEngine {
+    constructor(container, options = {}) {
+        this.container = container;
+        this.step = 0;
+        this.totalSteps = HOLDEM_INTRO_TOTAL_STEPS;
+        this.root = createRoot(container);
+        this.listeners = [];
+
+        this._render();
+    }
+
+    _render() {
+        this.root.render(<HoldemIntroDisplay step={this.step} />);
+    }
+
+    _notify() {
+        this.listeners.forEach(fn => fn(this.getState()));
+    }
+
+    subscribe(fn) {
+        this.listeners.push(fn);
+        return () => {
+            this.listeners = this.listeners.filter(l => l !== fn);
+        };
+    }
+
+    nextStep() {
+        if (this.step < this.totalSteps - 1) {
+            this.step++;
+            this._render();
+            this._notify();
+            return true;
+        }
+        return false;
+    }
+
+    prevStep() {
+        if (this.step > 0) {
+            this.step--;
+            this._render();
+            this._notify();
+            return true;
+        }
+        return false;
+    }
+
+    goToStep(n) {
+        if (n >= 0 && n < this.totalSteps) {
+            this.step = n;
+            this._render();
+            this._notify();
+        }
+    }
+
+    reset() {
+        this.step = 0;
+        this._render();
+        this._notify();
+    }
+
+    getState() {
+        return {
+            step: this.step,
+            totalSteps: this.totalSteps,
+        };
+    }
+
+    destroy() {
+        this.root.unmount();
+    }
+
+    static mount(container, options = {}) {
+        return new HoldemIntroEngine(container, options);
     }
 }
 
@@ -234,10 +326,12 @@ const HoldemEngines = {
     HoldemEngine,
     DeckEngine,
     HandRankingEngine,
+    HoldemIntroEngine,
     // Convenience shortcuts
     mount: HoldemEngine.mount,
     mountDeck: DeckEngine.mount,
     mountHandRanking: HandRankingEngine.mount,
+    mountHoldemIntro: HoldemIntroEngine.mount,
 };
 
 export default HoldemEngines;

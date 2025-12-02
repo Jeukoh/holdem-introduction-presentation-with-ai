@@ -6,8 +6,8 @@ import { useCardBundle } from '../hooks/useCardBundle';
 // ===========================================
 
 // 고정 스케일 - Reveal.js 960x700 슬라이드 기준
-// 카드 랭크 가시성을 위해 1.3으로 설정
-const FIXED_SCALE = 1.3;
+// 카드 랭크 가시성을 위해 1.5로 설정
+const FIXED_SCALE = 1.5;
 
 // 카드 ID 변환: "As" → "AS", "Kh" → "KH"
 function cardStrToSymbolId(cardStr) {
@@ -18,10 +18,11 @@ function cardStrToSymbolId(cardStr) {
 
 // 핸드 랭킹 데이터 (강→약) - 확률 출처: 5장 드로우 기준 (2,598,960 조합)
 // 각 족보별 3개 예시: 강한 예시 → 약한 예시 → 특수 케이스/무승부
+// 표시는 강→약이지만, step 진행은 약→강 (아래→위)
 const HAND_RANKINGS = [
     {
-        name: 'Royal Flush',
-        nameKr: '로열 플러시',
+        name: 'Royal Straight Flush',
+        nameKr: '로열 스트레이트 플러시',
         description: '같은 무늬 A-K-Q-J-10',
         count: 4,
         probability: '0.00015%',
@@ -145,18 +146,19 @@ const HAND_RANKINGS = [
 const TOTAL_STEPS = HAND_RANKINGS.reduce((sum, hand) => sum + hand.examples.length, 0);
 
 // step → (handIndex, exampleIndex) 매핑
+// 배열은 강→약이지만, step은 아래(High Card)부터 위(Royal)로 진행
 function getHandAndExampleIndex(step) {
     let remaining = step;
-    for (let handIdx = 0; handIdx < HAND_RANKINGS.length; handIdx++) {
+    // 역순으로 탐색 (High Card → Royal)
+    for (let handIdx = HAND_RANKINGS.length - 1; handIdx >= 0; handIdx--) {
         const exampleCount = HAND_RANKINGS[handIdx].examples.length;
         if (remaining < exampleCount) {
             return { handIndex: handIdx, exampleIndex: remaining };
         }
         remaining -= exampleCount;
     }
-    // 마지막 핸드의 마지막 예시
-    const lastHand = HAND_RANKINGS.length - 1;
-    return { handIndex: lastHand, exampleIndex: HAND_RANKINGS[lastHand].examples.length - 1 };
+    // 첫 번째 핸드(Royal)의 마지막 예시
+    return { handIndex: 0, exampleIndex: HAND_RANKINGS[0].examples.length - 1 };
 }
 
 // 미니 카드 컴포넌트 (JSON 번들 사용)
@@ -214,35 +216,36 @@ function HandListItem({ hand, isActive, isPassed, scale }) {
             }}
             transition={{ duration: 0.2 }}
             style={{
-                padding: `${3 * scale}px ${8 * scale}px`,
+                padding: `${5 * scale}px ${8 * scale}px`,
                 borderRadius: 4 * scale,
                 marginBottom: 2 * scale,
                 display: 'flex',
                 alignItems: 'center',
-                gap: 4 * scale,
+                gap: 5 * scale,
             }}
         >
             {/* 족보명 */}
             <span style={{
-                fontSize: 11 * scale,
+                fontSize: 12 * scale,
                 fontWeight: 'bold',
-                minWidth: 100 * scale,
+                minWidth: 110 * scale,
             }}>
                 {hand.name}
             </span>
             {/* 설명 */}
             <span style={{
-                fontSize: 9 * scale,
+                fontSize: 10 * scale,
                 opacity: 0.7,
-                minWidth: 80 * scale,
+                minWidth: 100 * scale,
+                whiteSpace: 'nowrap',
             }}>
                 {hand.description}
             </span>
             {/* 경우의 수 */}
             <span style={{
-                fontSize: 9 * scale,
+                fontSize: 10 * scale,
                 opacity: 0.6,
-                minWidth: 55 * scale,
+                minWidth: 60 * scale,
                 textAlign: 'right',
                 fontFamily: 'monospace',
             }}>
@@ -250,9 +253,9 @@ function HandListItem({ hand, isActive, isPassed, scale }) {
             </span>
             {/* 확률 */}
             <span style={{
-                fontSize: 9 * scale,
+                fontSize: 10 * scale,
                 opacity: 0.6,
-                minWidth: 45 * scale,
+                minWidth: 48 * scale,
                 textAlign: 'right',
             }}>
                 {hand.probability}
@@ -278,7 +281,7 @@ function ExampleRow({ example, exampleIdx, handName, scale, isNew, cards }) {
                     key={`${handName}-${exampleIdx}-${card}`}
                     cardStr={card}
                     index={i}
-                    scale={scale * 0.85}
+                    scale={scale * 1.1}
                     shouldAnimate={isNew}
                     cards={cards}
                 />
@@ -343,13 +346,14 @@ export default function HandRankingDisplay({ step = 0 }) {
                 justifyContent: 'center',
                 width: '100%',
                 height: '100%',
+                paddingTop: 40 * scale,
             }}
         >
             {/* 왼쪽: 핸드 리스트 */}
             <div style={{
                 display: 'flex',
                 flexDirection: 'column',
-                minWidth: 280 * scale,
+                minWidth: 310 * scale,
             }}>
                 <div style={{
                     fontSize: 18 * scale,
@@ -373,7 +377,7 @@ export default function HandRankingDisplay({ step = 0 }) {
                         key={hand.name}
                         hand={hand}
                         isActive={index === currentHandIndex}
-                        isPassed={index < currentHandIndex}
+                        isPassed={index > currentHandIndex}
                         scale={scale}
                     />
                 ))}

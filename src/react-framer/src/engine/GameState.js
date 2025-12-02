@@ -1,92 +1,21 @@
-import { parsePHH, examplePHH } from '../phhParser';
+import { parsePHH } from '../phhParser';
 
 // ===========================================
-// SCENARIOS - 게임 시나리오 정의
+// BUILT-IN DEMO SCENARIO (for development/testing only)
+// Production use: pass scenario via mount options
 // ===========================================
 
-const phhScenario = parsePHH(examplePHH);
-
-export const scenarios = {
-    phh: phhScenario,
-
-    tutorial: {
-        name: '🎓 Tutorial: 한 판의 홀덤',
-        yourPosition: 'BB',
-        yourCards: [
-            { suit: '♥', rank: 'A', color: 'red' },
-            { suit: '♠', rank: '7', color: 'black' }
-        ],
-        steps: [
-            { type: 'setup', description: '테이블 셋업' },
-            { type: 'deal', description: '카드 딜링' },
-            { type: 'blinds', pot: 150, bets: { SB: 50, BB: 100 }, description: 'SB $50 + BB $100' },
-            { type: 'action', player: 'UTG', action: 'FOLD', bet: 0, pot: 150, description: 'UTG 폴드' },
-            { type: 'action', player: 'HJ', action: 'CALL', bet: 100, pot: 250, description: 'HJ $100 콜' },
-            { type: 'action', player: 'CO', action: 'FOLD', bet: 0, pot: 250, description: 'CO 폴드' },
-            { type: 'action', player: 'BTN', action: 'FOLD', bet: 0, pot: 250, description: 'BTN 폴드' },
-            { type: 'action', player: 'SB', action: 'CALL', bet: 50, pot: 300, description: 'SB $50 콜' },
-            { type: 'action', player: 'BB', action: 'CHECK', bet: 0, pot: 300, description: 'BB 체크' },
-            {
-                type: 'flop',
-                cards: [
-                    { suit: '♥', rank: 'K', color: 'red' },
-                    { suit: '♦', rank: '7', color: 'red' },
-                    { suit: '♣', rank: '2', color: 'black' }
-                ],
-                pot: 300,
-                description: '플랍: K♥ 7♦ 2♣'
-            },
-            {
-                type: 'turn',
-                card: { suit: '♠', rank: '3', color: 'black' },
-                pot: 300,
-                description: '턴: 3♠'
-            },
-            {
-                type: 'river',
-                card: { suit: '♥', rank: 'A', color: 'red' },
-                pot: 300,
-                description: '리버: A♥'
-            }
-        ]
-    },
-
-    preflop: {
-        name: 'Pre-flop Basic',
-        yourPosition: 'BB',
-        yourCards: [
-            { suit: '♥', rank: 'A', color: 'red' },
-            { suit: '♠', rank: '7', color: 'black' }
-        ],
-        steps: [
-            { type: 'setup', description: '테이블 셋업' },
-            { type: 'deal', description: '카드 딜링' },
-            { type: 'blinds', pot: 150, description: '블라인드 포스팅' },
-            { type: 'action', player: 'UTG', action: 'FOLD', description: 'UTG 폴드' },
-            { type: 'action', player: 'HJ', action: 'CALL', pot: 250, description: 'HJ 콜' },
-            { type: 'your_turn', description: '당신의 차례' }
-        ]
-    },
-
-    flop: {
-        name: 'Flop Decision',
-        yourPosition: 'BTN',
-        yourCards: [
-            { suit: '♠', rank: 'K', color: 'black' },
-            { suit: '♠', rank: 'Q', color: 'black' }
-        ],
-        communityCards: [
-            { suit: '♠', rank: 'J', color: 'black' },
-            { suit: '♥', rank: '10', color: 'red' },
-            { suit: '♦', rank: '2', color: 'red' }
-        ],
-        steps: [
-            { type: 'setup', description: '테이블 셋업' },
-            { type: 'deal', description: '카드 딜링' },
-            { type: 'flop', description: '플랍 오픈' },
-            { type: 'your_turn', description: '플러시 드로우 + 스트레이트 드로우!' }
-        ]
-    }
+const DEMO_SCENARIO = {
+    name: 'Demo: Empty Table',
+    yourPosition: 'BB',
+    yourCards: [
+        { suit: '♥', rank: 'A', color: 'red' },
+        { suit: '♠', rank: 'K', color: 'black' }
+    ],
+    steps: [
+        { type: 'setup', description: '테이블 셋업' },
+        { type: 'deal', description: '카드 딜링' },
+    ]
 };
 
 // ===========================================
@@ -94,9 +23,24 @@ export const scenarios = {
 // ===========================================
 
 export class GameState {
-    constructor(scenarioKey = 'tutorial') {
-        this.scenarioKey = scenarioKey;
-        this.scenario = scenarios[scenarioKey] || scenarios.tutorial;
+    /**
+     * @param {Object} options
+     * @param {Object} [options.scenario] - 시나리오 객체 직접 전달
+     * @param {string} [options.phh] - PHH 문자열 (파싱하여 시나리오로 변환)
+     */
+    constructor(options = {}) {
+        // 시나리오 결정 우선순위: scenario 객체 > phh 문자열 > 데모 시나리오
+        if (options.scenario) {
+            this.scenario = options.scenario;
+            this.scenarioKey = options.scenario.name || 'custom';
+        } else if (options.phh) {
+            this.scenario = parsePHH(options.phh);
+            this.scenarioKey = 'phh';
+        } else {
+            this.scenario = DEMO_SCENARIO;
+            this.scenarioKey = 'demo';
+        }
+
         this.step = 0;
         this.listeners = new Set();
     }
@@ -148,14 +92,20 @@ export class GameState {
         this._notify();
     }
 
-    // 시나리오 변경
-    setScenario(scenarioKey) {
-        if (scenarios[scenarioKey]) {
-            this.scenarioKey = scenarioKey;
-            this.scenario = scenarios[scenarioKey];
-            this.step = 0;
-            this._notify();
+    /**
+     * 새 시나리오 로드
+     * @param {Object} options - { scenario: {...} } 또는 { phh: "..." }
+     */
+    loadScenario(options) {
+        if (options.scenario) {
+            this.scenario = options.scenario;
+            this.scenarioKey = options.scenario.name || 'custom';
+        } else if (options.phh) {
+            this.scenario = parsePHH(options.phh);
+            this.scenarioKey = 'phh';
         }
+        this.step = 0;
+        this._notify();
     }
 
     // 현재 상태 조회
@@ -182,8 +132,30 @@ export class GameState {
             else if (s?.type === 'river') phase = 'river';
         }
 
-        // 팟 금액
-        const pot = currentStepData.pot || (this.step >= 2 ? 150 : 0);
+        // 팟 금액 - 현재 스텝까지의 최신 pot 값 찾기
+        let pot = 0;
+        for (let i = 0; i <= this.step; i++) {
+            const s = this.scenario.steps[i];
+            if (s?.pot !== undefined) {
+                pot = s.pot;
+            }
+        }
+
+        // 중앙에 모인 팟 (페이즈 전환 시점까지만)
+        // - flop/turn/river 스텝에서 직전 pot 값
+        // - showdown/winner 스텝에서는 전체 pot
+        let collectedPot = 0;
+        for (let i = 0; i <= this.step; i++) {
+            const s = this.scenario.steps[i];
+            // 페이즈 전환(flop/turn/river) 또는 쇼다운/위너 시점에서 pot 업데이트
+            if (s?.type === 'flop' || s?.type === 'turn' || s?.type === 'river' ||
+                s?.type === 'showdown' || s?.type === 'winner') {
+                // 직전 스텝의 pot 값 (현재 스텝 포함)
+                if (s?.pot !== undefined) {
+                    collectedPot = s.pot;
+                }
+            }
+        }
 
         return {
             scenarioKey: this.scenarioKey,
@@ -193,18 +165,13 @@ export class GameState {
             currentStepData,
             phase,
             pot,
+            collectedPot,
             communityCards,
             yourCards: this.scenario.yourCards,
             yourPosition: this.scenario.yourPosition,
+            // 쇼다운/위너 시 다른 플레이어 카드
+            playerCards: this.scenario.playerCards,
         };
-    }
-
-    // 시나리오 목록 조회
-    static getScenarios() {
-        return Object.keys(scenarios).map(key => ({
-            key,
-            name: scenarios[key].name
-        }));
     }
 }
 

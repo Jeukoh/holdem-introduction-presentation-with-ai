@@ -78,6 +78,15 @@
     transform: translateY(0);
 }
 
+/* 느린 crossfade 효과 - Space 누르면 트리거 */
+.crossfade-container.triggered .crossfade-out {
+    opacity: 0 !important;
+}
+
+.crossfade-container.triggered .crossfade-in {
+    opacity: 1 !important;
+}
+
 /* 게임 iframe 스타일 */
 .reveal .holdem-frame {
     width: 100%;

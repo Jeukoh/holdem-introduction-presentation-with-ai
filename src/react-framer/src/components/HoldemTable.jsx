@@ -3,6 +3,11 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useCardBundle } from '../hooks/useCardBundle';
 import PositionInfoModal from './PositionInfoModal';
 import ActionInfoModal from './ActionInfoModal';
+import EquityModal from './EquityModal';
+import EVModal from './EVModal';
+import ComparisonModal from './ComparisonModal';
+import LessonModal from './LessonModal';
+import PotOddsModal from './PotOddsModal';
 
 // ===========================================
 // FIXED LAYOUT (Reveal.js handles viewport scaling)
@@ -182,14 +187,19 @@ function ActionIndicator({ action, delay }) {
 }
 
 // Chip stack component - shows accumulated chips in front of player during phase
-function PlayerChipStack({ amount, layoutPosition }) {
+function PlayerChipStack({ amount, layoutPosition, position }) {
     if (!amount || amount <= 0) return null;
 
     // 칩 스택 위치 (테이블 중앙 방향으로, 카드와 겹치지 않게)
+    // BB/CO는 카드와 분리하기 위해 오프셋 조정
     const getChipPosition = () => {
         switch (layoutPosition) {
-            case 'top': return { top: 'calc(100% + 50px)', left: '50%', transform: 'translateX(-50%)' };
-            case 'bottom': return { bottom: 'calc(100% + 50px)', left: '50%', transform: 'translateX(-50%)' };
+            case 'top':
+                // CO: 칩을 살짝 왼쪽으로 (카드는 오른쪽에 있음)
+                return { top: 'calc(100% + 50px)', left: 'calc(50% - 40px)', transform: 'translateX(-50%)' };
+            case 'bottom':
+                // BB: 칩을 오른쪽으로 (카드는 왼쪽에 있음)
+                return { bottom: 'calc(100% + 50px)', left: 'calc(50% + 40px)', transform: 'translateX(-50%)' };
             case 'left': return { left: 'calc(100% + 80px)', top: '50%', transform: 'translateY(-50%)' };
             case 'right': return { right: 'calc(100% + 80px)', top: '50%', transform: 'translateY(-50%)' };
             default: return {};
@@ -329,7 +339,7 @@ function PotToWinnerAnimation({ amount, winnerPosition, layoutPosition }) {
     );
 }
 
-function Player({ player, step, cardsDealt, yourCards, foldedPlayers, calledPlayers, checkedPlayers, raisedPlayers, betPlayers, blindPlayers, phase, playerChips, latestBet, phaseBets, cards, isShowdown, scenarioPlayerCards, winner }) {
+function Player({ player, step, cardsDealt, yourCards, foldedPlayers, calledPlayers, checkedPlayers, raisedPlayers, betPlayers, blindPlayers, phase, playerChips, latestBet, phaseBets, cards, isShowdown, isRevealAll, scenarioPlayerCards, winner }) {
     const [iconError, setIconError] = useState(false);
     const showCards = cardsDealt && step >= 2;
     const isFolded = foldedPlayers.includes(player.position);
@@ -341,10 +351,15 @@ function Player({ player, step, cardsDealt, yourCards, foldedPlayers, calledPlay
     const isWinner = winner === player.position;
 
     // 카드 결정: 자기 카드 또는 쇼다운 시 다른 플레이어 카드
+    // isRevealAll이면 폴드한 플레이어도 카드 공개
     let playerCardsToShow = [null, null];
     if (player.isYou) {
         playerCardsToShow = yourCards;
+    } else if (isRevealAll && scenarioPlayerCards?.[player.position]) {
+        // reveal_all_hands: 폴드 여부 상관없이 모든 카드 공개
+        playerCardsToShow = scenarioPlayerCards[player.position];
     } else if (isShowdown && !isFolded && scenarioPlayerCards?.[player.position]) {
+        // 일반 쇼다운: 폴드 안한 플레이어만
         playerCardsToShow = scenarioPlayerCards[player.position];
     }
     const positionColor = positionColors[player.position];
@@ -360,9 +375,13 @@ function Player({ player, step, cardsDealt, yourCards, foldedPlayers, calledPlay
     const isBottom = player.layoutPosition === 'bottom';
     const isLeft = player.layoutPosition === 'left';
 
-    const cardOffset = isTop ? { top: '100%', left: '50%', transform: 'translateX(-50%)' }
-        : isBottom ? { bottom: '100%', left: '50%', transform: 'translateX(-50%)' }
-        : isLeft ? { left: '100%', top: '50%', transform: 'translateY(-50%)' }
+    // 카드 위치 - BB/CO는 칩과 분리하기 위해 오프셋 조정
+    const cardOffset = isTop
+        ? { top: '100%', left: 'calc(50% + 40px)', transform: 'translateX(-50%)' }  // CO: 카드 오른쪽으로
+        : isBottom
+        ? { bottom: '100%', left: 'calc(50% - 40px)', transform: 'translateX(-50%)' }  // BB: 카드 왼쪽으로
+        : isLeft
+        ? { left: '100%', top: '50%', transform: 'translateY(-50%)' }
         : { right: '100%', top: '50%', transform: 'translateY(-50%)' };
 
     // 현재 표시할 액션 결정 (우선순위: FOLD > RAISE > BET > CALL > CHECK > BLIND)
@@ -390,31 +409,6 @@ function Player({ player, step, cardsDealt, yourCards, foldedPlayers, calledPlay
             animate={{ opacity: 1 }}
             transition={{ delay: player.id * 0.1 }}
         >
-            {/* YOU 배지 - 플레이어 위에 눈에 띄게 표시 */}
-            {player.isYou && (
-                <motion.div
-                    style={{
-                        position: 'absolute',
-                        top: -28,
-                        left: '50%',
-                        transform: 'translateX(-50%)',
-                        background: 'linear-gradient(135deg, #e74c3c 0%, #c0392b 100%)',
-                        color: '#fff',
-                        padding: '4px 12px',
-                        borderRadius: 12,
-                        fontSize: 12,
-                        fontWeight: 'bold',
-                        boxShadow: '0 2px 8px rgba(231, 76, 60, 0.5)',
-                        zIndex: 50,
-                        whiteSpace: 'nowrap',
-                    }}
-                    initial={{ scale: 0, y: 10 }}
-                    animate={{ scale: 1, y: 0 }}
-                    transition={{ delay: 0.3, type: 'spring', stiffness: 300 }}
-                >
-                    👆 YOU
-                </motion.div>
-            )}
             <div className="position-icon" style={iconError ? { background: positionColor } : {}}>
                 {iconError ? (
                     <span style={{ color: '#fff', fontWeight: 'bold', fontSize: '14px' }}>
@@ -429,9 +423,16 @@ function Player({ player, step, cardsDealt, yourCards, foldedPlayers, calledPlay
                 )}
             </div>
             <div className="player-info">
-                <div className="player-name" style={player.isYou ? { color: '#e74c3c', fontWeight: 'bold' } : {}}>
-                    {player.isYou ? 'YOU' : player.position}
-                </div>
+                {/* YOU만 표시, 다른 플레이어는 포지션 아이콘으로 충분 */}
+                {player.isYou && (
+                    <div className="player-name" style={{
+                        color: '#e74c3c',
+                        fontWeight: 'bold',
+                        textShadow: '0 0 8px rgba(231, 76, 60, 0.5)'
+                    }}>
+                        YOU
+                    </div>
+                )}
                 <motion.div
                     className="player-chips"
                     key={currentChips}
@@ -449,7 +450,7 @@ function Player({ player, step, cardsDealt, yourCards, foldedPlayers, calledPlay
                         card={card}
                         dealOrder={player.dealOrder}
                         isFolded={isFolded}
-                        isHidden={!player.isYou && !isShowdown}
+                        isHidden={!player.isYou && !isShowdown && !isRevealAll}
                         isWinner={isWinner}
                         cards={cards}
                     />
@@ -621,14 +622,22 @@ export default function HoldemTable({ gameState }) {
         currentStepData,
     } = state;
 
-    // position_modal 타입 체크
+    // 모달 타입 체크
     const showPositionModal = currentStepData?.type === 'position_modal';
-
-    // action_modal 타입 체크
     const showActionModal = currentStepData?.type === 'action_modal';
+    const showEquityModal = currentStepData?.type === 'equity_modal';
+    const showEVModal = currentStepData?.type === 'ev_modal';
+    const showComparisonModal = currentStepData?.type === 'comparison_modal';
+    const showLessonModal = currentStepData?.type === 'lesson';
+    const showPotOddsModal = currentStepData?.type === 'pot_odds_modal';
+    const showInfoModal = currentStepData?.type === 'info_modal';
 
     // 쇼다운 체크 - showdown 또는 winner 스텝
-    const isShowdown = currentStepData?.type === 'showdown' || currentStepData?.type === 'winner';
+    const isShowdown = currentStepData?.type === 'showdown' ||
+                       currentStepData?.type === 'winner';
+
+    // 모든 핸드 공개 (폴드한 플레이어 포함)
+    const isRevealAll = currentStepData?.type === 'reveal_all_hands';
 
     // 시나리오에서 다른 플레이어 카드 가져오기
     const scenarioPlayerCards = gameState.scenario.playerCards || {};
@@ -771,6 +780,7 @@ export default function HoldemTable({ gameState }) {
                         phaseBets={phaseBets}
                         cards={cards}
                         isShowdown={isShowdown}
+                        isRevealAll={isRevealAll}
                         scenarioPlayerCards={scenarioPlayerCards}
                         winner={winner}
                     />
@@ -821,6 +831,78 @@ export default function HoldemTable({ gameState }) {
 
                 {/* 액션 설명 모달 */}
                 <ActionInfoModal show={showActionModal} />
+
+                {/* 승률(Equity) 모달 */}
+                <EquityModal show={showEquityModal} data={currentStepData} />
+
+                {/* EV 계산 모달 */}
+                <EVModal show={showEVModal} data={currentStepData} />
+
+                {/* 비교 모달 */}
+                <ComparisonModal show={showComparisonModal} data={currentStepData} />
+
+                {/* 교훈 모달 */}
+                <LessonModal show={showLessonModal} data={currentStepData} />
+
+                {/* Pot Odds 교육 모달 */}
+                <PotOddsModal show={showPotOddsModal} data={currentStepData} />
+
+                {/* 정보 모달 (일반) */}
+                {showInfoModal && (
+                    <motion.div
+                        style={{
+                            position: 'absolute',
+                            top: 0,
+                            left: 0,
+                            right: 0,
+                            bottom: 0,
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            zIndex: 100,
+                            pointerEvents: 'none',
+                        }}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                    >
+                        <motion.div
+                            style={{
+                                background: 'rgba(0, 0, 0, 0.95)',
+                                borderRadius: 16,
+                                padding: '24px 32px',
+                                width: 380,
+                                boxShadow: '0 8px 32px rgba(0, 0, 0, 0.6)',
+                                border: '1px solid rgba(39, 174, 96, 0.3)',
+                            }}
+                            initial={{ scale: 0.9, y: 20 }}
+                            animate={{ scale: 1, y: 0 }}
+                        >
+                            <div style={{
+                                fontSize: 18,
+                                fontWeight: 'bold',
+                                color: '#27ae60',
+                                marginBottom: 16,
+                                textAlign: 'center',
+                            }}>
+                                ✅ {currentStepData?.title}
+                            </div>
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                                {currentStepData?.content?.map((item, i) => (
+                                    <div key={i} style={{
+                                        fontSize: 14,
+                                        color: '#fff',
+                                        padding: '8px 12px',
+                                        background: 'rgba(255,255,255,0.05)',
+                                        borderRadius: 6,
+                                    }}>
+                                        {item}
+                                    </div>
+                                ))}
+                            </div>
+                        </motion.div>
+                    </motion.div>
+                )}
             </div>
         </div>
     );
