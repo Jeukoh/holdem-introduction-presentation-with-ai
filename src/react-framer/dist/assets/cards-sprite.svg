@@ -81,9 +81,9 @@
   <path d="M250 -100A250 250 0 0 1 -250 -100L-250 -210A250 250 0 0 1 250 -210L250 210A250 250 0 0 1 0 460C-150 460 -180 400 -200 375" stroke="currentColor" stroke-width="80" stroke-linecap="square" stroke-miterlimit="1.5" fill="none"/>
 </symbol>
 
-<!-- T (10) -->
+<!-- T (10) - cards-new의 VST path 사용 -->
 <symbol id="VT" viewBox="-500 -500 1000 1000" preserveAspectRatio="xMinYMid">
-  <path d="M-260 430L-260 -430M-50 -460L-50 460M-50 -460L-125 -460L-125 -320M250 -100A250 250 0 0 1 -250 -100L-250 100A250 250 0 0 1 250 100Z" stroke="currentColor" stroke-width="80" stroke-linecap="square" stroke-miterlimit="1.5" fill="none"/>
+  <path d="M-260 430L-260 -430M-50 0L-50 -310A150 150 0 0 1 250 -310L250 310A150 150 0 0 1 -50 310Z" stroke="currentColor" stroke-width="80" stroke-linecap="square" stroke-miterlimit="1.5" fill="none"/>
 </symbol>
 
 <!-- J -->

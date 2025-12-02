@@ -81,8 +81,8 @@
 /* 게임 iframe 스타일 */
 .reveal .holdem-frame {
     width: 100%;
-    max-width: 900px;
-    height: 600px;
+    max-width: min(80vw, 900px);
+    aspect-ratio: 16 / 10;
     border: none;
     border-radius: 16px;
     background: var(--dark-bg);
@@ -459,18 +459,6 @@
 
 /* Part 2.2: 게임 흐름 */
 
-/* iframe 컨테이너 */
-.reveal .holdem-frame {
-    width: 100%;
-    max-width: 900px;
-    height: 500px;
-    border: none;
-    border-radius: 16px;
-    background: #0a0a0a;
-    margin: 20px auto;
-    display: block;
-}
-
 /* 게임 흐름 다이어그램 */
 .reveal .flow-diagram {
     display: flex;
@@ -521,4 +509,26 @@
     max-width: 90%;
     border-radius: 12px;
     box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+}
+
+/* ===========================================
+ * React 엔진 컨테이너 (Reveal.js 슬라이드 내)
+ * - Reveal.js가 960x700 슬라이드를 transform:scale()로 뷰포트에 맞춤
+ * - React 컴포넌트는 고정 픽셀 크기, Reveal.js 스케일링에 맡김
+ * =========================================== */
+
+/* Section이 슬라이드 전체 높이를 채우도록 */
+#deck-slide,
+#holdem-demo {
+    height: 100%;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+}
+
+#deck-container,
+#holdem-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

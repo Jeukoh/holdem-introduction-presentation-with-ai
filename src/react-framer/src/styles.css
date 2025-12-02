@@ -1,4 +1,5 @@
 :root {
+    /* Color tokens */
     --table-green: #1a5f3c;
     --table-border: #8b4513;
     --felt-pattern: linear-gradient(135deg, #1a5f3c 0%, #0d3d26 100%);
@@ -10,6 +11,47 @@
 }
 
 /*
+ * Fixed sizes for Reveal.js integration
+ * - Reveal.js uses transform:scale() to fit 960x700 slides to viewport
+ * - We use fixed pixel sizes, Reveal.js handles responsive scaling
+ */
+.container {
+    /* Fixed scale - Reveal.js handles viewport scaling */
+    --scale: 1;
+    --table-width: 620px;
+    --table-height: 387px;  /* 620 * 0.625 */
+
+    /* Card sizes (2.5:3.5 ratio) - scale with table */
+    --card-player-w: calc(45px * var(--scale));
+    --card-player-h: calc(63px * var(--scale));
+    --card-community-w: calc(55px * var(--scale));
+    --card-community-h: calc(77px * var(--scale));
+
+    /* Component sizes */
+    --avatar-size: calc(50px * var(--scale));
+    --dealer-btn-size: calc(40px * var(--scale));
+    --position-icon-size: calc(50px * var(--scale));
+
+    /* Spacing */
+    --gap-xs: calc(4px * var(--scale));
+    --gap-sm: calc(8px * var(--scale));
+    --gap-md: calc(15px * var(--scale));
+    --gap-lg: calc(30px * var(--scale));
+
+    /* Player offsets from table edge */
+    --player-offset-top: calc(75px * var(--scale));
+    --player-offset-side: calc(90px * var(--scale));
+    --player-offset-side-inner: calc(45px * var(--scale));
+
+    /* Font sizes */
+    --font-xs: calc(11px * var(--scale));
+    --font-sm: calc(12px * var(--scale));
+    --font-md: calc(14px * var(--scale));
+    --font-lg: calc(16px * var(--scale));
+    --font-xl: calc(24px * var(--scale));
+}
+
+/*
  * Note: Global body styles removed to avoid conflicts with Reveal.js
  * These styles are only applied to .holdem-engine-container
  */
@@ -18,25 +60,36 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 30px;
-    padding: 40px 120px;  /* Extra horizontal padding for side players */
+    gap: var(--gap-lg);
+    padding: calc(40px * var(--scale)) var(--player-offset-side);
+    /* Standalone mode: full viewport. Embed mode overrides below. */
     min-height: 100vh;
     min-width: fit-content;
 }
 
-/* Embed mode - minimal UI */
-.container.embed-mode {
-    padding: 10px 120px;  /* Reduced top/bottom padding */
-    gap: 10px;
+/* Standalone page centering */
+.container:not(.embed-mode) {
     justify-content: center;
 }
 
+/* Embed mode - natural size, parent handles centering */
+.container.embed-mode {
+    /* Don't try to fill parent - take natural size */
+    padding: 0;
+    gap: calc(8px * var(--scale));
+    min-height: auto;
+    height: auto;
+    width: auto;
+    /* Content flows naturally */
+    overflow: visible;
+}
+
 .container.embed-mode .poker-table {
-    margin: 60px auto;
+    margin: 0;
 }
 
 .container.embed-mode .game-phase {
-    margin-bottom: 0;
+    margin-bottom: calc(60px * var(--scale));
 }
 
 h1 {
@@ -75,9 +128,9 @@ h1 {
 
 .poker-table {
     position: relative;
-    width: 800px;
-    height: 500px;
-    margin: 100px auto;  /* Add margin for players outside table */
+    width: var(--table-width);
+    height: var(--table-height);
+    margin: var(--player-offset-side) auto;
     overflow: visible;   /* Show players positioned outside table bounds */
 }
 
@@ -86,38 +139,38 @@ h1 {
     width: 100%;
     height: 100%;
     background: var(--felt-pattern);
-    border-radius: 200px;
-    border: 12px solid var(--table-border);
+    border-radius: calc(200px * var(--scale));
+    border: calc(12px * var(--scale)) solid var(--table-border);
     box-shadow:
-        inset 0 0 100px rgba(0,0,0,0.5),
-        0 10px 30px rgba(0,0,0,0.8);
+        inset 0 0 calc(100px * var(--scale)) rgba(0,0,0,0.5),
+        0 calc(10px * var(--scale)) calc(30px * var(--scale)) rgba(0,0,0,0.8);
 }
 
 .table-rail {
     position: absolute;
-    width: calc(100% + 24px);
-    height: calc(100% + 24px);
-    top: -12px;
-    left: -12px;
-    border-radius: 212px;
-    border: 8px solid #5a3921;
-    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    width: calc(100% + 24px * var(--scale));
+    height: calc(100% + 24px * var(--scale));
+    top: calc(-12px * var(--scale));
+    left: calc(-12px * var(--scale));
+    border-radius: calc(212px * var(--scale));
+    border: calc(8px * var(--scale)) solid #5a3921;
+    box-shadow: 0 0 calc(20px * var(--scale)) rgba(0,0,0,0.5);
 }
 
 /* Game phase indicator - above table */
 .game-phase {
     display: flex;
     justify-content: center;
-    gap: 15px;
-    margin-bottom: 20px;
+    gap: var(--gap-md);
+    margin-bottom: calc(20px * var(--scale));
 }
 
 .phase {
-    padding: 8px 16px;
-    border-radius: 20px;
+    padding: var(--gap-sm) calc(16px * var(--scale));
+    border-radius: calc(20px * var(--scale));
     background: #2c3e50;
     color: #7f8c8d;
-    font-size: 12px;
+    font-size: var(--font-sm);
     font-weight: bold;
     transition: all 0.3s;
 }
@@ -138,7 +191,7 @@ h1 {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 8px;
+    gap: var(--gap-sm);
 }
 
 /* Side players (left/right) - horizontal layout */
@@ -150,7 +203,7 @@ h1 {
 .player-side-content {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: var(--gap-sm);
 }
 
 .player.left .player-side-content {
@@ -162,15 +215,15 @@ h1 {
 }
 
 .player-avatar {
-    width: 50px;
-    height: 50px;
+    width: var(--avatar-size);
+    height: var(--avatar-size);
     border-radius: 50%;
     background: #34495e;
-    border: 3px solid #7f8c8d;
+    border: calc(3px * var(--scale)) solid #7f8c8d;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 24px;
+    font-size: var(--font-xl);
 }
 
 .player.you .player-avatar {
@@ -179,7 +232,7 @@ h1 {
 
 .player-info {
     text-align: center;
-    font-size: 12px;
+    font-size: var(--font-sm);
 }
 
 .player-name {
@@ -193,22 +246,22 @@ h1 {
 
 .player-chips {
     color: var(--gold);
-    font-size: 11px;
+    font-size: var(--font-xs);
 }
 
 .player-cards {
     display: flex;
-    gap: 4px;
-    height: 70px;
+    gap: var(--gap-xs);
+    height: var(--card-player-h);
 }
 
 /* Card wrapper for SVG cards (2.5:3.5 ratio) */
 .card-wrapper {
-    width: 45px;
-    height: 63px;  /* 45 * 3.5 / 2.5 = 63 */
-    border-radius: 6px;
+    width: var(--card-player-w);
+    height: var(--card-player-h);
+    border-radius: calc(6px * var(--scale));
     overflow: hidden;
-    box-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+    box-shadow: calc(2px * var(--scale)) calc(2px * var(--scale)) calc(8px * var(--scale)) rgba(0,0,0,0.5);
     background: white;
 }
 
@@ -220,16 +273,16 @@ h1 {
     width: 100%;
     height: 100%;
     object-fit: fill;  /* SVG의 preserveAspectRatio="none"과 일치 */
-    border-radius: 6px;
+    border-radius: calc(6px * var(--scale));
 }
 
 /* Community card wrapper for SVG (2.5:3.5 ratio) */
 .community-card-wrapper {
-    width: 55px;
-    height: 77px;  /* 55 * 3.5 / 2.5 = 77 */
-    border-radius: 8px;
+    width: var(--card-community-w);
+    height: var(--card-community-h);
+    border-radius: calc(8px * var(--scale));
     overflow: hidden;
-    box-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+    box-shadow: calc(2px * var(--scale)) calc(2px * var(--scale)) calc(8px * var(--scale)) rgba(0,0,0,0.5);
     background: white;
 }
 
@@ -237,19 +290,19 @@ h1 {
     width: 100%;
     height: 100%;
     object-fit: fill;  /* SVG의 preserveAspectRatio="none"과 일치 */
-    border-radius: 8px;
+    border-radius: calc(8px * var(--scale));
 }
 
 /* Position icon */
 .position-icon {
-    width: 50px;
-    height: 50px;
+    width: var(--position-icon-size);
+    height: var(--position-icon-size);
     border-radius: 50%;
     overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+    box-shadow: calc(2px * var(--scale)) calc(2px * var(--scale)) calc(8px * var(--scale)) rgba(0,0,0,0.3);
 }
 
 .position-icon img {
@@ -258,12 +311,41 @@ h1 {
     object-fit: cover;
 }
 
-/* Action indicator */
+/* Action indicator - floating next to player */
 .action-indicator {
-    padding: 6px 16px;
-    border-radius: 20px;
+    position: absolute;
+    padding: calc(6px * var(--scale)) calc(12px * var(--scale));
+    border-radius: calc(20px * var(--scale));
     font-weight: bold;
-    font-size: 14px;
+    font-size: var(--font-sm);
+    white-space: nowrap;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+/* Position-specific action placement */
+.player.top .action-indicator {
+    top: 50%;
+    left: calc(100% + 8px);
+    transform: translateY(-50%);
+}
+
+.player.bottom .action-indicator {
+    top: 50%;
+    right: calc(100% + 8px);
+    transform: translateY(-50%);
+}
+
+.player.left .action-indicator {
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.player.right .action-indicator {
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .action-indicator.fold {
@@ -281,26 +363,36 @@ h1 {
     color: #fff;
 }
 
+.action-indicator.check {
+    background: #9b59b6;
+    color: #fff;
+}
+
+.action-indicator.blind {
+    background: #f39c12;
+    color: #fff;
+}
+
 /* Pot */
 .pot {
     position: absolute;
-    top: 35%;
+    top: 25%;
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
     z-index: 50;
     background: rgba(26, 95, 60, 0.9);
-    padding: 8px 16px;
-    border-radius: 8px;
+    padding: var(--gap-sm) calc(16px * var(--scale));
+    border-radius: var(--gap-sm);
 }
 
 .pot-label {
-    font-size: 12px;
+    font-size: var(--font-sm);
     color: #95a5a6;
 }
 
 .pot-amount {
-    font-size: 24px;
+    font-size: var(--font-xl);
     font-weight: bold;
     color: var(--gold);
 }
@@ -312,21 +404,21 @@ h1 {
     left: 50%;
     transform: translate(-50%, -50%);
     display: flex;
-    gap: 8px;
+    gap: var(--gap-sm);
     z-index: 10;
 }
 
 /* Dealer button */
 .dealer-button {
     position: absolute;
-    width: 40px;
-    height: 40px;
+    width: var(--dealer-btn-size);
+    height: var(--dealer-btn-size);
     border-radius: 50%;
     overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+    box-shadow: calc(2px * var(--scale)) calc(2px * var(--scale)) calc(8px * var(--scale)) rgba(0,0,0,0.5);
 }
 
 .dealer-button-img {
@@ -338,16 +430,16 @@ h1 {
 /* Step indicator */
 .step-indicator {
     position: absolute;
-    bottom: -80px;
+    bottom: calc(-80px * var(--scale));
     left: 50%;
     transform: translateX(-50%);
     display: flex;
-    gap: 10px;
+    gap: calc(10px * var(--scale));
 }
 
 .step-dot {
-    width: 12px;
-    height: 12px;
+    width: calc(12px * var(--scale));
+    height: calc(12px * var(--scale));
     border-radius: 50%;
     background: #34495e;
     transition: all 0.3s;
@@ -360,4 +452,48 @@ h1 {
 
 .step-dot.completed {
     background: var(--chip-green);
+}
+
+/* Chip animation */
+.chip-animation {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    gap: calc(6px * var(--scale));
+    z-index: 100;
+    pointer-events: none;
+}
+
+.chip-stack {
+    display: flex;
+    flex-direction: column;
+    gap: calc(-8px * var(--scale));
+}
+
+.chip {
+    width: calc(24px * var(--scale));
+    height: calc(24px * var(--scale));
+    border-radius: 50%;
+    border: calc(2px * var(--scale)) solid rgba(0,0,0,0.3);
+    box-shadow: calc(1px * var(--scale)) calc(2px * var(--scale)) calc(4px * var(--scale)) rgba(0,0,0,0.3);
+}
+
+.chip.red {
+    background: linear-gradient(145deg, #e74c3c, #c0392b);
+}
+
+.chip.blue {
+    background: linear-gradient(145deg, #3498db, #2980b9);
+}
+
+.chip.green {
+    background: linear-gradient(145deg, #27ae60, #229954);
+}
+
+.chip-amount {
+    font-size: calc(14px * var(--scale));
+    font-weight: bold;
+    color: var(--gold);
+    text-shadow: 0 calc(1px * var(--scale)) calc(2px * var(--scale)) rgba(0,0,0,0.5);
+    white-space: nowrap;
 }

@@ -32,15 +32,15 @@ const scenarios = {
             { type: 'deal', description: '카드 딜링' },
 
             // 3. 블라인드 포스팅
-            { type: 'blinds', pot: 150, description: 'SB $50 + BB $100' },
+            { type: 'blinds', pot: 150, bets: { SB: 50, BB: 100 }, description: 'SB $50 + BB $100' },
 
             // 4. Pre-flop 액션들
-            { type: 'action', player: 'UTG', action: 'FOLD', pot: 150, description: 'UTG 폴드' },
-            { type: 'action', player: 'HJ', action: 'CALL', pot: 250, description: 'HJ $100 콜' },
-            { type: 'action', player: 'CO', action: 'FOLD', pot: 250, description: 'CO 폴드' },
-            { type: 'action', player: 'BTN', action: 'FOLD', pot: 250, description: 'BTN 폴드' },
-            { type: 'action', player: 'SB', action: 'CALL', pot: 300, description: 'SB $50 콜' },
-            { type: 'action', player: 'BB', action: 'CHECK', pot: 300, description: 'BB 체크' },
+            { type: 'action', player: 'UTG', action: 'FOLD', bet: 0, pot: 150, description: 'UTG 폴드' },
+            { type: 'action', player: 'HJ', action: 'CALL', bet: 100, pot: 250, description: 'HJ $100 콜' },
+            { type: 'action', player: 'CO', action: 'FOLD', bet: 0, pot: 250, description: 'CO 폴드' },
+            { type: 'action', player: 'BTN', action: 'FOLD', bet: 0, pot: 250, description: 'BTN 폴드' },
+            { type: 'action', player: 'SB', action: 'CALL', bet: 50, pot: 300, description: 'SB $50 콜' },
+            { type: 'action', player: 'BB', action: 'CHECK', bet: 0, pot: 300, description: 'BB 체크' },
 
             // 5. 플랍
             {
@@ -109,28 +109,20 @@ const scenarios = {
     }
 }
 
-// 6-handed table positions (clockwise from top)
-// Dealing order: SB → BB → UTG → HJ → CO → BTN
-// Layout: Position icons OUTSIDE table (seats), cards INSIDE table
+// 6-handed table positions (using CSS variables for responsive layout)
 const playerPositions = [
-    // Top: CO - seat above table
     { id: 1, position: 'CO', name: 'CO', chips: 5000, dealOrder: 5, layoutPosition: 'top',
-      style: { top: '-75px', left: '50%', transform: 'translateX(-50%)' } },
-    // Right-top: BTN - seat on right side
+      style: { top: 'calc(-1 * var(--player-offset-top))', left: '50%', transform: 'translateX(-50%)' } },
     { id: 2, position: 'BTN', name: 'BTN', chips: 7500, dealOrder: 6, layoutPosition: 'right',
-      style: { top: '100px', right: '-90px' } },
-    // Right-bottom: SB - seat on right side lower
+      style: { top: 'var(--player-offset-side-inner)', right: 'calc(-1 * var(--player-offset-side))' } },
     { id: 3, position: 'SB', name: 'SB', chips: 4200, dealOrder: 1, layoutPosition: 'right',
-      style: { bottom: '100px', right: '-90px' } },
-    // Bottom: BB (you) - seat below table
+      style: { bottom: 'var(--player-offset-side-inner)', right: 'calc(-1 * var(--player-offset-side))' } },
     { id: 4, position: 'BB', name: 'YOU (BB)', chips: 6000, dealOrder: 2, isYou: true, layoutPosition: 'bottom',
-      style: { bottom: '-75px', left: '50%', transform: 'translateX(-50%)' } },
-    // Left-bottom: UTG - seat on left side lower
+      style: { bottom: 'calc(-1 * var(--player-offset-top))', left: '50%', transform: 'translateX(-50%)' } },
     { id: 5, position: 'UTG', name: 'UTG', chips: 3800, dealOrder: 3, layoutPosition: 'left',
-      style: { bottom: '100px', left: '-90px' } },
-    // Left-top: HJ - seat on left side upper
+      style: { bottom: 'var(--player-offset-side-inner)', left: 'calc(-1 * var(--player-offset-side))' } },
     { id: 6, position: 'HJ', name: 'HJ', chips: 5500, dealOrder: 4, layoutPosition: 'left',
-      style: { top: '100px', left: '-90px' } },
+      style: { top: 'var(--player-offset-side-inner)', left: 'calc(-1 * var(--player-offset-side))' } },
 ]
 
 // Position colors (fallback if SVG not loaded)
@@ -227,6 +219,49 @@ function CommunityCard({ card, dealOrder = 0 }) {
     )
 }
 
+// Chip animation component - shows chips flying from player to pot
+function ChipAnimation({ amount, layoutPosition }) {
+    if (!amount || amount <= 0) return null
+
+    // Calculate animation direction based on player position
+    const getAnimationTarget = () => {
+        switch (layoutPosition) {
+            case 'top': return { x: 0, y: 150 }
+            case 'bottom': return { x: 0, y: -150 }
+            case 'left': return { x: 200, y: 0 }
+            case 'right': return { x: -200, y: 0 }
+            default: return { x: 0, y: 0 }
+        }
+    }
+
+    const target = getAnimationTarget()
+
+    return (
+        <motion.div
+            className="chip-animation"
+            initial={{ opacity: 1, scale: 1, x: 0, y: 0 }}
+            animate={{
+                opacity: [1, 1, 0],
+                scale: [1, 0.8, 0.5],
+                x: target.x,
+                y: target.y
+            }}
+            transition={{
+                duration: 0.6,
+                ease: 'easeOut',
+                times: [0, 0.7, 1]
+            }}
+        >
+            <div className="chip-stack">
+                <div className="chip red" />
+                <div className="chip red" />
+                <div className="chip red" />
+            </div>
+            <span className="chip-amount">${amount}</span>
+        </motion.div>
+    )
+}
+
 function ActionIndicator({ action, delay }) {
     const actionClass = action.toLowerCase()
     return (
@@ -246,25 +281,42 @@ function ActionIndicator({ action, delay }) {
     )
 }
 
-function Player({ player, step, cardsDealt }) {
+function Player({ player, step, cardsDealt, foldedPlayers, calledPlayers, checkedPlayers, raisedPlayers, blindPlayers, phase, playerChips, latestBet }) {
     const [iconError, setIconError] = useState(false)
     const showCards = cardsDealt && step >= 2
-    const isFolded = player.position === 'UTG' && step >= 3
+    const isFolded = foldedPlayers?.includes(player.position)
+    const hasCalled = calledPlayers?.includes(player.position)
+    const hasChecked = checkedPlayers?.includes(player.position)
+    const hasRaised = raisedPlayers?.includes(player.position)
+    const hasPostedBlind = blindPlayers?.[player.position] && phase === 'preflop'
 
     const cards = player.isYou ? yourCards : [null, null]
     const positionColor = positionColors[player.position]
     const positionIconUrl = getPositionIconUrl(player.position)
 
+    // Use dynamic chip count if available
+    const currentChips = playerChips?.[player.position] ?? player.chips
+
+    // Check if this player has a bet animation to show
+    const betAmount = latestBet?.[player.position]?.amount
+
     const isTop = player.layoutPosition === 'top'
     const isBottom = player.layoutPosition === 'bottom'
     const isLeft = player.layoutPosition === 'left'
-    const isRight = player.layoutPosition === 'right'
 
     // Cards offset toward table center
     const cardOffset = isTop ? { top: '100%', left: '50%', transform: 'translateX(-50%)' }
         : isBottom ? { bottom: '100%', left: '50%', transform: 'translateX(-50%)' }
         : isLeft ? { left: '100%', top: '50%', transform: 'translateY(-50%)' }
         : { right: '100%', top: '50%', transform: 'translateY(-50%)' }
+
+    // Determine current action to display (priority: FOLD > RAISE > CALL > CHECK > BLIND)
+    let currentAction = null
+    if (isFolded) currentAction = 'FOLD'
+    else if (hasRaised) currentAction = 'RAISE'
+    else if (hasCalled) currentAction = 'CALL'
+    else if (hasChecked) currentAction = 'CHECK'
+    else if (hasPostedBlind) currentAction = player.position === 'SB' ? 'SB $50' : 'BB $100'
 
     const PlayerCards = () => (
         <div className="player-cards" style={{ position: 'absolute', ...cardOffset }}>
@@ -301,9 +353,24 @@ function Player({ player, step, cardsDealt }) {
             <div className="player-name" style={player.isYou ? { color: positionColor } : {}}>
                 {player.isYou ? 'YOU' : player.position}
             </div>
-            <div className="player-chips">${player.chips.toLocaleString()}</div>
+            <motion.div
+                className="player-chips"
+                key={currentChips}
+                initial={{ scale: 1.2, color: '#e74c3c' }}
+                animate={{ scale: 1, color: '#f1c40f' }}
+                transition={{ duration: 0.3 }}
+            >
+                ${currentChips.toLocaleString()}
+            </motion.div>
         </div>
     )
+
+    // Action indicator class (blind uses 'blind' class)
+    const getActionClass = (action) => {
+        if (!action) return ''
+        if (action.includes('$')) return 'blind'
+        return action.toLowerCase()
+    }
 
     return (
         <motion.div
@@ -313,17 +380,28 @@ function Player({ player, step, cardsDealt }) {
             animate={{ opacity: 1 }}
             transition={{ delay: player.id * 0.1 }}
         >
-            {/* Seat: icon + info (outside table) */}
             <PositionIcon />
             <PlayerInfo />
-            {/* Cards: positioned toward table center */}
             <PlayerCards />
             <AnimatePresence>
-                {player.position === 'UTG' && step >= 3 && (
-                    <ActionIndicator action="FOLD" delay={0} />
+                {currentAction && (
+                    <motion.div
+                        className={`action-indicator ${getActionClass(currentAction)}`}
+                        initial={{ opacity: 0, scale: 0 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ type: 'spring', stiffness: 300, damping: 15 }}
+                    >
+                        {currentAction}
+                    </motion.div>
                 )}
-                {player.position === 'HJ' && step >= 4 && (
-                    <ActionIndicator action="CALL" delay={0} />
+            </AnimatePresence>
+            <AnimatePresence>
+                {betAmount > 0 && (
+                    <ChipAnimation
+                        key={`chip-${step}`}
+                        amount={betAmount}
+                        layoutPosition={player.layoutPosition}
+                    />
                 )}
             </AnimatePresence>
         </motion.div>
@@ -482,6 +560,72 @@ export default function App() {
         else if (s?.type === 'river') currentPhase = 'river'
     }
 
+    // Collect actions per phase (reset on phase change)
+    // FOLD persists across phases, other actions reset
+    const foldedPlayers = []
+    const currentPhaseActions = {} // { player: action }
+    const blindPlayers = {} // { player: 'SB' | 'BB' }
+
+    // Find last phase change step
+    let lastPhaseChangeStep = 0
+    for (let i = 0; i <= step; i++) {
+        const s = scenario.steps[i]
+        if (s?.type === 'flop' || s?.type === 'turn' || s?.type === 'river') {
+            lastPhaseChangeStep = i
+        }
+    }
+
+    for (let i = 0; i <= step; i++) {
+        const s = scenario.steps[i]
+        // FOLD persists throughout the game
+        if (s?.type === 'action' && s.action === 'FOLD') {
+            foldedPlayers.push(s.player)
+        }
+        // Blind posting display
+        if (s?.type === 'blinds') {
+            blindPlayers['SB'] = 'SB'
+            blindPlayers['BB'] = 'BB'
+        }
+        // Only current phase actions (except FOLD)
+        if (i >= lastPhaseChangeStep && s?.type === 'action' && s.action !== 'FOLD') {
+            currentPhaseActions[s.player] = s.action
+        }
+    }
+
+    // Extract action arrays from currentPhaseActions
+    const calledPlayers = Object.entries(currentPhaseActions)
+        .filter(([_, action]) => action === 'CALL')
+        .map(([player]) => player)
+    const checkedPlayers = Object.entries(currentPhaseActions)
+        .filter(([_, action]) => action === 'CHECK')
+        .map(([player]) => player)
+    const raisedPlayers = Object.entries(currentPhaseActions)
+        .filter(([_, action]) => action === 'RAISE')
+        .map(([player]) => player)
+
+    // Calculate player chip balances (initial - total bets)
+    const playerChips = {}
+    const latestBet = {} // { player: { amount, stepIndex } } - for animation
+    playerPositions.forEach(p => {
+        playerChips[p.position] = p.chips // Start with initial chips
+    })
+
+    for (let i = 0; i <= step; i++) {
+        const s = scenario.steps[i]
+        // Blind bets
+        if (s?.type === 'blinds' && s.bets) {
+            Object.entries(s.bets).forEach(([player, amount]) => {
+                playerChips[player] -= amount
+                if (i === step) latestBet[player] = { amount, stepIndex: i }
+            })
+        }
+        // Action bets
+        if (s?.type === 'action' && s.bet > 0) {
+            playerChips[s.player] -= s.bet
+            if (i === step) latestBet[s.player] = { amount: s.bet, stepIndex: i }
+        }
+    }
+
     // Embed mode: hide controls, show only table
     if (urlParams.embed) {
         return (
@@ -491,12 +635,25 @@ export default function App() {
                     <div className="table-rail" />
                     <div className="table-felt" />
                     {step >= 1 && playerPositions.map(player => (
-                        <Player key={player.id} player={player} step={step} cardsDealt={step >= 2} />
+                        <Player
+                            key={player.id}
+                            player={player}
+                            step={step}
+                            cardsDealt={step >= 2}
+                            foldedPlayers={foldedPlayers}
+                            calledPlayers={calledPlayers}
+                            checkedPlayers={checkedPlayers}
+                            raisedPlayers={raisedPlayers}
+                            blindPlayers={blindPlayers}
+                            phase={currentPhase}
+                            playerChips={playerChips}
+                            latestBet={latestBet}
+                        />
                     ))}
                     {step >= 1 && (
                         <motion.div
                             className="dealer-button"
-                            style={{ top: '170px', right: '120px' }}
+                            style={{ top: '34%', right: '15%' }}
                             initial={{ opacity: 0, scale: 0 }}
                             animate={{ opacity: 1, scale: 1 }}
                             transition={{ delay: 0.6 }}
@@ -548,13 +705,21 @@ export default function App() {
                         player={player}
                         step={step}
                         cardsDealt={step >= 2}
+                        foldedPlayers={foldedPlayers}
+                        calledPlayers={calledPlayers}
+                        checkedPlayers={checkedPlayers}
+                        raisedPlayers={raisedPlayers}
+                        blindPlayers={blindPlayers}
+                        phase={currentPhase}
+                        playerChips={playerChips}
+                        latestBet={latestBet}
                     />
                 ))}
 
                 {step >= 1 && (
                     <motion.div
                         className="dealer-button"
-                        style={{ top: '170px', right: '120px' }}
+                        style={{ top: '34%', right: '15%' }}
                         initial={{ opacity: 0, scale: 0 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ delay: 0.6 }}

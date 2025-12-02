@@ -19,13 +19,13 @@ export const scenarios = {
         steps: [
             { type: 'setup', description: '테이블 셋업' },
             { type: 'deal', description: '카드 딜링' },
-            { type: 'blinds', pot: 150, description: 'SB $50 + BB $100' },
-            { type: 'action', player: 'UTG', action: 'FOLD', pot: 150, description: 'UTG 폴드' },
-            { type: 'action', player: 'HJ', action: 'CALL', pot: 250, description: 'HJ $100 콜' },
-            { type: 'action', player: 'CO', action: 'FOLD', pot: 250, description: 'CO 폴드' },
-            { type: 'action', player: 'BTN', action: 'FOLD', pot: 250, description: 'BTN 폴드' },
-            { type: 'action', player: 'SB', action: 'CALL', pot: 300, description: 'SB $50 콜' },
-            { type: 'action', player: 'BB', action: 'CHECK', pot: 300, description: 'BB 체크' },
+            { type: 'blinds', pot: 150, bets: { SB: 50, BB: 100 }, description: 'SB $50 + BB $100' },
+            { type: 'action', player: 'UTG', action: 'FOLD', bet: 0, pot: 150, description: 'UTG 폴드' },
+            { type: 'action', player: 'HJ', action: 'CALL', bet: 100, pot: 250, description: 'HJ $100 콜' },
+            { type: 'action', player: 'CO', action: 'FOLD', bet: 0, pot: 250, description: 'CO 폴드' },
+            { type: 'action', player: 'BTN', action: 'FOLD', bet: 0, pot: 250, description: 'BTN 폴드' },
+            { type: 'action', player: 'SB', action: 'CALL', bet: 50, pot: 300, description: 'SB $50 콜' },
+            { type: 'action', player: 'BB', action: 'CHECK', bet: 0, pot: 300, description: 'BB 체크' },
             {
                 type: 'flop',
                 cards: [

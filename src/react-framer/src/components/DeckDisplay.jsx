@@ -4,6 +4,10 @@ import { motion } from 'framer-motion';
 // DECK DISPLAY - 52 Cards Animation (Slide 2.1.1)
 // ===========================================
 
+// 고정 스케일 - Reveal.js 960x700 슬라이드 기준 최적화
+// 0.85 * 1.5 ≈ 1.27
+const FIXED_SCALE = 1.27;
+
 // 무늬 데이터: symbol ID와 색상
 const SUIT_DATA = {
     S: { symbol: 'SS', color: 'black' },
@@ -30,9 +34,11 @@ const ALL_CARDS = SUITS.flatMap((suit, suitIndex) =>
 );
 
 // Step별 레이아웃 계산 (중앙 기준 좌표)
-function getCardLayout(step, suitIndex, rankIndex) {
-    const colGap = 55;  // 카드 너비(50) + 간격(5)
-    const rowGap = 78;  // 카드 높이(70) + 간격(8)
+function getCardLayout(step, suitIndex, rankIndex, scale = 1) {
+    const baseColGap = 55;  // 카드 너비(50) + 간격(5)
+    const baseRowGap = 78;  // 카드 높이(70) + 간격(8)
+    const colGap = baseColGap * scale;
+    const rowGap = baseRowGap * scale;
 
     // 그리드 중앙 오프셋 (13열 x 4행 기준)
     const centerOffsetX = -(13 * colGap) / 2 + colGap / 2;
@@ -42,8 +48,8 @@ function getCardLayout(step, suitIndex, rankIndex) {
     if (step === 0) {
         const offset = suitIndex * 13 + rankIndex;
         return {
-            x: offset * 1.8 - 50,
-            y: offset * 1.0 - 25,
+            x: (offset * 1.8 - 50) * scale,
+            y: (offset * 1.0 - 25) * scale,
             opacity: 1,
             filter: 'none',
         };
@@ -51,7 +57,7 @@ function getCardLayout(step, suitIndex, rankIndex) {
 
     // Step 1: 행 분리 (무늬별), 열은 겹침
     if (step === 1) {
-        const colOffset = rankIndex * 4 - 25;
+        const colOffset = (rankIndex * 4 - 25) * scale;
         return {
             x: colOffset,
             y: centerOffsetY + suitIndex * rowGap,
@@ -63,7 +69,7 @@ function getCardLayout(step, suitIndex, rankIndex) {
     // Step 2-5: 무늬별 하이라이트 (행 분리 유지)
     if (step >= 2 && step <= 5) {
         const highlightSuit = step - 2; // 0=S, 1=H, 2=D, 3=C
-        const colOffset = rankIndex * 4 - 25;
+        const colOffset = (rankIndex * 4 - 25) * scale;
         const isHighlighted = suitIndex === highlightSuit;
         return {
             x: colOffset,
@@ -128,8 +134,8 @@ function CardFace({ rankSymbol, suitSymbol, color }) {
     );
 }
 
-function DeckCard({ rank, suit, suitIndex, rankIndex, step }) {
-    const layout = getCardLayout(step, suitIndex, rankIndex);
+function DeckCard({ rank, suit, suitIndex, rankIndex, step, scale }) {
+    const layout = getCardLayout(step, suitIndex, rankIndex, scale);
     const delay = getAnimationDelay(step, suitIndex, rankIndex);
 
     // 공유 심볼 ID
@@ -138,9 +144,11 @@ function DeckCard({ rank, suit, suitIndex, rankIndex, step }) {
     const suitSymbol = suitInfo.symbol;
     const color = suitInfo.color;
 
-    // 카드 크기 (2.5:3.5 비율, QHD 대응)
-    const cardWidth = 50;
-    const cardHeight = 70; // 50 * 3.5 / 2.5 = 70
+    // 카드 크기 (2.5:3.5 비율, viewport 스케일 적용)
+    const baseCardWidth = 50;
+    const baseCardHeight = 70; // 50 * 3.5 / 2.5 = 70
+    const cardWidth = baseCardWidth * scale;
+    const cardHeight = baseCardHeight * scale;
 
     return (
         <motion.div
@@ -152,9 +160,9 @@ function DeckCard({ rank, suit, suitIndex, rankIndex, step }) {
                 height: cardHeight,
                 marginLeft: -cardWidth / 2,
                 marginTop: -cardHeight / 2,
-                borderRadius: 3,
+                borderRadius: 3 * scale,
                 overflow: 'hidden',
-                boxShadow: '1px 1px 4px rgba(0,0,0,0.3)',
+                boxShadow: `${1 * scale}px ${1 * scale}px ${4 * scale}px rgba(0,0,0,0.3)`,
                 backgroundColor: 'white',
             }}
             animate={{
@@ -183,41 +191,33 @@ function DeckCard({ rank, suit, suitIndex, rankIndex, step }) {
 }
 
 export default function DeckDisplay({ step = 0 }) {
-    // 그리드 전체 크기 (13열 x 4행)
-    const gridWidth = 13 * 55;  // 715px
-    const gridHeight = 4 * 78;  // 312px
+    // 고정 스케일 사용 - Reveal.js가 슬라이드 전체를 스케일링
+    const scale = FIXED_SCALE;
 
+    // 그리드 전체 크기 (13열 x 4행, viewport 스케일 적용)
+    const gridWidth = 13 * 55 * scale;
+    const gridHeight = 4 * 78 * scale;
+
+    // 자연스러운 크기 - 부모 flexbox가 중앙 정렬 담당
     return (
         <div
             style={{
                 position: 'relative',
-                width: '100%',
-                height: '100%',
-                minHeight: 400,
+                width: gridWidth,
+                height: gridHeight,
             }}
         >
-            {/* 그리드 컨테이너: 부모 중앙에 절대 위치 */}
-            <div
-                style={{
-                    position: 'absolute',
-                    left: '50%',
-                    top: '50%',
-                    transform: 'translate(-50%, -50%)',
-                    width: gridWidth,
-                    height: gridHeight,
-                }}
-            >
-                {ALL_CARDS.map((card) => (
-                    <DeckCard
-                        key={card.id}
-                        rank={card.rank}
-                        suit={card.suit}
-                        suitIndex={card.suitIndex}
-                        rankIndex={card.rankIndex}
-                        step={step}
-                    />
-                ))}
-            </div>
+            {ALL_CARDS.map((card) => (
+                <DeckCard
+                    key={card.id}
+                    rank={card.rank}
+                    suit={card.suit}
+                    suitIndex={card.suitIndex}
+                    rankIndex={card.rankIndex}
+                    step={step}
+                    scale={scale}
+                />
+            ))}
         </div>
     );
 }
