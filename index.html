@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Texas Hold'em 입문</title>
+
+    <!-- Reveal.js -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/theme/black.css">
+
+    <!-- Holdem Engine CSS -->
+    <link rel="stylesheet" href="prototypes/react-framer/dist/holdem-engine.css">
+
+    <!-- Custom styles -->
+    <link rel="stylesheet" href="css/presentation.css">
+
+    <!-- React (for Holdem Engine) -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <!-- 동적 로딩 -->
+        </div>
+    </div>
+
+    <div class="key-hint">
+        <kbd>→</kbd> Next |
+        <kbd>←</kbd> Prev |
+        <kbd>Space</kbd> Next |
+        <kbd>S</kbd> Speaker View |
+        <kbd>Esc</kbd> Overview
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.js"></script>
+
+    <!-- Holdem Engine -->
+    <script src="prototypes/react-framer/dist/holdem-engine.iife.js"></script>
+
+    <script>
+        // 홀덤 엔진 인스턴스
+        let holdemEngine = null;
+        let isHoldemSlide = false;
+
+        // 슬라이드 파일 동적 로딩
+        async function loadSlides() {
+            const slidesContainer = document.querySelector('.reveal .slides');
+            let allSlides = '';
+
+            // Part 1: Hook
+            const part1Response = await fetch('slides/part1-hook.html');
+            allSlides += await part1Response.text();
+
+            // Part 2.1: 카드와 족보
+            const part2BasicsResponse = await fetch('slides/part2-basics.html');
+            allSlides += await part2BasicsResponse.text();
+
+            // Part 2.2: 게임 흐름 시나리오
+            const part2GameplayResponse = await fetch('slides/part2-gameplay.html');
+            allSlides += await part2GameplayResponse.text();
+
+            // Part 2.3~2.4: 시나리오 (TODO)
+            // Part 3: 마인드스포츠 (TODO)
+            // Part 4: 소모임 운영 (TODO)
+
+            slidesContainer.innerHTML = allSlides;
+
+            // Reveal.js 초기화
+            Reveal.initialize({
+                hash: true,
+                transition: 'slide',
+                showNotes: false,
+
+                // 키보드: 기본 비활성화 (커스텀 처리)
+                keyboard: false,
+
+                plugins: []
+            });
+
+            // 슬라이드 변경 감지
+            Reveal.on('slidechanged', (event) => {
+                const currentSlide = event.currentSlide;
+                const holdemContainer = currentSlide.querySelector('#holdem-container');
+
+                if (holdemContainer) {
+                    // 홀덤 슬라이드 진입
+                    isHoldemSlide = true;
+                    if (!holdemEngine) {
+                        holdemEngine = HoldemEngine.mount(holdemContainer, {
+                            scenario: 'tutorial'
+                        });
+                    }
+                } else {
+                    // 홀덤 슬라이드 이탈
+                    isHoldemSlide = false;
+                    if (holdemEngine) {
+                        holdemEngine.destroy();
+                        holdemEngine = null;
+                    }
+                }
+            });
+
+            // 커스텀 키보드 제어
+            document.addEventListener('keydown', (e) => {
+                // 홀덤 슬라이드에서 Space → 게임 진행
+                if (isHoldemSlide && e.code === 'Space') {
+                    e.preventDefault();
+                    if (holdemEngine) {
+                        const state = holdemEngine.getState();
+                        if (state.step < state.totalSteps - 1) {
+                            holdemEngine.nextStep();
+                        } else {
+                            // 마지막 스텝이면 다음 슬라이드로
+                            Reveal.next();
+                        }
+                    }
+                }
+                // 일반 슬라이드 또는 화살표 키
+                else if (e.code === 'ArrowRight' || (!isHoldemSlide && e.code === 'Space')) {
+                    Reveal.next();
+                }
+                else if (e.code === 'ArrowLeft') {
+                    if (isHoldemSlide && holdemEngine) {
+                        const state = holdemEngine.getState();
+                        if (state.step > 0) {
+                            holdemEngine.prevStep();
+                            return;
+                        }
+                    }
+                    Reveal.prev();
+                }
+                // R: 리셋
+                else if (e.code === 'KeyR' && isHoldemSlide && holdemEngine) {
+                    holdemEngine.reset();
+                }
+                // S: Speaker View
+                else if (e.code === 'KeyS') {
+                    // Reveal.js default behavior
+                }
+                // Esc: Overview
+                else if (e.code === 'Escape') {
+                    Reveal.toggleOverview();
+                }
+            });
+        }
+
+        loadSlides();
+    </script>
+</body>
+</html>
