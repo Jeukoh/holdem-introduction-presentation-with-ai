@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { useCardBundle } from '../hooks/useCardBundle';
 
 // ===========================================
 // DECK DISPLAY - 52 Cards Animation (Slide 2.1.1)
@@ -8,19 +9,11 @@ import { motion } from 'framer-motion';
 // 0.85 * 1.5 ≈ 1.27
 const FIXED_SCALE = 1.27;
 
-// 무늬 데이터: symbol ID와 색상
-const SUIT_DATA = {
-    S: { symbol: 'SS', color: 'black' },
-    H: { symbol: 'SH', color: 'red' },
-    D: { symbol: 'SD', color: 'red' },
-    C: { symbol: 'SC', color: 'black' },
-};
-
 const SUITS = ['S', 'H', 'D', 'C']; // Spade, Heart, Diamond, Club
 const RANKS = ['A', '2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K']; // T = 10
 
-// 스프라이트는 HTML에 인라인으로 포함됨 (index.html 참조)
-// 공유 심볼(SS, SH, SD, SC, VA-VK)을 조합하여 카드 렌더링
+// 개별 SVG 파일 사용 (img 태그로 로드)
+// cards-new/*.svg: 완전한 카드 이미지 (AS.svg, KH.svg, TD.svg 등)
 
 // 52장 카드 데이터 생성
 const ALL_CARDS = SUITS.flatMap((suit, suitIndex) =>
@@ -127,36 +120,12 @@ function getAnimationDelay(step, suitIndex, rankIndex) {
     return 0;
 }
 
-// CardFace: 카드 앞면을 공유 심볼로 조합하여 렌더링
-function CardFace({ rankSymbol, suitSymbol, color }) {
-    return (
-        <g style={{ color }}>
-            {/* 카드 배경 */}
-            <rect width="239" height="335" x="-119.5" y="-167.5" rx="12" fill="white" stroke="#999" />
-            {/* 왼쪽 상단: 랭크 */}
-            <use href={`#${rankSymbol}`} width="32" height="32" x="-114.4" y="-156" />
-            {/* 왼쪽 상단: 작은 무늬 */}
-            <use href={`#${suitSymbol}`} width="26.769" height="26.769" x="-111.784" y="-119" />
-            {/* 중앙: 큰 무늬 */}
-            <use href={`#${suitSymbol}`} width="70" height="70" x="-35" y="-35" />
-            {/* 오른쪽 하단 (180도 회전) */}
-            <g transform="rotate(180)">
-                <use href={`#${rankSymbol}`} width="32" height="32" x="-114.4" y="-156" />
-                <use href={`#${suitSymbol}`} width="26.769" height="26.769" x="-111.784" y="-119" />
-            </g>
-        </g>
-    );
-}
-
-function DeckCard({ rank, suit, suitIndex, rankIndex, step, scale }) {
+function DeckCard({ rank, suit, suitIndex, rankIndex, step, scale, cards }) {
     const layout = getCardLayout(step, suitIndex, rankIndex, scale);
     const delay = getAnimationDelay(step, suitIndex, rankIndex);
 
-    // 공유 심볼 ID
-    const suitInfo = SUIT_DATA[suit];
-    const rankSymbol = `V${rank}`;
-    const suitSymbol = suitInfo.symbol;
-    const color = suitInfo.color;
+    // 카드 심볼 ID (cards-new-sprite.svg)
+    const cardSymbolId = `${rank}${suit}`; // AS, KH, TD 등
 
     // 카드 크기 (2.5:3.5 비율, viewport 스케일 적용)
     const baseCardWidth = 50;
@@ -214,13 +183,15 @@ function DeckCard({ rank, suit, suitIndex, rankIndex, step, scale }) {
                 damping: 15,
             }}
         >
-            <svg
-                viewBox="-120 -168 240 336"
-                preserveAspectRatio="none"
+            <div
+                dangerouslySetInnerHTML={{
+                    __html: cards?.[cardSymbolId]
+                        ?.replace(/width="2\.5in"/, 'width="100%"')
+                        .replace(/height="3\.5in"/, 'height="100%"')
+                        || ''
+                }}
                 style={{ width: '100%', height: '100%' }}
-            >
-                <CardFace rankSymbol={rankSymbol} suitSymbol={suitSymbol} color={color} />
-            </svg>
+            />
         </motion.div>
     );
 }
@@ -228,10 +199,20 @@ function DeckCard({ rank, suit, suitIndex, rankIndex, step, scale }) {
 export default function DeckDisplay({ step = 0 }) {
     // 고정 스케일 사용 - Reveal.js가 슬라이드 전체를 스케일링
     const scale = FIXED_SCALE;
+    const cards = useCardBundle();
 
     // 그리드 전체 크기 (13열 x 4행, viewport 스케일 적용)
     const gridWidth = 13 * 55 * scale;
     const gridHeight = 4 * 78 * scale;
+
+    // 카드 번들 로딩 중
+    if (!cards) {
+        return (
+            <div style={{ width: gridWidth, height: gridHeight, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#888' }}>
+                Loading cards...
+            </div>
+        );
+    }
 
     // 자연스러운 크기 - 부모 flexbox가 중앙 정렬 담당
     return (
@@ -251,6 +232,7 @@ export default function DeckDisplay({ step = 0 }) {
                     rankIndex={card.rankIndex}
                     step={step}
                     scale={scale}
+                    cards={cards}
                 />
             ))}
         </div>

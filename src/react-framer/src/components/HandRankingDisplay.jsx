@@ -1,4 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion';
+import { useCardBundle } from '../hooks/useCardBundle';
 
 // ===========================================
 // HAND RANKING DISPLAY - Poker Hands Education (Slide 2.1.2)
@@ -8,20 +9,12 @@ import { motion, AnimatePresence } from 'framer-motion';
 // 카드 랭크 가시성을 위해 1.3으로 설정
 const FIXED_SCALE = 1.3;
 
-// 무늬 데이터
-const SUIT_DATA = {
-    s: { symbol: 'SS', color: 'black' },
-    h: { symbol: 'SH', color: 'red' },
-    d: { symbol: 'SD', color: 'red' },
-    c: { symbol: 'SC', color: 'black' },
-};
-
-// 랭크 매핑 (표시용)
-const RANK_DISPLAY = {
-    'A': 'A', '2': '2', '3': '3', '4': '4', '5': '5',
-    '6': '6', '7': '7', '8': '8', '9': '9', 'T': '10',
-    'J': 'J', 'Q': 'Q', 'K': 'K',
-};
+// 카드 ID 변환: "As" → "AS", "Kh" → "KH"
+function cardStrToSymbolId(cardStr) {
+    const rank = cardStr[0].toUpperCase();
+    const suit = cardStr[1].toUpperCase();
+    return `${rank}${suit}`;
+}
 
 // 핸드 랭킹 데이터 (강→약) - 확률 출처: 5장 드로우 기준 (2,598,960 조합)
 // 각 족보별 3개 예시: 강한 예시 → 약한 예시 → 특수 케이스/무승부
@@ -166,20 +159,9 @@ function getHandAndExampleIndex(step) {
     return { handIndex: lastHand, exampleIndex: HAND_RANKINGS[lastHand].examples.length - 1 };
 }
 
-// 카드 파싱: "As" → { rank: 'A', suit: 's' }
-function parseCard(cardStr) {
-    const rank = cardStr[0];
-    const suit = cardStr[1];
-    return { rank, suit };
-}
-
-// 미니 카드 컴포넌트 (SVG 공유 심볼 사용, 크기 증가)
-function MiniCard({ cardStr, index, scale, shouldAnimate = true }) {
-    const { rank, suit } = parseCard(cardStr);
-    const suitInfo = SUIT_DATA[suit];
-    const rankSymbol = `V${rank}`;
-    const suitSymbol = suitInfo.symbol;
-    const color = suitInfo.color;
+// 미니 카드 컴포넌트 (JSON 번들 사용)
+function MiniCard({ cardStr, index, scale, shouldAnimate = true, cards }) {
+    const symbolId = cardStrToSymbolId(cardStr);
 
     // 카드 크기 (2.5:3.5 비율)
     const cardWidth = 50 * scale;
@@ -202,26 +184,18 @@ function MiniCard({ cardStr, index, scale, shouldAnimate = true }) {
                 borderRadius: 4 * scale,
                 overflow: 'hidden',
                 boxShadow: `1px 1px 4px rgba(0,0,0,0.3)`,
-                backgroundColor: 'white',
                 flexShrink: 0,
             }}
         >
-            <svg
-                viewBox="-120 -168 240 336"
-                preserveAspectRatio="none"
+            <div
+                dangerouslySetInnerHTML={{
+                    __html: cards?.[symbolId]
+                        ?.replace(/width="2\.5in"/, 'width="100%"')
+                        .replace(/height="3\.5in"/, 'height="100%"')
+                        || ''
+                }}
                 style={{ width: '100%', height: '100%' }}
-            >
-                <g style={{ color }}>
-                    <rect width="239" height="335" x="-119.5" y="-167.5" rx="12" fill="white" stroke="#999" />
-                    <use href={`#${rankSymbol}`} width="32" height="32" x="-114.4" y="-156" />
-                    <use href={`#${suitSymbol}`} width="26.769" height="26.769" x="-111.784" y="-119" />
-                    <use href={`#${suitSymbol}`} width="70" height="70" x="-35" y="-35" />
-                    <g transform="rotate(180)">
-                        <use href={`#${rankSymbol}`} width="32" height="32" x="-114.4" y="-156" />
-                        <use href={`#${suitSymbol}`} width="26.769" height="26.769" x="-111.784" y="-119" />
-                    </g>
-                </g>
-            </svg>
+            />
         </motion.div>
     );
 }
@@ -288,7 +262,7 @@ function HandListItem({ hand, isActive, isPassed, scale }) {
 }
 
 // 단일 예시 행 (카드만, 텍스트 없음)
-function ExampleRow({ example, exampleIdx, handName, scale, isNew }) {
+function ExampleRow({ example, exampleIdx, handName, scale, isNew, cards }) {
     return (
         <motion.div
             initial={isNew ? { opacity: 0, y: 10 } : false}
@@ -306,6 +280,7 @@ function ExampleRow({ example, exampleIdx, handName, scale, isNew }) {
                     index={i}
                     scale={scale * 0.85}
                     shouldAnimate={isNew}
+                    cards={cards}
                 />
             ))}
         </motion.div>
@@ -313,7 +288,7 @@ function ExampleRow({ example, exampleIdx, handName, scale, isNew }) {
 }
 
 // 예시 카드만 표시 (제목은 부모에서 표시)
-function ExampleCardsOnly({ hand, exampleIndex, scale }) {
+function ExampleCardsOnly({ hand, exampleIndex, scale, cards }) {
     if (exampleIndex < 0) return null;
 
     // exampleIndex까지의 모든 예시를 누적해서 보여줌
@@ -334,6 +309,7 @@ function ExampleCardsOnly({ hand, exampleIndex, scale }) {
                     handName={hand.name}
                     scale={scale}
                     isNew={idx === exampleIndex}
+                    cards={cards}
                 />
             ))}
         </div>
@@ -342,10 +318,20 @@ function ExampleCardsOnly({ hand, exampleIndex, scale }) {
 
 export default function HandRankingDisplay({ step = 0 }) {
     const scale = FIXED_SCALE;
+    const cards = useCardBundle();
 
     // 현재 step → (handIndex, exampleIndex) 변환
     const { handIndex: currentHandIndex, exampleIndex: currentExampleIndex } = getHandAndExampleIndex(step);
     const currentHand = HAND_RANKINGS[currentHandIndex];
+
+    // 카드 번들 로딩 중
+    if (!cards) {
+        return (
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%', color: '#888' }}>
+                Loading cards...
+            </div>
+        );
+    }
 
     return (
         <div
@@ -439,6 +425,7 @@ export default function HandRankingDisplay({ step = 0 }) {
                                 hand={currentHand}
                                 exampleIndex={currentExampleIndex}
                                 scale={scale}
+                                cards={cards}
                             />
                         </motion.div>
                     )}

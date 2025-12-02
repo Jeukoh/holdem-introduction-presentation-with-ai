@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useCardBundle } from '../hooks/useCardBundle';
 
 // ===========================================
 // FIXED LAYOUT (Reveal.js handles viewport scaling)
@@ -44,20 +45,19 @@ const positionColors = {
 
 const BASE = import.meta.env.BASE_URL || '/';
 // 스프라이트는 HTML에 인라인으로 포함됨 - #cardId 형태로만 참조
-// 카드 렌더링 데이터
-const suitData = {
-    '♥': { symbol: 'SH', color: 'red' },
-    '♦': { symbol: 'SD', color: 'red' },
-    '♣': { symbol: 'SC', color: 'black' },
-    '♠': { symbol: 'SS', color: 'black' },
+// 카드 ID 변환 (예: {rank: 'A', suit: '♠'} → 'AS')
+const suitToCode = {
+    '♥': 'H',
+    '♦': 'D',
+    '♣': 'C',
+    '♠': 'S',
 };
 
-function getCardData(card) {
-    if (!card) return null;  // 카드 뒷면
-    const suit = suitData[card.suit] || suitData['♠'];
-    // 새 에셋은 '10' 대신 'T' 사용
+function getCardId(card) {
+    if (!card) return null;
     const rankCode = card.rank === '10' ? 'T' : card.rank;
-    return { rankSymbol: `V${rankCode}`, suitSymbol: suit.symbol, color: suit.color };
+    const suitCode = suitToCode[card.suit] || 'S';
+    return `${rankCode}${suitCode}`;
 }
 
 function getPositionIconUrl(position) {
@@ -72,41 +72,37 @@ function getDealerButtonUrl() {
 // SUB COMPONENTS
 // ===========================================
 
-// CardFace: 카드 앞면을 공유 심볼로 조합하여 렌더링
-function CardFace({ rankSymbol, suitSymbol, color }) {
+// CardContent: JSON 번들에서 카드 SVG 렌더링
+function CardContent({ cardId, cards }) {
+    const svgContent = cards?.[cardId];
+    if (!svgContent) return null;
+
     return (
-        <g style={{ color }}>
-            {/* 카드 배경 */}
-            <rect width="239" height="335" x="-119.5" y="-167.5" rx="12" fill="white" stroke="#999" />
-            {/* 왼쪽 상단: 랭크 */}
-            <use href={`#${rankSymbol}`} width="32" height="32" x="-114.4" y="-156" />
-            {/* 왼쪽 상단: 작은 무늬 */}
-            <use href={`#${suitSymbol}`} width="26.769" height="26.769" x="-111.784" y="-119" />
-            {/* 중앙: 큰 무늬 */}
-            <use href={`#${suitSymbol}`} width="70" height="70" x="-35" y="-35" />
-            {/* 오른쪽 하단 (180도 회전) */}
-            <g transform="rotate(180)">
-                <use href={`#${rankSymbol}`} width="32" height="32" x="-114.4" y="-156" />
-                <use href={`#${suitSymbol}`} width="26.769" height="26.769" x="-111.784" y="-119" />
-            </g>
-        </g>
+        <div
+            dangerouslySetInnerHTML={{
+                __html: svgContent
+                    .replace(/width="2\.5in"/, 'width="100%"')
+                    .replace(/height="3\.5in"/, 'height="100%"')
+            }}
+            style={{ width: '100%', height: '100%' }}
+        />
     );
 }
 
-// CardBack: 카드 뒷면 (클래식 스타일 - 빨간 테두리)
+// CardBack: 카드 뒷면 (클래식 빨간색 스타일)
 function CardBack() {
     return (
-        <g>
+        <svg viewBox="-120 -168 240 336" style={{ width: '100%', height: '100%' }}>
             <rect width="239" height="335" x="-119.5" y="-167.5" rx="12" fill="white" stroke="black" />
             <rect width="216" height="312" x="-108" y="-156" rx="8" fill="#b22222" />
             <rect width="196" height="292" x="-98" y="-146" rx="4" fill="none" stroke="white" strokeWidth="2" />
-        </g>
+        </svg>
     );
 }
 
-function Card({ card, dealOrder = 0, isFolded = false, isHidden = true }) {
+function Card({ card, dealOrder = 0, isFolded = false, isHidden = true, cards }) {
     const delay = dealOrder * 0.15;
-    const cardData = isHidden ? null : getCardData(card);
+    const cardId = isHidden ? null : getCardId(card);
 
     return (
         <motion.div
@@ -124,24 +120,20 @@ function Card({ card, dealOrder = 0, isFolded = false, isHidden = true }) {
                 stiffness: 200
             }}
         >
-            <svg
-                viewBox="-120 -168 240 336"
-                preserveAspectRatio="none"
-                className="card-image"
-            >
-                {cardData ? (
-                    <CardFace {...cardData} />
+            <div className="card-image">
+                {cardId ? (
+                    <CardContent cardId={cardId} cards={cards} />
                 ) : (
                     <CardBack />
                 )}
-            </svg>
+            </div>
         </motion.div>
     );
 }
 
-function CommunityCard({ card, dealOrder = 0 }) {
+function CommunityCard({ card, dealOrder = 0, cards }) {
     const delay = dealOrder * 0.15;
-    const cardData = getCardData(card);
+    const cardId = getCardId(card);
 
     return (
         <motion.div
@@ -150,17 +142,13 @@ function CommunityCard({ card, dealOrder = 0 }) {
             animate={{ opacity: 1, y: 0, rotateY: 0 }}
             transition={{ delay, duration: 0.4, type: 'spring' }}
         >
-            <svg
-                viewBox="-120 -168 240 336"
-                preserveAspectRatio="none"
-                className="community-card-image"
-            >
-                {cardData ? (
-                    <CardFace {...cardData} />
+            <div className="community-card-image">
+                {cardId ? (
+                    <CardContent cardId={cardId} cards={cards} />
                 ) : (
                     <CardBack />
                 )}
-            </svg>
+            </div>
         </motion.div>
     );
 }
@@ -231,7 +219,7 @@ function ChipAnimation({ amount, layoutPosition }) {
     );
 }
 
-function Player({ player, step, cardsDealt, yourCards, foldedPlayers, calledPlayers, checkedPlayers, raisedPlayers, blindPlayers, phase, playerChips, latestBet }) {
+function Player({ player, step, cardsDealt, yourCards, foldedPlayers, calledPlayers, checkedPlayers, raisedPlayers, blindPlayers, phase, playerChips, latestBet, cards }) {
     const [iconError, setIconError] = useState(false);
     const showCards = cardsDealt && step >= 2;
     const isFolded = foldedPlayers.includes(player.position);
@@ -240,7 +228,7 @@ function Player({ player, step, cardsDealt, yourCards, foldedPlayers, calledPlay
     const hasRaised = raisedPlayers?.includes(player.position);
     const hasPostedBlind = blindPlayers?.[player.position] && phase === 'preflop';
 
-    const cards = player.isYou ? yourCards : [null, null];
+    const playerCards = player.isYou ? yourCards : [null, null];
     const positionColor = positionColors[player.position];
     const positionIconUrl = getPositionIconUrl(player.position);
 
@@ -303,13 +291,14 @@ function Player({ player, step, cardsDealt, yourCards, foldedPlayers, calledPlay
                 </motion.div>
             </div>
             <div className="player-cards" style={{ position: 'absolute', ...cardOffset }}>
-                {showCards && cards.map((card, i) => (
+                {showCards && playerCards.map((card, i) => (
                     <Card
                         key={i}
                         card={card}
                         dealOrder={player.dealOrder}
                         isFolded={isFolded}
                         isHidden={!player.isYou}
+                        cards={cards}
                     />
                 ))}
             </div>
@@ -392,6 +381,7 @@ export default function HoldemTable({ gameState }) {
     // 고정 크기 사용 - Reveal.js가 슬라이드 전체를 스케일링
     const tableWidth = FIXED_TABLE_WIDTH;
     const scale = FIXED_SCALE;
+    const cards = useCardBundle();
     const state = gameState.getState();
     const {
         step,
@@ -497,6 +487,7 @@ export default function HoldemTable({ gameState }) {
                         phase={phase}
                         playerChips={playerChips}
                         latestBet={latestBet}
+                        cards={cards}
                     />
                 ))}
 
@@ -516,7 +507,7 @@ export default function HoldemTable({ gameState }) {
 
                 <div className="community-cards">
                     {communityCards.map((card, i) => (
-                        <CommunityCard key={i} card={card} dealOrder={i} />
+                        <CommunityCard key={i} card={card} dealOrder={i} cards={cards} />
                     ))}
                 </div>
 
