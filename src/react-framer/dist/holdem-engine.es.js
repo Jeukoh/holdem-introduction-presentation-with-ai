@@ -5411,38 +5411,43 @@ function eh(t, e, n) {
     return {
       x: a * 1.5 - 40,
       y: a * 0.8 - 20,
-      opacity: 1
+      opacity: 1,
+      filter: "none"
     };
   }
   if (t === 1)
     return {
       x: n * 3 - 20,
       y: -93 + e * 62,
-      opacity: 1
+      opacity: 1,
+      filter: "none"
     };
   if (t >= 2 && t <= 5) {
-    const a = t - 2;
+    const a = t - 2, l = n * 3 - 20, u = e === a;
     return {
-      x: n * 3 - 20,
+      x: l,
       y: -93 + e * 62,
-      opacity: e === a ? 1 : 0.3
+      opacity: 1,
+      filter: u ? "none" : "grayscale(100%) brightness(0.6)"
     };
   }
   if (t === 6)
     return {
       x: -264 + n * 44,
       y: -93 + e * 62,
-      opacity: 1
+      opacity: 1,
+      filter: "none"
     };
   if (t === 7) {
     const a = n === 0;
     return {
       x: -264 + n * 44,
       y: -93 + e * 62,
-      opacity: a ? 1 : 0.3
+      opacity: 1,
+      filter: a ? "none" : "grayscale(100%) brightness(0.6)"
     };
   }
-  return { x: 0, y: 0, opacity: 1 };
+  return { x: 0, y: 0, opacity: 1, filter: "none" };
 }
 function nh(t, e, n) {
   return t === 6 ? n * 0.05 : 0;
@@ -5480,7 +5485,8 @@ function ih({ rank: t, suit: e, suitIndex: n, rankIndex: s, step: i }) {
       animate: {
         x: o.x,
         y: o.y,
-        opacity: o.opacity
+        opacity: o.opacity,
+        filter: o.filter
       },
       transition: {
         delay: r,

@@ -45,6 +45,7 @@ function getCardLayout(step, suitIndex, rankIndex) {
             x: offset * 1.5 - 40,
             y: offset * 0.8 - 20,
             opacity: 1,
+            filter: 'none',
         };
     }
 
@@ -55,6 +56,7 @@ function getCardLayout(step, suitIndex, rankIndex) {
             x: colOffset,
             y: centerOffsetY + suitIndex * rowGap,
             opacity: 1,
+            filter: 'none',
         };
     }
 
@@ -62,10 +64,12 @@ function getCardLayout(step, suitIndex, rankIndex) {
     if (step >= 2 && step <= 5) {
         const highlightSuit = step - 2; // 0=S, 1=H, 2=D, 3=C
         const colOffset = rankIndex * 3 - 20;
+        const isHighlighted = suitIndex === highlightSuit;
         return {
             x: colOffset,
             y: centerOffsetY + suitIndex * rowGap,
-            opacity: suitIndex === highlightSuit ? 1 : 0.3,
+            opacity: 1,
+            filter: isHighlighted ? 'none' : 'grayscale(100%) brightness(0.6)',
         };
     }
 
@@ -75,6 +79,7 @@ function getCardLayout(step, suitIndex, rankIndex) {
             x: centerOffsetX + rankIndex * colGap,
             y: centerOffsetY + suitIndex * rowGap,
             opacity: 1,
+            filter: 'none',
         };
     }
 
@@ -84,12 +89,13 @@ function getCardLayout(step, suitIndex, rankIndex) {
         return {
             x: centerOffsetX + rankIndex * colGap,
             y: centerOffsetY + suitIndex * rowGap,
-            opacity: isAce ? 1 : 0.3,
+            opacity: 1,
+            filter: isAce ? 'none' : 'grayscale(100%) brightness(0.6)',
         };
     }
 
     // Default
-    return { x: 0, y: 0, opacity: 1 };
+    return { x: 0, y: 0, opacity: 1, filter: 'none' };
 }
 
 // 파도 효과용 딜레이 계산
@@ -155,6 +161,7 @@ function DeckCard({ rank, suit, suitIndex, rankIndex, step }) {
                 x: layout.x,
                 y: layout.y,
                 opacity: layout.opacity,
+                filter: layout.filter,
             }}
             transition={{
                 delay,
